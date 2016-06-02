@@ -338,7 +338,78 @@
         "id": "home_promotion_c",
         "label": "Featured Product (#3)",
         "info": "Will get name, price, and link from product page."
+      },
+      {
+        "type": "header",
+        "content": "Links"
+      },
+      {
+        "type": "image",
+        "id": "home_photo_1",
+        "label": "Image #1",
+        "info": "Image at grid points B1 and B2 (two squares tall)."
+      },
+      {
+        "type": "page",
+        "id": "home_link_1",
+        "label": "Image #1 Link"
+      },
+      {
+        "type": "image",
+        "id": "home_photo_2",
+        "label": "Image #2",
+        "info": "Image at grid points C1 and D1 (two squares wide)."
+      },
+      {
+        "type": "page",
+        "id": "home_link_2",
+        "label": "Image #2 Link"
+      },
+      {
+        "type": "image",
+        "id": "home_photo_3",
+        "label": "Image #3",
+        "info": "Image at grid point A2 (single square)."
+      },
+      {
+        "type": "page",
+        "id": "home_link_3",
+        "label": "Image #3 Link"
+      },
+      {
+        "type": "image",
+        "id": "home_photo_4",
+        "label": "Image #4",
+        "info": "Image at grid point D2 (single square)."
+      },
+      {
+        "type": "page",
+        "id": "home_link_4",
+        "label": "Image #4 Link"
+      },
+      {
+        "type": "image",
+        "id": "home_photo_5",
+        "label": "Image #5",
+        "info": "Image at grid points B3 and C3 (two squares wide)."
+      },
+      {
+        "type": "page",
+        "id": "home_link_5",
+        "label": "Image #5 Link"
+      },
+      {
+        "type": "image",
+        "id": "home_photo_6",
+        "label": "Image #6",
+        "info": "Image at grid point D3 (single square)."
+      },
+      {
+        "type": "page",
+        "id": "home_link_6",
+        "label": "Image #6 Link"
       }
+
     ]
   },
   {
