@@ -315,6 +315,33 @@
     ]
   },
   {
+    "name": "Home page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Promotions"
+      },
+      {
+        "type": "product",
+        "id": "home_promotion_a",
+        "label": "Featured Product (#1)",
+        "info": "Will get name, price, and link from product page."
+      },
+      {
+        "type": "product",
+        "id": "home_promotion_b",
+        "label": "Featured Product (#2)",
+        "info": "Will get name, price, and link from product page."
+      },
+      {
+        "type": "product",
+        "id": "home_promotion_c",
+        "label": "Featured Product (#3)",
+        "info": "Will get name, price, and link from product page."
+      }
+    ]
+  },
+  {
     "name": "Cart page",
     "settings": [
       {
