@@ -263,14 +263,19 @@
       },
       {
         "type": "checkbox",
-        "id": "social_enable",
+        "id": "header_social_enable",
         "label": "Show social media icons"
-      },
+      }
     ]
   },
   {
     "name": "Footer",
     "settings": [
+      {
+        "type": "checkbox",
+        "id": "footer_social_enable",
+        "label": "Show social media icons"
+      },
       {
         "type": "checkbox",
         "id": "footer_newsletter_enable",
