@@ -103,7 +103,7 @@
         "content": "Body text"
       },
       {
-        "type": "text",
+        "type": "font",
         "id": "type_base_family",
         "label": "Font",
         "default": "Cabin-Regular"
@@ -127,7 +127,7 @@
         "content": "Headings"
       },
       {
-        "type": "text",
+        "type": "font",
         "id": "type_header_family",
         "label": "Font",
         "default": "Eagle-Bold"
@@ -151,7 +151,7 @@
         "content": "Navigation and Buttons"
       },
       {
-        "type": "text",
+        "type": "font",
         "id": "type_accent_family",
         "label": "Font",
         "default": "Eagle-Book"
