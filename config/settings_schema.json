@@ -278,6 +278,17 @@
       },
       {
         "type": "checkbox",
+        "id": "footer_copyright_enable",
+        "label": "Show copyright statement"
+      },
+      {
+        "type": "text",
+        "id": "footer_copyright_text",
+        "label": "Copyright Text",
+        "info": "Use &copy; for copyright symbol"
+      },
+      {
+        "type": "checkbox",
         "id": "footer_newsletter_enable",
         "label": "Show newsletter field"
       },
