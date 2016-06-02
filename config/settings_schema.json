@@ -440,6 +440,46 @@
     ]
   },
   {
+    "name": "Product page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Display Options"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_priceperpound_enable",
+        "label": "Show price per pound, if available",
+        "info": "Some products may be associated with a price per pound, which will be determined via a Meta Field. If available, this will be displayed below the product name."
+      }
+      {
+        "type": "checkbox",
+        "id": "product_quantity_enable",
+        "label": "Show quantity selector"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_related_enable",
+        "label": "Enable related products"
+      },
+      {
+        "type": "header",
+        "content": "Blog Content"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_blog_enable",
+        "label": "Show associated blog posts",
+        "info": "Display a list of blog posts associated with the product."
+      },
+      {
+        "type": "blog",
+        "id": "product_blog",
+        "label": "Select the blog to cross-reference"
+      }
+    ]
+  },
+  {
     "name": "Cart page",
     "settings": [
       {
