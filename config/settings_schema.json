@@ -96,6 +96,76 @@
     ]
   },
   {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "text",
+        "id": "type_base_family",
+        "label": "Font",
+        "default": "Cabin-Regular"
+      },
+      {
+        "type": "text",
+        "id": "type_base_size",
+        "label": "Base size",
+        "default": "14",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "type_base_lineheight",
+        "label": "Line Height",
+        "default": "20",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "text",
+        "id": "type_header_family",
+        "label": "Font",
+        "default": "Eagle-Bold"
+      },
+      {
+        "type": "text",
+        "id": "type_header_size",
+        "label": "Base size",
+        "default": "18",
+        "info": "Defined in pixels. Do not add the 'px' unit. Subheaders will be reduced by a percentage of this size."
+      },
+      {
+        "type": "text",
+        "id": "type_header_lineheight",
+        "label": "Line Height",
+        "default": "20",
+        "info": "Defined in pixels. Do not add the 'px' unit. Subheaders will be reduced by a percentage of this size."
+      },
+      {
+        "type": "header",
+        "content": "Navigation and Buttons"
+      },
+      {
+        "type": "text",
+        "id": "type_accent_family",
+        "label": "Font",
+        "default": "Eagle-Book"
+      },
+      {
+        "type": "text",
+        "id": "type_accent_size",
+        "label": "Base size",
+        "default": "14",
+        "info": "Defined in pixels. Do not add the 'px' unit. Buttons will be reduced by a percentage of this size."
+      }
+    ]
+  },
+  {
     "name": "Header",
     "settings": [
       {
