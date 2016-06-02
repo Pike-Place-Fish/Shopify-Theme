@@ -413,6 +413,33 @@
     ]
   },
   {
+    "name": "Collection page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_collections_enable",
+        "label": "Show collections",
+        "info": "Display a list of collections that the user can filter the catalog by."
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_tags_enable",
+        "label": "Show tags",
+        "info": "Display a list of tags that the user can filter the catalog by."
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_sort_enable",
+        "label": "Show sorting options",
+        "info": "Display the ability to sort the catalog by e.g. price."
+      }
+    ]
+  },
+  {
     "name": "Cart page",
     "settings": [
       {
