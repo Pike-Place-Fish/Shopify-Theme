@@ -242,6 +242,15 @@
       },
       {
         "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "header menu"
+      },
+      {
+        "type": "header",
         "content": "Favicon"
       },
       {
@@ -280,6 +289,11 @@
         "type": "checkbox",
         "id": "footer_copyright_enable",
         "label": "Show copyright statement"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "Footer menu"
       },
       {
         "type": "text",
