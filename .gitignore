@@ -43,6 +43,6 @@ Thumbs.db
 /node_modules
 grunt-config.json
 config.yml
-shopifyVariables.js
+gulpSecrets.js
 /_site
 assets/logo.png
