@@ -242,6 +242,15 @@
       },
       {
         "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "header menu"
+      },
+      {
+        "type": "header",
         "content": "Favicon"
       },
       {
@@ -263,14 +272,35 @@
       },
       {
         "type": "checkbox",
-        "id": "social_enable",
+        "id": "header_social_enable",
         "label": "Show social media icons"
-      },
+      }
     ]
   },
   {
     "name": "Footer",
     "settings": [
+      {
+        "type": "checkbox",
+        "id": "footer_social_enable",
+        "label": "Show social media icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_copyright_enable",
+        "label": "Show copyright statement"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "Footer menu"
+      },
+      {
+        "type": "text",
+        "id": "footer_copyright_text",
+        "label": "Copyright Text",
+        "info": "Use &copy; for copyright symbol"
+      },
       {
         "type": "checkbox",
         "id": "footer_newsletter_enable",
