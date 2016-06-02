@@ -256,17 +256,21 @@
         "max-width": 32,
         "max-height": 32,
         "info": "32 x 32px .png required"
-      }
+      },
+      {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_enable",
+        "label": "Show social media icons"
+      },
     ]
   },
   {
     "name": "Footer",
     "settings": [
-      {
-        "type": "checkbox",
-        "id": "footer_social_enable",
-        "label": "Show social media icons"
-      },
       {
         "type": "checkbox",
         "id": "footer_newsletter_enable",
