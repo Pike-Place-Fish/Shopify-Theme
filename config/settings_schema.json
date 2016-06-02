@@ -324,7 +324,7 @@
     ]
   },
   {
-    "name": "Home page",
+    "name": "Homepage",
     "settings": [
       {
         "type": "header",
@@ -351,6 +351,10 @@
       {
         "type": "header",
         "content": "Links"
+      },
+      {
+        "type": "paragraph",
+        "content": "The following represent the navigable image tiles on the homepage, excluding the above promotions. The grid references are based on columns (A, B, C, and D) and rows (1, 2, and 3)."
       },
       {
         "type": "image",
