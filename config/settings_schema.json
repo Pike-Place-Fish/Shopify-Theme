@@ -451,7 +451,7 @@
         "id": "product_priceperpound_enable",
         "label": "Show price per pound, if available",
         "info": "Some products may be associated with a price per pound, which will be determined via a Meta Field. If available, this will be displayed below the product name."
-      }
+      },
       {
         "type": "checkbox",
         "id": "product_quantity_enable",
