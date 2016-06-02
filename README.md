@@ -92,5 +92,3 @@ Timber is released under the [MIT License](LICENSE).
 [5]: https://www.shopify.com/retailtour
 [6]: http://ecommerce.shopify.com/c/ecommerce-design
 [7]: https://github.com/Shopify/themekit
-"# Shopify-Theme" 
-"# Shopify-Theme" 
