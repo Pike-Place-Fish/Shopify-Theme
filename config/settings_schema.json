@@ -73,6 +73,16 @@
       },
       {
         "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "color",
+        "id": "color_header_social_link",
+        "label": "Social media icons",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
         "content": "Footer"
       },
       {
@@ -91,8 +101,8 @@
         "type": "color",
         "id": "color_footer_social_link",
         "label": "Social media icons",
-        "default": "#000000"
-      }
+        "default": "#ffffff"
+      },
     ]
   },
   {
@@ -103,9 +113,10 @@
         "content": "Body text"
       },
       {
-        "type": "font",
+        "type": "text",
         "id": "type_base_family",
-        "label": "Font"
+        "label": "Font",
+        "default": "Cabin-Regular"
       },
       {
         "type": "text",
@@ -126,9 +137,10 @@
         "content": "Headings"
       },
       {
-        "type": "font",
+        "type": "text",
         "id": "type_header_family",
-        "label": "Font"
+        "label": "Font",
+        "default": "Eagle-Bold"
       },
       {
         "type": "text",
@@ -149,9 +161,10 @@
         "content": "Navigation and Buttons"
       },
       {
-        "type": "font",
+        "type": "text",
         "id": "type_accent_family",
-        "label": "Font"
+        "label": "Font",
+        "default": "Eagle-Book"
       },
       {
         "type": "text",
@@ -193,12 +206,8 @@
         "type": "select",
         "id": "logo_placement",
         "label": "Logo Placement",
-        "info": "Allows the logo to be injected within the navigation. Specifies which spot the logo should appear. To place the logo before the text, use 0.",
+        "info": "Allows the logo to be injected within the navigation, with navigation links to either side of it. Specifies which position the logo should appear. To place the logo before the navigation, use 1.",
         "options": [
-          {
-            "value": "0",
-            "label": "0"
-          },
           {
             "value": "1",
             "label": "1"
@@ -270,7 +279,8 @@
       {
         "type": "checkbox",
         "id": "header_social_enable",
-        "label": "Show social media icons"
+        "label": "Show social media icons",
+        "default": true
       }
     ]
   },
@@ -280,17 +290,19 @@
       {
         "type": "checkbox",
         "id": "footer_social_enable",
-        "label": "Show social media icons"
-      },
-      {
-        "type": "checkbox",
-        "id": "footer_copyright_enable",
-        "label": "Show copyright statement"
+        "label": "Show social media icons",
+        "default": true
       },
       {
         "type": "link_list",
         "id": "footer_linklist",
         "label": "Footer menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_copyright_enable",
+        "label": "Show copyright statement",
+        "default": true
       },
       {
         "type": "text",
@@ -420,19 +432,22 @@
         "type": "checkbox",
         "id": "collections_collections_enable",
         "label": "Show collections",
-        "info": "Display a list of collections that the user can filter the catalog by."
+        "info": "Display a list of collections that the user can filter the catalog by.",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "collections_tags_enable",
         "label": "Show tags",
-        "info": "Display a list of tags that the user can filter the catalog by."
+        "info": "Display a list of tags that the user can filter the catalog by.",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "collections_sort_enable",
         "label": "Show sorting options",
-        "info": "Display the ability to sort the catalog by e.g. price."
+        "info": "Display the ability to sort the catalog by e.g. price.",
+        "default": true
       }
     ]
   },
@@ -447,17 +462,20 @@
         "type": "checkbox",
         "id": "product_priceperpound_enable",
         "label": "Show price per pound, if available",
-        "info": "Some products may be associated with a price per pound, which will be determined via a Meta Field. If available, this will be displayed below the product name."
+        "info": "Some products may be associated with a price per pound, which will be determined via a Meta Field. If available, this will be displayed below the product name.",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "product_quantity_enable",
-        "label": "Show quantity selector"
+        "label": "Show quantity selector",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "product_related_enable",
-        "label": "Enable related products"
+        "label": "Enable related products",
+        "default": true
       },
       {
         "type": "header",
@@ -467,7 +485,8 @@
         "type": "checkbox",
         "id": "product_blog_enable",
         "label": "Show associated blog posts",
-        "info": "Display a list of blog posts associated with the product."
+        "info": "Display a list of blog posts associated with the product.",
+        "default": true
       },
       {
         "type": "blog",
@@ -482,17 +501,20 @@
       {
         "type": "checkbox",
         "id": "cart_notes_enable",
-        "label": "Enable cart notes"
+        "label": "Enable cart notes",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "cart_vendor_enable",
-        "label": "Show product vendor"
+        "label": "Show product vendor",
+        "default": false
       },
       {
         "type": "checkbox",
         "id": "cart_ajax_enable",
-        "label": "Stay on the current page when an item is added to the cart"
+        "label": "Stay on the current page when an item is added to the cart",
+        "default": true
       },
       {
         "type": "select",
@@ -581,28 +603,33 @@
       {
         "type": "checkbox",
         "id": "social_sharing_products",
-        "label": "Enable product sharing"
+        "label": "Enable product sharing",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "social_sharing_blog",
-        "label": "Enable blog post sharing"
+        "label": "Enable blog post sharing",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "social_sharing_count",
         "label": "Show number of shares",
-        "info": "Available for Facebook, Twitter, and Pinterest"
+        "info": "Available for Facebook, Twitter, and Pinterest",
+        "default": false
       },
       {
         "type": "checkbox",
         "id": "share_facebook",
-        "label": "Share on Facebook"
+        "label": "Share on Facebook",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_twitter",
-        "label": "Tweet on Twitter"
+        "label": "Tweet on Twitter",
+        "default": true
       },
       {
         "type": "checkbox",
