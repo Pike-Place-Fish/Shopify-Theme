@@ -1,0 +1,1284 @@
+//==============================================================================================
+// BASE CLASSES
+//----------------------------------------------------------------------------------------------
+// Provides global overrides for standard HTML elements based on element, attribute, and single-
+// class selectors. Selectors in this section should never be nested more than two layers deep.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+  @import url('_fonts.scss.liquid');
+  @import url('_typography.scss.liquid');
+  @import url('_icons.scss.liquid');
+  @import url('_media.scss.liquid');
+  @import url('_forms.scss.liquid');
+
+
+
+/*============================================================================
+  #Basic Styles
+==============================================================================*/
+html {
+  background-color: $colorFooterBg;
+}
+
+body {
+  background-color: $colorBody;
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+.wrapper {
+  @include clearfix();
+  max-width: $siteWidth;
+  margin: 0 auto;
+  padding: 0 ($gutter / 2);
+
+  @include at-query ($min, $small) {
+    padding: 0 $gutter;
+  }
+}
+
+.main-content {
+  display: block;
+  margin-top: $gutter;
+  padding-bottom: $gutter * 2;
+}
+
+/* ========================================================================================== */
+
+/*================ Blockquotes ================*/
+blockquote {
+  font-size: 1.125em;
+  line-height: 1.45;
+  font-style: italic;
+  margin: 0 0 $gutter;
+  padding: ($gutter / 2) $gutter;
+  border-left: 1px solid $colorBorder;
+
+  p {
+    margin-bottom: 0;
+
+    & + cite {
+      margin-top: $gutter / 2;
+    }
+  }
+
+  cite {
+    display: block;
+    font-size: 0.75em;
+
+    &:before {
+      content: '\2014 \0020';
+    }
+  }
+}
+
+/*================ Code ================*/
+code, pre {
+  background-color: #faf7f5;
+  font-family: Consolas,monospace;
+  font-size: 1em;
+  border: 0 none;
+  padding: 0 2px;
+  color: #51ab62;
+}
+
+pre {
+  overflow: auto;
+  padding: $gutter / 2;
+  margin: 0 0 $gutter;
+}
+
+/*================ Horizontal Rules ================*/
+hr {
+  clear: both;
+  border-top: solid $colorBorder;
+  border-width: 1px 0 0;
+  margin: $gutter 0;
+  height: 0;
+
+  &.hr--small {
+    margin: ($gutter / 2) 0;
+  }
+
+  &.hr--clear {
+    border-top-color: transparent;
+  }
+}
+
+/*================ Section Headers ================*/
+.section-header {
+  margin-bottom: $gutter / 1.5;
+}
+
+@include at-query ($min, $large) {
+  .section-header {
+    display: table;
+    width: 100%;
+  }
+
+  .section-header__title {
+    margin-bottom: $gutter / 2.5;
+  }
+
+  .section-header__left {
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 0;
+
+    h1, h2, h3, h4,
+    .h1, .h2, .h3, .h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .section-header__right {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    width: 335px;
+
+    @include at-query ($max, $medium) {
+      margin-bottom: $gutter;
+    }
+  }
+}
+
+.section-header__right {
+  .form-horizontal,
+  .collection-view {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  @include at-query ($min, $postSmall) {
+    label + select,
+    .collection-view {
+      margin-left: $gutter / 2;
+    }
+  }
+}
+
+.collection-view {
+  display: inline-block;
+  border: 1px solid $colorBorder;
+  border-radius: $radius;
+  padding: 0 5px;
+  height: 37px; // same as form elements
+  overflow: hidden;
+
+  /*================ Only show on larger screens ================*/
+  @include at-query ($min, $large) {
+    display: inline-block;
+  }
+}
+
+.change-view {
+  display: block;
+  background: none;
+  border: 0 none;
+  float: left;
+  padding: 10px 8px;
+  color: $colorBorder;
+  line-height: 1;
+
+  &:hover,
+  &:focus {
+    color: $colorPrimary;
+  }
+}
+
+.change-view--active {
+  cursor: default;
+  color: $colorPrimary;
+}
+
+/* ========================================================================================== */
+
+/*============================================================================
+  #Rich Text Editor
+==============================================================================*/
+.rte {
+  margin-bottom: $gutter / 2;
+
+  a {
+    text-decoration: underline;
+  }
+
+  // Add some top margin to headers from the rich text editor
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 2em;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  > div {
+    margin-bottom: $gutter / 2;
+  }
+
+  li {
+    margin-bottom: 0.4em;
+  }
+}
+
+.rte--header {
+  margin-bottom: 0;
+}
+
+/*============================================================================
+  #Links and Buttons
+==============================================================================*/
+a,
+.text-link {
+  color: $colorLink;
+  text-decoration: none;
+  background: transparent;
+}
+
+a:hover,
+a:focus {
+  color: $colorLinkHover;
+}
+
+button {
+  overflow: visible;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+.btn,
+.rte .btn {
+  display: inline-block;
+  padding: 8px 10px;
+  width: auto;
+  margin: 0;
+  line-height: 1.42;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  @include user-select(none);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: $radius;
+
+  /*================ Set primary button colors - can override later ================*/
+  background-color: $colorBtnPrimary;
+  color: $colorBtnPrimaryText;
+
+  &:hover {
+    background-color: $colorBtnPrimaryHover;
+    color: $colorBtnPrimaryText;
+  }
+
+  &:active,
+  &:focus {
+   background-color: $colorBtnPrimaryActive;
+   color: $colorBtnPrimaryText;
+  }
+
+  &[disabled],
+  &.disabled {
+    cursor: default;
+    color: $disabledBorder;
+    background-color: $disabledGrey;
+  }
+}
+
+.btn--secondary,
+.rte .btn--secondary {
+  @extend .btn;
+  background-color: $colorBtnSecondary;
+
+  &:hover {
+    background-color: $colorBtnSecondaryHover;
+    color: $colorBtnSecondaryText;
+  }
+
+  &:active,
+  &:focus {
+   background-color: $colorBtnSecondaryActive;
+   color: $colorBtnSecondaryText;
+  }
+}
+
+.btn--small {
+  padding: 4px 5px;
+  font-size: em(12px);
+}
+
+.btn--large {
+  padding: 12px 15px;
+  font-size: em(16px);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/*================ Force an input/button to look like a text link ================*/
+.text-link {
+  display: inline;
+  border: 0 none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/*============================================================================
+  #Lists
+==============================================================================*/
+ul, ol {
+  margin: 0 0 ($gutter / 2) 20px;
+  padding: 0;
+}
+
+ol { list-style: decimal; }
+ul ul, ul ol,
+ol ol, ol ul { margin: 4px 0 5px 20px; }
+li { margin-bottom: 0.25em; }
+
+ul.square { list-style: square outside; }
+ul.disc { list-style: disc outside; }
+ol.alpha { list-style: lower-alpha outside; }
+
+.no-bullets {
+  list-style: none outside;
+  margin-left: 0;
+}
+
+.inline-list {
+  margin-left: 0;
+
+  li {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
+
+/*============================================================================
+  #Tables
+==============================================================================*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.full {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.table-wrap {
+  max-width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+th {
+  font-weight: bold;
+}
+
+th, td {
+  text-align: left;
+  padding: $gutter / 2;
+  border: 1px solid $colorBorder;
+}
+
+/*============================================================================
+  Responsive tables, defined with .table--responsive on table element.
+  Only defined for IE9+
+==============================================================================*/
+.table--responsive {
+  @include at-query($max, $small) {
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: block;
+    }
+
+    // IE9 table layout fixes
+    tr,
+    td {
+      float: left;
+      clear: both;
+      width: 100%;
+    }
+
+    th,
+    td {
+      display: block;
+      text-align: right;
+      padding: 15px;
+    }
+
+    td:before {
+      content: attr(data-label);
+      float: left;
+      text-align: center;
+      font-size: 12px;
+      padding-right: 10px;
+    }
+
+    &.cart-table {
+      img {
+        margin: 0 auto;
+      }
+
+      .js-qty {
+        float: right;
+      }
+    }
+  }
+}
+
+@include at-query($max, $small) {
+  .table--small-hide {
+    display: none !important;
+  }
+
+  .table__section + .table__section {
+    position: relative;
+    margin-top: 10px;
+    padding-top: 15px;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 15px;
+      right: 15px;
+      border-bottom: 1px solid $colorBorder;
+    }
+  }
+}
+
+/* ========================================================================================== */
+
+/*============================================================================
+  #Pagination
+==============================================================================*/
+.pagination {
+  margin-bottom: 1em;
+  text-align: center;
+
+  > span {
+    display: inline-block;
+    line-height: 1;
+  }
+
+  a {
+    display: block;
+  }
+
+  a,
+  .page.current {
+    padding: 8px;
+  }
+}
+
+/*============================================================================
+  #Site Header
+==============================================================================*/
+.site-header {
+  padding: ($gutter / 2) 0;
+
+  .grid--table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+
+    > .grid__item {
+      float: none;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.site-header__logo {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+
+  @include at-query ($min, $large) {
+    text-align: left;
+  }
+
+  a,
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+
+  a, img {
+    display: block;
+  }
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.site-header__logo-link {
+  max-width: $logoMaxWidth;
+  margin: 0 auto;
+}
+
+.site-header__cart-toggle {
+  display: inline-block;
+}
+
+.site-header__search {
+  display: inline-block;
+  max-width: 400px;
+  margin-top: $gutter / 2;
+  width: 100%;
+}
+
+.search-bar {
+  max-width: 100%;
+
+  @include at-query ($max, $medium) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*============================================================================
+  #Site Nav and Dropdowns
+==============================================================================*/
+.nav-bar {
+  background-color: $colorNav;
+}
+
+.site-nav {
+  font-size: em(16px);
+  cursor: default;
+  margin: 0 0 0 (-$gutter / 2);
+
+  li {
+    margin: 0;
+    display: block;
+  }
+
+  > li {
+    position: relative;
+    display: inline-block;
+  }
+}
+
+/*================ Home to hamburger and cart that toggle drawers ================*/
+.site-nav--mobile {
+  @extend .site-nav;
+
+  .text-right & {
+    margin: 0 (-$gutter / 2) 0 0;
+  }
+}
+
+.site-nav__link {
+  display: block;
+  text-decoration: none;
+  padding: $gutter / 2;
+  white-space: nowrap;
+  color: $colorNavText;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($colorNavText, 15%);
+  }
+
+  .icon-arrow-down {
+    position: relative;
+    top: -2px;
+    font-size: 10px;
+    padding-left: $gutter / 4;
+  }
+
+  .site-nav--active > & {
+    font-weight: bold;
+  }
+
+  .site-nav--mobile & {
+    display: inline-block;
+  }
+}
+
+/*================ Dropdowns ================*/
+.site-nav__dropdown {
+  display: none;
+  position: absolute;
+  left: 0;
+  margin: 0;
+  z-index: $zindexNavDropdowns;
+
+  .supports-no-touch .site-nav--has-dropdown:hover &,
+  .site-nav--has-dropdown.nav-hover &,
+  .nav-focus + & {
+    display: block;
+  }
+
+  a {
+    background-color: $colorNav;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: darken($colorNav, 10%);
+    }
+  }
+}
+
+/*================ Search bar in header ================*/
+.nav-search {
+  position: relative;
+  padding: 10px 0;
+
+  @include at-query ($max, $medium) {
+    padding: 0 0 ($gutter / 2);
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+/*============================================================================
+  #Mobile Nav
+  - List of items inside the mobile drawer
+==============================================================================*/
+.mobile-nav {
+  // Negative of .drawer left/right padding for full-width link tap area
+  margin: (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
+
+  li {
+    margin-bottom: 0;
+  }
+}
+
+.mobile-nav__search {
+  padding: $gutter / 2;
+
+  .search-bar {
+    margin-bottom: 0;
+  }
+}
+
+.mobile-nav__item {
+  position: relative;
+  display: block;
+
+  // Background color on top level items so there is no
+  // element overlap on subnav's CSS toggle animation
+  .mobile-nav > & {
+    background-color: $colorDrawers;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: $gutter / 2;
+    right: $gutter / 2;
+    border-bottom: 1px solid $colorDrawerBorder;
+  }
+
+  .mobile-nav > &:last-child:after {
+    display: none;
+  }
+}
+
+// Login/logout links can't have a class on them, so style <a> element
+.mobile-nav__item a {
+  display: block;
+}
+
+.mobile-nav__item a,
+.mobile-nav__toggle button {
+  color: $colorDrawerText;
+  padding: $gutter / 2;
+  text-decoration: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($colorDrawerText, 15%);
+  }
+
+  &:active,
+  &:focus {
+    background-color: darken($colorDrawers, 5%);
+  }
+}
+
+.mobile-nav__item--active {
+  font-weight: bold;
+}
+
+.mobile-nav__has-sublist {
+  display: table;
+  width: 100%;
+
+  .mobile-nav__link {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+
+.mobile-nav__toggle {
+  display: table-cell;
+  vertical-align: middle;
+  width: 1%;
+}
+
+.mobile-nav__toggle-open {
+  .mobile-nav--expanded & {
+    display: none;
+  }
+}
+
+.mobile-nav__toggle-close {
+  display: none;
+
+  .mobile-nav--expanded & {
+    display: block;
+  }
+}
+
+.mobile-nav__sublist {
+  margin: 0;
+  max-height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+  @include backface();
+
+  .mobile-nav--expanded + & {
+    visibility: visible;
+    max-height: 700px;
+    transition: all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+  }
+
+  .mobile-nav__item:after {
+    top: 0;
+    bottom: auto;
+  }
+
+  .mobile-nav__link {
+    padding-left: $gutter;
+    font-weight: normal;
+  }
+}
+
+/*============================================================================
+  #Drawers
+==============================================================================*/
+.js-drawer-open {
+  overflow: hidden;
+  height: 100%;
+}
+
+.drawer {
+  @include promote-layer();
+  display: none;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  top: 0;
+  bottom: 0;
+  padding: 0 ($gutter / 2) ($gutter / 2);
+  max-width: 95%;
+  z-index: $zindexDrawer;
+  color: $colorDrawerText;
+  background-color: $colorDrawers;
+  transition: $drawerTransition;
+
+  a {
+    color: $colorDrawerText;
+
+    &:hover,
+    &:focus {
+      opacity: 0.7;
+    }
+  }
+
+  input,
+  textarea {
+    border-color: $colorDrawerBorder;
+  }
+}
+
+.drawer--left {
+  width: $drawerNavWidth;
+  left: -$drawerNavWidth;
+  border-right: 1px solid $colorDrawerBorder;
+
+  .js-drawer-open-left & {
+    display: block;
+    @include transform(translateX($drawerNavWidth));
+
+    .lt-ie9 & {
+      left: 0;
+    }
+  }
+}
+
+.drawer--right {
+  width: $drawerCartWidth;
+  right: -$drawerCartWidth;
+  border-left: 1px solid $colorDrawerBorder;
+
+  .js-drawer-open-right & {
+    display: block;
+    @include transform(translateX(-$drawerCartWidth));
+
+    .lt-ie9 & {
+      right: 0;
+    }
+  }
+}
+
+#PageContainer {
+  overflow: hidden;
+}
+
+.is-moved-by-drawer {
+  @include promote-layer();
+  transition: $drawerTransition;
+
+  .js-drawer-open-left & {
+    @include transform(translateX($drawerNavWidth));
+  }
+
+  .js-drawer-open-right & {
+    @include transform(translateX(-$drawerCartWidth));
+  }
+}
+
+.drawer__header {
+  display: table;
+  height: 70px;
+  width: 100%;
+  margin-bottom: $gutter / 2;
+  border-bottom: 1px solid $colorDrawerBorder;
+}
+
+.drawer__title,
+.drawer__close {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.drawer__title {
+  width: 100%;
+}
+
+.drawer__close {
+  width: 1%;
+  text-align: center;
+  font-size: em(18px);
+}
+
+.drawer__close button {
+  position: relative;
+  right: -20px;
+  height: 100%;
+  padding: 0 20px;
+  color: inherit;
+
+  &:active,
+  &:focus {
+    background-color: darken($colorDrawers, 5%);
+  }
+}
+
+/*============================================================================
+  #Site Footer
+==============================================================================*/
+.site-footer {
+  background-color: $colorFooterBg;
+  padding: $gutter 0;
+  color: $colorFooterText;
+
+  @include at-query ($min, $large) {
+    padding: ($gutter * 2) 0;
+  }
+}
+
+/*============================================================================
+  #Product and Collection Grids
+==============================================================================*/
+.grid__image {
+  display: block;
+  margin: 0 auto ($gutter / 2);
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+/*============================================================================
+  #Collection Filters
+==============================================================================*/
+.filter--active {
+  font-weight: bold;
+}
+
+/*============================================================================
+  #Breadcrumbs
+==============================================================================*/
+.breadcrumb {
+  margin-bottom: $gutter;
+
+  a,
+  span {
+    display: inline-block;
+    padding: 0 7px 0 0;
+    margin-right: 7px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+
+/*============================================================================
+  #Product Page
+==============================================================================*/
+.product-single__variants {
+  display: none;
+
+  .no-js & {
+    display: block;
+  }
+}
+
+.product-single__photos {
+  margin-bottom: $gutter;
+}
+
+.product-single__photos,
+.product-single__thumbnails {
+  a, img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  li {
+    margin-bottom: $gutter;
+  }
+}
+
+
+/*============================================================================
+  #Notes and Form Feedback
+==============================================================================*/
+.note,
+.errors {
+  border-radius: $radius;
+  padding: 6px 12px;
+  margin-bottom: $gutter / 2;
+  border: 1px solid transparent;
+  font-size: 0.9em;
+  text-align: left;
+
+  ul,
+  ol {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.note {
+  border-color: $colorBorder;
+}
+
+.errors {
+  ul {
+    list-style: disc outside;
+    margin-left: 20px;
+  }
+}
+
+.form-success {
+  color: $successGreen;
+  background-color: $successGreenBg;
+  border-color: $successGreen;
+
+  a {
+    color: $successGreen;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.form-error,
+.errors {
+  color: $errorRed;
+  background-color: $errorRedBg;
+  border-color: $errorRed;
+
+  a {
+    color: $errorRed;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+
+/*============================================================================
+  #Cart Page
+==============================================================================*/
+.cart__row {
+  position: relative;
+  margin-top: $gutter;
+  padding-top: $gutter;
+  border-top: 1px solid $colorBorder;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  .js-qty {
+    margin: 0 auto;
+  }
+}
+
+.cart-table {
+  th {
+    font-weight: normal;
+  }
+
+  td,
+  th {
+    padding: 30px 15px;
+    border: none;
+  }
+}
+
+@include at-query ($min, $large) {
+  .cart__row--table-large {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+
+    .grid__item {
+      display: table-cell;
+      vertical-align: middle;
+      float: none;
+    }
+  }
+}
+
+.cart__image {
+  display: block;
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+.cart__subtotal {
+  margin: 0 0 0 ($gutter / 3);
+  display: inline;
+}
+
+.cart__mini-labels {
+  display: block;
+  margin: ($gutter / 3) 0;
+  font-size: em(12px);
+
+  @include at-query ($min, $large) {
+    display: none;
+  }
+}
+
+.cart__remove {
+  display: block;
+}
+
+/*============================================================================
+  #Ajax Cart Styles (conditionally loaded)
+==============================================================================*/
+{% if settings.ajax_cart_method == "drawer" %}
+
+.ajaxcart__inner {
+  margin-bottom: $gutter;
+}
+
+.ajaxcart__row {
+  > .grid {
+    margin-left: -$gutter / 2;
+
+    > .grid__item {
+      padding-left: $gutter / 2;
+    }
+  }
+}
+
+.ajaxcart__product {
+  position: relative;
+  max-height: 500px;
+
+  &.is-removed {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: all 450ms cubic-bezier(0.57,.06,.05,.95);
+    @include backface();
+  }
+}
+
+.ajaxcart__row {
+  padding-bottom: $gutter / 2;
+  margin-bottom: $gutter / 2;
+  border-bottom: 1px solid $colorDrawerBorder;
+}
+
+.ajaxcart__product-image {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 15px;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+.ajaxcart__product-name,
+.ajaxcart__product-meta {
+  display: block;
+}
+
+.ajaxcart__product-name + .ajaxcart__product-meta {
+  padding-top: $gutter / 5;
+}
+
+/*================ Quantity Selectors ================*/
+.js-qty {
+  position: relative;
+  margin-bottom: 1em;
+  max-width: 100px;
+  min-width: 75px;
+  overflow: visible;
+
+  input {
+    display: block;
+    background: none;
+    text-align: center;
+    width: 100%;
+    padding: 5px 25px;
+    margin: 0;
+  }
+}
+
+.js-qty__adjust {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  border: 0 none;
+  padding: 0 8px;
+  background: none;
+  text-align: center;
+  overflow: hidden;
+  @include user-select(none);
+
+  &:hover,
+  &:focus {
+    color: $colorPrimary;
+  }
+}
+
+.js-qty__adjust--plus {
+  right: 0;
+  border-left: 1px solid $colorBorder;
+}
+
+.js-qty__adjust--minus {
+  left: 0;
+  border-right: 1px solid $colorBorder;
+}
+
+/*================ Quantity Selectors in Ajax Cart ================*/
+.ajaxcart__qty {
+  @extend .js-qty;
+  margin: 0;
+
+  .is-loading & {
+    opacity: 0.5;
+    transition: none;
+  }
+}
+
+.ajaxcart__qty-num {
+  border-color: $colorDrawerBorder;
+  color: $colorDrawerText;
+}
+
+.ajaxcart__qty-adjust {
+  @extend .js-qty__adjust;
+  color: $colorDrawerText;
+}
+
+.ajaxcart__qty--plus {
+  @extend .js-qty__adjust--plus;
+  border-color: $colorDrawerBorder;
+}
+
+.ajaxcart__qty--minus {
+  @extend .js-qty__adjust--minus;
+  border-color: $colorDrawerBorder;
+}
+
+.ajaxcart-item__price-strikethrough {
+  float: right;
+}
+
+{% endif %} // settings.ajax_cart_method
