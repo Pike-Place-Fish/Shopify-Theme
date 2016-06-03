@@ -55,16 +55,16 @@
   },
   "cart": {
     "general": {
-      "title": "Shopping Cart",
+      "title": "Shopping Basket",
       "remove": "Remove",
       "note": "Special instructions for seller",
       "subtotal": "Subtotal",
       "shipping_at_checkout": "Shipping & taxes calculated at checkout",
-      "update": "Update Cart",
+      "update": "Update Basket",
       "checkout": "Check Out",
-      "empty": "Your cart is currently empty.",
+      "empty": "Your basket is currently empty.",
       "continue_browsing_html": "Continue browsing <a href=\"/collections/all\">here</a>.",
-      "close_cart": "Close Cart",
+      "close_cart": "Close Basket",
       "savings_html": "You're saving {{ price }}"
     },
     "label": {
@@ -242,7 +242,7 @@
       "close_menu": "Close menu"
     },
     "cart": {
-      "title": "Cart",
+      "title": "Your Basket",
       "items_count": {
         "one": "item",
         "other": "items"
@@ -251,8 +251,8 @@
     "customer": {
       "account": "Account",
       "logged_in_as_html": "Logged in as {{ first_name }}",
-      "log_out": "Log out",
-      "log_in": "Log in",
+      "log_out": "Sign out",
+      "log_in": "Sign in",
       "create_account": "Create account"
     },
     "footer": {
@@ -276,7 +276,7 @@
       "unavailable": "Unavailable",
       "compare_at": "Compare at",
       "quantity": "Quantity",
-      "add_to_cart": "Add to Cart"
+      "add_to_cart": "Add to Basket"
     }
   },
   "gift_cards": {
