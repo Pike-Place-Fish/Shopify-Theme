@@ -502,6 +502,7 @@ th, td {
 ==============================================================================*/
 .site-header {
   padding: ($gutter / 2) 0;
+  background-color              : rgb(245, 245, 245);           // #F5F5F5 - make variable? New
 
   .grid--table {
     display: table;
@@ -512,8 +513,24 @@ th, td {
       float: none;
       display: table-cell;
       vertical-align: middle;
+
+      // Ancillary Nav (Social Icons, Cart, Account, Search)
+      div {
+        display                 : inline-block;
+      }
+
     }
   }
+
+  // Social Icons (New)
+  .social-icons {
+    margin                      : 0;
+    .icon {
+      font-size                 : em(16px);
+      color                     : {{ settings.color_secondary }};
+    }
+  }
+
 }
 
 .site-header__logo {
@@ -551,13 +568,70 @@ th, td {
 
 .site-header__search {
   display: inline-block;
-  max-width: 400px;
+  max-width: 207px;             // Was 400px
   margin-top: $gutter / 2;
   width: 100%;
 }
 
+// Ancillary Nav Links (New)
+.nav-ancillary {
+  position                      : relative;
+  bottom                        : 8px;
+  margin-right                  : 16px;
+  font-family                   : 'Cabin Bold', 'Cabin Book', $bodyFontStack;  // Note: create variable
+  font-size                     : em(12px);
+  color                         : rgb(12, 12, 12);              // #0C0C0C
+  text-transform                : uppercase;
+  a {
+    color                       : rgb(12, 12, 12);
+  }
+}
+
 .search-bar {
   max-width: 100%;
+
+  // New
+  input[type="search"] {
+    margin-right                : 6px;
+    border-width                : 0 0 1px 0;
+    border-color                : {{ settings.color_primary }};
+    padding                     : 0 3px;
+    height                      : 24px;
+    font-size                   : em(12px);
+    background-color            : transparent;
+  }
+  ::-webkit-input-placeholder {
+     color                      : rgb(110, 110, 110);
+  }
+  :-moz-placeholder {
+     color                      : rgb(110, 110, 110);
+  }
+  ::-moz-placeholder {
+     color                      : rgb(110, 110, 110);
+  }
+  :-ms-input-placeholder {
+     color                      : rgb(110, 110, 110);
+  }
+
+  // New
+  .input-group-btn {
+    padding-left                : 6px;
+    width                       : auto;
+  }
+  button[type="submit"],
+  button.btn {
+    padding                     : 0;
+    width                       : 21px;
+    height                      : 21px;
+    background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
+    background-size             : 21px 21px;
+  }
+
+  // New
+  .icon-search {
+    display                     : none !important;
+  }
+
 
   @include at-query ($max, $medium) {
     margin-left: auto;
@@ -577,7 +651,7 @@ th, td {
   font-size: em(14px);          // Was em(16px)
   text-transform: uppercase;    // New
   cursor: default;
-  margin: 0 0 0 (-$gutter / 2);
+  margin: 18px 0 18px (-$gutter / 2); // Was 0 0 0 (-$gutter / 2)
 
   li {
     margin: 0;
@@ -634,7 +708,8 @@ th, td {
     top: 4px;
     padding: 0 15px 0;
     font-size: 150%;
-    letter-spacing: em(2px);    // New
+    color: $colorLink;
+    letter-spacing: em(2px);
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     text-shadow: 0px 1px 2px #000000;
@@ -936,12 +1011,46 @@ th, td {
 .site-footer {
   background-color: $colorFooterBg;
   padding: $gutter 0;
+  font-size: em(12px);          // New
   color: $colorFooterText;
 
   @include at-query ($min, $large) {
-    padding: 21px 0 0;          // Was padding: ($gutter * 2) 0;
+    padding: 17px 0 12px;       // Was padding: ($gutter * 2) 0;
   //max-height: 60px;
   }
+
+  // New
+  .grid__item {
+    display                     : table-cell;
+    vertical-align              : middle;
+  }
+
+  // New
+  a {
+    color                       : $colorFooterText;
+  }
+
+  // Copyright, Links (New)
+  p {
+    margin-bottom               : 0;
+    &.copyright {
+      padding-left              : ($gutter * 1.333);
+    }
+    &.links {
+      padding-right             : ($gutter * 1.333);
+    }
+  }
+
+  // Social Icons (New)
+  .social-icons {
+    position                    : relative;
+    top                         : -3px;
+    margin                      : 0;
+    .icon {
+      font-size                 : em(26px);
+    }
+  }
+
 }
 
 /*============================================================================

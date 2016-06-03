@@ -148,47 +148,48 @@
   {% endif %}
   <div id="PageContainer" class="is-moved-by-drawer">
     <header class="site-header" role="banner">
+
       <div class="wrapper">
 
         <div class="grid--full grid--table">
 
-          {% if settings.footer_social_enable %}
-          <!-- Social Media Links -->
-            <div class="grid__item large--one-third medium--one-half">
-              <ul class="inline-list social-icons">
-                {% if settings.social_instagram_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram">
-                      <span class="icon icon-instagram" aria-hidden="true"></span>
-                      <span class="fallback-text">Instagram</span>
-                    </a>
-                  </li>
-                {% endif %}
-                {% if settings.social_twitter_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
-                      <span class="icon icon-twitter" aria-hidden="true"></span>
-                      <span class="fallback-text">Twitter</span>
-                    </a>
-                  </li>
-                {% endif %}
-                {% if settings.social_facebook_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
-                      <span class="icon icon-facebook" aria-hidden="true"></span>
-                      <span class="fallback-text">Facebook</span>
-                    </a>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
-          <!-- /Social Media Links -->
-          {% endif %}
 
-          <div class="grid__item large--one-half">
+          <div class="grid__item large--one-quarter medium--one-third">
+
+            {% if settings.header_social_enable %}
+            <!-- Social Media Links -->
+            <ul class="inline-list social-icons">
+              {% if settings.social_instagram_link != blank %}
+                <li>
+                  <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram">
+                    <span class="icon icon-instagram" aria-hidden="true"></span>
+                    <span class="fallback-text">Instagram</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_twitter_link != blank %}
+                <li>
+                  <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+                    <span class="icon icon-twitter" aria-hidden="true"></span>
+                    <span class="fallback-text">Twitter</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_facebook_link != blank %}
+                <li>
+                  <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+                    <span class="icon icon-facebook" aria-hidden="true"></span>
+                    <span class="fallback-text">Facebook</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+            <!-- /Social Media Links -->
+            {% endif %}
+
 
           </div>
-          <div class="grid__item large--one-half large--text-right medium-down--hide">
+          <div class="grid__item large--three-quarters large--text-right medium-down--hide">
             {% comment %}
               Show number of items in the cart and total cost in the /cart link
 
@@ -197,13 +198,18 @@
                 - #cartCost updates the total cost of the cart
                 - Documentation:  http://shopify.com/timber#ajax-cart
             {% endcomment %}
-            <div>
+            <div class="nav-ancillary">
               <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
                 <span class="icon icon-cart" aria-hidden="true"></span>
                 {{ 'layout.cart.title' | t }}
-                (<span id="CartCount">{{ cart.item_count }}</span>
+                (<span id="CartCount">{{ cart.item_count }}</span>)
+                {% comment %}
+                  ### NOTE KLT060316: Commented out, per design
+                {% endcomment %}
+                <!--
                 {{ 'layout.cart.items_count' | t: count: cart.item_count }}
                 <span id="CartCost">{{ cart.total_price | money }}</span>)
+                -->
               </a>
             </div>
 
@@ -211,7 +217,7 @@
               If customer accounts are enabled, provide login and create account links
             {% endcomment %}
             {% if shop.customer_accounts_enabled %}
-              <div>
+              <div class="nav-ancillary">
                 {% if customer %}
                   {% if customer.first_name != blank %}
                     {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
@@ -222,7 +228,10 @@
                   | {{ 'layout.customer.log_out' | t | customer_logout_link }}
                 {% else %}
                   {{ 'layout.customer.log_in' | t | customer_login_link }}
-                  | {{ 'layout.customer.create_account' | t | customer_register_link }}
+                  {% comment %}
+                    ### NOTE KLT060316: Commented out as account creation is available from sign-in page
+                  {% endcomment %}
+                  <!-- | {{ 'layout.customer.create_account' | t | customer_register_link }} -->
                 {% endif %}
               </div>
             {% endif %}
@@ -310,19 +319,19 @@
     </main>
 
     <!-- begin site-footer -->
-    <footer class="site-footer text-center" role="contentinfo">
+    <footer class="site-footer" role="contentinfo">
       <div class="wrapper">
-        <div class="grid">
+        <div class="grid--full grid--table">
 
           <!-- Copyright Information -->
           <div class="grid__item large--one-third medium--one-half">
-            <p>Copyright &copy; {{ 'now' | date: '%Y' }} Pike Place Fish Market.</p>
+            <p class="copyright">Copyright &copy; {{ 'now' | date: '%Y' }} Pike Place Fish Market.</p>
           </div>
 
           {% if settings.footer_social_enable %}
           <!-- Social Media Links -->
             <div class="grid__item large--one-third medium--one-half">
-              <ul class="inline-list social-icons">
+              <ul class="inline-list social-icons text-center">
                 {% if settings.social_instagram_link != blank %}
                   <li>
                     <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram">
@@ -354,7 +363,11 @@
 
           <!-- Links -->
           <div class="grid__item large--one-third medium--one-half">
-            <p><a href="#">Privacy Policy</a> &#183; <a href="#">Website Credits</a></p>
+            <p class="links text-right">
+              {% for link in linklists.footer.links %}
+                <a href="{{ link.url }}" class="footer-nav__link">{{ link.title }}</a>{% unless forloop.last == true %} &#183; {% endunless %}
+              {% endfor %}
+            </p>
           </div>
 
         </div>
