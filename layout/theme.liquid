@@ -151,28 +151,42 @@
       <div class="wrapper">
 
         <div class="grid--full grid--table">
+
+          {% if settings.footer_social_enable %}
+          <!-- Social Media Links -->
+            <div class="grid__item large--one-third medium--one-half">
+              <ul class="inline-list social-icons">
+                {% if settings.social_instagram_link != blank %}
+                  <li>
+                    <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram">
+                      <span class="icon icon-instagram" aria-hidden="true"></span>
+                      <span class="fallback-text">Instagram</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if settings.social_twitter_link != blank %}
+                  <li>
+                    <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+                      <span class="icon icon-twitter" aria-hidden="true"></span>
+                      <span class="fallback-text">Twitter</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if settings.social_facebook_link != blank %}
+                  <li>
+                    <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+                      <span class="icon icon-facebook" aria-hidden="true"></span>
+                      <span class="fallback-text">Facebook</span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          <!-- /Social Media Links -->
+          {% endif %}
+
           <div class="grid__item large--one-half">
-            {% comment %}
-              Use the uploaded logo from theme settings if enabled.
-              Site name gets precedence with H1 tag on homepage, div on other pages.
-            {% endcomment %}
-            {% if template == 'index' %}
-              <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
-            {% else %}
-              <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
-            {% endif %}
-              {% if settings.logo_use_image %}
-                <a href="/" itemprop="url" class="site-header__logo-link">
-                  <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
-                </a>
-              {% else %}
-                <a href="/" itemprop="url">{{ shop.name }}</a>
-              {% endif %}
-            {% if template == 'index' %}
-              </h1>
-            {% else %}
-              </div>
-            {% endif %}
+
           </div>
           <div class="grid__item large--one-half large--text-right medium-down--hide">
             {% comment %}
@@ -224,7 +238,7 @@
 
     <nav class="nav-bar" role="navigation">
       <div class="wrapper">
-        <div class="medium-down--hide">
+        <div class="medium-down--hide text-center">
           {% comment %}
             List out your main-menu linklist (default)
 
@@ -257,7 +271,7 @@
                 </li>
               {% else %}
                 <li {% if link.active %}class="site-nav--active"{% endif %}>
-                  <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+                  <a href="{{ link.url }}" class="site-nav__link{% if link.url == '/' %} logotype{% endif %}">{{ link.title }}</a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -306,6 +320,7 @@
           </div>
 
           {% if settings.footer_social_enable %}
+          <!-- Social Media Links -->
             <div class="grid__item large--one-third medium--one-half">
               <ul class="inline-list social-icons">
                 {% if settings.social_instagram_link != blank %}
@@ -334,8 +349,7 @@
                 {% endif %}
               </ul>
             </div>
-          <!-- Social Media Links -->
-          <!-- Social Media Links -->
+          <!-- /Social Media Links -->
           {% endif %}
 
           <!-- Links -->
