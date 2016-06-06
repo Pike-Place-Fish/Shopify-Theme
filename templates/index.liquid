@@ -1,163 +1,140 @@
 <!-- /templates/index.liquid -->
-{% comment %}
-
-  This is the homepage of your site.
-
-  More info on global variables (available on all templates):
-    - http://docs.shopify.com/themes/liquid-variables/global
-{% endcomment %}
-
-<h2>{{ 'homepage.sections.frontpage_title' | t }}</h2>
 
 {% comment %}
   Use class grid-uniform to have evenly sized columns clear
   each other properly at each breakpoint.
 {% endcomment %}
-<div class="grid-uniform">
 
-  {% comment %}
-    Loop through products in your Frontpage collection.
-    This collection is created by default, but you must add products to it.
-  {% endcomment %}
-  {% for product in collections.frontpage.products limit:4 %}
+<div class="grid grid--table grid-uniformX">
 
-    {% comment %}
-      Change the grid item width by using classes from the grid in
-      the grid_item_width variable.
+  <!-- Banner / Media -->
+  <div class="grid__item large--one-whole medium--one-whole small--one-whole" style="margin-bottom: 6px">
+    {{ 'Home.Banner.jpg' | asset_url | img_tag }}
+  </div>
 
-      Example:
-        - {% assign grid_item_width = 'large--one-third medium--one-half' %}
-    {% endcomment %}
-    {% assign grid_item_width = 'large--one-quarter medium--one-half' %}
-    {% include 'product-grid-item' %}
+  <!-- Upper Left Quadrant -->
+  <div class="grid__item large--one-half medium--one-half small--one-whole" style="margin-bottom: 6px;">
 
-  {% else %}
-    {% comment %}
-      For onboarding new users to your theme, we add some default products and onboarding tutorials to help populate their store
-    {% endcomment %}
-    {% unless emptyState %}
-      {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-      {% assign emptyState = true %}
-    {% endunless %}
+    <div class="grid">
 
-    {% include 'onboarding-featured-products' %}
+      <div class="grid__item large--one-half medium--one-half small--one-half">
 
-  {% endfor %}
+        <div class="grid">
 
-</div>
+          <!-- Product Promotion #1 -->
+          <div class="grid__item large--one-whole medium--one-whole small--one-whole product-promotion first" style="margin-bottom: 6px;">
+            <!-- {{ 'Home.ProductPromo1.png' | asset_url | img_tag }} -->
 
-<hr>
+            <!-- Assign Product Variables -->
+            {% assign promo1_handle = settings.home_promotion_a %}
+            {% assign promo1_product = all_products[promo1_handle] %}
+            {% assign promo1_variant = promo1_product.selected_or_first_available_variant %}
 
-<h2>{{ 'homepage.sections.featured_title' | t }}</h2>
+            <!-- Display promotion data -->
+            <div class="promotion-data">
+              <h2 class="title">{{ promo1_product.title }}</h2>
+              <p class="price">
+                {% if promo1_product.variants.size > 1 %}From {% endif %}
+                ${{ promo1_variant.price | money_without_currency }}
+              </p>
+            </div>
 
-<div class="grid-uniform">
+          </div>
 
-  {% comment %}
-    Show five collections, unless it's 'frontpage'.
+          <!-- "Fresh Crab" -->
+          <div class="grid__item large--one-whole medium--one-whole small--one-whole"><!-- pull--medium--one-half -->
+            {{ 'Home.Crab.jpg' | asset_url | img_tag }}
+          </div>
 
-    Use an index variable in combination to the limit filter
-    to account for the frontpage collection being in top six returned.
-
-    Use variable isEmpty to check if no collections will be shown.
-    For empty store demo only.
-  {% endcomment %}
-  {% assign index = 1 %}
-  {% assign isEmpty = true %}
-
-  {% for collection in collections limit:6 %}
-    {% unless index > 5 %}
-
-      {% unless collection.handle == 'frontpage' %}
-        {% assign isEmpty = false %}
-        {% assign collection_item_width = 'large--one-fifth medium--one-third' %}
-        <div class="grid__item {{ collection_item_width }} text-center">
-          {% comment %}
-            Use capture to put the collection title in a variable that is used in liquid filters
-          {% endcomment %}
-          {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
-
-          <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="grid__image">
-            {% if collection.image %}
-              {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
-            {% else %}
-              {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
-            {% endif %}
-          </a>
-
-          <p>
-            <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}">{{ collection.title }}</a><br>
-            {{ 'collections.general.items_with_count' | t: count: collection.all_products_count }}
-          </p>
         </div>
-        {% assign index = index | plus: 1 %}
-      {% endunless %}
 
-    {% endunless %}
-  {% endfor %}
-
-  {% comment %}
-    For onboarding new users to your theme, we add some default collections and onboarding tutorials to help populate their store
-  {% endcomment %}
-
-  {% if isEmpty %}
-    {% unless emptyState %}
-      {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-      {% assign emptyState = true %}
-    {% endunless %}
-
-    {% include 'onboarding-featured-collections' %}
-  {% endif %}
-
-</div>
-
-<hr>
-
-{% comment %}
-  Loop through three recent blog articles with the following code.
-
-  Since we're not on the blog template, we need to define the blog
-  handle we want to focus on. For this example we'll use the default 'news',
-  but you can create a blog page-specific content if you want.
-{% endcomment %}
-<h2>{{ 'homepage.sections.news_title' | t }}</h2>
-
-<div class="grid">
-  {% for article in blogs['news'].articles limit:3 %}
-
-    <div class="grid__item large--one-third">
-
-      <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>
-      <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
-
-      {% comment %}
-        Add a surrounding div with class 'rte' to anything that will come from the rich text editor.
-        Since this is just a listing page, you can either use the excerpt or truncate the full article.
-      {% endcomment %}
-      <div class="rte">
-        {% if article.excerpt.size > 0 %}
-          {{ article.excerpt }}
-        {% else %}
-          <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
-        {% endif %}
       </div>
 
-      {% comment %}
-        Show off meta information like number of comments and tags.
-      {% endcomment %}
-      <ul>
-        {% if blog.comments_enabled? %}
-        <li>
-          <a href="{{ article.url }}#comments">
-            {{ article.comments_count }}
-            {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-
-      <p><a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a></p>
+      <!-- Meet the Mongers -->
+      <div class="grid__item large--one-half medium--one-half small--one-half">
+        {{ 'Home.FishMonger.jpg' | asset_url | img_tag }}
+      </div>
 
     </div>
 
-  {% endfor %}
+  </div>
+  <!-- /Upper Left Quadrant -->
+
+  <!-- Upper Right Quadrant -->
+  <div class="grid__item large--one-half medium--one-half small--one-whole" style="margin-bottom: 6px;">
+
+    <div class="grid">
+
+      <!-- "Fresh Salmon" -->
+      <div class="grid__item large--one-whole medium--one-whole small--one-whole" style="margin-bottom: 6px;">
+        {{ 'Home.SalmonFilets.jpg' | asset_url | img_tag }}
+      </div>
+
+      <!-- Product Promotion #2 -->
+      <div class="grid__item large--one-half medium--one-half small--one-half product-promotion second">
+        <!-- {{ 'Home.ProductPromo2.png' | asset_url | img_tag }} -->
+
+        <!-- Assign Product Variables -->
+        {% assign promo2_handle = settings.home_promotion_b %}
+        {% assign promo2_product = all_products[promo2_handle] %}
+        {% assign promo2_variant = promo2_product.selected_or_first_available_variant %}
+
+        <!-- Display promotion data -->
+        <div class="promotion-data">
+          <h2 class="title">{{ promo2_product.title }}</h2>
+          <p class="price">
+            {% if promo2_product.variants.size > 1 %}From {% endif %}
+            ${{ promo2_variant.price | money_without_currency }}
+
+
+            {{ promo2_product.product_type }}
+          </p>
+        </div>
+
+      </div>
+
+      <!-- "Fulfillment" -->
+      <div class="grid__item large--one-half medium--one-half small--one-half">
+        {{ 'Home.Fulfillment.jpg' | asset_url | img_tag }}
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /Upper Right Quadrant -->
+
+
+  <!-- Product Promotion #3 -->
+  <div class="grid__item large--one-quarter medium--one-quarter small--one-half product-promotion third">
+    <!-- {{ 'Home.ProductPromo3.png' | asset_url | img_tag }} -->
+
+    <!-- Assign Product Variables -->
+    {% assign promo3_handle = settings.home_promotion_c %}
+    {% assign promo3_product = all_products[promo3_handle] %}
+    {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+
+    <!-- Display promotion data -->
+    <div class="promotion-data">
+      <h2 class="title">{{ promo3_product.title }}</h2>
+      <p class="price">
+        {% if promo3_product.variants.size > 1 %}From {% endif %}
+        ${{ promo3_variant.price | money_without_currency }}
+
+
+        {{ promo3_product.product_type }}
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Gift Packs -->
+  <div class="grid__item large--one-half medium--one-half small--one-whole pull--small--one-half">
+    {{ 'Home.Market.jpg' | asset_url | img_tag }}
+  </div>
+
+  <!-- Seafood Watch -->
+  <div class="grid__item large--one-quarter medium--one-quarter small--one-half">
+    {{ 'Home.Monterey.png' | asset_url | img_tag }}
+  </div>
+
 </div>
