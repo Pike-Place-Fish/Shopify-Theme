@@ -8,12 +8,12 @@
 <div class="grid grid--table grid-uniformX">
 
   <!-- Banner / Media -->
-  <div class="grid__item large--one-whole medium--one-whole small--one-whole" style="margin-bottom: 6px">
+  <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
     {{ 'Home.Banner.jpg' | asset_url | img_tag }}
   </div>
 
   <!-- Upper Left Quadrant -->
-  <div class="grid__item large--one-half medium--one-half small--one-whole" style="margin-bottom: 6px;">
+  <div class="grid__item large--one-half medium--one-half small--one-whole bottom-buffer">
 
     <div class="grid">
 
@@ -22,21 +22,26 @@
         <div class="grid">
 
           <!-- Product Promotion #1 -->
-          <div class="grid__item large--one-whole medium--one-whole small--one-whole product-promotion first" style="margin-bottom: 6px;">
+          <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
             <!-- {{ 'Home.ProductPromo1.png' | asset_url | img_tag }} -->
 
-            <!-- Assign Product Variables -->
-            {% assign promo1_handle = settings.home_promotion_a %}
-            {% assign promo1_product = all_products[promo1_handle] %}
-            {% assign promo1_variant = promo1_product.selected_or_first_available_variant %}
+            <div class="product-promotion blue first bottom-buffer">
+              <!-- Assign Product Variables -->
+              {% assign promo1_handle = settings.home_promotion_a %}
+              {% assign promo1_product = all_products[promo1_handle] %}
+              {% assign promo1_variant = promo1_product.selected_or_first_available_variant %}
 
-            <!-- Display promotion data -->
-            <div class="promotion-data">
-              <h2 class="title">{{ promo1_product.title }}</h2>
-              <p class="price">
-                {% if promo1_product.variants.size > 1 %}From {% endif %}
-                ${{ promo1_variant.price | money_without_currency }}
-              </p>
+              <!-- Display promotion data -->
+              <a href="{{ promo1_product.url }}" class="promotion-data">
+                <div>
+                  <h2 class="title">{{ promo1_product.title }}</h2>
+                  <p class="price">
+                    {% if promo1_product.variants.size > 1 %}From {% endif %}
+                    ${{ promo1_variant.price | money_without_currency }}
+                  </p>
+                </div>
+              </a>
+
             </div>
 
           </div>
@@ -61,34 +66,36 @@
   <!-- /Upper Left Quadrant -->
 
   <!-- Upper Right Quadrant -->
-  <div class="grid__item large--one-half medium--one-half small--one-whole" style="margin-bottom: 6px;">
+  <div class="grid__item large--one-half medium--one-half small--one-whole bottom-buffer">
 
     <div class="grid">
 
       <!-- "Fresh Salmon" -->
-      <div class="grid__item large--one-whole medium--one-whole small--one-whole" style="margin-bottom: 6px;">
+      <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
         {{ 'Home.SalmonFilets.jpg' | asset_url | img_tag }}
       </div>
 
       <!-- Product Promotion #2 -->
-      <div class="grid__item large--one-half medium--one-half small--one-half product-promotion second">
+      <div class="grid__item large--one-half medium--one-half small--one-half">
         <!-- {{ 'Home.ProductPromo2.png' | asset_url | img_tag }} -->
 
-        <!-- Assign Product Variables -->
-        {% assign promo2_handle = settings.home_promotion_b %}
-        {% assign promo2_product = all_products[promo2_handle] %}
-        {% assign promo2_variant = promo2_product.selected_or_first_available_variant %}
+        <div class="product-promotion orange second">
+          <!-- Assign Product Variables -->
+          {% assign promo2_handle = settings.home_promotion_b %}
+          {% assign promo2_product = all_products[promo2_handle] %}
+          {% assign promo2_variant = promo2_product.selected_or_first_available_variant %}
 
-        <!-- Display promotion data -->
-        <div class="promotion-data">
-          <h2 class="title">{{ promo2_product.title }}</h2>
-          <p class="price">
-            {% if promo2_product.variants.size > 1 %}From {% endif %}
-            ${{ promo2_variant.price | money_without_currency }}
+          <!-- Display promotion data -->
+          <a href="{{ promo2_product.url }}" class="promotion-data">
+            <div>
+              <h2 class="title">{{ promo2_product.title }}</h2>
+              <p class="price">
+                {% if promo2_product.variants.size > 1 %}From {% endif %}
+                ${{ promo2_variant.price | money_without_currency }}
+              </p>
+            </div>
+          </a>
 
-
-            {{ promo2_product.product_type }}
-          </p>
         </div>
 
       </div>
@@ -103,26 +110,28 @@
   </div>
   <!-- /Upper Right Quadrant -->
 
-
   <!-- Product Promotion #3 -->
-  <div class="grid__item large--one-quarter medium--one-quarter small--one-half product-promotion third">
+  <div class="grid__item large--one-quarter medium--one-quarter small--one-half">
     <!-- {{ 'Home.ProductPromo3.png' | asset_url | img_tag }} -->
 
-    <!-- Assign Product Variables -->
-    {% assign promo3_handle = settings.home_promotion_c %}
-    {% assign promo3_product = all_products[promo3_handle] %}
-    {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+    <div class="product-promotion green third">
+      <!-- Assign Product Variables -->
+      {% assign promo3_handle = settings.home_promotion_c %}
+      {% assign promo3_product = all_products[promo3_handle] %}
+      {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
 
-    <!-- Display promotion data -->
-    <div class="promotion-data">
-      <h2 class="title">{{ promo3_product.title }}</h2>
-      <p class="price">
-        {% if promo3_product.variants.size > 1 %}From {% endif %}
-        ${{ promo3_variant.price | money_without_currency }}
+      <!-- Display promotion data -->
+      <a href="{{ promo3_product.url }}" class="promotion-data">
+        <div>
+          <h2 class="title">{{ promo3_product.title }}</h2>
+          <p class="price">
+            {% if promo3_product.variants.size > 1 %}From {% endif %}
+            ${{ promo3_variant.price | money_without_currency }}
+            {{ promo3_product.product_type }}
+          </p>
+        </div>
+      </a>
 
-
-        {{ promo3_product.product_type }}
-      </p>
     </div>
 
   </div>
@@ -138,3 +147,22 @@
   </div>
 
 </div>
+
+<!-- Page Scripts -->
+<script>
+  /**
+    * Ensures each production promotion block maintains square dimensions
+    */
+  function setPromotionDimenions() {
+    $('div.product-promotion').each(function() {
+      var promotion             = $(this);
+      $(promotion).height($(promotion).width());
+    });
+  };
+  $(function() {
+    setPromotionDimenions();
+  });
+  $(window).resize(function() {
+    setPromotionDimenions();
+  });
+</script>

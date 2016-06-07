@@ -1,0 +1,70 @@
+//==============================================================================================
+// INDEX
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify home page.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-index {
+
+    // Grid normalization
+    .bottom-buffer {
+      margin-bottom             : 6px;
+    }
+
+    // Product promotions
+    .product-promotion {
+      display                   : table;
+      position                  : relative;
+      padding                   : 3.24%;
+      width                     : 100%;
+      height                    : 100%;
+      /*
+      min-width                 : 235px;
+      max-width                 : 247px;
+      min-height                : 235px;
+      max-height                : 247px;
+      */
+      background-repeat         : no-repeat;
+      background-position       : 0 0;
+      background-size           : 100%;
+
+      // promotion types
+      &.blue {
+        background-color        : rgb(80, 138, 159);            // #F08A9F
+      }
+      &.orange {
+        background-color        : rgb(241, 146, 63);            // #F1923F
+      }
+      &.green {
+        background-color        : rgb(81, 165, 82);             // #51A552
+      }
+
+      // promotion details
+      .promotion-data {
+        display                 : table-cell;
+        padding                 : 3.24%;
+        border                  : 4px solid {{ settings.color_body_bg }};
+        text-align              : center;
+        vertical-align          : middle;
+        font-family             : 'Eagle Book', $bodyFontStack;
+        font-size               : em(19px);
+        line-height             : 110%;
+        color                   : {{ settings.color_body_bg }};
+        h2,
+        p {
+          font-family           : 'Eagle Book', $bodyFontStack;
+          font-size             : em(19px);
+          text-transform        : uppercase;
+        }
+      }
+
+    }
+
+  }
