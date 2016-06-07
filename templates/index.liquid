@@ -26,6 +26,7 @@
             <!-- {{ 'Home.ProductPromo1.png' | asset_url | img_tag }} -->
 
             <div class="product-promotion blue first bottom-buffer">
+
               <!-- Assign Product Variables -->
               {% assign promo1_handle = settings.home_promotion_a %}
               {% assign promo1_product = all_products[promo1_handle] %}
@@ -57,7 +58,21 @@
 
       <!-- Meet the Mongers -->
       <div class="grid__item large--one-half medium--one-half small--one-half">
-        {{ 'Home.FishMonger.jpg' | asset_url | img_tag }}
+        <div class="page-link">
+
+          <!-- Assign Page Link Variables -->
+          {% assign pageLink1_handle = settings.home_link_1 %}
+          {% assign pageLink1_page = pages[pageLink1_handle] %}
+
+          <!-- Display page link data -->
+          <a href="{{ pageLink1_page.url }}" class="link-data">
+            {{ 'Home.FishMonger.jpg' | asset_url | img_tag: pageLink1_page.title, 'link-image' }}
+            <div class="overlay">
+              <div class="link-text"><h2>{{ pageLink1_page.title }}</h2></div>
+            </div>
+          </a>
+
+        </div>
       </div>
 
     </div>
