@@ -324,13 +324,13 @@
         <div class="grid--full grid--table">
 
           <!-- Copyright Information -->
-          <div class="grid__item large--one-third medium--one-half">
+          <div class="grid__item large--one-third medium--one-half medium-down--one-whole medium-down--text-center">
             <p class="copyright">Copyright &copy; {{ 'now' | date: '%Y' }} Pike Place Fish Market.</p>
           </div>
 
           {% if settings.footer_social_enable %}
           <!-- Social Media Links -->
-            <div class="grid__item large--one-third medium--one-half">
+            <div class="grid__item large--one-third medium--one-half medium-down--one-whole">
               <ul class="inline-list social-icons text-center">
                 {% if settings.social_instagram_link != blank %}
                   <li>
@@ -362,7 +362,7 @@
           {% endif %}
 
           <!-- Links -->
-          <div class="grid__item large--one-third medium--one-half">
+          <div class="grid__item large--one-third medium--one-half medium-down--one-whole medium-down--text-center">
             <p class="links text-right">
               {% for link in linklists.footer.links %}
                 <a href="{{ link.url }}" class="footer-nav__link">{{ link.title }}</a>{% unless forloop.last == true %} &#183; {% endunless %}
