@@ -1042,7 +1042,7 @@ th, td {
       padding-left              : ($gutter * 1.333);
       @include at-query ($max, $medium) {
         padding-left            : 0;
-        padding-bottom          : $gutter;
+        padding-top             : $gutter;
       }
     }
     &.links {
@@ -1051,16 +1051,24 @@ th, td {
         padding-right           : 0;
         padding-top             : $gutter;
       }
+      @include at-query ($min, $medium) {
+        text-align              : right;
+      }
     }
   }
 
   // Social Icons (New)
   .social-icons {
     position                    : relative;
-    top                         : -3px;
     margin                      : 0;
     .icon {
       font-size                 : em(26px);
+    }
+    @include at-query ($max, $medium) {
+      padding-top             : $gutter;
+    }
+    @include at-query ($min, $medium) {
+      top                       : -3px;
     }
   }
 

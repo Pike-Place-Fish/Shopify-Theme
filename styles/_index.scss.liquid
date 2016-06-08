@@ -46,6 +46,9 @@
           color                 : {{ settings.color_body_bg }};
           -webkit-text-stroke-width     : 1px;
           -webkit-text-stroke-color     : {{ settings.color_secondary }};
+          @include at-query ($max, $small) {
+            color               : rgb(67, 148, 68);             // #439444 TODO: Add to settings
+          }
           @include at-query ($max, $large) {
             font-size           : 3.281vw;
           }
