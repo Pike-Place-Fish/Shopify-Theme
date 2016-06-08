@@ -9,20 +9,16 @@ $large: 960px;                  // Was 769px;
 
 $postSmall: $small + $viewportIncrement;
 $preMedium: $medium - $viewportIncrement;
-$postMedium                     : $small + $viewportIncrement;  // New
 $preLarge: $large - $viewportIncrement;
 
 /*================ The following are dependencies of csswizardry grid ================*/
-// New - medium-large, large-down
 $breakpoints: (
   'small' '(max-width: #{$small})',
   'medium' '(min-width: #{$postSmall}) and (max-width: #{$medium})',
   'medium-down' '(max-width: #{$medium})',
-  'medium-large' '(min-width: #{$postMedium}) and (max-width: #{$preLarge})',
-  'large' '(min-width: #{$large})',
-  'large-down' '(max-width: #{$large})'
+  'large' '(min-width: #{$large})'
 );
-$breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - large-down
+$breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large');
 $breakpoint-has-push:  ('medium', 'medium-down', 'large');
 $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
 
