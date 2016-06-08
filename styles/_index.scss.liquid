@@ -41,6 +41,9 @@
       .tagline.shop-link {
         display                 : none;
         padding-top             : 25.5%;
+        @include at-query ($max, $medium) {
+          padding-top           : 20.5%;
+        }
         h1 {
           font-size             : em(42px);
           color                 : {{ settings.color_body_bg }};
@@ -49,12 +52,18 @@
           @include at-query ($max, $small) {
             color               : rgb(67, 148, 68);             // #439444 TODO: Add to settings
           }
-          @include at-query ($max, $large) {
+          @include at-query ($max, $medium) {
+            font-size           : 4.281vw;
+          }
+          @include at-query (null, $medium, $large) {
             font-size           : 3.281vw;
           }
         }
         .btn {
           font-size             : em(26px);
+          @include at-query ($max, $large) {
+            font-size           : 2.6vw;
+          }
         }
       }
     }
@@ -85,7 +94,10 @@
           @include at-query ($max, $siteWidth) {
             font-size           : 2.031vw;
           }
-          @include at-query ($max, $large) {
+          @include at-query ($max, $medium) {
+            font-size           : 3.995vw;
+          }
+          @include at-query (null, $medium, $large) {
             font-size           : 1.995vw;
           }
         }
