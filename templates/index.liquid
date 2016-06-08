@@ -234,8 +234,25 @@
       $(promotion).height($(promotion).width());
     });
   };
+
+  /**
+    * Reveals banner area tagline and "shop now" button, after logo is faded out
+    */
+  function revealTagline() {
+    setTimeout(function() {
+      $('.banner-container div.logo').fadeOut(1000, function() {
+        $('.banner-container div.tagline.shop-link').fadeIn(1000);
+      });
+    }, 4500);
+
+  };
+
+  /**
+    * Document ready and window resize function calls
+    */
   $(function() {
     setPromotionDimenions();
+    revealTagline();
   });
   $(window).resize(function() {
     setPromotionDimenions();
