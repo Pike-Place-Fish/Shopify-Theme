@@ -1,30 +1,54 @@
 /*============================================================================
   #Breakpoint and Grid Variables
+
+  Backup: OOTB implementation
+  ----------------------------------------------------------------------------------------------
+  $viewportIncrement: 1px;
+
+  $small: 480px;
+  $medium: 768px;
+  $large: 769px;
+
+  $postSmall: $small + $viewportIncrement;
+  $preMedium: $medium - $viewportIncrement;
+  $preLarge: $large - $viewportIncrement;
+
+  $breakpoints: (
+    'small' '(max-width: #{$small})',
+    'medium' '(min-width: #{$postSmall}) and (max-width: #{$medium})',
+    'medium-down' '(max-width: #{$medium})',
+    'large' '(min-width: #{$large})'
+  );
+  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large');
+  $breakpoint-has-push:  ('medium', 'medium-down', 'large');
+  $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
+  ----------------------------------------------------------------------------------------------
+
 ==============================================================================*/
-$viewportIncrement: 1px;
+  $viewportIncrement            : 1px;
 
-$small: 320px;                  // Was 480px
-$medium: 768px;
-$large: 960px;                  // Was 769px;
+  $narrow                       : 320px;
+  $small                        : 480px;
+  $medium                       : 768px;
+  $large                        : 960px;
 
-$postSmall: $small + $viewportIncrement;
-$preMedium: $medium - $viewportIncrement;
-$postMedium                     : $small + $viewportIncrement;  // New
-$preLarge: $large - $viewportIncrement;
+  $postSmall                    : $small + $viewportIncrement;
+  $preMedium                    : $medium - $viewportIncrement;
+  $postMedium                   : $small + $viewportIncrement;
+  $preLarge                     : $large - $viewportIncrement;
 
-/*================ The following are dependencies of csswizardry grid ================*/
-// New - medium-large, large-down
-$breakpoints: (
-  'small' '(max-width: #{$small})',
-  'medium' '(min-width: #{$postSmall}) and (max-width: #{$medium})',
-  'medium-down' '(max-width: #{$medium})',
-  'medium-large' '(min-width: #{$postMedium}) and (max-width: #{$preLarge})',
-  'large' '(min-width: #{$large})',
-  'large-down' '(max-width: #{$large})'
-);
-$breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down' ); // New - large-down, xlarge
-$breakpoint-has-push:  ('small', 'medium', 'medium-down', 'large'); // New - small
-$breakpoint-has-pull:  ('small', 'medium', 'medium-down', 'large'); // New - small
+  /*================ The following are dependencies of csswizardry grid ================*/
+  $breakpoints: (
+    'small' '(max-width: #{$small})',
+    'medium' '(min-width: #{$medium})',
+    'medium-down' '(max-width: #{$preMedium})',
+    'medium-large' '(min-width: #{$postMedium}) and (max-width: #{$preLarge})',
+    'large' '(min-width: #{$large})',
+    'large-down' '(max-width: #{$preLarge})'
+  );
+  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - large-down
+  $breakpoint-has-push:  ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - small, large-down
+  $breakpoint-has-pull:  ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - small, large-down
 
 /*============================================================================
   #General Variables
