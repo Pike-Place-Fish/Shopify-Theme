@@ -9,7 +9,23 @@
 
   <!-- Banner / Media -->
   <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
-    {{ 'Home.Banner.jpg' | asset_url | img_tag }}
+    <div class="banner-container">
+      <div class="video-background">
+        <video width="100%" height="100%" autoplay loop muted>
+          <source src="{{ 'Home.BannerVideoFPO.mp4' | asset_url" }}" type="video/mp4">
+          <source src="{{ 'Home.BannerVideoFPO.ogg' | asset_url" }}" type="video/ogg">
+          <source src="{{ 'Home.BannerVideoFPO.webm' | asset_url" }}" type="video/webm">
+          {{ 'Home.Banner.jpg' | asset_url | img_tag }}
+        </video>
+      </div>
+      <div class="logo">
+        {{ 'Logo.png' | asset_url | img_tag: 'Pike Place Fish Market' }}
+      </div>
+      <div class="tagline shop-link">
+        <h1>All Sustainable, All the Time</h1>
+        <a href="/collections/all" class="btn">Shop Now</a>
+      </div>
+    </div>
   </div>
 
   <!-- Upper Left Two Columns -->
@@ -146,7 +162,7 @@
   <!-- /Upper Right Column -->
 
   <!-- Product Promotion #3 -->
-  <div class="grid__item large--one-fifth medium--one-fifth small--one-half">
+  <div class="grid__item large--one-fifth medium--one-fifth small--one-half" style="clear: left;"">
 
     <div class="product-promotion green third">
       <!-- Assign Product Variables -->
