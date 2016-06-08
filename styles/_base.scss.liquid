@@ -164,7 +164,7 @@ hr {
 }
 
 .collection-view {
-  display                       : none;                         // Was inline-block
+  display                       : none !important;              // Was inline-block
   border: 1px solid $colorBorder;
   border-radius: $radius;
   padding: 0 5px;
@@ -173,7 +173,7 @@ hr {
 
   /*================ Only show on larger screens ================*/
   @include at-query ($min, $large) {
-    display                     : none;                         // Was inline-block
+    display                     : none !important;              // Was inline-block
   }
 }
 
