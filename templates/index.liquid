@@ -8,7 +8,7 @@
 <div class="grid grid--table grid-uniformX">
 
   <!-- Banner / Media -->
-  <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
+  <div class="grid__item large--one-whole large-down--one-whole bottom-buffer">
     <div class="banner-container">
       <div class="video-background">
         <video width="100%" height="100%" poster="{{ 'Home.Banner.jpg' | asset_url }}" autoplay loop muted>
@@ -29,16 +29,16 @@
   </div>
 
   <!-- Upper Left Two Columns -->
-  <div class="grid__item large--two-fifths large-down--two-fifths medium--two-fifths medium-down--one-whole small--one-whole bottom-buffer">
+  <div class="grid__item medium--two-fifths medium-down--one-whole bottom-buffer">
 
     <div class="grid">
 
-      <div class="grid__item large--one-half large-down--one-half medium--one-half small--one-half">
+      <div class="grid__item large--one-half large-down--one-half">
 
         <div class="grid">
 
           <!-- Product Promotion #1 -->
-          <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
+          <div class="grid__item large--one-whole large-down--one-whole bottom-buffer">
             <!-- {{ 'Home.ProductPromo1.png' | asset_url | img_tag }} -->
 
             <div class="product-promotion blue first bottom-buffer">
@@ -64,7 +64,7 @@
           </div>
 
           <!-- "Fresh Crab" -->
-          <div class="grid__item large--one-whole medium--one-whole small--one-whole"><!-- pull--medium--one-half -->
+          <div class="grid__item large--one-whole large-down--one-whole"><!-- pull--medium--one-half -->
             {{ 'Home.Crab.jpg' | asset_url | img_tag }}
           </div>
 
@@ -73,7 +73,7 @@
       </div>
 
       <!-- Meet the Mongers -->
-      <div class="grid__item large--one-half large-down--one-half medium--one-half small--one-half">
+      <div class="grid__item large--one-half large-down--one-half">
         <div class="page-link">
 
           <!-- Assign Page Link Variables -->
@@ -97,17 +97,17 @@
   <!-- /Upper Left Two Columns -->
 
   <!-- Upper Middle Two Columns -->
-  <div class="grid__item large--two-fifths large-down--two-fifths medium--two-fifths medium-down--one-whole small--one-whole bottom-buffer">
+  <div class="grid__item medium--two-fifths medium-down--one-whole bottom-buffer">
 
     <div class="grid">
 
       <!-- "Fresh Salmon" -->
-      <div class="grid__item large--one-whole medium--one-whole small--one-whole bottom-buffer">
+      <div class="grid__item large--one-whole large-down--one-whole bottom-buffer">
         {{ 'Home.SalmonFilets.jpg' | asset_url | img_tag }}
       </div>
 
       <!-- Product Promotion #2 -->
-      <div class="grid__item large--one-half large-down--one-half medium--one-half small--one-half">
+      <div class="grid__item large--one-half large-down--one-half">
         <!-- {{ 'Home.ProductPromo2.png' | asset_url | img_tag }} -->
 
         <div class="product-promotion orange second">
@@ -132,7 +132,7 @@
       </div>
 
       <!-- "Fulfillment" -->
-      <div class="grid__item large--one-half large-down--one-half medium--one-half small--one-half">
+      <div class="grid__item large--one-half large-down--one-half">
         {{ 'Home.Fulfillment.jpg' | asset_url | img_tag }}
       </div>
 
@@ -141,8 +141,8 @@
   </div>
   <!-- /Upper Middle Two Columns -->
 
-  <!-- Upper Right Column -->
-  <div class="grid__item large--one-fifth large-down--one-fifth medium--one-fifth medium-down--one-whole small--one-whole bottom-buffer">
+  <!-- Upper Right Column: hide for small screens -->
+  <div class="grid__item medium--one-fifth medium-down--hide bottom-buffer">
     <div class="page-link">
 
       <!-- Assign Page Link Variables -->
@@ -161,65 +161,182 @@
   </div>
   <!-- /Upper Right Column -->
 
-  <!-- Product Promotion #3 -->
-  <div class="grid__item large--one-fifth large-down--one-fifth medium--one-fifth small--one-half" style="clear: left;"">
+  <!-- Bottom 'Row' -->
+  <div class="grid__item large--one-whole large-down--one-whole">
 
-    <div class="product-promotion green third">
-      <!-- Assign Product Variables -->
-      {% assign promo3_handle = settings.home_promotion_c %}
-      {% assign promo3_product = all_products[promo3_handle] %}
-      {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+    <div class="grid">
 
-      <!-- Display promotion data -->
-      <a href="{{ promo3_product.url }}" class="promotion-data">
-        <div>
-          <h2 class="title">{{ promo3_product.title }}</h2>
-          <p class="price">
-            {% if promo3_product.variants.size > 1 %}From {% endif %}
-            ${{ promo3_variant.price | money_without_currency }}
-            {{ promo3_product.product_type }}
-          </p>
+      <!-- Product Promotion #3 -->
+      {% comment %}
+        ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
+      {% endcomment %}
+      <div class="grid__item medium--one-fifth medium-down--hide">
+
+        <div class="product-promotion green third">
+          <!-- Assign Product Variables -->
+          {% assign promo3_handle = settings.home_promotion_c %}
+          {% assign promo3_product = all_products[promo3_handle] %}
+          {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+
+          <!-- Display promotion data -->
+          <a href="{{ promo3_product.url }}" class="promotion-data">
+            <div>
+              <h2 class="title">{{ promo3_product.title }}</h2>
+              <p class="price">
+                {% if promo3_product.variants.size > 1 %}From {% endif %}
+                ${{ promo3_variant.price | money_without_currency }}
+                {{ promo3_product.product_type }}
+              </p>
+            </div>
+          </a>
+
         </div>
-      </a>
+
+      </div>
+
+      <!-- Gift Packs -->
+      {% comment %}
+        ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
+      {% endcomment %}
+      <div class="grid__item medium--two-fifths medium-down--one-whole">
+        {{ 'Home.Market.jpg' | asset_url | img_tag }}
+      </div>
+
+      <!-- Product Promotion #3 -->
+      {% comment %}
+        ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
+      {% endcomment %}
+      <div class="grid__item medium--hide medium-down--one-half">
+
+        <div class="product-promotion green third">
+          <!-- Assign Product Variables -->
+          {% assign promo3_handle = settings.home_promotion_c %}
+          {% assign promo3_product = all_products[promo3_handle] %}
+          {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+
+          <!-- Display promotion data -->
+          <a href="{{ promo3_product.url }}" class="promotion-data">
+            <div>
+              <h2 class="title">{{ promo3_product.title }}</h2>
+              <p class="price">
+                {% if promo3_product.variants.size > 1 %}From {% endif %}
+                ${{ promo3_variant.price | money_without_currency }}
+                {{ promo3_product.product_type }}
+              </p>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- Seafood Watch -->
+      <div class="grid__item medium--one-fifth medium-down--one-half">
+        {{ 'Home.Monterey.png' | asset_url | img_tag }}
+      </div>
+
+      <!-- Product Promotion #4 -->
+      <div class="grid__item medium--one-fifth medium-down--hide">
+
+        <div class="product-promotion grey fourth">
+          <!-- Assign Product Variables -->
+          {% assign promo4_handle = settings.home_promotion_d %}
+          {% assign promo4_product = all_products[promo4_handle] %}
+          {% assign promo4_variant = promo4_product.selected_or_first_available_variant %}
+
+          <!-- Display promotion data -->
+          <a href="{{ promo4_product.url }}" class="promotion-data">
+            <div>
+              <h2 class="title">{{ promo4_product.title }}</h2>
+              <p class="price">
+                {% if promo4_product.variants.size > 1 %}From {% endif %}
+                ${{ promo4_variant.price | money_without_currency }}
+                {{ promo4_product.product_type }}
+              </p>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
+  <!-- /Bottom 'Row' -->
 
-  <!-- Gift Packs -->
-  <div class="grid__item large--two-fifths large-down--two-fifths medium--two-fifths small--one-whole pull--small--one-half">
-    {{ 'Home.Market.jpg' | asset_url | img_tag }}
-  </div>
+  <!-- Small-Screen Bottom Area -->
+  <div class="grid__item medium--hide medium-down--one-whole bottom-buffer">
 
-  <!-- Seafood Watch -->
-  <div class="grid__item large--one-fifth large-down--one-fifth medium--one-fifth small--one-half">
-    {{ 'Home.Monterey.png' | asset_url | img_tag }}
-  </div>
+    <div class="grid">
 
-  <!-- Product Promotion #4 -->
-  <div class="grid__item large--one-fifth large-down--one-fifth medium--one-fifth small--one-half">
+      <!-- Meet the Mongers -->
+      <div class="grid__item medium-down--one-half">
+        <div class="page-link">
 
-    <div class="product-promotion grey fourth">
-      <!-- Assign Product Variables -->
-      {% assign promo4_handle = settings.home_promotion_d %}
-      {% assign promo4_product = all_products[promo4_handle] %}
-      {% assign promo4_variant = promo4_product.selected_or_first_available_variant %}
+          <!-- Assign Page Link Variables -->
+          {% assign pageLink2_handle = settings.home_link_2 %}
+          {% assign pageLink2_page = pages[pageLink2_handle] %}
 
-      <!-- Display promotion data -->
-      <a href="{{ promo4_product.url }}" class="promotion-data">
-        <div>
-          <h2 class="title">{{ promo4_product.title }}</h2>
-          <p class="price">
-            {% if promo4_product.variants.size > 1 %}From {% endif %}
-            ${{ promo4_variant.price | money_without_currency }}
-            {{ promo4_product.product_type }}
-          </p>
+          <!-- Display page link data -->
+          <a href="{{ pageLink2_page.url }}" class="link-data">
+            {{ 'Home.FishMonger2.jpg' | asset_url | img_tag: pageLink2_page.title, 'link-image' }}
+            <div class="overlay">
+              <div class="link-text"><h2>{{ pageLink2_page.title }}</h2></div>
+            </div>
+          </a>
+
         </div>
-      </a>
+      </div>
+
+      <div class="grid__item medium-down--one-half">
+
+        <div class="grid">
+
+          <!-- Product Promotion #4 -->
+          <div class="grid__item medium-down--one-whole bottom-buffer">
+
+            <div class="product-promotion grey fourth">
+              <!-- Assign Product Variables -->
+              {% assign promo4_handle = settings.home_promotion_d %}
+              {% assign promo4_product = all_products[promo4_handle] %}
+              {% assign promo4_variant = promo4_product.selected_or_first_available_variant %}
+
+              <!-- Display promotion data -->
+              <a href="{{ promo4_product.url }}" class="promotion-data">
+                <div>
+                  <h2 class="title">{{ promo4_product.title }}</h2>
+                  <p class="price">
+                    {% if promo4_product.variants.size > 1 %}From {% endif %}
+                    ${{ promo4_variant.price | money_without_currency }}
+                    {{ promo4_product.product_type }}
+                  </p>
+                </div>
+              </a>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom Right Block -->
+          {% comment %}
+            ### NOTE KLT060816: Temporary!!! Conversation regarding what should fill this block pending
+          {% endcomment %}
+          <div class="grid__item medium-down--one-whole" style="position: relative;">
+            <div class="product-promotion" style="background: {{ settings.color_secondary }}">
+              <div class="promotion-data"><h2>Content Needed</h2></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
+  <!-- /Upper Left Two Columns -->
+
 
 </div>
 
