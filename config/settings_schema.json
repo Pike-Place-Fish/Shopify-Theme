@@ -102,7 +102,7 @@
         "id": "color_footer_social_link",
         "label": "Social media icons",
         "default": "#ffffff"
-      },
+      }
     ]
   },
   {
@@ -346,6 +346,12 @@
         "type": "product",
         "id": "home_promotion_c",
         "label": "Featured Product (#3)",
+        "info": "Will get name, price, and link from product page."
+      },
+      {
+        "type": "product",
+        "id": "home_promotion_d",
+        "label": "Featured Product (#4)",
         "info": "Will get name, price, and link from product page."
       },
       {
