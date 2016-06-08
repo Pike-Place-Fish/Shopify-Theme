@@ -53,16 +53,20 @@ $large: 960px;                  // Was 769px;
 
 $postSmall: $small + $viewportIncrement;
 $preMedium: $medium - $viewportIncrement;
+$postMedium                     : $small + $viewportIncrement;  // New
 $preLarge: $large - $viewportIncrement;
 
 /*================ The following are dependencies of csswizardry grid ================*/
+// New - medium-large, large-down
 $breakpoints: (
   'small' '(max-width: #{$small})',
   'medium' '(min-width: #{$postSmall}) and (max-width: #{$medium})',
   'medium-down' '(max-width: #{$medium})',
-  'large' '(min-width: #{$large})'
+  'medium-large' '(min-width: #{$postMedium}) and (max-width: #{$preLarge})',
+  'large' '(min-width: #{$large})',
+  'large-down' '(max-width: #{$large})'
 );
-$breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large');
+$breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - large-down
 $breakpoint-has-push:  ('medium', 'medium-down', 'large');
 $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
 
@@ -2088,7 +2092,7 @@ th, td {
     color: $colorLink;
     letter-spacing: em(2px);
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: {{ settings.color_secondary }};
   //text-shadow: 0px 1px 2px #000000;
   }
 
@@ -2808,7 +2812,39 @@ th, td {
 
     // Grid normalization
     .bottom-buffer {
-      margin-bottom             : 6px;
+      margin-bottom             : ($gutter / 2);
+    }
+
+    // Banner/video area
+    .banner-container {
+      position                  : relative;
+      .logo,
+      .tagline.shop-link {
+        z-index                 : 5;
+        position                : absolute;
+        top                     : 0;
+        right                   : 0;
+        bottom                  : 0;
+        left                    : 0;
+        text-align              : center;
+        background              : rgba(0, 0, 0, 0.5);           // TODO: Remove or adjust with final video
+      }
+      .logo {
+        padding-top             : 6.75%;
+      }
+      .tagline.shop-link {
+        display                 : none;
+        padding-top             : 25.5%;
+        h1 {
+          font-size             : em(42px);
+          color                 : {{ settings.color_body_bg }};
+          -webkit-text-stroke-width     : 1px;
+          -webkit-text-stroke-color     : {{ settings.color_secondary }};
+        }
+        .btn {
+          font-size             : em(26px);
+        }
+      }
     }
 
     // Product promotions, page links
