@@ -364,7 +364,7 @@
       },
       {
         "type": "image",
-        "id": "home_photo_1",
+        "id": "home_photo_1.jpg",
         "label": "Image #1",
         "info": "Image at grid points B1 and B2 (two squares tall)."
       },
@@ -375,7 +375,7 @@
       },
       {
         "type": "image",
-        "id": "home_photo_2",
+        "id": "home_photo_2.jpg",
         "label": "Image #2",
         "info": "Image at grid points C1 and D1 (two squares wide)."
       },
@@ -386,18 +386,18 @@
       },
       {
         "type": "image",
-        "id": "home_photo_3",
+        "id": "home_photo_3.jpg",
         "label": "Image #3",
         "info": "Image at grid points D1 and D2 (two squares tall)."
       },
       {
         "type": "page",
-        "id": "home_link_3",
+        "id": "home_link_3.jpg",
         "label": "Image #3 Link"
       },
       {
         "type": "image",
-        "id": "home_photo_4",
+        "id": "home_photo_4.jpg",
         "label": "Image #4",
         "info": "Image at grid point A2 (single square)."
       },
@@ -408,7 +408,7 @@
       },
       {
         "type": "image",
-        "id": "home_photo_5",
+        "id": "home_photo_5.jpg",
         "label": "Image #5",
         "info": "Image at grid point D2 (single square)."
       },
@@ -419,7 +419,7 @@
       },
       {
         "type": "image",
-        "id": "home_photo_6",
+        "id": "home_photo_6.jpg",
         "label": "Image #6",
         "info": "Image at grid points B3 and C3 (two squares wide)."
       },
@@ -430,7 +430,7 @@
       },
       {
         "type": "image",
-        "id": "home_photo_7",
+        "id": "home_photo_7.jpg",
         "label": "Image #7",
         "info": "Image at grid point D3 (single square)."
       },
