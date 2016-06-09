@@ -5,10 +5,10 @@
   each other properly at each breakpoint.
 {% endcomment %}
 
-<div class="grid grid--table grid-uniformX">
+<div class="grid">
 
   <!-- Banner / Media -->
-  <div class="grid__item large--one-whole large-down--one-whole bottom-buffer">
+  <div class="grid__item large--one-whole large-down--one-whole row">
     <div class="banner-container">
       <div class="video-background">
         <video width="100%" height="100%" poster="{{ 'Home.Banner.jpg' | asset_url }}" autoplay loop muted>
@@ -29,7 +29,7 @@
   </div>
 
   <!-- Upper Left Two Columns -->
-  <div class="grid__item medium--two-fifths medium-down--one-whole bottom-buffer">
+  <div class="grid__item medium--two-fifths medium-down--one-whole row">
 
     <div class="grid">
 
@@ -38,10 +38,9 @@
         <div class="grid">
 
           <!-- Product Promotion #1 -->
-          <div class="grid__item large--one-whole large-down--one-whole bottom-buffer">
-            <!-- {{ 'Home.ProductPromo1.png' | asset_url | img_tag }} -->
+          <div class="grid__item large--one-whole large-down--one-whole row buffer-bottom">
 
-            <div class="product-promotion blue first bottom-buffer">
+            <div class="product-promotion blue first">
 
               <!-- Assign Product Variables -->
               {% assign promo1_handle = settings.home_promotion_a %}
@@ -64,7 +63,7 @@
           </div>
 
           <!-- "Fresh Crab" -->
-          <div class="grid__item large--one-whole large-down--one-whole"><!-- pull--medium--one-half -->
+          <div class="grid__item large--one-whole large-down--one-whole">
             {{ 'Home.Crab.jpg' | asset_url | img_tag }}
           </div>
 
@@ -97,12 +96,12 @@
   <!-- /Upper Left Two Columns -->
 
   <!-- Upper Middle Two Columns -->
-  <div class="grid__item medium--two-fifths medium-down--one-whole bottom-buffer">
+  <div class="grid__item medium--two-fifths medium-down--one-whole row">
 
     <div class="grid">
 
       <!-- "Fresh Salmon" -->
-      <div class="grid__item large--one-whole large-down--one-whole bottom-buffer">
+      <div class="grid__item large--one-whole large-down--one-whole row">
         {{ 'Home.SalmonFilets.jpg' | asset_url | img_tag }}
       </div>
 
@@ -142,7 +141,7 @@
   <!-- /Upper Middle Two Columns -->
 
   <!-- Upper Right Column: hide for small screens -->
-  <div class="grid__item medium--one-fifth medium-down--hide bottom-buffer">
+  <div class="grid__item medium--one-fifth medium-down--hide row">
     <div class="page-link">
 
       <!-- Assign Page Link Variables -->
@@ -162,7 +161,7 @@
   <!-- /Upper Right Column -->
 
   <!-- Bottom 'Row' -->
-  <div class="grid__item large--one-whole large-down--one-whole">
+  <div class="grid__item large--one-whole large-down--one-whole row">
 
     <div class="grid">
 
@@ -266,7 +265,7 @@
   <!-- /Bottom 'Row' -->
 
   <!-- Small-Screen Bottom Area -->
-  <div class="grid__item medium--hide medium-down--one-whole bottom-buffer">
+  <div class="grid__item medium--hide medium-down--one-whole">
 
     <div class="grid">
 
@@ -294,7 +293,7 @@
         <div class="grid">
 
           <!-- Product Promotion #4 -->
-          <div class="grid__item medium-down--one-whole bottom-buffer">
+          <div class="grid__item medium-down--one-whole row">
 
             <div class="product-promotion grey fourth">
               <!-- Assign Product Variables -->

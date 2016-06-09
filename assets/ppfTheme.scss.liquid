@@ -44,30 +44,6 @@
 //----------------------------------------------------------------------------------------------
   /*============================================================================
   #Breakpoint and Grid Variables
-
-  Backup: OOTB implementation
-  ----------------------------------------------------------------------------------------------
-  $viewportIncrement: 1px;
-
-  $small: 480px;
-  $medium: 768px;
-  $large: 769px;
-
-  $postSmall: $small + $viewportIncrement;
-  $preMedium: $medium - $viewportIncrement;
-  $preLarge: $large - $viewportIncrement;
-
-  $breakpoints: (
-    'small' '(max-width: #{$small})',
-    'medium' '(min-width: #{$postSmall}) and (max-width: #{$medium})',
-    'medium-down' '(max-width: #{$medium})',
-    'large' '(min-width: #{$large})'
-  );
-  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large');
-  $breakpoint-has-push:  ('medium', 'medium-down', 'large');
-  $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
-  ----------------------------------------------------------------------------------------------
-
 ==============================================================================*/
   $viewportIncrement            : 1px;
 
@@ -423,6 +399,11 @@ $class-type: unquote(".");
   @if $mobile-first == true {
     width: 100%;
   }
+}
+
+// New - .row test
+.row {
+  padding-bottom                : ($gridGutter / 2);
 }
 
 /*============================================================================
@@ -2851,8 +2832,8 @@ th, td {
   .template-index {
 
     // Grid normalization
-    .bottom-buffer {
-      margin-bottom             : ($gutter / 2);
+    .buffer-bottom {
+      margin-bottom             : ($gridGutter / 2);
     }
 
     // Banner/video area
@@ -2929,20 +2910,23 @@ th, td {
           font-size             : em(19px);
           text-transform        : uppercase;
           @include at-query ($max, $siteWidth) {
-            font-size           : 2.031vw;
+            font-size           : 2vw;
           }
           @include at-query ($max, $medium) {
-            font-size           : 3.995vw;
+            font-size           : 3.75vw;
           }
           @include at-query (null, $medium, $large) {
-            font-size           : 1.995vw;
+            font-size           : 1.75vw;
           }
+        }
+        p {
+          margin-bottom         : 0;
         }
       }
 
     }
     .product-promotion {
-      padding                   : 3.24%;
+      padding                   : ($gridGutter / 2);
       background-repeat         : no-repeat;
       background-position       : 0 0;
       background-size           : 100%;
@@ -2961,7 +2945,7 @@ th, td {
         background-color        : rgb(110, 110, 110);           // ##6E6E6E
       }
       .promotion-data {
-        padding                 : 3.24%;
+        padding                 : ($gridGutter / 2);
         border                  : 4px solid {{ settings.color_body_bg }};
       }
     }
@@ -2972,8 +2956,7 @@ th, td {
         &:hover,
         &:focus,
         &:active {
-          .overlay,
-          .link-text {
+          .overlay {
             display             : block;
           }
         }
@@ -2990,13 +2973,23 @@ th, td {
         }
         .link-text {
           z-index               : 5;
+          /*
           position              : absolute;
           top                   : 50%;
           -webkit-transform     : translateY(-50%);
           -ms-transform         : translateY(-50%);
           transform             : translateY(-50%);
+          */
+          display               : table;
+          width                 : 100%;
+          height                : 100%;
           h2 {
+            display             : table-cell;
             margin-bottom       : 0;
+            padding             : 0 25%;
+            text-align          : center;
+            vertical-align      : middle;
+            width               : 100%;
           }
         }
       }
