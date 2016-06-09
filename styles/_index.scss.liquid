@@ -14,6 +14,15 @@
   .template-index {
 
     // Grid normalization
+    /*
+    .grid__item {
+      display                   : flex;
+      align-items               : stretch;
+      .grid__item {
+        display                 : initial;
+      }
+    }
+    */
     .buffer-bottom {
       margin-bottom             : ($gridGutter / 2);
     }
@@ -132,6 +141,13 @@
       }
     }
     .page-link {
+
+      // For using the images as backgrounds, for more consistent alignment across viewport sizes
+      background-color          : transparent;
+      background-repeat         : no-repeat;
+      background-position       : 0 0;
+      background-size           : cover;
+
       .link-data {
         z-index                 : 1;
         position                : relative;
@@ -149,7 +165,7 @@
           position              : absolute;
           top                   : 0;
           right                 : 0;
-          bottom                : 4px;                          // TODO: Figure out why this is needed
+          bottom                : 0;
           left                  : 0;
           background-color      : rgba(0, 0, 0, 0.4);
         }

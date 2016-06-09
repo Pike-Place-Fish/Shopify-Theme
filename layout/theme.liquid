@@ -189,7 +189,7 @@
 
 
           </div>
-          <div class="grid__item large--three-quarters large--text-right medium-down--hide">
+          <div class="grid__item medium--three-quarters medium--text-right medium-down--hide">
             {% comment %}
               Show number of items in the cart and total cost in the /cart link
 
@@ -247,7 +247,7 @@
 
     <nav class="nav-bar" role="navigation">
       <div class="wrapper">
-        <div class="medium--hide medium-down--hide text-center">
+        <div class="large--show medium--hide medium-down--hide text-center">
           {% comment %}
             List out your main-menu linklist (default)
 
@@ -280,7 +280,7 @@
                 </li>
               {% else %}
                 <li {% if link.active %}class="site-nav--active"{% endif %}>
-                  <a href="{{ link.url }}" class="site-nav__link{% if link.url == '/' %} logotype{% endif %}">{{ link.title }}</a>
+                  <a href="{{ link.url }}" class="site-nav__link{% if link.url == '/' %} logotype{% endif %}">{{ link.title }}</a><!-- {{ link.title | handleize }} -->
                 </li>
               {% endif %}
             {% endfor %}
@@ -289,13 +289,23 @@
         </div>
         <div class="large--hide medium--show medium-down--show">
           <div class="grid">
-            <div class="grid__item one-half">
+            <div class="grid__item one-whole mobile-navbar">
+
+              <!-- Hamburger Menu -->
               <div class="site-nav--mobile">
                 <button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false">
                   <span class="icon icon-hamburger" aria-hidden="true"></span>
                   <span class="fallback-text">{{ 'layout.navigation.menu' | t }}</span>
                 </button>
               </div>
+              <!-- /Hamburger Menu -->
+
+              <!-- Logotype Home Link -->
+              <div class="home-link">
+                <h1><a href="/" class="logotype">Pike Place Fish Market</a></h1>
+              </div>
+              <!-- /Logotype Home Link -->
+
             </div>
             <div class="grid__item medium--hide medium-down--hide one-half text-right">
               <div class="site-nav--mobile">
