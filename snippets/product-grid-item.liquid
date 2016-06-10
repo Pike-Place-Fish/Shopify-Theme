@@ -37,7 +37,7 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="grid__item {{ grid_item_width }}">
+<div class="grid__item {{ grid_item_width }} product-item">
 
   {% comment %}
     Link to your product with the 'within: collection' filter for the link to be aware of the collection.
@@ -51,41 +51,41 @@
       - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
 
   {% endcomment %}
-  <a href="{{ product.url | within: collection }}" class="grid__image">
-    <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
-  </a>
 
-  <p class="h6">
-    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-  </p>
-  <p>
-    {% comment %}
-      You can show a leading 'from' or 'up to' by checking 'product.price_varies'
-      if your variants have different prices.
-    {% endcomment %}
-    {% if on_sale %}
-      {% if product.price_varies %}
-        {% assign sale_price = product.price | money %}
-        {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+  <a href="{{ product.url | within: collection }}" class="grid__image product">
+    <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+    <p class="h6">{{ product.title }}</p>
+
+    <p>
+      {% comment %}
+        You can show a leading 'from' or 'up to' by checking 'product.price_varies'
+        if your variants have different prices.
+      {% endcomment %}
+      {% if on_sale %}
+        {% if product.price_varies %}
+          {% assign sale_price = product.price | money %}
+          {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+        {% else %}
+          <strong>{{ 'products.product.on_sale' | t }}</strong>
+          {{ product.price | money }}
+        {% endif %}
       {% else %}
-        <strong>{{ 'products.product.on_sale' | t }}</strong>
-        {{ product.price | money }}
+        {% if product.price_varies %}
+          {% assign price = product.price | money %}
+          {{ 'products.general.from_text_html' | t: price: price }}
+        {% else %}
+          {{ product.price | money }}
+        {% endif %}
       {% endif %}
-    {% else %}
-      {% if product.price_varies %}
-        {% assign price = product.price | money %}
-        {{ 'products.general.from_text_html' | t: price: price }}
-      {% else %}
-        {{ product.price | money }}
+      {% if sold_out %}
+        <br><strong>{{ 'products.product.sold_out' | t }}</strong>
       {% endif %}
-    {% endif %}
-    {% if sold_out %}
-      <br><strong>{{ 'products.product.sold_out' | t }}</strong>
-    {% endif %}
-    {% if on_sale %}
-      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-      <br><s>{{ product.compare_at_price | money }}</s>
-    {% endif %}
-  </p>
+      {% if on_sale %}
+        <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+        <br><s>{{ product.compare_at_price | money }}</s>
+      {% endif %}
+    </p>
+
+  </a>
 
 </div>

@@ -3112,6 +3112,7 @@ ul.collection-filters {
 
     // Filters (Tags), Sort
     [class*="section-header"] {
+      margin                    : $gutter 0 ($gutter * 2);
       vertical-align            : top;
     }
     label[for="SortBy"] {
@@ -3122,6 +3123,17 @@ ul.collection-filters {
       text-transform            : uppercase;
       letter-spacing            : 0.055em;
       background-color          : {{ settings.color_body_bg }};
+    }
+
+    // Collection Items
+    .product-item {
+      height                    : 438px;
+      p,
+      p a {
+        font-family             : 'Eagle Book', $bodyFontStack;
+        color                   : {{ settings.color_body_text }};
+        text-transform          : none;
+      }
     }
 
   }
