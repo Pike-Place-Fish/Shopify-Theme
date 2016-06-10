@@ -646,7 +646,8 @@ th, td {
   #Site Nav and Dropdowns
 ==============================================================================*/
 .nav-bar {
-  // background-color: $colorNav;
+  padding                       : ($gutter / 2) 0 $gutter;
+  background-color              : {{ settings.color_body_bg }}; // Was $colorNav;
 }
 
 .site-nav {
@@ -1136,6 +1137,19 @@ th, td {
 /*============================================================================
   #Collection Filters
 ==============================================================================*/
+// New
+ul.collection-filters {
+  li {
+    display                     : inline-block;
+    margin                      : ($gutter / 2) ($gutter / 2) 0 0;
+    padding                     : ($gutter / 2) $gutter;
+    background                  : {{ settings.color_body_bg }};
+    a {
+      color                     : rgb(151, 151, 151);           // #979797
+      text-transform            : uppercase;
+    }
+  }
+}
 .filter--active {
   font-weight: bold;
 }
