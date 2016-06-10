@@ -2339,7 +2339,7 @@ th, td {
   -webkit-overflow-scrolling: touch;
   top: 0;
   bottom: 0;
-  padding: 0 ($gutter / 2) ($gutter / 2);
+  padding                       : 0 0 ($gutter / 2);            // Was 0 ($gutter / 2) ($gutter / 2);
   max-width: 95%;
   z-index: $zindexDrawer;
   color: $colorDrawerText;
@@ -2535,13 +2535,22 @@ ul.collection-filters {
     padding                     : ($gutter / 2) $gutter;
     background                  : {{ settings.color_body_bg }};
     a {
+      font-family               : 'Eagle Book', $bodyFontStack;
       color                     : rgb(151, 151, 151);           // #979797
       text-transform            : uppercase;
+    }
+    &.filter--active {
+      a {
+        color                   : {{ settings.color_primary }};
+      }
     }
   }
 }
 .filter--active {
-  font-weight: bold;
+//font-weight: bold;
+  a {
+    color                       : {{ settings.color_primary }};
+  }
 }
 
 /*============================================================================
@@ -3096,11 +3105,24 @@ ul.collection-filters {
 //----------------------------------------------------------------------------------------------
   .template-collection {
 
+    // Content Area
     #PageContainer {
       background-color          : {{ settings.color_body_bg_accent }};
     }
 
-
+    // Filters (Tags), Sort
+    [class*="section-header"] {
+      vertical-align            : top;
+    }
+    label[for="SortBy"] {
+      text-transform            : uppercase;
+    }
+    select,
+    select option {
+      text-transform            : uppercase;
+      letter-spacing            : 0.055em;
+      background-color          : {{ settings.color_body_bg }};
+    }
 
   }
 
