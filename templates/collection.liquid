@@ -14,7 +14,12 @@
   Use .grid--rev so that the collection tags appear below the products on mobile
 {% endcomment %}
 <div class="grid--rev">
-  <div class="grid__item large--three-quarters">
+
+  <div class="grid__item one-whole">
+    <!-- Previous filters placement -->
+  </div>
+
+  <div class="grid__item one-whole">
 
     {% comment %}
       Different markup if a collection description exists
@@ -34,10 +39,16 @@
       </div>
     {% else %}
       <header class="section-header">
-        <h1 class="section-header__title section-header__left">{{ collection.title }}</h1>
+        <!-- <h1 class="section-header__title section-header__left">{{ collection.title }}</h1> -->
+
+        <div class="section-header__left">
+          {% include 'collection-sidebar' %}
+        </div>
+
         <div class="section-header__right">
           {% include 'collection-sorting' %}
         </div>
+
       </header>
     {% endif %}
 
@@ -92,9 +103,6 @@
 
   </div>
 
-  <div class="grid__item large--one-quarter">
-    {% include 'collection-sidebar' %}
-  </div>
 </div>
 
 {% endpaginate %}
