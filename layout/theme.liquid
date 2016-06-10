@@ -95,7 +95,7 @@
             </ul>
           </li>
         {% else %}
-          <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}">
+          <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}{% if link.url == '/' %} hide{% endif %}">
             <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
           </li>
         {% endif %}
