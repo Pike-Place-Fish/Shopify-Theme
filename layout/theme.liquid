@@ -53,7 +53,7 @@
 
   <div id="NavDrawer" class="drawer drawer--left">
     <div class="drawer__header">
-      <div class="drawer__title h3">{{ 'layout.drawers.browse' | t }}</div>
+      <div class="drawer__title h3 hide">{{ 'layout.drawers.browse' | t }}</div>
       <div class="drawer__close js-drawer-close">
         <button type="button" class="icon-fallback-text">
           <span class="icon icon-x" aria-hidden="true"></span>
@@ -63,9 +63,6 @@
     </div>
     <!-- begin mobile-nav -->
     <ul class="mobile-nav">
-      <li class="mobile-nav__item mobile-nav__search">
-        {% include 'search-bar' %}
-      </li>
       {% for link in linklists.main-menu.links %}
         {% comment %}
           Create a dropdown menu by naming a linklist the same as a link in the parent nav
@@ -129,6 +126,11 @@
           </li>
         {% endif %}
       {% endif %}
+
+      <li class="mobile-nav__item mobile-nav__search">
+        {% include 'search-bar' %}
+      </li>
+
     </ul>
     <!-- //mobile-nav -->
   </div>

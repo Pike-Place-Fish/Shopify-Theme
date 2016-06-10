@@ -124,7 +124,7 @@ $successGreenBg: #ecfef0;
 // Drawers
 $drawerNavWidth: 300px;
 $drawerCartWidth: 300px;
-$colorDrawers: #f6f6f6;
+$colorDrawers                   : rgb(245, 245, 245);           // Was #f6f6f6;
 $colorDrawerBorder: darken($colorDrawers, 5%);
 $colorDrawerText: #333;
 $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
@@ -1970,7 +1970,7 @@ th, td {
   position                      : relative;
   bottom                        : 8px;
   margin-right                  : 16px;
-  font-family                   : 'Cabin Bold', 'Cabin Book', $bodyFontStack;  // Note: create variable
+  font-family                   : 'Cabin Bold', $bodyFontStack;  // Note: create variable
   font-size                     : em(12px);
   color                         : rgb(12, 12, 12);              // #0C0C0C
   text-transform                : uppercase;
@@ -1984,10 +1984,10 @@ th, td {
 
   // New
   input[type="search"] {
-    margin-right                : 6px;
+    margin-right                : 8px;
     border-width                : 0 0 1px 0;
     border-color                : {{ settings.color_primary }};
-    padding                     : 0 3px;
+    padding                     : 0 2px;
     height                      : 24px;
     font-size                   : em(12px);
     background-color            : transparent;
@@ -2202,6 +2202,9 @@ th, td {
   position: relative;
   display: block;
 
+  // New
+  padding                       : 5%;
+
   // Background color on top level items so there is no
   // element overlap on subnav's CSS toggle animation
   .mobile-nav > & {
@@ -2214,17 +2217,17 @@ th, td {
     bottom: 0;
     left: $gutter / 2;
     right: $gutter / 2;
-    border-bottom: 1px solid $colorDrawerBorder;
+  //border-bottom: 1px solid $colorDrawerBorder;
   }
 
   .mobile-nav > &:last-child:after {
     display: none;
   }
 }
-
-// Login/logout links can't have a class on them, so style <a> element
-.mobile-nav__item a {
-  display: block;
+.mobile-nav__item:nth-child(odd) {
+  .mobile-nav > & {
+    background-color            : {{ settings.color_body_bg }};
+  }
 }
 
 .mobile-nav__item a,
@@ -2245,8 +2248,21 @@ th, td {
   }
 }
 
+// Login/logout links can't have a class on them, so style <a> element
+.mobile-nav__item a {
+  display: block;
+  font-family                   : 'Eagle Book', $bodyFontStack;
+  font-size                     : em(14px);
+  text-transform                : uppercase;
+  &:hover,
+  &:active,
+  &:focus {
+    color                       : {{ settings.color_secondary }}; // Was darken($colorDrawerText, 15%);
+  }
+}
+
 .mobile-nav__item--active {
-  font-weight: bold;
+  // font-weight: bold;
 }
 
 .mobile-nav__has-sublist {
@@ -2410,8 +2426,9 @@ th, td {
 }
 
 .drawer__close {
+  padding-right                 : 5%;                           // New
   width: 1%;
-  text-align: center;
+  text-align                    : right;                        // Was center;
   font-size: em(18px);
 }
 
