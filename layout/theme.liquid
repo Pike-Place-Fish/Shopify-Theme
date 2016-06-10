@@ -95,9 +95,11 @@
             </ul>
           </li>
         {% else %}
-          <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}{% if link.url == '/' %} hide{% endif %}">
+          {% unless link.url == '/' %}
+          <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}">
             <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
           </li>
+          {% endunless %}
         {% endif %}
       {% endfor %}
 
@@ -126,6 +128,29 @@
           </li>
         {% endif %}
       {% endif %}
+
+      {% comment %}
+        Show number of items in the cart and total cost in the /cart link
+
+        Ajax Cart Notes:
+          - #cartCount updates the total number of items in the cart
+          - #cartCost updates the total cost of the cart
+          - Documentation:  http://shopify.com/timber#ajax-cart
+      {% endcomment %}
+      <li class="mobile-nav__item menu-cart medium--hide medium-down--show">
+        <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+          <span class="icon icon-cart" aria-hidden="true"></span>
+          {{ 'layout.cart.title' | t }}
+          (<span id="CartCount">{{ cart.item_count }}</span>)
+          {% comment %}
+            ### NOTE KLT060316: Commented out, per design
+          {% endcomment %}
+          <!--
+          {{ 'layout.cart.items_count' | t: count: cart.item_count }}
+          <span id="CartCost">{{ cart.total_price | money }}</span>)
+          -->
+        </a>
+      </li>
 
       <li class="mobile-nav__item mobile-nav__search">
         {% include 'search-bar' %}
