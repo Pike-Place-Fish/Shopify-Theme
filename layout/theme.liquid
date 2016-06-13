@@ -489,5 +489,23 @@
     </script>
   {% endif %}
 
+  <!-- Common Page Scripts -->
+  <script>
+    /**
+      * Document ready functionality
+      */
+    $(function() {
+
+      $('site-header__search button[type="submit"]').on('click', function(e) {
+
+        // Prevent default search click
+        e.preventDefault();
+
+      });
+
+    });
+  </script>
+  <!-- /Common Page Scripts -->
+
 </body>
 </html>

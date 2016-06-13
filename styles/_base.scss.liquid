@@ -534,6 +534,24 @@ th, td {
     }
   }
 
+  // Expandable Search (New)
+  .site-header__search {
+    input[type="search"] {
+      padding                   : 0;
+      width                     : 0;
+      -webkit-transition        : all .5s;
+      -moz-transition           : all .5s;
+      transition                : all .5s;
+    }
+    &:focus {
+      input[type="search"] {
+        padding                 : 0 2px;
+        width                   : auto;
+      }
+    }
+
+  }
+
 }
 
 .site-header__logo {
@@ -571,9 +589,9 @@ th, td {
 
 .site-header__search {
   display: inline-block;
-  max-width: 207px;             // Was 400px
+  max-width                     : 207px;                        // Was 400px
   margin-top: $gutter / 2;
-  width: 100%;
+  width                         : auto;                         // Was 100%
 }
 
 // Ancillary Nav Links (New)
