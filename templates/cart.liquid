@@ -23,17 +23,6 @@
           <tr class="cart__row table__section">
             <td data-label="{{ 'customer.order.product' | t }}">
 
-
-              {% comment %}
-                Test of InfiniteOptions item properties
-              {% endcomment %}
-
-              {% for p in item.properties %}
-                {% unless p.last == blank %}
-                  <br /><i>{{p.first}}</i>: {{ p.last }}
-                {% endunless %}
-              {% endfor %}
-
               <a href="{{ item.url | within: collections.all }}" class="cart__image">
                 {% comment %}
                   More image size options at:
@@ -41,6 +30,16 @@
                 {% endcomment %}
                 <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
               </a>
+
+              {% comment %}
+                Custom InfiniteOptions implementation
+              {% endcomment %}
+              {% for p in item.properties %}
+                {% unless p.last == blank %}
+                  <br /><i>{{p.first}}</i>: {{ p.last }}
+                {% endunless %}
+              {% endfor %}
+
             </td>
             <td>
               <a href="{{ item.url }}" class="h4">

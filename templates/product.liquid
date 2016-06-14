@@ -50,6 +50,11 @@
 
       <h1 itemprop="name">{{ product.title }}</h1>
 
+      {% comment %}
+        Custom InfiniteOptions implementation
+      {% endcomment %}
+      <div id="infiniteoptions-container" class="product-custom-options"></div>
+
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
 
@@ -111,11 +116,6 @@
         </form>
 
       </div>
-
-      {% comment %}
-        Custom InfiniteOptions implementation
-      {% endcomment %}
-      <div id="infiniteoptions-container"></div>
 
       <div class="product-description rte" itemprop="description">
         {{ product.description }}
