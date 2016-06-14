@@ -123,9 +123,15 @@
           <li class="mobile-nav__item">
             {{ 'layout.customer.log_in' | t | customer_login_link }}
           </li>
+
+          {% comment %}
+            ### NOTE KLT060316: Commented out as account creation is available from sign-in page
+          {% endcomment %}
+          <!--
           <li class="mobile-nav__item">
             {{ 'layout.customer.create_account' | t | customer_register_link }}
           </li>
+          -->
         {% endif %}
       {% endif %}
 
@@ -173,7 +179,7 @@
       <div id="CartContainer"></div>
     </div>
   {% endif %}
-  <div id="PageContainer" class="is-moved-by-drawer">
+  <div id="PageContainer" class="is-moved-by-drawer page-containerX">
     <header class="site-header" role="banner">
 
       <div class="wrapper">
