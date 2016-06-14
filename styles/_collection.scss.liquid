@@ -39,9 +39,17 @@
       height                    : 438px;
       p,
       p a {
+        margin-bottom           : 0;
         font-family             : 'Eagle Book', $bodyFontStack;
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
+      }
+      .product-metadata {
+        padding-top             : $gutter;
+        text-align              : center;
+        .price {
+          font-family           : $bodyFontStack;
+        }
       }
     }
 

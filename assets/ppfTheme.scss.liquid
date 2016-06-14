@@ -150,6 +150,8 @@ $headerFontWeight: 700;
 $bodyFontStack                  : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New - Cabin, Open Sans
 $baseFontSize: 14px; // Henceforth known as 1em
 
+$interfaceFontStack             : 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
 @font-face {
   font-family: 'icons';
   src: url('{{ "icons.eot" | asset_url }}');
@@ -1406,6 +1408,15 @@ label.error {
 /*============================================================================
   #Basic Styles
 ==============================================================================*/
+
+// New
+html,
+body {
+   margin                       : 0;
+   padding                      : 0;
+   height                       : 100%;
+}
+
 html {
   background-color: $colorFooterBg;
 }
@@ -1923,6 +1934,24 @@ th, td {
     }
   }
 
+  // Expandable Search (New)
+  .site-header__search {
+    input[type="search"] {
+      padding                   : 0;
+      width                     : 0;
+      -webkit-transition        : all .5s;
+      -moz-transition           : all .5s;
+      transition                : all .5s;
+    }
+    &:focus {
+      input[type="search"] {
+        padding                 : 0 2px;
+        width                   : auto;
+      }
+    }
+
+  }
+
 }
 
 .site-header__logo {
@@ -1960,9 +1989,9 @@ th, td {
 
 .site-header__search {
   display: inline-block;
-  max-width: 207px;             // Was 400px
+  max-width                     : 207px;                        // Was 400px
   margin-top: $gutter / 2;
-  width: 100%;
+  width                         : auto;                         // Was 100%
 }
 
 // Ancillary Nav Links (New)
@@ -3116,6 +3145,7 @@ ul.collection-filters {
       vertical-align            : top;
     }
     label[for="SortBy"] {
+      font-family               : $interfaceFontStack;
       text-transform            : uppercase;
     }
     select,
@@ -3130,9 +3160,17 @@ ul.collection-filters {
       height                    : 438px;
       p,
       p a {
+        margin-bottom           : 0;
         font-family             : 'Eagle Book', $bodyFontStack;
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
+      }
+      .product-metadata {
+        padding-top             : $gutter;
+        text-align              : center;
+        .price {
+          font-family           : $bodyFontStack;
+        }
       }
     }
 
