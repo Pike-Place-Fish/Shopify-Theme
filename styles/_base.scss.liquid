@@ -514,6 +514,10 @@ th, td {
   padding: ($gutter / 2) 0;
   background-color              : rgb(245, 245, 245);           // #F5F5F5 - make variable? New
 
+  @include at-query ($max, $medium) {
+    padding                     : 0;
+  }
+
   .grid--table {
     display: table;
     table-layout: fixed;

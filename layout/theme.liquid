@@ -502,12 +502,19 @@
      * Manage main content body height and site footer placement
      */
     function setMainContentHeight() {
+
       var
         siteHeaderHeight        = jQuery('#PageContainer header.site-header').outerHeight(),
         navbarHeight            = jQuery('#PageContainer nav.nav-bar').outerHeight(),
         footerHeight            = jQuery('#PageContainer footer.site-footer').outerHeight(),
         minContentHeight        = (jQuery('body').height() - siteHeaderHeight - navbarHeight - footerHeight - 29);
+
+      if (jQuery(window).width() < 960) {
+        minContentHeight        = (minContentHeight - 1);
+      }
+
       jQuery('main.main-content').css('min-height', minContentHeight);
+
     };
 
     /**
