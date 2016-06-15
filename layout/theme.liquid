@@ -108,7 +108,7 @@
       {% endcomment %}
       {% if shop.customer_accounts_enabled %}
         {% if customer %}
-          <li class="mobile-nav__item">
+          <li class="mobile-nav__item medium--hide medium-down--show">
             {% if customer.first_name != blank %}
               {% capture first_name %}{{ customer.first_name }}{% endcapture %}
               <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
@@ -116,11 +116,11 @@
               <a href="/account">{{ 'layout.customer.account' | t }}</a>
             {% endif %}
           </li>
-          <li class="mobile-nav__item">
+          <li class="mobile-nav__item medium--hide medium-down--show">
             {{ 'layout.customer.log_out' | t | customer_logout_link }}
           </li>
         {% else %}
-          <li class="mobile-nav__item">
+          <li class="mobile-nav__item medium--hide medium-down--show">
             {{ 'layout.customer.log_in' | t | customer_login_link }}
           </li>
 

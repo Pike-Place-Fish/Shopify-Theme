@@ -1408,15 +1408,6 @@ label.error {
 /*============================================================================
   #Basic Styles
 ==============================================================================*/
-
-// New
-html,
-body {
-   margin                       : 0;
-   padding                      : 0;
-   height                       : 100%;
-}
-
 html {
   background-color: $colorFooterBg;
 }
@@ -2088,7 +2079,17 @@ th, td {
 
 /*================ Home to hamburger and cart that toggle drawers ================*/
 
-// New
+// New - targeting specific element so as not to interfere with cart drawer
+#NavDrawer,
+#NavDrawer .drawer__header {
+  background                    : rgb(45, 45, 45);              // #2D2D2D
+  button {
+    color                       : {{ settings.color_body_bg }};
+  }
+}
+#NavDrawer .drawer__header {
+  border-bottom                 : 1px solid rgb(92, 92, 92);    // #5C5C5C
+}
 .mobile-navbar {
   display                       : table;
   .site-nav--mobile,
@@ -2108,6 +2109,23 @@ th, td {
       font-size                 : 4vw;
       letter-spacing            : 0.85em;
       letter-spacing            : 0.35vw;
+    }
+  }
+  .search-bar {
+    input {
+      ::-webkit-input-placeholder {
+       color                    : darken({{ settings.color_body_bg }}, 5%);
+      }
+      :-moz-placeholder {
+         color                  : darken({{ settings.color_body_bg }}, 5%);
+      }
+      ::-moz-placeholder {
+         color                  : darken({{ settings.color_body_bg }}, 5%);
+      }
+      :-ms-input-placeholder {
+         color                  : darken({{ settings.color_body_bg }}, 5%);
+      }
+
     }
   }
 }
@@ -2232,13 +2250,11 @@ th, td {
   position: relative;
   display: block;
 
-  // New
-  padding                       : 5%;
-
   // Background color on top level items so there is no
   // element overlap on subnav's CSS toggle animation
   .mobile-nav > & {
-    background-color: $colorDrawers;
+    border                      : 1px solid rgb(59, 59, 59);    // #3B3B3B
+    background-color            : rgb(59, 59, 59);              // #3B3B3B - Was $colorDrawers
   }
 
   &:after {
@@ -2253,10 +2269,18 @@ th, td {
   .mobile-nav > &:last-child:after {
     display: none;
   }
+
+  // New
+  .search-bar {
+    margin                      : 0;
+    padding                     : 5%;
+  }
+
 }
 .mobile-nav__item:nth-child(even) {
   .mobile-nav > & {
-    background-color            : {{ settings.color_body_bg }};
+    border-color                : rgb(92, 92, 92);              // #5C5C5C
+    background-color            : rgb(45, 45, 45);              // #2D2D2D
   }
 }
 
@@ -2269,25 +2293,27 @@ th, td {
   &:hover,
   &:active,
   &:focus {
-    color: darken($colorDrawerText, 15%);
+    // color: darken($colorDrawerText, 15%);
   }
 
   &:active,
   &:focus {
-    background-color: darken($colorDrawers, 5%);
+    // background-color: darken($colorDrawers, 5%);
   }
 }
 
 // Login/logout links can't have a class on them, so style <a> element
 .mobile-nav__item a {
   display: block;
+  padding                       : 5%;                           // New
   font-family                   : 'Eagle Book', $bodyFontStack;
   font-size                     : em(14px);
+  color                         : {{ settings.color_body_bg }} !important; // New - needs to be important due to .drawer a override
   text-transform                : uppercase;
   &:hover,
   &:active,
   &:focus {
-    color                       : {{ settings.color_secondary }}; // Was darken($colorDrawerText, 15%);
+    color                       : darken({{ settings.color_body_bg }}, 5%);// Was darken($colorDrawerText, 15%);
   }
 }
 
@@ -2472,7 +2498,7 @@ th, td {
 
   &:active,
   &:focus {
-    background-color: darken($colorDrawers, 5%);
+    // background-color: darken($colorDrawers, 5%);
   }
 }
 
@@ -2552,6 +2578,14 @@ th, td {
     margin: 0 auto;
   }
 }
+
+.product-custom-options {
+  textarea {
+    display                     : block;
+    width                       : 100%;
+  }
+}
+
 
 /*============================================================================
   #Collection Filters
