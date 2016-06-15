@@ -68,7 +68,7 @@
       "savings_html": "You're saving {{ price }}"
     },
     "label": {
-      "product": "Product",
+      "product": "Item",
       "price": "Price",
       "quantity": "Quantity",
       "total": "Total"
