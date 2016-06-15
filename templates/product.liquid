@@ -51,6 +51,13 @@
       <h1 itemprop="name">{{ product.title }}</h1>
 
       {% comment %}
+        ### NOTE KLT061516: Moved product description to top of view
+      {% endcomment %}
+      <div class="product-description rte" itemprop="description">
+        {{ product.description }}
+      </div>
+
+      {% comment %}
         Custom InfiniteOptions implementation
       {% endcomment %}
       <div id="infiniteoptions-container" class="product-custom-options"></div>
@@ -95,30 +102,47 @@
             {% endfor %}
           </select>
 
-          <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-          <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
-            {{ current_variant.price | money }}
-          </span>
+          {% comment %}
+            ### NOTE KLT061516: Added a "unit-price" containing div, for formatting
+          {% endcomment %}
+          <div class="unit-price">
 
-          {% if product.compare_at_price_max > product.price %}
-            <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-            <p id="ComparePrice">
-              {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
-            </p>
-          {% endif %}
+            <span class="visually-hiddenX price-label">{{ 'products.general.regular_price' | t }}</span>
+            <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
+              {{ current_variant.price | money }}
+            </span>
 
-          <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
-          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+            {% if product.compare_at_price_max > product.price %}
+              <span class="visually-hiddenX price-label">{{ 'products.general.sale_price' | t }}</span>
+              <p id="ComparePrice">
+                {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
+              </p>
+            {% endif %}
 
-          <button type="submit" name="add" id="AddToCart" class="btn">
-            <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
-          </button>
+          </div>
+
+          {% comment %}
+            ### NOTE KLT061516: Added a "selector-wrapper" containing div, for formatting
+          {% endcomment %}
+          <div class="selector-wrapper">
+            <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
+            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+          </div>
+
+          {% comment %}
+            ### NOTE KLT061516: Added a "selector-wrapper" containing div and button label, for formatting
+          {% endcomment %}
+          <div class="selector-wrapper">
+            <label for="add" class="visually-hidden">Add</label>
+            <span>
+              <button type="submit" name="add" id="AddToCart" class="btn">
+                <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+              </button>
+            </span>
+          </div>
+
         </form>
 
-      </div>
-
-      <div class="product-description rte" itemprop="description">
-        {{ product.description }}
       </div>
 
       {% comment %}

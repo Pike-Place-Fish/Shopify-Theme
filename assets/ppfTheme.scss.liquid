@@ -1257,6 +1257,13 @@ input[type="image"] {
   padding-right: 0;
 }
 
+// New
+input[type="text"],
+input[type="number"],
+.js-qty input[class*="js-qty__num"] {
+  background-color              : {{ settings.color_body_bg }};
+}
+
 select {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -1266,7 +1273,8 @@ select {
     image: url('{{ "ico-select.svg" | asset_url }}');
     repeat: no-repeat;
     position: right 10px center;
-    color: transparent;
+    color                       : {{ settings.color_body_bg }}; // Was transparent
+
   }
   padding-right: 28px;
   text-indent: 0.01px;
@@ -3238,6 +3246,46 @@ ul.collection-filters {
 
       h1[itemprop="name"] {
         font-size               : em(28px);
+      }
+
+      .product-description {
+        p {
+          margin-bottom         : $gutter;
+        }
+      }
+
+      // InifiteOptions and product form
+      select,
+      button[type="submit"] {
+        width                   : 100%;
+      }
+      div.product-custom-options {
+        margin                  : ($gutter * 2) 0;
+      }
+      .product-custom-options > div,
+      div.selector-wrapper,
+      div.unit-price {
+        display                 : table;
+        margin-bottom           : $gutter;
+        width                   : 100%;
+        label,
+        label ~ span,
+        > span.price-label,
+        span ~ span {
+          display               : table-cell;
+          vertical-align        : top;
+        }
+        label,
+        span.price-label {
+          padding-top           : ($gutter / 2);
+          padding-right         : ($gutter * 1.5);
+          width                 : 30%;
+          text-align            : right;
+        }
+        label ~ span,
+        span[itemprop="price"] {
+          width                 : 70%;
+        }
       }
 
     }

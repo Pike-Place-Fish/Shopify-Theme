@@ -118,6 +118,13 @@ input[type="image"] {
   padding-right: 0;
 }
 
+// New
+input[type="text"],
+input[type="number"],
+.js-qty input[class*="js-qty__num"] {
+  background-color              : {{ settings.color_body_bg }};
+}
+
 select {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -127,7 +134,8 @@ select {
     image: url('{{ "ico-select.svg" | asset_url }}');
     repeat: no-repeat;
     position: right 10px center;
-    color: transparent;
+    color                       : {{ settings.color_body_bg }}; // Was transparent
+
   }
   padding-right: 28px;
   text-indent: 0.01px;
