@@ -144,13 +144,13 @@ $zindexDrawer: 10;
 // Font Families
 
 
-$headerFontStack                : 'Eagle Bold', 'Eagle Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New - Eagle Bold
+$headerFontStack                : 'Eagle Bold', 'Eagle Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;   // New - Eagle Bold
 $headerFontWeight: 700;
 
 $bodyFontStack                  : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New - Cabin, Open Sans
 $baseFontSize: 14px; // Henceforth known as 1em
 
-$interfaceFontStack             : 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$interfaceFontStack             : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New
 
 @font-face {
   font-family: 'icons';
@@ -781,6 +781,24 @@ $class-type: unquote(".");
   font-weight: 400;
   src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzInF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-honF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
+}
 
 
 //----------------------------------------------------------------------------------------------
@@ -930,7 +948,7 @@ $class-type: unquote(".");
   }
 
   h4 {
-    font-size                   : em(20px);
+    font-size                   : em(18px);                     // Was em(20px)
   }
 
   h5 {
@@ -3282,7 +3300,7 @@ ul.collection-filters {
         }
         label,
         span.price-label {
-          padding-top           : ($gutter / 2);
+          padding-top           : 0.5em;
           padding-right         : ($gutter * 1.5);
           width                 : 30%;
           text-align            : right;
@@ -3294,6 +3312,94 @@ ul.collection-filters {
       }
       span[itemprop="price"] {
         font-size               : em(24.5px);
+      }
+
+    }
+
+  }
+
+  //==============================================================================================
+// CART
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify shopping cart.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-cart {
+
+    // Cart Items Table
+    .cart__row {
+      border-top                : 0 none transparent;
+    }
+
+    .cart-table {
+      border-width              : 0;
+
+      th,
+      td {
+        padding                 : ($gutter * 1.5);
+      }
+
+      .cart__row {
+        &.table__section:nth-child(odd) {
+          background-color      : {{ settings.color_body_bg }};
+          input[type="number"],
+          input[type="text"] {
+            background-color    : {{ settings.color_body_bg_accent }};
+          }
+        }
+      }
+
+      thead th,
+      tbody td .h3.price {
+        font-family             : $interfaceFontStack;
+      }
+
+      thead {
+        th {
+          font-size             : em(12px);
+          font-weight           : 700;
+          text-transform        : uppercase;
+        }
+      }
+
+      tbody {
+        td {
+          &.thumbnail {
+            max-width           : 25%;
+          }
+          &.details {
+          //position            : relative;
+          }
+          &.summary {
+            padding-top         : ($gutter * 5);
+            padding-bottom      : ($gutter * 5);
+            vertical-align      : bottom;
+          }
+          .h4.title {
+          //position            : absolute;
+            top                 : ($gutter * 2);
+            color               : {{ settings.color_body_text }};
+            text-transform      : none;
+          }
+          .h3.price {
+            display             : inline-block;
+            font-size           : em(14px);
+            font-weight         : 600;
+            white-space         : nowrap;
+          }
+          .cart__remove {
+            font-family         : 'Cabin Semibold', $bodyFontStack;
+            color               : rgb(66, 122, 144);            // #427A90
+            text-transform      : uppercase;
+          }
+        }
       }
 
     }
