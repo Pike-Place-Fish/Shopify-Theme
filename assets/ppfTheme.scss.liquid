@@ -1420,6 +1420,11 @@ body {
   outline: none;
 }
 
+// New
+div.page-container {
+  background-color              : {{ settings.color_body_bg_accent }};
+}
+
 .wrapper {
   @include clearfix();
   max-width: $siteWidth;
@@ -1432,9 +1437,9 @@ body {
 }
 
 .main-content {
-  display: block;
-  margin-top: $gutter;
-  padding-bottom: $gutter / 2;  // Was $gutter * 2
+  display                       : block;
+  margin-top                    : ($gutter * 3);                // Was $gutter
+  padding-bottom                : ($gutter * 3);                // Was $gutter * 2
 }
 
 /* ========================================================================================== */
@@ -2972,6 +2977,14 @@ ul.collection-filters {
 //----------------------------------------------------------------------------------------------
   .template-index {
 
+    div.page-container {
+      background-color          : {{ settings.color_body_bg }};
+    }
+    .main-content {
+      margin-top                : $gutter;
+      padding-bottom            : ($gutter / 2);
+    }
+
     // Grid normalization
     /*
     .grid__item {
@@ -3168,11 +3181,6 @@ ul.collection-filters {
 //----------------------------------------------------------------------------------------------
   .template-collection {
 
-    // Content Area
-    #PageContainer {
-      background-color          : {{ settings.color_body_bg_accent }};
-    }
-
     // Filters (Tags), Sort
     [class*="section-header"] {
       margin                    : $gutter 0 ($gutter * 2);
@@ -3206,6 +3214,32 @@ ul.collection-filters {
           font-family           : $bodyFontStack;
         }
       }
+    }
+
+  }
+
+  //==============================================================================================
+// PRODUCT
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify product detail.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-product {
+
+    // Product Details
+    .product-single {
+
+      h1[itemprop="name"] {
+        font-size               : em(28px);
+      }
+
     }
 
   }

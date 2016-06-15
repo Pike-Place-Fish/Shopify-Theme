@@ -29,6 +29,11 @@ body {
   outline: none;
 }
 
+// New
+div.page-container {
+  background-color              : {{ settings.color_body_bg_accent }};
+}
+
 .wrapper {
   @include clearfix();
   max-width: $siteWidth;
@@ -41,9 +46,9 @@ body {
 }
 
 .main-content {
-  display: block;
-  margin-top: $gutter;
-  padding-bottom: $gutter / 2;  // Was $gutter * 2
+  display                       : block;
+  margin-top                    : ($gutter * 3);                // Was $gutter
+  padding-bottom                : ($gutter * 3);                // Was $gutter * 2
 }
 
 /* ========================================================================================== */
