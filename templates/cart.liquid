@@ -9,19 +9,19 @@
 
 {% if cart.item_count > 0 %}
 
-  <h1>{{ 'cart.general.title' | t }}</h1>
+  <h1 class="visually-hidden">{{ 'cart.general.title' | t }}</h1>
   <form action="/cart" method="post" novalidate class="cart table-wrap">
     <table class="cart-table full table--responsive">
       <thead class="cart__row cart__header-labels">
-        <th colspan="2" class="text-center">{{ 'cart.label.product' | t }}</th>
+        <th colspan="2" class="text-left">{{ 'cart.label.product' | t }}</th>
         <th class="text-center">{{ 'cart.label.price' | t }}</th>
         <th class="text-center">{{ 'cart.label.quantity' | t }}</th>
-        <th class="text-right">{{ 'cart.label.total' | t }}</th>
+        <th class="text-center">{{ 'cart.label.total' | t }}</th>
       </thead>
       <tbody>
         {% for item in cart.items %}
           <tr class="cart__row table__section">
-            <td data-label="{{ 'customer.order.product' | t }}">
+            <td data-label="{{ 'customer.order.product' | t }}" class="thumbnail">
 
               <a href="{{ item.url | within: collections.all }}" class="cart__image">
                 {% comment %}
@@ -31,72 +31,85 @@
                 <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
               </a>
 
-              {% comment %}
-                Custom InfiniteOptions implementation
-              {% endcomment %}
-              {% for p in item.properties %}
-                {% unless p.last == blank %}
-                  <br /><i>{{p.first}}</i>: {{ p.last }}
-                {% endunless %}
-              {% endfor %}
-
             </td>
-            <td>
-              <a href="{{ item.url }}" class="h4">
+            <td class="details">
+              <a href="{{ item.url }}" class="h4 title">
                 {{ item.product.title }}
               </a>
-              {% unless item.variant.title contains 'Default' %}
-                <br>
-                <small>{{ item.variant.title }}</small>
-              {% endunless %}
 
               {% if settings.cart_vendor_enable %}
-                <p>{{ item.vendor }}</p>
+                <p class="vendor">{{ item.vendor }}</p>
               {% endif %}
 
               {% comment %}
-                Optional, loop through custom product line items if available
-
-                For more info on line item properties, visit:
-                  - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                ### NOTE KLT061516: Added containing element for variants
               {% endcomment %}
-              {% assign property_size = item.properties | size %}
-              {% if property_size > 0 %}
+              <div class="variants">
+                {% unless item.variant.title contains 'Default' %}
+                  <br>
+                  <small>{{ item.variant.title }}</small>
+                {% endunless %}
+              </div>
+
+              {% comment %}
+                ### NOTE KLT061516: Added containing element for additional properties
+              {% endcomment %}
+              <div class="properties">
+
+                {% comment %}
+                  Custom InfiniteOptions implementation
+                {% endcomment %}
                 {% for p in item.properties %}
                   {% unless p.last == blank %}
-                    {{ p.first }}:
-
-                    {% comment %}
-                      Check if there was an uploaded file associated
-                    {% endcomment %}
-                    {% if p.last contains '/uploads/' %}
-                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                    {% else %}
-                      {{ p.last }}
-                    {% endif %}
-
-                    <br>
+                    <br /><small>{{p.first}}</small>: {{ p.last }}
                   {% endunless %}
                 {% endfor %}
-              {% endif %}
+
+                {% comment %}
+                  Optional, loop through custom product line items if available
+
+                  For more info on line item properties, visit:
+                    - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                {% endcomment %}
+                {% assign property_size = item.properties | size %}
+                {% if property_size > 0 %}
+                  {% for p in item.properties %}
+                    {% unless p.last == blank %}
+                      {{ p.first }}:
+
+                      {% comment %}
+                        Check if there was an uploaded file associated
+                      {% endcomment %}
+                      {% if p.last contains '/uploads/' %}
+                        <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}
+                        {{ p.last }}
+                      {% endif %}
+
+                      <br>
+                    {% endunless %}
+                  {% endfor %}
+                {% endif %}
+
+              </div>
 
               <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
                 <small>{{ 'cart.general.remove' | t }}</small>
               </a>
             </td>
-            <td data-label="{{ 'cart.label.price' | t }}">
-              <span class="h3">
+            <td data-label="{{ 'cart.label.price' | t }}" class="price">
+              <span class="h3 price">
                 {{ item.price | money }}
               </span>
             </td>
-            <td data-label="{{ 'cart.label.quantity' | t }}">
+            <td data-label="{{ 'cart.label.quantity' | t }}" class="quantity">
               <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" min="0">
             </td>
-            <td data-label="{{ 'cart.label.total' | t }}" class="text-right">
+            <td data-label="{{ 'cart.label.total' | t }}" class="text-right total">
               {% if item.original_line_price != item.line_price %}
                 <span class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></span>
               {% endif %}
-              <span class="h3">
+              <span class="h3 price">
                 {{ item.line_price | money }}
               </span>
               {% for discount in item.discounts %}
@@ -105,31 +118,54 @@
             </td>
           </tr>
         {% endfor %}
+
+        {% comment %}
+          ### NOTE KLT061516: Moved total/update information to bottom row of table, for striping
+                              - Everything within the <div /> was previously directly after the table
+        {% endcomment %}
+        <tr class="cart__row table__section">
+          <td colspan="5" class="summary">
+
+            <div class="grid cart__row">
+              {% if settings.cart_notes_enable %}
+                <div class="grid__item two-thirds small--one-whole hide">
+                  <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                </div>
+              {% endif %}
+              {% comment %}
+                ### NOTE KLT061516: Added grid item for shipping note and "Keep Shopping" button
+              {% endcomment %}
+              <div class="grid__item two-thirds small--one-whole">
+
+                {% comment %}
+                  ### TODO KLT061516: There is currently no resource corresponding to this label.
+                {% endcomment %}
+                <a href="/collections/all" class="btn--secondary">Keep Shopping</a>
+
+              </div>
+              <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
+                <p>
+                  <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                  <span class="h3 cart__subtotal">{{ cart.total_price | money }}</span>
+                </p>
+                {% if cart.total_discounts > 0 %}
+                  {% assign savings = cart.total_discounts | money %}
+                  <p>
+                    <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
+                  </p>
+                {% endif %}
+                <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+                <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
+                <input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
+              </div>
+            </div>
+
+          </td>
+        </tr>
+
       </tbody>
     </table>
-    <div class="grid cart__row">
-      {% if settings.cart_notes_enable %}
-        <div class="grid__item two-thirds small--one-whole">
-          <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
-          <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
-        </div>
-      {% endif %}
-      <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
-        <p>
-          <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
-          <span class="h3 cart__subtotal">{{ cart.total_price | money }}</span>
-        </p>
-        {% if cart.total_discounts > 0 %}
-          {% assign savings = cart.total_discounts | money %}
-          <p>
-            <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
-          </p>
-        {% endif %}
-        <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
-        <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
-        <input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
-      </div>
-    </div>
   </form>
 {% else %}
   {% comment %}
