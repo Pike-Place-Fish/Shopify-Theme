@@ -497,16 +497,31 @@
 
   <!-- Common Page Scripts -->
   <script>
+
     /**
-      * Document ready functionality
-      */
-    $(function() {
+     * Manage main content body height and site footer placement
+     */
+    function setMainContentHeight() {
+      var
+        siteHeaderHeight        = jQuery('#PageContainer header.site-header').outerHeight(),
+        navbarHeight            = jQuery('#PageContainer nav.nav-bar').outerHeight(),
+        footerHeight            = jQuery('#PageContainer footer.site-footer').outerHeight(),
+        minContentHeight        = (jQuery('body').height() - siteHeaderHeight - navbarHeight - footerHeight - 29);
+      jQuery('main.main-content').css('min-height', minContentHeight);
+    };
 
+    /**
+     * Document ready functionality
+     */
+    jQuery(function($) {
+
+      // Call load functions
+      setMainContentHeight();
+
+      // Handle expanding search bar interaction
       $('site-header__search button[type="submit"]').on('click', function(e) {
-
         // Prevent default search click
         e.preventDefault();
-
       });
 
     });

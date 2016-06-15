@@ -1417,10 +1417,12 @@ label.error {
   #Basic Styles
 ==============================================================================*/
 html {
+  height                        : 100%; // New
   background-color: $colorFooterBg;
 }
 
 body {
+  min-height                    : 100%; // New
   background-color: $colorBody;
 }
 
@@ -2571,9 +2573,6 @@ th, td {
     }
     @include at-query ($max, $medium) {
       padding-top             : $gutter;
-    }
-    @include at-query ($min, $medium) {
-      top                       : -3px;
     }
   }
 
