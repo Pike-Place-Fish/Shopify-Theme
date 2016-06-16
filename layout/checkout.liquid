@@ -7,9 +7,15 @@
 
     <title>{{ shop.name }} - {{ page_title }}</title>
 
+    <!-- Checkout Head Content Include -->
     {{ content_for_header }}
 
+    <!-- Checkout Stylesheets Include -->
     {{ checkout_stylesheets }}
+
+    {{ 'ppfTheme.scss.css' | asset_url | stylesheet_tag }}
+
+    <!-- Checkout Scripts Include -->
     {{ checkout_scripts }}
   </head>
   <body>
