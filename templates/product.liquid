@@ -57,11 +57,6 @@
         {{ product.description }}
       </div>
 
-      {% comment %}
-        Custom InfiniteOptions implementation
-      {% endcomment %}
-      <div id="infiniteoptions-container" class="product-custom-options"></div>
-
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
 
@@ -71,6 +66,11 @@
           ID addToCartForm is a selector for the ajax cart plugin
         {% endcomment %}
         <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
+
+          {% comment %}
+            Custom InfiniteOptions implementation
+          {% endcomment %}
+          <div id="infiniteoptions-container" class="product-custom-options"></div>
 
           {% comment %}
             Add product variants as a dropdown.
