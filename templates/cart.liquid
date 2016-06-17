@@ -33,70 +33,85 @@
 
             </td>
             <td class="details">
-              <a href="{{ item.url }}" class="h4 title">
-                {{ item.product.title }}
-              </a>
 
-              {% if settings.cart_vendor_enable %}
-                <p class="vendor">{{ item.vendor }}</p>
-              {% endif %}
+              <!-- Product Name (and vendor) -->
+              <div class="title">
+                <a href="{{ item.url }}" class="h4">
+                  <span>{{ item.product.title }}</span>
+                </a>
 
-              {% comment %}
-                ### NOTE KLT061516: Added containing element for variants
-              {% endcomment %}
-              <div class="variants">
-                {% unless item.variant.title contains 'Default' %}
-                  <br>
-                  <small>{{ item.variant.title }}</small>
-                {% endunless %}
+                {% if settings.cart_vendor_enable %}
+                  <p class="vendor">{{ item.vendor }}</p>
+                {% endif %}
               </div>
+              <!-- /Product Name (and vendor) -->
 
-              {% comment %}
-                ### NOTE KLT061516: Added containing element for additional properties
-              {% endcomment %}
-              <div class="properties">
+              <!-- Product Specs (weight, instructions) -->
+              <div class="specifications">
 
                 {% comment %}
-                  Optional, loop through custom product line items if available
-
-                  For more info on line item properties, visit:
-                    - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
-
-                  ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
+                  ### NOTE KLT061516: Added containing element for variants
                 {% endcomment %}
-                {% assign property_size = item.properties | size %}
-                {% if property_size > 0 %}
-                  {% for p in item.properties %}
-                    {% unless p.last == blank %}
+                <div class="variants">
+                  {% unless item.variant.title contains 'Default' %}
+                    <p><small>{{ item.variant.title }}</small></p>
+                  {% endunless %}
+                </div>
 
-                      <p>
-                      {% if p.first contains 'cuttingInstructions' %}
-                        {{ 'cart.general.item_cutting_instructions' | t }}:
-                      {% elsif p.first contains 'specialInstructions' %}
-                        {{ settings.label_special_instructions }}:
-                      {% else %}
-                        {{ p.first }}:
-                      {% endif %}
+                {% comment %}
+                  ### NOTE KLT061516: Added containing element for additional properties
+                {% endcomment %}
+                <div class="properties">
 
-                      {% comment %}
-                        Check if there was an uploaded file associated
-                      {% endcomment %}
-                      {% if p.last contains '/uploads/' %}
-                        <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                      {% else %}
-                        {{ p.last }}
-                      {% endif %}
+                  {% comment %}
+                    Optional, loop through custom product line items if available
 
-                      </p>
-                    {% endunless %}
-                  {% endfor %}
-                {% endif %}
+                    For more info on line item properties, visit:
+                      - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+
+                    ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
+                  {% endcomment %}
+                  {% assign property_size = item.properties | size %}
+                  {% if property_size > 0 %}
+                    {% for p in item.properties %}
+                      {% unless p.last == blank %}
+
+                        <p>
+                        {% if p.first contains 'cuttingInstructions' %}
+                          {{ 'cart.general.item_cutting_instructions' | t }}:
+                        {% elsif p.first contains 'specialInstructions' %}
+                          {{ settings.label_special_instructions }}:
+                        {% else %}
+                          {{ p.first }}:
+                        {% endif %}
+
+                        {% comment %}
+                          Check if there was an uploaded file associated
+                        {% endcomment %}
+                        {% if p.last contains '/uploads/' %}
+                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                        {% else %}
+                          {{ p.last }}
+                        {% endif %}
+
+                        </p>
+                      {% endunless %}
+                    {% endfor %}
+                  {% endif %}
+
+                </div>
 
               </div>
+              <!-- /Product Specs (weight, instructions) -->
 
-              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
-                <small>{{ 'cart.general.remove' | t }}</small>
-              </a>
+              <!-- Product Actions (delete) -->
+              <div class="actions">
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+              </div>
+              <!-- /Product Actions (delete) -->
+
             </td>
             <td data-label="{{ 'cart.label.price' | t }}" class="price">
               <span class="h3 price">
