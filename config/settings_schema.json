@@ -505,6 +505,27 @@
         "default": true
       },
       {
+        "type": "text",
+        "id": "label_cutting_instructions",
+        "label": "Cutting instructions label",
+        "default": "Cutting instructions",
+        "info": "Text label for cutting instructions custom field"
+      },
+      {
+        "type": "text",
+        "id": "label_special_instructions",
+        "label": "Special instructions label",
+        "default": "Special instructions",
+        "info": "Text label for special instructions custom field"
+      },
+      {
+        "type": "text",
+        "id": "label_order_weight",
+        "label": "Order weight label",
+        "default": "Your order weighs",
+        "info": "Text label for order weight"
+      },
+      {
         "type": "header",
         "content": "Blog Content"
       },
