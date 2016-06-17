@@ -506,14 +506,14 @@
       },
       {
         "type": "text",
-        "id": "label_cutting_instructions",
+        "id": "label_cuttingInstructions",
         "label": "Cutting instructions label",
         "default": "Cutting instructions",
         "info": "Text label for cutting instructions custom field"
       },
       {
         "type": "text",
-        "id": "label_special_instructions",
+        "id": "label_specialInstructions",
         "label": "Special instructions label",
         "default": "Special instructions",
         "info": "Text label for special instructions custom field"
@@ -540,6 +540,12 @@
         "type": "blog",
         "id": "product_blog",
         "label": "Select the blog to cross-reference"
+      },
+      {
+        "type": "text",
+        "id": "heading_related_products",
+        "label": "Heading for related products (for recipes)",
+        "default": "Try these for this recipe!",
       }
     ]
   },
