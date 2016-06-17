@@ -49,6 +49,12 @@
         "default": "#e5e5e5"
       },
       {
+        "type": "color",
+        "id": "color_interface_accent",
+        "label": "Used for supplementary/ancillary links, form borders, etc.",
+        "default": "#427a90"
+      },
+      {
         "type": "header",
         "content": "Body"
       },

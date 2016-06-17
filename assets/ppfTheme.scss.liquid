@@ -926,12 +926,17 @@ $class-type: unquote(".");
     font-family                 : $headerFontStack;
     line-height                 : 1.4;
     font-weight                 : $headerFontWeight;
-    text-transform              : uppercase;                    // New
 
     a {
       text-decoration           : none;
       font-weight               : inherit;
     }
+  }
+
+  // New
+  h1,
+  h2 {
+    text-transform              : uppercase;
   }
 
   // Note: headings use em() Sass function to declare font-size
@@ -1288,7 +1293,7 @@ input[type="number"],
     .field__input {
       box-shadow                : none;
       &:focus {
-        box-shadow              : 0 0 1px rgb(66, 122, 144);    // #427A90
+        box-shadow              : 0 0 1px {{ settings.color_interface_accent }};
       }
     }
   }
@@ -3329,6 +3334,21 @@ ul.collection-filters {
         font-size               : em(24.5px);
       }
 
+      // Related articles
+      .related-recipes {
+        margin-top              : ($gutter * 2);
+        ul {
+          list-style            : none;
+          margin-left           : ($gutter / 5);
+          li {
+            a {
+              font-family       : 'Cabin Semibold', $bodyFontStack;
+              color             : {{ settings.color_interface_accent }};
+            }
+          }
+        }
+      }
+
     }
 
   }
@@ -3411,7 +3431,7 @@ ul.collection-filters {
           }
           .cart__remove {
             font-family         : 'Cabin Semibold', $bodyFontStack;
-            color               : rgb(66, 122, 144);            // #427A90
+            color               : {{ settings.color_interface_accent }};
             text-transform      : uppercase;
           }
         }

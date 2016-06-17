@@ -70,12 +70,17 @@
     font-family                 : $headerFontStack;
     line-height                 : 1.4;
     font-weight                 : $headerFontWeight;
-    text-transform              : uppercase;                    // New
 
     a {
       text-decoration           : none;
       font-weight               : inherit;
     }
+  }
+
+  // New
+  h1,
+  h2 {
+    text-transform              : uppercase;
   }
 
   // Note: headings use em() Sass function to declare font-size
