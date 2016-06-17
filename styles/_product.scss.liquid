@@ -65,6 +65,21 @@
         font-size               : em(24.5px);
       }
 
+      // Related articles
+      .related-recipes {
+        margin-top              : ($gutter * 2);
+        ul {
+          list-style            : none;
+          margin-left           : ($gutter / 5);
+          li {
+            a {
+              font-family       : 'Cabin Semibold', $bodyFontStack;
+              color             : {{ settings.color_interface_accent }};
+            }
+          }
+        }
+      }
+
     }
 
   }
