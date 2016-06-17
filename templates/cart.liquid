@@ -57,25 +57,26 @@
               <div class="properties">
 
                 {% comment %}
-                  Custom InfiniteOptions implementation
-                {% endcomment %}
-                {% for p in item.properties %}
-                  {% unless p.last == blank %}
-                    <br /><small>{{p.first}}</small>: {{ p.last }}
-                  {% endunless %}
-                {% endfor %}
-
-                {% comment %}
                   Optional, loop through custom product line items if available
 
                   For more info on line item properties, visit:
                     - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+
+                  ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
                 {% endcomment %}
                 {% assign property_size = item.properties | size %}
                 {% if property_size > 0 %}
                   {% for p in item.properties %}
                     {% unless p.last == blank %}
-                      {{ p.first }}:
+
+                      <p>
+                      {% if p.first contains 'cuttingInstructions' %}
+                        {{ 'cart.general.item_cutting_instructions' | t }}:
+                      {% elsif p.first contains 'specialInstructions' %}
+                        {{ settings.label_special_instructions }}:
+                      {% else %}
+                        {{ p.first }}:
+                      {% endif %}
 
                       {% comment %}
                         Check if there was an uploaded file associated
@@ -86,7 +87,7 @@
                         {{ p.last }}
                       {% endif %}
 
-                      <br>
+                      </p>
                     {% endunless %}
                   {% endfor %}
                 {% endif %}
@@ -137,6 +138,9 @@
                 ### NOTE KLT061516: Added grid item for shipping note and "Keep Shopping" button
               {% endcomment %}
               <div class="grid__item two-thirds small--one-whole">
+
+                <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: weight: weight }}</h3>
+                <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
 
                 {% comment %}
                   ### TODO KLT061516: There is currently no resource corresponding to this label.
