@@ -1282,6 +1282,21 @@ input[type="number"],
   background-color              : {{ settings.color_body_bg }};
 }
 
+// New - Checkout Elements
+.boxshadow {
+  .main {
+    .field__input {
+      box-shadow                : none;
+      &:focus {
+        box-shadow              : 0 0 1px rgb(66, 122, 144);    // #427A90
+      }
+    }
+  }
+}
+.field__input {
+  border-radius                 : 0;
+}
+
 select {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -3420,6 +3435,21 @@ ul.collection-filters {
 // VIEW
 //----------------------------------------------------------------------------------------------
   .template-checkout {
+
+    // Order Summary
+    .order-summary-toggle {
+      border                    : 0 none transparent;
+      border-radius             : 0;
+    }
+    .order-summary {
+      table {
+        th,
+        td {
+          border                : 0 none transparent;
+        }
+
+      }
+    }
 
   }
 
