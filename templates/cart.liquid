@@ -14,9 +14,9 @@
     <table class="cart-table full table--responsive">
       <thead class="cart__row cart__header-labels">
         <th colspan="2" class="text-left">{{ 'cart.label.product' | t }}</th>
-        <th class="text-center">{{ 'cart.label.price' | t }}</th>
+        <th class="text-left">{{ 'cart.label.price' | t }}</th>
         <th class="text-center">{{ 'cart.label.quantity' | t }}</th>
-        <th class="text-center">{{ 'cart.label.total' | t }}</th>
+        <th class="text-right">{{ 'cart.label.total' | t }}</th>
       </thead>
       <tbody>
         {% for item in cart.items %}
@@ -80,7 +80,7 @@
                         {% if p.first contains 'cuttingInstructions' %}
                           {{ 'cart.general.item_cutting_instructions' | t }}:
                         {% elsif p.first contains 'specialInstructions' %}
-                          {{ settings.label_special_instructions }}:
+                          {{ 'cart.general.item_special_instructions' | t }}:
                         {% else %}
                           {{ p.first }}:
                         {% endif %}
@@ -106,6 +106,9 @@
 
               <!-- Product Actions (delete) -->
               <div class="actions">
+                <a href="{{ item.url }}" class="cart__edit">
+                  <small>{{ 'cart.general.edit' | t }}</small>
+                </a>
                 <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
                   <small>{{ 'cart.general.remove' | t }}</small>
                 </a>
@@ -118,7 +121,7 @@
                 {{ item.price | money }}
               </span>
             </td>
-            <td data-label="{{ 'cart.label.quantity' | t }}" class="quantity">
+            <td data-label="{{ 'cart.label.quantity' | t }}" class="text-center quantity">
               <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" min="0">
             </td>
             <td data-label="{{ 'cart.label.total' | t }}" class="text-right total">
@@ -165,8 +168,8 @@
               </div>
               <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
                 <p>
-                  <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
-                  <span class="h3 cart__subtotal">{{ cart.total_price | money }}</span>
+                  <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}: </span>
+                  <span class="h4 cart__subtotal">{{ cart.total_price | money }}</span>
                 </p>
                 {% if cart.total_discounts > 0 %}
                   {% assign savings = cart.total_discounts | money %}

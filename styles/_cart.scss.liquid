@@ -13,6 +13,11 @@
 //----------------------------------------------------------------------------------------------
   .template-cart {
 
+    // Page Chrome
+    div.page-container {
+      background-color          : {{ settings.color_body_bg }};
+    }
+
     // Cart Items Table
     .cart__row {
       border-top                : 0 none transparent;
@@ -21,19 +26,17 @@
     .cart-table {
       border-width              : 0;
 
-      th,
-      td {
-        padding                 : ($gutter * 1.5);
-      }
-
-      .cart__row {
-        &.table__section:nth-child(odd) {
+      .cart__row.table__section {
+        /*
+        border-bottom           : 2px solid {{ settings.color_body_bg_accent }};
+        &:nth-child(odd) {
           background-color      : {{ settings.color_body_bg }};
           input[type="number"],
           input[type="text"] {
             background-color    : {{ settings.color_body_bg_accent }};
           }
         }
+        */
       }
 
       thead th,
@@ -43,19 +46,45 @@
 
       thead {
         th {
+          padding               : ($gutter * 1.5);
           font-size             : em(12px);
           font-weight           : 700;
           text-transform        : uppercase;
+          background-color      : {{ settings.color_body_bg_accent }};
         }
       }
 
       tbody {
         td {
+          padding               : ($gutter * 2) ($gutter * 1.5);
+          &.thumbnail,
+          &.price,
+          &.quantity,
+          &.total {
+            @include at-query($min, 1024px) {
+              max-width         : 12.5%;
+            }
+          }
           &.thumbnail {
-            max-width           : 25%;
+            img {
+              width             : 100%;
+              max-width         : 125px;
+            }
           }
           &.details {
             position            : relative;
+            padding-left        : ($gutter);
+            @include at-query($min, 1024px) {
+              width             : 50%;
+            }
+            @include at-query($min, 1280px) {
+              width             : 65%;
+            }
+          }
+          &.quantity {
+            input {
+              max-width         : 80px;
+            }
           }
           &.summary {
             padding-top         : ($gutter * 5);
@@ -65,7 +94,9 @@
 
           div.title,
           div.actions {
-            position            : absolute;
+            @include at-query($min, $medium) {
+              position          : absolute;
+            }
           }
 
           div.title {
@@ -79,6 +110,13 @@
 
           div.actions {
             bottom              : ($gutter * 1.5);
+            a {
+              display           : inline-block;
+              margin-right      : ($gutter);
+              font-family       : 'Cabin Semibold', $bodyFontStack;
+              color             : {{ settings.color_interface_accent }};
+              text-transform    : uppercase;
+            }
           }
 
           .h3.price {
@@ -86,11 +124,6 @@
             font-size           : em(14px);
             font-weight         : 600;
             white-space         : nowrap;
-          }
-          .cart__remove {
-            font-family         : 'Cabin Semibold', $bodyFontStack;
-            color               : {{ settings.color_interface_accent }};
-            text-transform      : uppercase;
           }
         }
       }
@@ -102,6 +135,8 @@
       a[class*="btn"],
       input[type="submit"] {
         margin-top              : ($gutter * 2);
+        min-width               : 125px;
+        font-size               : em(12.5px);
       }
     }
     h3,
