@@ -29,6 +29,23 @@
       </div>
 
       {% comment %}
+        Create thumbnails if we have more than one product image
+      {% endcomment %}
+      {% if product.images.size > 1 %}
+        <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
+
+          {% for image in product.images %}
+            <li class="grid__item one-quarter">
+              <a href="{{ image.src | img_url: 'large' }}" class="product-single__thumbnail">
+                <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+          {% endfor %}
+
+        </ul>
+      {% endif %}
+
+      {% comment %}
         ### NOTE KLT061616: Relatable Implementation
         - https://relatable.heliumdev.com/docs
       {% endcomment %}
@@ -47,22 +64,6 @@
         {% endraw %}
       </div>
 
-      {% comment %}
-        Create thumbnails if we have more than one product image
-      {% endcomment %}
-      {% if product.images.size > 1 %}
-        <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
-
-          {% for image in product.images %}
-            <li class="grid__item one-quarter">
-              <a href="{{ image.src | img_url: 'large' }}" class="product-single__thumbnail">
-                <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-              </a>
-            </li>
-          {% endfor %}
-
-        </ul>
-      {% endif %}
     </div>
 
     <div class="grid__item large--one-half">
