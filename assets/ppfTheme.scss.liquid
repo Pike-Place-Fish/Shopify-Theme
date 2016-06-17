@@ -2691,7 +2691,7 @@ ul.collection-filters {
 
 
 /*============================================================================
-  #Product Page
+  #Product Page - should be moved to _product.scss.liquid
 ==============================================================================*/
 .product-single__variants {
   display: none;
@@ -3285,10 +3285,27 @@ ul.collection-filters {
     // Product Details
     .product-single {
 
+      // Images
+      .product-single__photos,
+      .product-single__thumbnails {
+        @include at-query ($min, $large) {
+          padding-right         : ($gutter * 3);
+        }
+      }
+      .product-single__photos {
+        @include at-query ($min, $large) {
+          img {
+            margin-left           : 0;
+            margin-right          : 0;
+            width                 : 100%;
+          }
+        }
+      }
+
+      // Text
       h1[itemprop="name"] {
         font-size               : em(28px);
       }
-
       .product-description {
         p {
           margin-bottom         : $gutter;
