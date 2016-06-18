@@ -3481,7 +3481,7 @@ ul.collection-filters {
           }
 
           div.actions {
-            bottom              : ($gutter * 1.5);
+            bottom              : ($gutter * 2.5);
             a {
               display           : inline-block;
               margin-right      : ($gutter);
@@ -3576,11 +3576,45 @@ ul.collection-filters {
       @include at-query($min, $large) {
         padding-left            : ($gutter * 3)
       }
+
+      // Servings Label (e.g., "Serves 4")
+      .servings {
+        font-family             : 'Cabin Semibold', $bodyFontStack;
+        color                   : {{ settings.color_interface_accent }};
+      }
+
     }
 
     // Title
     h1.title {
       text-transform            : none;
+    }
+
+    // Related articles
+    .related-products {
+      margin-top                : ($gutter * 2);
+      ul {
+        list-style              : none;
+        margin-left             : ($gutter / 5);
+        li {
+          img,
+          .h3.title {
+            display             : table-cell;
+          }
+          .h3.title {
+            a {
+              color             : {{ settings.color_body_text }};
+            }
+          }
+        }
+      }
+    }
+
+    // Comments
+    .comment-form {
+      textarea {
+        margin-left             : ($gutter * 2);
+      }
     }
 
   }
