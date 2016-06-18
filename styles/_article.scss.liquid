@@ -1,0 +1,64 @@
+//==============================================================================================
+// ARTICLE
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market blog post artricle (e.g., recipe).
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-article {
+
+    .article-body {
+      @include at-query($min, $medium) {
+        padding-left            : ($gutter *1.5)
+      }
+      @include at-query($min, $large) {
+        padding-left            : ($gutter * 3)
+      }
+
+      // Servings Label (e.g., "Serves 4")
+      .servings {
+        font-family             : 'Cabin Semibold', $bodyFontStack;
+        color                   : {{ settings.color_interface_accent }};
+      }
+
+    }
+
+    // Title
+    h1.title {
+      text-transform            : none;
+    }
+
+    // Related articles
+    .related-products {
+      margin-top                : ($gutter * 2);
+      ul {
+        list-style              : none;
+        margin-left             : ($gutter / 5);
+        li {
+          img,
+          .h3.title {
+            display             : table-cell;
+          }
+          .h3.title {
+            a {
+              color             : {{ settings.color_body_text }};
+            }
+          }
+        }
+      }
+    }
+
+    // Comments
+    .comment-form {
+      textarea {
+        margin-left             : ($gutter * 2);
+      }
+    }
+
+  }

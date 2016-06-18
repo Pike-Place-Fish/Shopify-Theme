@@ -24,14 +24,48 @@
 
 <div class="grid">
 
-  <article class="grid__item large--three-quarters" itemscope itemtype="http://schema.org/Article">
+  <section class="grid__item medium--one-third small--one-whole">
+    <!-- Featured Image -->
+    {{ article | img_url: '1024x1024' | img_tag: article.title | img_class: 'featured-image' }}
+
+    {% comment %}
+      ### NOTE KLT061616: Relatable Implementation
+      - https://relatable.heliumdev.com/docs
+    {% endcomment %}
+    <div data-relatable="article.products" data-relatable-id="{{article.id}}" class="related-products">
+      {% raw %}
+        {{#products.length}}
+          <h6>Try these for this recipe!</h6>
+          <ul>
+        {{/products.length}}
+        {{#products}}
+            <li>
+              {{images[1].src}}
+              <img src="{{ featured_image.src | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" />
+              <div class="h3 title">
+                <a href="/products/{{handle}}">{{title}}</a>
+              </div>
+            </li>
+        {{/products}}
+        {{#products.length}}
+          </ul>
+        {{/products.length}}
+      {% endraw %}
+    </div>
+
+  </section>
+
+  <article class="grid__item medium--two-thirds small--one-whole article-body" itemscope itemtype="http://schema.org/Article">
 
     <header class="section-header">
       <div class="section-header__left">
-        <h1>{{ article.title }}</h1>
-        {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-        {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-        <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+        <h1 class="h3 title">{{ article.title }}</h1>
+
+        <div class="hide">
+          {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+          <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+        </div>
       </div>
     </header>
 
@@ -48,23 +82,33 @@
 
     {% comment %}
       Create links to the next and previous articles, if available.
+      ### NOTE KLT061616: Hidden, at least temporarily, per design
     {% endcomment %}
     {% if blog.next_article or blog.previous_article %}
-      <hr>
-      <p class="clearfix">
-        {% if blog.previous_article %}
-          <span class="left">
-            &larr; {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}
-          </span>
-        {% endif %}
-        {% if blog.next_article %}
-          <span class="right">
-            {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }} &rarr;
-          </span>
-        {% endif %}
-      </p>
+      <div class="hide">
+        <hr>
+        <p class="clearfix">
+          {% if blog.previous_article %}
+            <span class="left">
+              &larr; {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}
+            </span>
+          {% endif %}
+          {% if blog.next_article %}
+            <span class="right">
+              {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }} &rarr;
+            </span>
+          {% endif %}
+        </p>
+      </div>
     {% endif %}
 
+  </article>
+
+  {% comment %}
+    ### NOTE KLT061616: Moved comments to their own section/grid item
+    - Hidden, at least temporarily, per design
+  {% endcomment %}
+  <section class="grid__item one-whole">
     {% if blog.comments_enabled? %}
       <hr>
 
@@ -135,7 +179,7 @@
 
               <div class="grid">
 
-                <div class="grid__item large--one-half">
+                <div class="grid__item large--one-third">
                   <label for="CommentAuthor" class="hidden-label">{{ 'blogs.comments.name' | t }}</label>
                   <input type="text" name="comment[author]" id="CommentAuthor" class="input-full{% if form.errors contains 'author' %} error{% endif %}" placeholder="{{ 'blogs.comments.name' | t }}" value="{{ form.author }}" autocapitalize="words">
 
@@ -143,7 +187,7 @@
                   <input type="email" name="comment[email]" id="CommentEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'blogs.comments.email' | t }}" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
                 </div>
 
-                <div class="grid__item large--one-half">
+                <div class="grid__item large--two-thirds">
                   <label for="CommentBody" class="hidden-label">{{ 'blogs.comments.message' | t }}</label>
                   <textarea name="comment[body]" id="CommentBody" class="input-full{% if form.errors contains 'body' %} error{% endif %}" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
                 </div>
@@ -162,9 +206,9 @@
       {% endpaginate %}
     {% endif %}
 
-  </article>
+  </section>
 
-  <aside class="grid__item large--one-quarter" role="complementary">
+  <aside class="grid__item large--one-quarter hide" role="complementary">
     {% include 'blog-sidebar' %}
   </aside>
 </div>
