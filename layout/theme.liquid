@@ -159,9 +159,18 @@
       {% endcomment %}
       <li class="mobile-nav__item menu-cart medium--hide medium-down--show">
         <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
-          <span class="icon icon-cart" aria-hidden="true"></span>
-          {{ 'layout.cart.title' | t }}
-          (<span id="CartCount">{{ cart.item_count }}</span>)
+          {% comment %}
+            ### NOTE KLT061616: Updated cart to custom icon
+          {% endcomment %}
+          <!-- <span class="icon icon-cart" aria-hidden="true"></span> -->
+
+          <span class="cart">
+            {% unless cart.item_count == 0 %}
+              <span id="CartCount">{{ cart.item_count }}</span>
+            {% endunless %}
+            {{ 'layout.cart.title' | t }}
+          </span>
+
           {% comment %}
             ### NOTE KLT060316: Commented out, per design
           {% endcomment %}
@@ -247,9 +256,14 @@
             {% endcomment %}
             <div class="nav-ancillary">
               <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
-                <span class="icon icon-cart" aria-hidden="true"></span>
-                {{ 'layout.cart.title' | t }}
-                (<span id="CartCount">{{ cart.item_count }}</span>)
+                <!-- <span class="icon icon-cart" aria-hidden="true"></span> -->
+                <span class="cart">
+                  {% unless cart.item_count == 0 %}
+                    <span id="CartCount">{{ cart.item_count }}</span>
+                  {% endunless %}
+                  {{ 'layout.cart.title' | t }}
+                </span>
+
                 {% comment %}
                   ### NOTE KLT060316: Commented out, per design
                 {% endcomment %}
