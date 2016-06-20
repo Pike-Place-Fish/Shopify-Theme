@@ -619,6 +619,53 @@ th, td {
   }
 }
 
+// Cart (New - main and mobile)
+.nav-ancillary span.cart,
+.mobile-nav__item.menu-cart span.cart {
+  display                       : inline-block;
+  position                      : relative;
+  padding-top                   : 5px;
+  padding-left                  : 23px;
+  line-height                   : 100%;
+  background-repeat             : no-repeat;
+  background-position           : 0 0;
+  background-size               : contain;
+  &.full {
+    padding-left                : 32px;
+    span.cart-count,
+    span.title {
+      display                   : inline-block;
+      position                  : relative;
+    }
+    span.cart-count {
+      position                  : absolute;
+      top                       : 1px;
+      left                      : 14px;
+      font-size                 : em(11px);
+      color                     : {{ settings.color_footer_text }};
+    }
+    span.title {
+      //padding-left
+    }
+  }
+}
+.nav-ancillary span.cart {
+  &.empty {
+    background-image            : url({{ 'Icon.Basket.Empty.png' | asset_url }});
+  }
+  &.full {
+    background-image            : url({{ 'Icon.Basket.Items.png' | asset_url }});
+  }
+}
+.mobile-nav__item.menu-cart span.cart {
+  &.empty {
+    background-image            : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
+  }
+  &.full {
+    background-image            : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
+  }
+}
+
 .search-bar {
   max-width: 100%;
 
@@ -927,7 +974,7 @@ th, td {
   display: block;
   padding                       : 5%;                           // New
   font-family                   : 'Eagle Book', $bodyFontStack;
-  font-size                     : em(14px);
+  font-size                     : em(12px);
   color                         : {{ settings.color_body_bg }} !important; // New - needs to be important due to .drawer a override
   text-transform                : uppercase;
   &:hover,
