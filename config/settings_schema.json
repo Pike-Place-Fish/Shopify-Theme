@@ -544,8 +544,9 @@
       {
         "type": "text",
         "id": "heading_related_products",
-        "label": "Heading for related products (for recipes)",
+        "label": "Related products (for recipes) heading",
         "default": "Try these for this recipe!",
+        "info": "Heading for related products (for recipes)"
       }
     ]
   },
@@ -584,6 +585,18 @@
             "label": "Page"
           }
         ]
+      },
+      {
+        "type": "text",
+        "id": "heading_shipping_date",
+        "label": "Shipping date selection heading",
+        "default": "Select your shipping date:"
+      },
+      {
+        "type": "text",
+        "id": "warning_shipping_date_limited_friday",
+        "label": "Shipping date Friday warning",
+        "default": "Will add $20 to shipping. Hawaii not available."
       }
     ]
   },

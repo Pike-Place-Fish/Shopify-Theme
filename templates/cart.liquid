@@ -155,7 +155,7 @@
               {% comment %}
                 ### NOTE KLT061516: Added grid item for shipping note and "Keep Shopping" button
               {% endcomment %}
-              <div class="grid__item two-thirds small--one-whole">
+              <div class="grid__item one-third small--one-whole">
 
                 <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: weight: weight }}</h3>
                 <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
@@ -164,6 +164,14 @@
                   ### TODO KLT061516: There is currently no resource corresponding to this label.
                 {% endcomment %}
                 <a href="/collections/all" class="btn--secondary">Keep Shopping</a>
+
+              </div>
+              <div class="grid__item text-center one-third small--one-whole">
+                {% comment %}
+                  ### NOTE KLT062016: jQuery UI implementation for shipping date picker - Autotag Delivery Date app should, in
+                                      theory, automatically hook into the date picker once activated.
+                {% endcomment %}
+                <div class="shipping-date"><input type="text" id="shippingDatepicker" size="30"></div>
 
               </div>
               <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
@@ -178,6 +186,7 @@
                   </p>
                 {% endif %}
                 <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+
                 <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
                 <input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
               </div>
@@ -197,3 +206,21 @@
   <p>{{ 'cart.general.empty' | t }}</p>
   <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
 {% endif %}
+
+
+<script>
+  $(function() {
+
+    /**
+     * Shipping date selection functionality - datepicker and business rules for Friday and weekend shipping
+     */
+    $('#shippingDatepicker').datepicker({ dateFormat: 'DD, d MM, yy' });
+    $('#format').change(function() {
+      $('#shippingDatepicker').datepicker('option', 'dateFormat', 'DD, d MM, yy');
+    });
+    $('#shippingDatepicker').change(function() {
+      console.log($(this).val());
+    });
+
+  });
+</script>
