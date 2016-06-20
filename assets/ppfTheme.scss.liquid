@@ -3597,14 +3597,24 @@ ul.collection-filters {
         list-style              : none;
         margin-left             : ($gutter / 5);
         li {
-          img,
-          .h3.title {
+          display               : table;
+          margin-top            : ($gutter * 1.5);
+          div.image,
+          div.title {
             display             : table-cell;
+            vertical-align      : middle;
           }
-          .h3.title {
-            a {
-              color             : {{ settings.color_body_text }};
+          div.image {
+            width               : 33%;
+            img {
+              width             : 100%;
+              max-width         : 125px;
             }
+          }
+          div.title {
+            padding             : 0 ($gutter * 1.5);
+            line-height         : 110%;
+            color               : {{ settings.color_body_text }};
           }
         }
       }

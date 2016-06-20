@@ -35,16 +35,25 @@
     <div data-relatable="article.products" data-relatable-id="{{article.id}}" class="related-products">
       {% raw %}
         {{#products.length}}
-          <h6>Try these for this recipe!</h6>
+      {% endraw %}
+          <h6>{{ settings.heading_related_products }}</h6>
           <ul>
+      {% raw %}
         {{/products.length}}
+      {% endraw %}
+      {% raw %}
         {{#products}}
             <li>
-              {{images[1].src}}
-              <img src="{{ featured_image.src | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" />
-              <div class="h3 title">
-                <a href="/products/{{handle}}">{{title}}</a>
-              </div>
+              <a href="/products/{{handle}}">
+                <div class="image">
+                  {{#images.0}}
+                    <img src="{{src}}" alt="{{alt}}" />
+                  {{/images.0}}
+                </div>
+                <div class="h4 title">
+                  {{title}}
+                </div>
+              </a>
             </li>
         {{/products}}
         {{#products.length}}
