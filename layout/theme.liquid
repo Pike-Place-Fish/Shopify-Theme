@@ -29,7 +29,6 @@
 
   <!-- CSS (Was 'timber.scss.css') ============================================== -->
   {{ 'ppfTheme.scss.css' | asset_url | stylesheet_tag }}
-  {{ 'jquery-ui.css' | asset_url | stylesheet_tag }}
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
@@ -37,7 +36,14 @@
 
   {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
-  {{ 'jquery-ui.js' | asset_url | script_tag }}
+
+  <!-- jQuery UI =========================================================================== -->
+  {% comment %}
+    {{ 'jquery-ui.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery-ui.js' | asset_url | script_tag }}
+  {% endcomment %}
+  <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all">
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
