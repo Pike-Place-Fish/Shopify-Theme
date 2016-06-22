@@ -588,14 +588,14 @@
       },
       {
         "type": "text",
-        "id": "heading_shipping_date",
-        "label": "Shipping date selection heading",
-        "default": "Select your shipping date:"
+        "id": "heading_delivery_date",
+        "label": "Delivery date selection heading",
+        "default": "Select your preferred delivery date:"
       },
       {
         "type": "text",
-        "id": "warning_shipping_date_limited_friday",
-        "label": "Shipping date Friday warning",
+        "id": "warning_delivery_date_limited_friday",
+        "label": "Delivery date Friday warning",
         "default": "Will add $20 to shipping. Hawaii not available."
       }
     ]
