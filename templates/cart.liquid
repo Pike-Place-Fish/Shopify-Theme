@@ -14,8 +14,8 @@
     <table class="cart-table full table--responsive">
       <thead class="cart__row cart__header-labels">
         <th colspan="2" class="text-left">{{ 'cart.label.product' | t }}</th>
-        <th class="text-left">{{ 'cart.label.price' | t }}</th>
-        <th class="text-center">{{ 'cart.label.quantity' | t }}</th>
+        <th class="text-right">{{ 'cart.label.price' | t }}</th>
+        <th class="text-right">{{ 'cart.label.quantity' | t }}</th>
         <th class="text-right">{{ 'cart.label.total' | t }}</th>
       </thead>
       <tbody>
@@ -106,9 +106,6 @@
 
               <!-- Product Actions (delete) -->
               <div class="actions">
-                <a href="{{ item.url }}" class="cart__edit">
-                  <small>{{ 'cart.general.edit' | t }}</small>
-                </a>
                 <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
                   <small>{{ 'cart.general.remove' | t }}</small>
                 </a>
@@ -116,12 +113,12 @@
               <!-- /Product Actions (delete) -->
 
             </td>
-            <td data-label="{{ 'cart.label.price' | t }}" class="price">
+            <td data-label="{{ 'cart.label.price' | t }}" class="text-right price">
               <span class="h3 price">
                 {{ item.price | money }}
               </span>
             </td>
-            <td data-label="{{ 'cart.label.quantity' | t }}" class="text-center quantity">
+            <td data-label="{{ 'cart.label.quantity' | t }}" class="text-right quantity">
               <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" min="0">
             </td>
             <td data-label="{{ 'cart.label.total' | t }}" class="text-right total">
@@ -171,7 +168,10 @@
                   ### NOTE KLT062016: jQuery UI implementation for shipping date picker - Autotag Delivery Date app should, in
                                       theory, automatically hook into the date picker once activated.
                 {% endcomment %}
-                <div class="shipping-date"><input type="text" id="shippingDatepicker" size="30"></div>
+                <div class="shipping-date">
+                  <h4>{{ settings.heading_delivery_date }}</h4>
+                  <input type="text" id="delivery_date" name="attributes[delivery_date]" value="{{ cart.attributes.delivery_date }}" size="30">
+                </div>
 
               </div>
               <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
@@ -214,11 +214,16 @@
     /**
      * Shipping date selection functionality - datepicker and business rules for Friday and weekend shipping
      */
-    $('#shippingDatepicker').datepicker({ dateFormat: 'DD, d MM, yy' });
-    $('#format').change(function() {
-      $('#shippingDatepicker').datepicker('option', 'dateFormat', 'DD, d MM, yy');
+    $('#delivery_date').datepicker({
+      minDate: +1,
+      maxDate: '+2M',
+      beforeShowDay: jQuery.datepicker.noWeekends,
+      dateFormat: 'DD, MM d, yy'
     });
-    $('#shippingDatepicker').change(function() {
+    $('#format').change(function() {
+      $('#delivery_date').datepicker('option', 'dateFormat', 'DD, d MM, yy');
+    });
+    $('#delivery_date').change(function() {
       console.log($(this).val());
     });
 
