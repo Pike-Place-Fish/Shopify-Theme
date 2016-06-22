@@ -124,7 +124,7 @@
       {% endcomment %}
       {% if shop.customer_accounts_enabled %}
         {% if customer %}
-          <li class="mobile-nav__item medium--hide medium-down--show">
+          <li class="mobile-nav__item">
             {% if customer.first_name != blank %}
               {% capture first_name %}{{ customer.first_name }}{% endcapture %}
               <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
@@ -139,15 +139,9 @@
           <li class="mobile-nav__item medium--hide medium-down--show">
             {{ 'layout.customer.log_in' | t | customer_login_link }}
           </li>
-
-          {% comment %}
-            ### NOTE KLT060316: Commented out as account creation is available from sign-in page
-          {% endcomment %}
-          <!--
           <li class="mobile-nav__item">
             {{ 'layout.customer.create_account' | t | customer_register_link }}
           </li>
-          -->
         {% endif %}
       {% endif %}
 
@@ -291,10 +285,8 @@
                   | {{ 'layout.customer.log_out' | t | customer_logout_link }}
                 {% else %}
                   {{ 'layout.customer.log_in' | t | customer_login_link }}
-                  {% comment %}
-                    ### NOTE KLT060316: Commented out as account creation is available from sign-in page
-                  {% endcomment %}
-                  <!-- | {{ 'layout.customer.create_account' | t | customer_register_link }} -->
+                  &nbsp;|&nbsp;
+                  {{ 'layout.customer.create_account' | t | customer_register_link }}
                 {% endif %}
               </div>
             {% endif %}
