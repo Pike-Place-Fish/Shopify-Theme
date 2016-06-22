@@ -18,15 +18,22 @@
       margin                    : $gutter 0 ($gutter * 2);
       vertical-align            : top;
     }
-    label[for="SortBy"] {
+    ul.collection-filters {
+      margin-top                : -3px;
+    }
+    label[for="SortBy"],
+    select,
+    select option {
       font-family               : $interfaceFontStack;
+      font-size                 : em(12px);
       text-transform            : uppercase;
     }
     select,
     select option {
-      text-transform            : uppercase;
-      letter-spacing            : 0.055em;
       background-color          : {{ settings.color_body_bg }};
+    }
+    select {
+      padding                   : 2px 25px 2px 10px;
     }
 
     // Collection Items

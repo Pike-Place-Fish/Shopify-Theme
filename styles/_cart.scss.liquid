@@ -27,8 +27,11 @@
       border-width              : 0;
 
       .cart__row.table__section {
-        /*
         border-bottom           : 2px solid {{ settings.color_body_bg_accent }};
+        &:last-child {
+          border-bottom         : 0 none transparent;
+        }
+        /*
         &:nth-child(odd) {
           background-color      : {{ settings.color_body_bg }};
           input[type="number"],
@@ -83,7 +86,7 @@
           }
           &.quantity {
             input {
-              max-width         : 80px;
+              max-width         : 64px;
             }
           }
           &.summary {

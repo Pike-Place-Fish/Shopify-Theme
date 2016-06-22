@@ -1705,7 +1705,8 @@ html input[disabled] {
 .rte .btn {
   display: inline-block;
   padding: 8px 10px;
-  width: auto;
+  width                         : auto;
+  min-width                     : 128px;
   margin: 0;
   line-height: 1.42;
   font-weight: bold;
@@ -1716,8 +1717,8 @@ html input[disabled] {
   cursor: pointer;
   border: 1px solid transparent;
 
-  font-family                   : 'Eagle Book', $bodyFontStack;
-  letter-spacing                : 0.05em;
+  // New
+  font-family                   : $interfaceFontStack;
   text-transform                : uppercase;
 
   @include user-select(none);
@@ -2061,14 +2062,13 @@ th, td {
 .mobile-nav__item.menu-cart span.cart {
   display                       : inline-block;
   position                      : relative;
-  padding-top                   : 5px;
-  padding-left                  : 23px;
+  padding                       : 7px 0 1px 27px;
   line-height                   : 100%;
   background-repeat             : no-repeat;
   background-position           : 0 0;
   background-size               : contain;
   &.full {
-    padding-left                : 32px;
+    padding-left                : 38px;
     span.cart-count,
     span.title {
       display                   : inline-block;
@@ -2077,7 +2077,7 @@ th, td {
     span.cart-count {
       position                  : absolute;
       top                       : 1px;
-      left                      : 14px;
+      left                      : 17px;
       font-size                 : em(11px);
       color                     : {{ settings.color_footer_text }};
     }
@@ -2700,7 +2700,10 @@ ul.article-filters {
     padding                     : ($gutter / 2) $gutter;
     background                  : {{ settings.color_body_bg }};
     a {
-      font-family               : 'Eagle Book', $bodyFontStack;
+      font-family               : $interfaceFontStack;
+      font-size                 : em(12px);
+      line-height               : 100%;
+      font-weight               : 700;
       color                     : rgb(151, 151, 151);           // #979797
       text-transform            : uppercase;
     }
@@ -3166,7 +3169,6 @@ ul.article-filters {
         color                   : {{ settings.color_body_bg }};
         h2,
         p {
-          font-family           : 'Eagle Book', $bodyFontStack;
           font-size             : em(19px);
           text-transform        : uppercase;
           @include at-query ($max, $siteWidth) {
@@ -3179,8 +3181,13 @@ ul.article-filters {
             font-size           : 1.75vw;
           }
         }
+        h2 {
+          font-family           : 'Eagle Book', $bodyFontStack;
+        }
         p {
           margin-bottom         : 0;
+          font-family           : $interfaceFontStack;
+          font-weight           : 700;
         }
       }
 
@@ -3194,15 +3201,19 @@ ul.article-filters {
       // promotion types
       &.blue {
         background-color        : rgb(80, 138, 159);            // #F08A9F
+        background-image        : url({{ 'Home.PromoTexture1.png' | asset_url }});
       }
       &.orange {
         background-color        : rgb(241, 146, 63);            // #F1923F
+        background-image        : url({{ 'Home.PromoTexture2.png' | asset_url }});
       }
       &.green {
         background-color        : rgb(81, 165, 82);             // #51A552
+        background-image        : url({{ 'Home.PromoTexture3.png' | asset_url }});
       }
       &.grey {
         background-color        : rgb(110, 110, 110);           // ##6E6E6E
+        background-image        : url({{ 'Home.PromoTexture4.png' | asset_url }});
       }
       .promotion-data {
         padding                 : ($gridGutter / 2);
@@ -3283,15 +3294,22 @@ ul.article-filters {
       margin                    : $gutter 0 ($gutter * 2);
       vertical-align            : top;
     }
-    label[for="SortBy"] {
+    ul.collection-filters {
+      margin-top                : -3px;
+    }
+    label[for="SortBy"],
+    select,
+    select option {
       font-family               : $interfaceFontStack;
+      font-size                 : em(12px);
       text-transform            : uppercase;
     }
     select,
     select option {
-      text-transform            : uppercase;
-      letter-spacing            : 0.055em;
       background-color          : {{ settings.color_body_bg }};
+    }
+    select {
+      padding                   : 2px 25px 2px 10px;
     }
 
     // Collection Items
@@ -3360,10 +3378,32 @@ ul.article-filters {
         }
       }
 
+      // Cutting instructions example
+      table.cutting-instructions {
+        td {
+          border                : 0 none transparent;
+          padding               : ($gutter * 1.5) ($gutter * 1.5) 0;
+          vertical-align        : middle;
+          background-color      : {{ settings.color_body_bg }};
+          &.label {
+            padding-bottom      : ($gutter * 1.5);
+            text-align          : center;
+            font-family         : $headerFontStack;
+            font-size           : $baseFontSize;
+            text-transform      : uppercase;
+          }
+          p {
+            margin              : 0;
+          }
+          img {
+            max-width           : 100%;
+          }
+        }
+      }
+
       // InifiteOptions and product form
       select,
-      input[type="number"],
-      button[type="submit"] {
+      input[type="number"] {
         width                   : 100%;
       }
       div.product-custom-options {
@@ -3387,12 +3427,13 @@ ul.article-filters {
         span.price-label {
           padding-top           : 0.5em;
           padding-right         : ($gutter * 1.5);
-          width                 : 30%;
-          text-align            : right;
+          width                 : 25%;
+        //text-align            : right;
+          font-family           : 'Cabin Bold', $bodyFontStack;
         }
         label ~ span,
         span[itemprop="price"] {
-          width                 : 70%;
+          width                 : 75%;
         }
       }
       span[itemprop="price"] {
@@ -3447,8 +3488,11 @@ ul.article-filters {
       border-width              : 0;
 
       .cart__row.table__section {
-        /*
         border-bottom           : 2px solid {{ settings.color_body_bg_accent }};
+        &:last-child {
+          border-bottom         : 0 none transparent;
+        }
+        /*
         &:nth-child(odd) {
           background-color      : {{ settings.color_body_bg }};
           input[type="number"],
@@ -3503,7 +3547,7 @@ ul.article-filters {
           }
           &.quantity {
             input {
-              max-width         : 80px;
+              max-width         : 64px;
             }
           }
           &.summary {

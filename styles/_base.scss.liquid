@@ -268,7 +268,8 @@ html input[disabled] {
 .rte .btn {
   display: inline-block;
   padding: 8px 10px;
-  width: auto;
+  width                         : auto;
+  min-width                     : 128px;
   margin: 0;
   line-height: 1.42;
   font-weight: bold;
@@ -279,8 +280,8 @@ html input[disabled] {
   cursor: pointer;
   border: 1px solid transparent;
 
-  font-family                   : 'Eagle Book', $bodyFontStack;
-  letter-spacing                : 0.05em;
+  // New
+  font-family                   : $interfaceFontStack;
   text-transform                : uppercase;
 
   @include user-select(none);
@@ -624,14 +625,13 @@ th, td {
 .mobile-nav__item.menu-cart span.cart {
   display                       : inline-block;
   position                      : relative;
-  padding-top                   : 5px;
-  padding-left                  : 23px;
+  padding                       : 7px 0 1px 27px;
   line-height                   : 100%;
   background-repeat             : no-repeat;
   background-position           : 0 0;
   background-size               : contain;
   &.full {
-    padding-left                : 32px;
+    padding-left                : 38px;
     span.cart-count,
     span.title {
       display                   : inline-block;
@@ -640,7 +640,7 @@ th, td {
     span.cart-count {
       position                  : absolute;
       top                       : 1px;
-      left                      : 14px;
+      left                      : 17px;
       font-size                 : em(11px);
       color                     : {{ settings.color_footer_text }};
     }
@@ -1263,7 +1263,10 @@ ul.article-filters {
     padding                     : ($gutter / 2) $gutter;
     background                  : {{ settings.color_body_bg }};
     a {
-      font-family               : 'Eagle Book', $bodyFontStack;
+      font-family               : $interfaceFontStack;
+      font-size                 : em(12px);
+      line-height               : 100%;
+      font-weight               : 700;
       color                     : rgb(151, 151, 151);           // #979797
       text-transform            : uppercase;
     }
