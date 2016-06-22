@@ -168,9 +168,10 @@
                   ### NOTE KLT062016: jQuery UI implementation for shipping date picker - Autotag Delivery Date app should, in
                                       theory, automatically hook into the date picker once activated.
                 {% endcomment %}
-                <div class="shipping-date">
+                <div class="delivery-date">
                   <h4>{{ settings.heading_delivery_date }}</h4>
                   <input type="text" id="delivery_date" name="attributes[delivery_date]" value="{{ cart.attributes.delivery_date }}" size="30">
+                  <div class="day-warning"><small>{{ settings.warning_delivery_date_limited_friday }}</small></div>
                 </div>
 
               </div>
@@ -215,16 +216,31 @@
      * Shipping date selection functionality - datepicker and business rules for Friday and weekend shipping
      */
     $('#delivery_date').datepicker({
-      minDate: +1,
-      maxDate: '+2M',
-      beforeShowDay: jQuery.datepicker.noWeekends,
-      dateFormat: 'DD, MM d, yy'
-    });
-    $('#format').change(function() {
-      $('#delivery_date').datepicker('option', 'dateFormat', 'DD, d MM, yy');
+      minDate                   : '+1d',
+      maxDate                   : '+3m',
+      dateFormat                : 'DD, MM d, yy',
+      beforeShowDay: function(date) {
+        var
+          today                 = new Date(),
+          dayOfWeek             = date.getDay()
+          warningTooltip        = '{{ settings.warning_delivery_date_limited_friday }}';
+
+        if (dayOfWeek == 6) {
+          return [true, 'day-warning', warningTooltip];
+        }
+        else {
+          return [(dayOfWeek != 0)];
+        }
+      }
     });
     $('#delivery_date').change(function() {
-      console.log($(this).val());
+      var selectedDate          = $(this).val();
+      if (selectedDate.toLowerCase().indexOf('saturday') > -1) {
+        $('.delivery-date div.day-warning').show();
+      }
+      else {
+        $('.delivery-date div.day-warning').hide();
+      }
     });
 
   });

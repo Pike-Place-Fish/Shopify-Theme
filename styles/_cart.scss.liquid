@@ -151,4 +151,24 @@
       }
     }
 
+    // Delivery Date Selection
+    .delivery-date {
+      input {
+        padding                 : 2px 5px 2px 33px;
+        background              : {{ settings.color_body_bg }} url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 5px 3px;
+        background-size         : auto 20px;
+      }
+      div.day-warning {
+        display                 : none;
+        color                   : $errorRed;
+      }
+    }
+    .ui-datepicker-calendar {
+      td.day-warning {
+        a {
+          border-color          : $errorRed;
+        }
+      }
+    }
+
   }

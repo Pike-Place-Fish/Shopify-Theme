@@ -590,7 +590,7 @@
         "type": "text",
         "id": "heading_delivery_date",
         "label": "Delivery date selection heading",
-        "default": "Select your preferred delivery date:"
+        "default": "Select a delivery date:"
       },
       {
         "type": "text",
