@@ -3209,7 +3209,7 @@ ul.article-filters {
         color                   : {{ settings.color_body_bg }};
         h2,
         p {
-          line-height           : 100%;
+          line-height           : 120%;
           text-transform        : uppercase;
           @include at-query ($max, $siteWidth) {
             font-size           : 2vw;
@@ -3222,9 +3222,9 @@ ul.article-filters {
           }
         }
         h2 {
-          margin-bottom         : ($gutter / 2);
+          margin-bottom         : 0;
           font-family           : $headerFontStack;
-          font-size             : em(30px);
+          font-size             : em(24px);
           font-weight           : 800;
         }
         p {
@@ -3237,7 +3237,7 @@ ul.article-filters {
 
     }
     .product-promotion {
-      padding                   : ($gridGutter / 2);
+      padding                   : ($gridGutter / 2) $gutter;
       background-repeat         : no-repeat;
       background-position       : 0 0;
       background-size           : 100%;
@@ -3711,6 +3711,21 @@ ul.article-filters {
           border                : 0 none transparent;
         }
 
+      }
+    }
+
+    .logged-in-customer-information__avatar {
+      border-radius             : 0;
+    }
+
+    .product-thumbnail,
+    .product-thumbnail__wrapper {
+      border                    : 0 none transparent;
+      border-radius             : 0;
+      border-image-width        : 0;
+      &:after {
+        border-radius           : 0;
+        box-shadow              : none;
       }
     }
 
