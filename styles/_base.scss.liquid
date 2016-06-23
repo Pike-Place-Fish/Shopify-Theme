@@ -1273,16 +1273,16 @@ ul.collection-filters,
 ul.article-filters {
   li {
     display                     : inline-block;
-    margin                      : 0 -1px 2px 0;
-    padding                     : 0 4px;
+    margin                      : 0 1px 5px 0;
+    padding                     : 2px 6px;
     background                  : {{ settings.color_body_bg }};
     a {
       font-family               : $interfaceFontStack;
-      font-size                 : em(12px);
+      font-size                 : em(10px);
       line-height               : 100%;
-      font-weight               : 500;
-      color                     : rgb(151, 151, 151);           // #979797
-      text-transform            : uppercase;
+      font-weight               : 600;
+      color                     : {{ settings.color_secondary }};
+      text-transform            : capitalize;
     }
     &.filter--active {
       a {
