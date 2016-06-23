@@ -144,8 +144,8 @@ $zindexDrawer: 10;
 // Font Families
 
 
-$headerFontStack                : 'Eagle Bold', 'Eagle Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;   // New - Eagle Bold
-$headerFontWeight: 700;
+$headerFontStack                : 'Prompt', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;   // New - Eagle Bold
+$headerFontWeight: 800;
 
 $bodyFontStack                  : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New - Cabin, Open Sans
 $baseFontSize: 14px; // Henceforth known as 1em
@@ -771,6 +771,35 @@ $class-type: unquote(".");
 //----------------------------------------------------------------------------------------------
 // NOTE: Font styles should be defined in _typography.scss.
 //==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// PROMPT
+//----------------------------------------------------------------------------------------------
+  @font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Prompt'), local('Prompt-Regular'), url(https://fonts.gstatic.com/s/prompt/v1/xR0emLgPi6AvMYbJewy8xQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Prompt SemiBold'), local('Prompt-SemiBold'), url(https://fonts.gstatic.com/s/prompt/v1/3_KC0-To5jGOKtudoVFJIKCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Prompt Bold'), local('Prompt-Bold'), url(https://fonts.gstatic.com/s/prompt/v1/AcHtr8ZFPMAttYPZKPJ36KCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Prompt ExtraBold'), local('Prompt-ExtraBold'), url(https://fonts.gstatic.com/s/prompt/v1/J8YTz9_BMPN5gZxnvdtlVaCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+
 
 //----------------------------------------------------------------------------------------------
 // OPEN SANS
@@ -2410,8 +2439,9 @@ th, td {
 .mobile-nav__item a {
   display: block;
   padding                       : 5%;                           // New
-  font-family                   : 'Eagle Book', $bodyFontStack;
+  font-family                   : $headerFontStack;
   font-size                     : em(12px);
+  font-weight                   : 600;
   color                         : {{ settings.color_body_bg }} !important; // New - needs to be important due to .drawer a override
   text-transform                : uppercase;
   &:hover,
@@ -3163,8 +3193,9 @@ ul.article-filters {
         display                 : table-cell;
         text-align              : center;
         vertical-align          : middle;
-        font-family             : 'Eagle Book', $bodyFontStack;
+        font-family             : $headerFontStack;
         font-size               : em(19px);
+        font-weight             : $headerFontWeight;
         line-height             : 110%;
         color                   : {{ settings.color_body_bg }};
         h2,
@@ -3318,7 +3349,8 @@ ul.article-filters {
       p,
       p a {
         margin-bottom           : 0;
-        font-family             : 'Eagle Book', $bodyFontStack;
+        font-family             : $headerFontStack;
+        font-weight             : 600;
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
       }
@@ -3390,6 +3422,7 @@ ul.article-filters {
             text-align          : center;
             font-family         : $headerFontStack;
             font-size           : $baseFontSize;
+            font-weight         : $headerFontWeight;
             text-transform      : uppercase;
           }
           p {
@@ -3609,6 +3642,26 @@ ul.article-filters {
       &.order-weight-heading,
       &.order-weight-disclaimer {
         color                   : {{ settings.color_primary }};
+      }
+    }
+
+    // Delivery Date Selection
+    .delivery-date {
+      input {
+        padding                 : 2px 5px 2px 33px;
+        background              : {{ settings.color_body_bg }} url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 5px 3px;
+        background-size         : auto 20px;
+      }
+      div.day-warning {
+        display                 : none;
+        color                   : $errorRed;
+      }
+    }
+    .ui-datepicker-calendar {
+      td.day-warning {
+        a {
+          border-color          : $errorRed;
+        }
       }
     }
 

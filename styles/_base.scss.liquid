@@ -973,8 +973,9 @@ th, td {
 .mobile-nav__item a {
   display: block;
   padding                       : 5%;                           // New
-  font-family                   : 'Eagle Book', $bodyFontStack;
+  font-family                   : $headerFontStack;
   font-size                     : em(12px);
+  font-weight                   : 600;
   color                         : {{ settings.color_body_bg }} !important; // New - needs to be important due to .drawer a override
   text-transform                : uppercase;
   &:hover,
