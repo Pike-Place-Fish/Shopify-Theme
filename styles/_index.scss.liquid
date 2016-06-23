@@ -13,12 +13,18 @@
 //----------------------------------------------------------------------------------------------
   .template-index {
 
+    .site-header {
+      .wrapper {
+        padding                 : 0 $gutter;
+      }
+    }
+
     div.page-container {
       background-color          : {{ settings.color_body_bg }};
     }
     .main-content {
       margin-top                : $gutter;
-      padding-bottom            : ($gutter / 2);
+      padding                   : 0 $gutter ($gutter / 2);
     }
 
     // Grid normalization

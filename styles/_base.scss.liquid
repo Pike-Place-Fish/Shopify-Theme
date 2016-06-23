@@ -49,8 +49,12 @@ div.page-container {
 
 .main-content {
   display                       : block;
-  margin-top                    : ($gutter * 3);                // Was $gutter
+//margin-top                    : ($gutter * 3);                // Was $gutter
   padding-bottom                : ($gutter * 3);                // Was $gutter * 2
+
+  @include at-query ($min, $large) {
+    padding                     : 45px;
+  }
 }
 
 /* ========================================================================================== */
@@ -512,11 +516,18 @@ th, td {
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: ($gutter / 2) 0;
+  padding                       : ($gutter / 2) 0;
   background-color              : rgb(245, 245, 245);           // #F5F5F5 - make variable? New
 
+  // New
   @include at-query ($max, $medium) {
     padding                     : 0;
+  }
+
+  .wrapper {
+    @include at-query ($min, $large) {
+      padding                   : ($gutter / 2) 45px;
+    }
   }
 
   .grid--table {

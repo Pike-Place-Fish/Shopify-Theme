@@ -1515,8 +1515,12 @@ div.page-container {
 
 .main-content {
   display                       : block;
-  margin-top                    : ($gutter * 3);                // Was $gutter
+//margin-top                    : ($gutter * 3);                // Was $gutter
   padding-bottom                : ($gutter * 3);                // Was $gutter * 2
+
+  @include at-query ($min, $large) {
+    padding                     : 45px;
+  }
 }
 
 /* ========================================================================================== */
@@ -1978,11 +1982,18 @@ th, td {
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: ($gutter / 2) 0;
+  padding                       : ($gutter / 2) 0;
   background-color              : rgb(245, 245, 245);           // #F5F5F5 - make variable? New
 
+  // New
   @include at-query ($max, $medium) {
     padding                     : 0;
+  }
+
+  .wrapper {
+    @include at-query ($min, $large) {
+      padding                   : ($gutter / 2) 45px;
+    }
   }
 
   .grid--table {
@@ -3109,12 +3120,18 @@ ul.article-filters {
 //----------------------------------------------------------------------------------------------
   .template-index {
 
+    .site-header {
+      .wrapper {
+        padding                 : 0 $gutter;
+      }
+    }
+
     div.page-container {
       background-color          : {{ settings.color_body_bg }};
     }
     .main-content {
       margin-top                : $gutter;
-      padding-bottom            : ($gutter / 2);
+      padding                   : 0 $gutter ($gutter / 2);
     }
 
     // Grid normalization
@@ -3402,7 +3419,7 @@ ul.article-filters {
 
       // Text
       h1[itemprop="name"] {
-        font-size               : em(28px);
+        font-size               : em(18px);
       }
       .product-description {
         p {
