@@ -13,6 +13,11 @@
 //----------------------------------------------------------------------------------------------
   .template-collection {
 
+    // Grid Normalization
+    .grid-collection {
+      margin-left               : -($gutter);
+    }
+
     // Filters (Tags), Sort
     [class*="section-header"] {
       margin                    : $gutter 0 ($gutter * 2);
@@ -38,7 +43,7 @@
 
     // Collection Items
     .product-item {
-      height                    : 438px;
+      margin-bottom             : ($gutter * 2);
       p,
       p a {
         margin-bottom           : 0;
