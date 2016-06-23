@@ -62,7 +62,7 @@
       "item_cutting_instructions": "Cutting instructions",
       "item_special_instructions": "Special instructions",
       "subtotal": "Subtotal",
-      "order_weight": "Your order weighs {{ weight }}!",
+      "order_weight": "Your order weighs {{ total_weight }}!",
       "shipping_disclaimer": "It costs the same to ship 1lb as it does to ship 80lbs...",
       "shipping_at_checkout": "Shipping & taxes calculated at checkout",
       "update": "Update Basket",

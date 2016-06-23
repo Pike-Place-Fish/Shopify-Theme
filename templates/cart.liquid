@@ -154,7 +154,11 @@
               {% endcomment %}
               <div class="grid__item one-third small--one-whole">
 
-                <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: weight: weight }}</h3>
+                {% comment %}
+                  ### NOTE KLT062216: Assign total cart weight to variable with unit prior to using in interpolation
+                {% endcomment %}
+                {% assign cart_weight = cart.total_weight | weight_with_unit %}
+                <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: total_weight: cart_weight }}</h3>
                 <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
 
                 {% comment %}
