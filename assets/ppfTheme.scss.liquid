@@ -2194,9 +2194,10 @@ th, td {
 }
 
 .site-nav {
-  font-family: 'Eagle Book', $bodyFontStack; // New
-  font-size: em(14px);          // Was em(16px)
-  text-transform: uppercase;    // New
+  font-family                   : $headerFontStack;             // New
+  font-size                     : em(14px);                     // Was em(16px)
+  font-weight                   : 800;
+  text-transform                : uppercase;                    // New
   cursor: default;
   margin: ($gutter * 1.5) 0 ($gutter / 2) (-$gutter / 2); // Was 0 0 0 (-$gutter / 2)
 
@@ -3214,7 +3215,8 @@ ul.article-filters {
           }
         }
         h2 {
-          font-family           : 'Eagle Book', $bodyFontStack;
+          font-family           : $headerFontStack;
+          font-weight           : 700;
         }
         p {
           margin-bottom         : 0;
