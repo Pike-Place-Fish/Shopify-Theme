@@ -76,12 +76,6 @@
             font-size           : 3.281vw;
           }
         }
-        .btn {
-          font-size             : em(26px);
-          @include at-query ($max, $large) {
-            font-size           : 2.6vw;
-          }
-        }
       }
     }
 
@@ -99,14 +93,10 @@
         display                 : table-cell;
         text-align              : center;
         vertical-align          : middle;
-        font-family             : $headerFontStack;
-        font-size               : em(19px);
-        font-weight             : $headerFontWeight;
-        line-height             : 110%;
         color                   : {{ settings.color_body_bg }};
         h2,
         p {
-          font-size             : em(19px);
+          line-height           : 100%;
           text-transform        : uppercase;
           @include at-query ($max, $siteWidth) {
             font-size           : 2vw;
@@ -120,12 +110,14 @@
         }
         h2 {
           font-family           : $headerFontStack;
-          font-weight           : 700;
+          font-size             : em(30px);
+          font-weight           : 800;
         }
         p {
           margin-bottom         : 0;
           font-family           : $interfaceFontStack;
-          font-weight           : 700;
+          font-size             : em(18px);
+          font-weight           : 500;
         }
       }
 
