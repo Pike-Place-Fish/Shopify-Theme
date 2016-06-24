@@ -1,7 +1,8 @@
 //==============================================================================================
 // COLLECTION
 //----------------------------------------------------------------------------------------------
-// Represents styles specific to the Pike Place Fish Market Shopify (product) collections.
+// Represents styles specific to the Pike Place Fish Market Shopify (product or blog)
+// collections.
 //==============================================================================================
 
 //----------------------------------------------------------------------------------------------
@@ -11,11 +12,17 @@
 //----------------------------------------------------------------------------------------------
 // VIEW
 //----------------------------------------------------------------------------------------------
-  .template-collection {
+  .template-collection,
+  .template-blog {
 
     // Grid Normalization
     .grid-collection {
       margin-left               : -($gutter);
+    }
+
+    // Splash Image
+    .image-splash {
+      margin-bottom             : ($gutter * 2.5);
     }
 
     // Filters (Tags), Sort
@@ -42,7 +49,8 @@
     }
 
     // Collection Items
-    .product-item {
+    .product-item,
+    .article-item {
       margin-bottom             : ($gutter * 2);
       p,
       p a {
@@ -52,7 +60,8 @@
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
       }
-      .product-metadata {
+      .product-metadata,
+      .article-metadata {
         padding-top             : $gutter;
         text-align              : center;
         .h5 {

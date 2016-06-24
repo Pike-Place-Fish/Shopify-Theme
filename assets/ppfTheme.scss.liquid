@@ -965,7 +965,7 @@ $class-type: unquote(".");
   // New
   h1,
   h2 {
-    text-transform              : uppercase;
+  //text-transform              : uppercase;
   }
 
   // Note: headings use em() Sass function to declare font-size
@@ -3321,7 +3321,8 @@ ul.article-filters {
   //==============================================================================================
 // COLLECTION
 //----------------------------------------------------------------------------------------------
-// Represents styles specific to the Pike Place Fish Market Shopify (product) collections.
+// Represents styles specific to the Pike Place Fish Market Shopify (product or blog)
+// collections.
 //==============================================================================================
 
 //----------------------------------------------------------------------------------------------
@@ -3331,11 +3332,17 @@ ul.article-filters {
 //----------------------------------------------------------------------------------------------
 // VIEW
 //----------------------------------------------------------------------------------------------
-  .template-collection {
+  .template-collection,
+  .template-blog {
 
     // Grid Normalization
     .grid-collection {
       margin-left               : -($gutter);
+    }
+
+    // Splash Image
+    .image-splash {
+      margin-bottom             : ($gutter * 2.5);
     }
 
     // Filters (Tags), Sort
@@ -3362,7 +3369,8 @@ ul.article-filters {
     }
 
     // Collection Items
-    .product-item {
+    .product-item,
+    .article-item {
       margin-bottom             : ($gutter * 2);
       p,
       p a {
@@ -3372,7 +3380,8 @@ ul.article-filters {
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
       }
-      .product-metadata {
+      .product-metadata,
+      .article-metadata {
         padding-top             : $gutter;
         text-align              : center;
         .h5 {

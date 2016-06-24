@@ -1,0 +1,57 @@
+<!-- /snippets/blog-grid-item.liquid -->
+{% comment %}
+
+  This snippet is used to showcase each blog post during the loop,
+  'for article in blog.articles' in blog.*.liquid.
+
+  A liquid variable (grid_item_width) is set just before the this
+  snippet is included to change the size of the container.
+  Once the variable is set on a page, all future instances of this
+  snippet will use that width. Overwrite the variable to adjust this.
+
+  Example
+    - assign grid_item_width = 'large--one-quarter medium--one-half'
+
+{% endcomment %}
+
+{% comment %}
+  Set the default grid_item_width if no variable is set
+{% endcomment %}
+{% unless grid_item_width %}
+  {% assign grid_item_width = 'large--one-quarter medium--one-third medium-down--one-half' %}
+{% endunless %}
+
+<div class="grid__item {{ grid_item_width }} article-item">
+
+  {% comment %}
+    Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+    This allows you to create collection-based navigation on the product page.
+
+    Results of using 'within: collection':
+    - Instead of a URL with /products/product-handle
+      you would get /collections/collection-handle/products/product-handle
+
+    For more info on navigation within a collection
+      - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+
+  {% endcomment %}
+
+  <a href="{{ article.url }}" class="grid__image">
+
+    <div class="article">
+
+      <div class="article-image">
+        {{ article | img_url: '1024x1024' | img_tag: article.title }}
+      </div>
+
+      <div class="article-metadata">
+
+        <p class="h5">{{ article.title }}</p>
+
+      </div>
+
+    </div>
+
+  </a>
+
+</div>

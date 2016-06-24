@@ -1,0 +1,95 @@
+<!-- /templates/blog.collection.liquid -->
+{% comment %}
+
+  Loop through a defined number of articles with the 'paginate' tag.
+  Don't forget to close the tag after your loop.
+
+{% endcomment %}
+
+{% comment %}
+  ### NOTE KLT062416: Commenting out pagination
+
+  | % paginate blog.articles by 20 % |
+{% endcomment %}
+
+{% include 'breadcrumb' %}
+
+{% comment %}
+  This template is also used for listing out articles of a specific tag.
+  You can change layouts or styles by checking if current_tags is true.
+{% endcomment %}
+
+<div class="grid">
+
+  {% if blog.handle contains 'mongers' %}
+    <div class="grid__item one-whole">
+      {{ 'Blog.Mongers.Splash.jpg' | asset_url | img_tag: blog.title, 'image-splash' }}
+    </div>
+  {% endif %}
+
+  {% comment %}
+    Article tags in the current blog
+  {% endcomment %}
+  {% if blog.all_tags.size > 0 %}
+    <div class="grid__item one-whole">
+
+      <ul class="no-bullets collection-filters">
+        {% for tag in blog.all_tags %}
+          {% if current_tags contains tag %}
+            <li class="filter--active">
+              {{ tag | link_to_remove_tag: tag }}
+            </li>
+          {% else %}
+            <li>
+              {% comment %}
+                Use link_to_add_tag if you want to allow filtering
+                by multiple tags
+              {% endcomment %}
+              {{ tag | link_to_tag: tag }}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+    </div>
+  {% endif %}
+
+  <div class="grid__item one-whole">
+
+    {% if current_tags %}
+      <!-- <h1>{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1> -->
+    {% else %}
+      <!-- <h1>{{ blog.title }}</h1> -->
+    {% endif %}
+
+    {% comment %}
+      Loop through each article in your blog. This is limited to what you set for pagination above.
+
+      For more info on article liquid tags:
+        - http://docs.shopify.com/themes/liquid-variables/article
+    {% endcomment %}
+
+    <div class="grid--table grid-collection">
+
+      {% for article in blog.articles reversed %}
+        {% include 'blog-grid-item' %}
+      {% endfor %}
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <hr>
+      <div class="pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+{% comment %}
+  ### NOTE KLT062416: Commenting out pagination
+
+  | % endpaginate % |
+{% endcomment %}
