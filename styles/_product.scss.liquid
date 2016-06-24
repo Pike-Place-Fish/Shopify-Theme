@@ -35,6 +35,7 @@
 
       // Text
       h1[itemprop="name"] {
+        margin-bottom           : 0;
         font-size               : em(18px);
         text-transform          : none;
       }
@@ -74,7 +75,7 @@
         width                   : 100%;
       }
       div.product-custom-options {
-        margin                  : ($gutter * 2) 0;
+        margin                  : $gutter 0 ($gutter * 2);
       }
       .product-custom-options > div,
       div.selector-wrapper,
@@ -98,13 +99,14 @@
         //text-align            : right;
           font-family           : 'Cabin Bold', $bodyFontStack;
         }
-        label ~ span,
-        span[itemprop="price"] {
+        label ~ span {
           width                 : 75%;
         }
       }
       span[itemprop="price"] {
-        font-size               : em(24.5px);
+        font-family             : $interfaceFontStack;
+        font-size               : em(18px);
+        font-weight             : 700;
       }
 
       // Related articles
