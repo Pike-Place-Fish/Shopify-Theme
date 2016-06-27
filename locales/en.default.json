@@ -19,7 +19,7 @@
     },
     "search": {
       "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
-      "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
+      "results_for_html": "Search results for \"{{ terms }}\":",
       "title": "Search for products on our site",
       "placeholder": "What can we find for you?",
       "submit": "Search"
