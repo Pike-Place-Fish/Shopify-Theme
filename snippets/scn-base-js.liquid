@@ -1,0 +1,55 @@
+
+<script>
+    // Function to hide hidden variants
+    var scnHiddenVariants = [" (BK ","Free Gift"];
+    function scnProduct(product) {
+        var newVariants = [], i, isValid, variantIndex, priceMin = product.price_max;
+        for (variantIndex in product.variants) {
+            var variant = product.variants[variantIndex];
+            isValid = true;
+            for (i in scnHiddenVariants) {
+                //Is variant hidden item
+                if (typeof variant == 'object' && variant.title.indexOf(scnHiddenVariants[i]) != -1) {
+                    isValid = false;
+                }
+            }
+            if (isValid) {
+                newVariants.push(variant);
+                if (priceMin < variant.price) {
+                    priceMin = variant.price;
+                }
+            }
+        }
+
+        product.variants = newVariants;
+        product.price_min = priceMin;
+        product.price_varies = product.price_min != product.price_max;
+        return product;
+    }
+
+    // Function to correct product json for quick view app
+    if (typeof jQuery != "undefined") {
+        setTimeout(function () {
+            function _htmlEncode(html) {
+                return document.createElement('a').appendChild(
+                        document.createTextNode(html)).parentNode.innerHTML;
+            }
+            // Convert view
+            jQuery('a.sca-qv-button').each(function () {
+                var quickViewImage = jQuery(this).closest('i');
+                var product = quickViewImage.find('span');
+                var productJson, productText;
+                if (product.length) {
+                    try {
+                        productJson = JSON.parse(product.html());
+                    } catch (ex) {
+                        return;
+                    }
+                    // Re update product html
+                    productText = JSON.stringify(scnProduct(productJson));
+                    product.html(_htmlEncode(productText));
+                }
+            });
+        }, 500);
+    }
+</script>

@@ -1,0 +1,92 @@
+
+{% comment %}
+    This template was created by Social Comerce Ninja.
+    This template will hide all hidden offer product variant in your theme
+{% endcomment %}
+{% assign scn_options = '' %}
+{% assign scn_options_count = 0 %}
+{% for variant in product.variants %}
+    {% if variant.metafields.brodev_scn.hide == "true" %}
+        {% assign scn_options_count = scn_options_count|plus:1 %}
+    {% endif %}
+{% endfor %}
+{% if scn_options_count > 0 %}
+    <script type="text/javascript">
+        var brodevSCNDomLoaded = function (callback) {
+            /* Internet Explorer */
+            /*@cc_on
+                 @if (@_win32 || @_win64)
+                     document.write('<script id="ieScriptLoad" defer src="//:"><\/script>');
+                     document.getElementById('ieScriptLoad').onreadystatechange = function() {
+                        if (this.readyState == 'complete') {callback();}
+                     };
+                 @end
+             @*/
+            /* Mozilla, Chrome, Opera */
+            if (document.addEventListener) {
+                document.addEventListener('DOMContentLoaded', callback, false);
+            }
+            /* Safari, iCab, Konqueror */
+            else if (/KHTML|WebKit|iCab/i.test(navigator.userAgent)) {
+                var DOMLoadTimer = setInterval(function () {
+                    if (/loaded|complete/i.test(document.readyState)) {
+                        callback();
+                        clearInterval(DOMLoadTimer);
+                    }
+                }, 10);
+            } else {
+                /* Other web browsers */
+                window.onload = callback;
+            }
+        };
+
+        function removeCloneVariant() {
+            setTimeout(function() {
+                // Check loop
+                {% for variant in product.variants %}
+                {% if variant.metafields.brodev_scn.hide == "true" %}
+                    // Remove in selection tag
+                    jQuery('select option').filter(function() {
+                        var text = jQuery(this).text();
+                        return text.indexOf({{ variant.option1 | json }}) !== -1;
+                    }).remove();
+                    // Remove in ad-don html
+                    jQuery('.dropdown *,ul li,label,div').filter(function() {
+                        var html = jQuery(this).html(),
+                        value = jQuery(this).data('value');
+                        return (html  && (html == {{ variant.option1 | json }}))
+                            || (value && (value.indexOf({{ variant.option1 | json }}) !== -1));
+                    }).remove();
+                {% endif %}
+                {% endfor %}
+
+                var defaultTitleText = 'Default Title';
+                // Remove in selection tag
+                jQuery('select option').filter(function() {
+                    return jQuery(this).text() == defaultTitleText;
+                }).hide();
+                // Remove in ad-don html
+                jQuery('.dropdown *,ul li,label,div').filter(function() {
+                    return (jQuery(this).data('value') == defaultTitleText);
+                }).hide();
+
+                // Hide selection box if empty or contain only one selection
+                jQuery.each(jQuery('.single-option-selector'), function(index, selection) {
+                    if (jQuery(selection).find('option').length <= 1) {
+                        jQuery(selection).hide();
+                    }
+                });
+
+                // Update change
+                $('.single-option-selector').trigger('change');
+            }, 100);
+        }
+
+        brodevSCNDomLoaded(function() {
+            // Remove clone variant when dom loaded
+            removeCloneVariant();
+            // Remove clone variant by listen dom inserted
+            //$(document).bind('DOMNodeInserted', removeCloneVariant);
+        });
+    </script>
+{% endif %}
