@@ -53,19 +53,21 @@
       And for the good stuff, loop through the tags themselves.
     {% endcomment %}
     {% for tag in collection.all_tags %}
-      {% if current_tags contains tag %}
-        <li class="filter--active">
-          {{ tag | link_to_remove_tag: tag }}
-        </li>
-      {% else %}
-        <li>
-          {% comment %}
-            Use link_to_add_tag if you want to allow filtering
-            by multiple tags
-          {% endcomment %}
-          {{ tag | link_to_tag: tag }}
-        </li>
-      {% endif %}
+      {% unless tag contains '_' %}
+        {% if current_tags contains tag %}
+          <li class="filter--active">
+            {{ tag | link_to_remove_tag: tag }}
+          </li>
+        {% else %}
+          <li>
+            {% comment %}
+              Use link_to_add_tag if you want to allow filtering
+              by multiple tags
+            {% endcomment %}
+            {{ tag | link_to_tag: tag }}
+          </li>
+        {% endif %}
+      {% endunless %}
     {% endfor %}
   </ul>
 {% endif %}
