@@ -46,20 +46,6 @@
 
         <div class="grid-uniform">
           {% for item in search.results %}
-
-            {% comment %}
-              ### NOTE KLT062716: Beeketing Boost Sales Product Price Snippet and Variable Replacements
-              - http://bit.ly/1TB8dYB
-              - https://youtu.be/nxc_-VXavt8?t=10m35s
-              - Variables replacement:
-                - product.price = scn_product_min
-                - product.price_min = scn_product_min
-                - product.price_varies = scn_price_varies
-                - {{ product | json }} = scnProduct({{ product | json }})
-                - product.selected_or_first_available_variant = scn_first_product_variant
-            {% endcomment %}
-            {% include 'scn-product-price' with item %}
-
             {% comment %}
               Check if the product is on sale and set a variable to be used below.
             {% endcomment %}

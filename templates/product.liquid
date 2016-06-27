@@ -9,23 +9,6 @@
 
 {% endcomment %}
 
-{% comment %}
-  ### NOTE KLT062716: Beeketing Boost Sales Product Implementation
-  - http://bit.ly/1TB8dYB
-  - https://youtu.be/nxc_-VXavt8?t=19s
-  ### NOTE KLT062716: Beeketing Boost Sales Product Price Replacements
-  - https://youtu.be/nxc_-VXavt8?t=5m48s
-  - Variables replacement:
-    - product.price = scn_product_min
-    - product.price_min = scn_product_min
-    - product.price_varies = scn_price_varies
-    - {{ product | json }} = scnProduct({{ product | json }})
-    - product.selected_or_first_available_variant = scn_first_product_variant
-{% endcomment %}
-<!-- SCN code start -->
-{% include 'scn-product' %}
-<!-- SCN code end -->
-
 <div itemscope itemtype="http://schema.org/Product">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
@@ -33,10 +16,8 @@
 
   {% comment %}
     Get first variant, or deep linked one
-    ### NOTE KLT062716: Was current_variant = product.selected_or_first_available_variant
-    - https://youtu.be/nxc_-VXavt8?t=7m10s
   {% endcomment %}
-  {% assign current_variant = scn_first_product_variant %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
 
   {% include 'breadcrumb' %}
 
@@ -237,7 +218,7 @@
 
   jQuery(function($) {
     new Shopify.OptionSelectors('productSelect', {
-      product: scnProduct({{ product | json }}), // Was {{ product | json }}
+      product: {{ product | json }},
       onVariantSelected: selectCallback,
       enableHistoryState: true
     });
