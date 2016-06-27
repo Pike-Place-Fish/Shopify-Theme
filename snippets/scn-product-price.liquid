@@ -1,0 +1,28 @@
+{% assign scn_product_min = scn-product-price.price_max) %}
+
+{% assign scn_is_contain_scn_variant = false %}
+{% assign scn_variant_size = 0 %}
+{% assign scn_get_first_product_variant = false %}
+{% assign scn_first_product_variant = scn-product-price.variants[0] %}
+
+{% for variant in scn-product-price.variants %}
+  {% unless  variant.metafields.brodev_scn.hide == "true" %}
+    {% if variant.price < scn_product_min %}
+        {% assign scn_product_min = variant.price %}
+    {% endif %}
+
+    {% assign scn_variant_size = scn_variant_size | plus: 1 %}
+    {% if scn_get_first_product_variant == false %}
+         {% assign scn_first_product_variant = variant %}
+      {% assign scn_get_first_product_variant = true %}
+    {% endif %}
+  {% else %}
+    {% assign scn_is_contain_scn_variant = true %}
+  {% endunless %}
+{% endfor %}
+
+{% if scn_product_min == scn-product-price.price_max %}
+   {% assign scn_price_varies = false %}
+{% else %}
+   {% assign scn_price_varies = true %}
+{% endif %}
