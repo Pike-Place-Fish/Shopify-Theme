@@ -53,6 +53,15 @@
   {% endif %}
 
   {% comment %}
+    ### NOTE KLT062716: Expanding Search Bar
+    - http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/
+  {% endcomment %}
+  <!--
+  {{ 'classie.js' | asset_url | script_tag }}
+  {{ 'expandingSearch.js' | asset_url | script_tag }}
+  -->
+
+  {% comment %}
     ### NOTE KLT061616: Relatable Implementation
     - https://relatable.heliumdev.com/panel
   {% endcomment %}
@@ -65,6 +74,12 @@
   <script src="//cdn-relatable.heliumdev.com/js/1.0/relatable.js" async></script>
   <!-- End Relatable -->
 
+  {% comment %}
+    ### NOTE KLT062716: Beeketing Boost Sales Script
+    - http://bit.ly/1TB8dYB
+    - https://youtu.be/nxc_-VXavt8?t=19s
+  {% endcomment %}
+  {% include 'scn-base-js' %}
 
 </head>
 
@@ -535,7 +550,7 @@
         siteHeaderHeight        = jQuery('#PageContainer header.site-header').outerHeight(),
         navbarHeight            = jQuery('#PageContainer nav.nav-bar').outerHeight(),
         footerHeight            = jQuery('#PageContainer footer.site-footer').outerHeight(),
-        minContentHeight        = (jQuery('body').height() - siteHeaderHeight - navbarHeight - footerHeight - 29);
+        minContentHeight        = (jQuery('body').height() - siteHeaderHeight - navbarHeight - footerHeight);
 
       if (jQuery(window).width() < 960) {
         minContentHeight        = (minContentHeight - 1);
