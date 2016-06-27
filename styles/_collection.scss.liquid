@@ -60,6 +60,15 @@
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
       }
+      a {
+        &:hover,
+        &:focus,
+        &:active {
+          h5 {
+            color               : {{ settings.color_primary }};
+          }
+        }
+      }
       .product-metadata,
       .article-metadata {
         padding-top             : $gutter;
