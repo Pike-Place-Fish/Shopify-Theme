@@ -33,7 +33,7 @@
         "id": "color_primary",
         "label": "Primary",
         "default": "#ff671f",
-        "info": "Used for text links, and primary buttons"
+        "info": "Used for primary accent and primary buttons"
       },
       {
         "type": "color",
@@ -41,6 +41,13 @@
         "label": "Secondary",
         "default": "#000000",
         "info": "Used for secondary buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_text_link",
+        "label": "Primary",
+        "default": "#427a90",
+        "info": "Used for text links"
       },
       {
         "type": "color",
