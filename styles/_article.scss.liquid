@@ -23,15 +23,22 @@
 
       // Servings Label (e.g., "Serves 4")
       .servings {
+        margin-bottom           : 1em;
         font-family             : 'Cabin Semibold', $bodyFontStack;
-        color                   : {{ settings.color_interface_accent }};
       }
 
     }
 
     // Title
     h1.title {
+      margin-top                : 0;
+      margin-bottom             : 0.75em;
       text-transform            : none;
+    }
+
+    // Content Headings
+    h2 {
+      @extend .h4;
     }
 
     // Related articles
@@ -57,7 +64,9 @@
           }
           div.title {
             padding             : 0 ($gutter * 1.5);
+            font-family         : $interfaceFontStack;
             line-height         : 110%;
+            font-weight         : 500;
             color               : {{ settings.color_body_text }};
           }
         }

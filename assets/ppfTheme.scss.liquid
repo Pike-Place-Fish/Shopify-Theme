@@ -77,6 +77,7 @@
 // Timber Colors
 $colorPrimary: {{ settings.color_primary }};
 $colorSecondary: {{ settings.color_secondary }};
+$colorLinkText                  : {{ settings.color_text_link }}; // New
 
 // Button colors
 $colorBtnPrimary: $colorPrimary;
@@ -90,8 +91,8 @@ $colorBtnSecondaryActive: darken($colorBtnSecondaryHover, 10%);
 $colorBtnSecondaryText: #fff;
 
 // Text link colors
-$colorLink: $colorPrimary;
-$colorLinkHover: lighten($colorPrimary, 15%);
+$colorLink                      : $colorLinkText;               // Was $colorPrimary
+$colorLinkHover                 : lighten($colorLinkText, 10%); // Was lighten($colorPrimary, 15%)
 
 // Text colors
 $colorTextBody: {{ settings.color_body_text }};
@@ -951,7 +952,7 @@ $class-type: unquote(".");
   h5,
   h6 {
     display                     : block;
-    margin                      : 0 0 0.5em;
+    margin-bottom               : 0.25em;
     font-family                 : $headerFontStack;
     line-height                 : 1.4;
     font-weight                 : $headerFontWeight;
@@ -970,23 +971,23 @@ $class-type: unquote(".");
 
   // Note: headings use em() Sass function to declare font-size
   h1 {
-    font-size                   : em(36px);
+    font-size                   : em(28px);                     // Was em(36px)
   }
 
   h2 {
-    font-size                   : em(28px);
+    font-size                   : em(22px);                     // Was em(28px)
   }
 
   h3 {
-    font-size                   : em(22px);
+    font-size                   : em(18px);                     // Was em(22px)
   }
 
   h4 {
-    font-size                   : em(18px);                     // Was em(20px)
+    font-size                   : em(16px);                     // Was em(20px)
   }
 
   h5 {
-    font-size                   : em(16px);
+    font-size                   : em(14px);                     // Was em(16px)
   }
 
   h6 {
@@ -1681,12 +1682,12 @@ hr {
   margin-bottom: $gutter / 2;
 
   a {
-    text-decoration: underline;
+    text-decoration             : none;                         // Was underline
   }
 
   // Add some top margin to headers from the rich text editor
   h1, h2, h3, h4, h5, h6 {
-    margin-top: 2em;
+    margin-top: 1em;
 
     &:first-child {
       margin-top: 0;
@@ -2038,7 +2039,6 @@ th, td {
         width                   : auto;
       }
     }
-
   }
 
 }
@@ -2077,9 +2077,9 @@ th, td {
 }
 
 .site-header__search {
-  display: inline-block;
+  display                       : inline-block;
   max-width                     : 207px;                        // Was 400px
-  margin-top: $gutter / 2;
+  margin-top                    : $gutter / 2;
   width                         : auto;                         // Was 100%
 }
 
@@ -2149,7 +2149,7 @@ th, td {
 
   // New
   input[type="search"] {
-    margin-right                : 8px;
+    margin-right                : 0;
     border-width                : 0 0 1px 0;
     border-color                : {{ settings.color_primary }};
     padding                     : 0 2px;
@@ -2172,13 +2172,14 @@ th, td {
 
   // New
   .input-group-btn {
-    padding-left                : 6px;
+    padding-left                : 0;
     width                       : auto;
   }
   button[type="submit"],
   button.btn {
     padding                     : 0;
-    width                       : 21px;
+    width                       : 22px;
+    min-width                   : auto;
     height                      : 21px;
     background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
     background-size             : 21px 21px;
@@ -2300,7 +2301,7 @@ th, td {
   &:hover,
   &:active,
   &:focus {
-    color: $colorLink;          // Was darken($colorNavText, 15%);
+    color                       : $colorPrimary;                // Was darken($colorNavText, 15%)
   }
 
   .icon-arrow-down {
@@ -2312,7 +2313,7 @@ th, td {
 
   .site-nav--active > & {
   //font-weight: bold;
-    color: $colorLink;
+    color                       : $colorPrimary;                // Was $colorLink
   }
 
   .site-nav--mobile & {
@@ -2321,15 +2322,14 @@ th, td {
 
   // New
   &.logotype {
-    position: relative;
-    top: 4px;
-    padding: 0 15px 0;
-    font-size: 150%;
-    color: $colorLink;
-    letter-spacing: em(2px);
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: {{ settings.color_secondary }};
-  //text-shadow: 0px 1px 2px #000000;
+    position                    : relative;
+    top                         : 4px;
+    padding                     : 0 15px 0;
+    font-size                   : 150%;
+    color                       : $colorPrimary;
+    letter-spacing              : em(2px);
+    -webkit-text-stroke-width   : 1px;
+    -webkit-text-stroke-color   : {{ settings.color_secondary }};
   }
 
 }
@@ -2389,6 +2389,10 @@ th, td {
 
   .search-bar {
     margin-bottom: 0;
+    // New
+    input[type="search"] {
+      color                     : {{ settings.color_body_bg }};
+    }
   }
 }
 
@@ -3380,6 +3384,15 @@ ul.article-filters {
         color                   : {{ settings.color_body_text }};
         text-transform          : none;
       }
+      a {
+        &:hover,
+        &:focus,
+        &:active {
+          h5 {
+            color               : {{ settings.color_primary }};
+          }
+        }
+      }
       .product-metadata,
       .article-metadata {
         padding-top             : $gutter;
@@ -3433,7 +3446,7 @@ ul.article-filters {
 
       // Text
       h1[itemprop="name"] {
-        margin-bottom           : 0;
+        margin                  : 0;
         font-size               : em(18px);
         text-transform          : none;
       }
@@ -3516,7 +3529,7 @@ ul.article-filters {
           li {
             a {
               font-family       : 'Cabin Semibold', $bodyFontStack;
-              color             : {{ settings.color_interface_accent }};
+              color             : $colorLink;
             }
           }
         }
@@ -3645,7 +3658,7 @@ ul.article-filters {
               display           : inline-block;
               margin-right      : ($gutter);
               font-family       : 'Cabin Semibold', $bodyFontStack;
-              color             : {{ settings.color_interface_accent }};
+              color             : $colorLink;
               text-transform    : uppercase;
             }
           }
@@ -3776,15 +3789,22 @@ ul.article-filters {
 
       // Servings Label (e.g., "Serves 4")
       .servings {
+        margin-bottom           : 1em;
         font-family             : 'Cabin Semibold', $bodyFontStack;
-        color                   : {{ settings.color_interface_accent }};
       }
 
     }
 
     // Title
     h1.title {
+      margin-top                : 0;
+      margin-bottom             : 0.75em;
       text-transform            : none;
+    }
+
+    // Content Headings
+    h2 {
+      @extend .h4;
     }
 
     // Related articles
@@ -3810,7 +3830,9 @@ ul.article-filters {
           }
           div.title {
             padding             : 0 ($gutter * 1.5);
+            font-family         : $interfaceFontStack;
             line-height         : 110%;
+            font-weight         : 500;
             color               : {{ settings.color_body_text }};
           }
         }
