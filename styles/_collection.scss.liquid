@@ -22,16 +22,22 @@
 
     // Splash Image
     .image-splash {
-      margin-bottom             : ($gutter * 2.5);
+    //margin-bottom             : ($gutter * 2.5);
     }
 
     // Filters (Tags), Sort
     [class*="section-header"] {
       margin                    : 0 0 ($gutter * 2);
       vertical-align            : top;
+      @include at-query($max, $preMedium) {
+        margin-bottom           : ($gutter * 1.5);
+      }
     }
     ul.collection-filters {
       margin-top                : 2px;
+      @include at-query($max, $preMedium) {
+        margin-top              : ($gutter * 1.5);
+      }
     }
     label[for="SortBy"],
     select,
