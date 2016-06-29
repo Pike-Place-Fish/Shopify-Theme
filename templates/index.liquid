@@ -44,16 +44,17 @@
               {% assign promo1_handle = settings.home_promotion_a %}
               {% assign promo1_product = all_products[promo1_handle] %}
               {% assign promo1_variant = promo1_product.selected_or_first_available_variant %}
+              {% if settings.home_promotion_a_short_label != "" %}
+                {% assign promo1_product_title = settings.home_promotion_a_short_label %}
+              {% else %}
+                {% assign promo1_product_title = promo1_product.title %}
+              {% endif %}
 
               <!-- Display promotion data -->
               <a href="{{ promo1_product.url }}" class="promotion-data">
                 <div>
                   <h2 class="title">
-                    {% if settings.home_promotion_a_short_label != "" %}
-                      {{ settings.home_promotion_a_short_label }}
-                    {% else %}
-                      {{ promo1_product.title }}
-                    {% endif %}
+                    {{ promo1_product_title }}
                   </h2>
                   <p class="price">
                     {% if promo1_product.variants.size > 1 %}From {% endif %}
@@ -71,18 +72,23 @@
 
               <!-- Assign Page Link Variables -->
               {% assign pageLink4_handle = settings.home_link_4 %}
-              {% assign pageLink4_page = pages[pageLink4_handle] %}
+              {% assign pageLink4_collection = collections[pageLink4_handle] %}
+              {% if settings.home_link_4_short_label != "" %}
+                {% assign pageLink4_collection_title = settings.home_link_4_short_label %}
+              {% else %}
+                {% assign pageLink4_collection_title = pageLink4_collection.title %}
+              {% endif %}
 
               <!-- Display page link data or image -->
               {% if settings.home_link_4 != "" %}
-                <a href="{{ pageLink4_page.url }}" class="link-data">
-                  {{ 'Home.Crab.jpg' | asset_url | img_tag: pageLink4_page.title, 'link-image' }}
+                <a href="{{ pageLink4_collection.url }}" class="link-data">
+                  {{ 'home_photo_4.jpg' | asset_url | img_tag: pageLink4_collection_title, 'link-image' }}
                   <div class="overlay">
-                    <div class="link-text"><h2>{{ pageLink4_page.title }}</h2></div>
+                    <div class="link-text"><h2>{{ pageLink4_collection_title }}</h2></div>
                   </div>
                 </a>
               {% else %}
-                {{ 'Home.Crab.jpg' | asset_url | img_tag: pageLink4_page.title, 'link-image' }}
+                {{ 'home_photo_4.jpg' | asset_url | img_tag: '*', 'link-image' }}
               {% endif %}
 
             </div>
@@ -99,17 +105,22 @@
           <!-- Assign Page Link Variables -->
           {% assign pageLink1_handle = settings.home_link_1 %}
           {% assign pageLink1_page = pages[pageLink1_handle] %}
+          {% if settings.home_link_1_short_label != "" %}
+            {% assign pageLink1_page_title = settings.home_link_1_short_label %}
+          {% else %}
+            {% assign pageLink1_page_title = pageLink1_page.title %}
+          {% endif %}
 
           <!-- Display page link data or image -->
           {% if settings.home_link_1 != "" %}
             <a href="{{ pageLink1_page.url }}" class="link-data">
-              {{ 'Home.FishMonger.jpg' | asset_url | img_tag: pageLink1_page.title, 'link-image' }}
+              {{ 'home_photo_1.jpg' | asset_url | img_tag: pageLink1_page_title, 'link-image' }}
               <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink1_page.title }}</h2></div>
+                <div class="link-text"><h2>{{ pageLink1_page_title }}</h2></div>
               </div>
             </a>
           {% else %}
-            {{ 'Home.FishMonger.jpg' | asset_url | img_tag: pageLink1_page.title, 'link-image' }}
+            {{ 'home_photo_1.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -131,18 +142,23 @@
 
           <!-- Assign Page Link Variables -->
           {% assign pageLink2_handle = settings.home_link_2 %}
-          {% assign pageLink2_page = pages[pageLink2_handle] %}
+          {% assign pageLink2_collection = collections[pageLink2_handle] %}
+          {% if settings.home_link_2_short_label != "" %}
+            {% assign pageLink2_collection_title = settings.home_link_2_short_label %}
+          {% else %}
+            {% assign pageLink2_collection_title = pageLink2_collection.title %}
+          {% endif %}
 
           <!-- Display page link data or image -->
           {% if settings.home_link_2 != "" %}
-            <a href="{{ pageLink2_page.url }}" class="link-data">
-              {{ 'Home.SalmonFilets.jpg' | asset_url | img_tag: pageLink2_page.title, 'link-image' }}
+            <a href="{{ pageLink2_collection.url }}" class="link-data">
+              {{ 'home_photo_2.jpg' | asset_url | img_tag: pageLink2_collection_title, 'link-image' }}
               <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink2_page.title }}</h2></div>
+                <div class="link-text"><h2>{{ pageLink2_collection_title }}</h2></div>
               </div>
             </a>
           {% else %}
-            {{ 'Home.SalmonFilets.jpg' | asset_url | img_tag: pageLink2_page.title, 'link-image' }}
+            {{ 'home_photo_2.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -157,16 +173,17 @@
           {% assign promo2_handle = settings.home_promotion_b %}
           {% assign promo2_product = all_products[promo2_handle] %}
           {% assign promo2_variant = promo2_product.selected_or_first_available_variant %}
+          {% if settings.home_promotion_b_short_label != "" %}
+            {% assign promo2_product_title = settings.home_promotion_b_short_label %}
+          {% else %}
+            {% assign promo2_product_title = promo2_product.title %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo2_product.url }}" class="promotion-data">
             <div>
               <h2 class="title">
-                {% if settings.home_promotion_b_short_label != "" %}
-                  {{ settings.home_promotion_b_short_label }}
-                {% else %}
-                  {{ promo2_product.title }}
-                {% endif %}
+                {{ promo2_product_title }}
               </h2>
               <p class="price">
                 {% if promo2_product.variants.size > 1 %}From {% endif %}
@@ -186,17 +203,22 @@
           <!-- Assign Page Link Variables -->
           {% assign pageLink5_handle = settings.home_link_5 %}
           {% assign pageLink5_page = pages[pageLink5_handle] %}
+          {% if settings.home_link_5_short_label != "" %}
+            {% assign pageLink5_page_title = settings.home_link_5_short_label %}
+          {% else %}
+            {% assign pageLink5_page_title = pageLink5_page.title %}
+          {% endif %}
 
           <!-- Display page link data or image -->
           {% if settings.home_link_5 != "" %}
             <a href="{{ pageLink5_page.url }}" class="link-data">
-              {{ 'Home.Fulfillment.jpg' | asset_url | img_tag: pageLink5_page.title, 'link-image' }}
+              {{ 'home_photo_5.jpg' | asset_url | img_tag: pageLink5_page_title, 'link-image' }}
               <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink5_page.title }}</h2></div>
+                <div class="link-text"><h2>{{ pageLink5_page_title }}</h2></div>
               </div>
             </a>
           {% else %}
-            {{ 'Home.Fulfillment.jpg' | asset_url | img_tag: pageLink5_page.title, 'link-image' }}
+            {{ 'home_photo_5.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -214,17 +236,22 @@
       <!-- Assign Page Link Variables -->
       {% assign pageLink3_handle = settings.home_link_3 %}
       {% assign pageLink3_page = pages[pageLink3_handle] %}
+      {% if settings.home_link_3_short_label != "" %}
+        {% assign pageLink3_page_title = settings.home_link_3_short_label %}
+      {% else %}
+        {% assign pageLink3_page_title = pageLink3_page.title %}
+      {% endif %}
 
       <!-- Display page link data or image -->
       {% if settings.home_link_3 != "" %}
         <a href="{{ pageLink3_page.url }}" class="link-data">
-          {{ 'Home.FishMonger2.jpg' | asset_url | img_tag: pageLink3_page.title, 'link-image' }}
+          {{ 'home_photo_3.jpg' | asset_url | img_tag: pageLink3_page_title, 'link-image' }}
           <div class="overlay">
-            <div class="link-text"><h2>{{ pageLink3_page.title }}</h2></div>
+            <div class="link-text"><h2>{{ pageLink3_page_title }}</h2></div>
           </div>
         </a>
       {% else %}
-        {{ 'Home.FishMonger2.jpg' | asset_url | img_tag: pageLink3_page.title, 'link-image' }}
+        {{ 'home_photo_3.jpg' | asset_url | img_tag: '*', 'link-image' }}
       {% endif %}
 
     </div>
@@ -247,16 +274,17 @@
           {% assign promo3_handle = settings.home_promotion_c %}
           {% assign promo3_product = all_products[promo3_handle] %}
           {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+          {% if settings.home_promotion_c_short_label != "" %}
+            {% assign promo3_product_title = settings.home_promotion_c_short_label %}
+          {% else %}
+            {% assign promo3_product_title = promo3_product.title %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
             <div>
               <h2 class="title">
-                {% if settings.home_promotion_c_short_label != "" %}
-                  {{ settings.home_promotion_c_short_label }}
-                {% else %}
-                  {{ promo3_product.title }}
-                {% endif %}
+                {{ promo3_product_title }}
               </h2>
               <p class="price">
                 {% if promo3_product.variants.size > 1 %}From {% endif %}
@@ -280,17 +308,22 @@
           <!-- Assign Page Link Variables -->
           {% assign pageLink6_handle = settings.home_link_6 %}
           {% assign pageLink6_page = pages[pageLink6_handle] %}
+          {% if settings.home_link_6_short_label != "" %}
+            {% assign pageLink6_page_title = settings.home_link_6_short_label %}
+          {% else %}
+            {% assign pageLink6_page_title = pageLink6_page.title %}
+          {% endif %}
 
           <!-- Display page link data -->
           {% if settings.home_link_6 != "" %}
             <a href="{{ pageLink6_page.url }}" class="link-data">
-              {{ 'Home.Market.jpg' | asset_url | img_tag: pageLink6_page.title, 'link-image' }}
+              {{ 'home_photo_6.jpg' | asset_url | img_tag: pageLink6_page_title, 'link-image' }}
               <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink6_page.title }}</h2></div>
+                <div class="link-text"><h2>{{ pageLink6_page_title }}</h2></div>
               </div>
             </a>
           {% else %}
-            {{ 'Home.Market.jpg' | asset_url | img_tag: pageLink6_page.title, 'link-image' }}
+            {{ 'home_photo_6.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -307,16 +340,17 @@
           {% assign promo3_handle = settings.home_promotion_c %}
           {% assign promo3_product = all_products[promo3_handle] %}
           {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
+          {% if settings.home_promotion_c_short_label != "" %}
+            {% assign promo3_product_title = settings.home_promotion_c_short_label %}
+          {% else %}
+            {% assign promo3_product_title = promo3_product.title %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
             <div>
               <h2 class="title">
-                {% if settings.home_promotion_c_short_label != "" %}
-                  {{ settings.home_promotion_c_short_label }}
-                {% else %}
-                  {{ promo3_product.title }}
-                {% endif %}
+                {{ promo3_product_title }}
               </h2>
               <p class="price">
                 {% if promo3_product.variants.size > 1 %}From {% endif %}
@@ -354,16 +388,17 @@
           {% assign promo4_handle = settings.home_promotion_d %}
           {% assign promo4_product = all_products[promo4_handle] %}
           {% assign promo4_variant = promo4_product.selected_or_first_available_variant %}
+          {% if settings.home_promotion_d_short_label != "" %}
+            {% assign promo4_product_title = settings.home_promotion_d_short_label %}
+          {% else %}
+            {% assign promo4_product_title = promo4_product.title %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo4_product.url }}" class="promotion-data">
             <div>
               <h2 class="title">
-                {% if settings.home_promotion_d_short_label != "" %}
-                  {{ settings.home_promotion_d_short_label }}
-                {% else %}
-                  {{ promo4_product.title }}
-                {% endif %}
+                {{ promo4_product_title }}
               </h2>
               <p class="price">
                 {% if promo4_product.variants.size > 1 %}From {% endif %}
@@ -387,21 +422,30 @@
 
     <div class="grid">
 
-      <!-- Meet the Mongers -->
+      <!-- Monger #2 -->
       <div class="grid__item medium-down--one-half">
         <div class="page-link">
 
           <!-- Assign Page Link Variables -->
-          {% assign pageLink2_handle = settings.home_link_2 %}
-          {% assign pageLink2_page = pages[pageLink2_handle] %}
+          {% assign pageLink3_handle = settings.home_link_3 %}
+          {% assign pageLink3_page = pages[pageLink3_handle] %}
+          {% if settings.home_link_3_short_label != "" %}
+            {% assign pageLink3_page_title = settings.home_link_3_short_label %}
+          {% else %}
+            {% assign pageLink3_page_title = pageLink3_page.title %}
+          {% endif %}
 
-          <!-- Display page link data -->
-          <a href="{{ pageLink2_page.url }}" class="link-data">
-            {{ 'Home.FishMonger2.jpg' | asset_url | img_tag: pageLink2_page.title, 'link-image' }}
-            <div class="overlay">
-              <div class="link-text"><h2>{{ pageLink2_page.title }}</h2></div>
-            </div>
-          </a>
+          <!-- Display page link data or image -->
+          {% if settings.home_link_3 != "" %}
+            <a href="{{ pageLink3_page.url }}" class="link-data">
+              {{ 'home_photo_3.jpg' | asset_url | img_tag: pageLink3_page_title, 'link-image' }}
+              <div class="overlay">
+                <div class="link-text"><h2>{{ pageLink3_page_title }}</h2></div>
+              </div>
+            </a>
+          {% else %}
+            {{ 'home_photo_3.jpg' | asset_url | img_tag: '*', 'link-image' }}
+          {% endif %}
 
         </div>
       </div>
@@ -418,16 +462,17 @@
               {% assign promo4_handle = settings.home_promotion_d %}
               {% assign promo4_product = all_products[promo4_handle] %}
               {% assign promo4_variant = promo4_product.selected_or_first_available_variant %}
+              {% if settings.home_promotion_d_short_label != "" %}
+                {% assign promo4_product_title = settings.home_promotion_d_short_label %}
+              {% else %}
+                {% assign promo4_product_title = promo4_product.title %}
+              {% endif %}
 
               <!-- Display promotion data -->
               <a href="{{ promo4_product.url }}" class="promotion-data">
                 <div>
                   <h2 class="title">
-                    {% if settings.home_promotion_d_short_label != "" %}
-                      {{ settings.home_promotion_d_short_label }}
-                    {% else %}
-                      {{ promo4_product.title }}
-                    {% endif %}
+                    {{ promo4_product_title }}
                   </h2>
                   <p class="price">
                     {% if promo4_product.variants.size > 1 %}From {% endif %}

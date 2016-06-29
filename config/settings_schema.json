@@ -423,7 +423,7 @@
         "info": "Image at grid points C1 and D1 (two squares wide)."
       },
       {
-        "type": "page",
+        "type": "collection",
         "id": "home_link_2",
         "label": "Image #2 Link"
       },
@@ -431,7 +431,7 @@
         "type": "text",
         "id": "home_link_2_short_label",
         "label": "Image #2 Short Label",
-        "info": "Short text label for page image link"
+        "info": "Short text label for collection image link"
       },
       {
         "type": "image",
@@ -441,7 +441,7 @@
       },
       {
         "type": "page",
-        "id": "home_link_3.jpg",
+        "id": "home_link_3",
         "label": "Image #3 Link"
       },
       {
@@ -457,7 +457,7 @@
         "info": "Image at grid point A2 (single square)."
       },
       {
-        "type": "page",
+        "type": "collection",
         "id": "home_link_4",
         "label": "Image #4 Link"
       },
@@ -465,7 +465,7 @@
         "type": "text",
         "id": "home_link_4_short_label",
         "label": "Image #4 Short Label",
-        "info": "Short text label for page image link"
+        "info": "Short text label for collection image link"
       },
       {
         "type": "image",
