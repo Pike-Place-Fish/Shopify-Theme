@@ -10,7 +10,9 @@ form {
 }
 
 /*================ Prevent zoom on touch devices in active inputs ================*/
-@include at-query($max, $medium) {
+
+// Was $max, $medium
+@include at-query($max, $preMedium) {
   input,
   textarea {
     font-size: 16px;

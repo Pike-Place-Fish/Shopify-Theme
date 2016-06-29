@@ -43,14 +43,19 @@ div.page-container {
   padding: 0 ($gutter / 2);
 
   @include at-query ($min, $small) {
-    padding: 0 $gutter;
+    padding                     : 0 ($gutter * 1.5);            // Was $gutter
+  }
+  // New
+  @include at-query ($min, $medium) {
+    padding                     : 0 $gutter;
   }
 }
 
 .main-content {
   display                       : block;
 //margin-top                    : ($gutter * 3);                // Was $gutter
-  padding-bottom                : ($gutter * 3);                // Was $gutter * 2
+  padding-top                   : ($gutter * 2);
+  padding-bottom                : ($gutter * 2);
 
   @include at-query ($min, $large) {
     padding                     : 45px;
@@ -422,7 +427,8 @@ th, td {
   Only defined for IE9+
 ==============================================================================*/
 .table--responsive {
-  @include at-query($max, $small) {
+  // Was $max, $small
+  @include at-query($max, $preSmall) {
     thead {
       display: none;
     }
@@ -466,7 +472,8 @@ th, td {
   }
 }
 
-@include at-query($max, $small) {
+// Was $max, $small
+@include at-query($max, $preSmall) {
   .table--small-hide {
     display: none !important;
   }
@@ -481,9 +488,9 @@ th, td {
       display: block;
       position: absolute;
       top: 0;
-      left: 15px;
-      right: 15px;
-      border-bottom: 1px solid $colorBorder;
+      left                      : $gutter;                      // Was 15px
+      right                     : $gutter;                      // Was 15px
+      border-bottom             : 2px solid {{ settings.color_body_bg_accent }}; // Was 2px $colorBorder;
     }
   }
 }

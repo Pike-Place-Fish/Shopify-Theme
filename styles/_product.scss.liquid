@@ -93,11 +93,16 @@
         }
         label,
         span.price-label {
-          padding-top           : 0.5em;
+          padding-top           : 0.25em;
           padding-right         : ($gutter * 1.5);
           width                 : 25%;
         //text-align            : right;
-          font-family           : 'Cabin Bold', $bodyFontStack;
+          font-family           : $interfaceFontStack;
+          line-height           : 115%;
+          font-weight           : 700;
+          @include at-query($max, $preSmall) {
+            font-size           : 3.25vw;
+          }
         }
         label ~ span {
           width                 : 75%;
