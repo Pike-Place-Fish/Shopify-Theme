@@ -356,7 +356,13 @@
                 </li>
               {% else %}
                 <li {% if link.active %}class="site-nav--active"{% endif %}>
-                  <a href="{{ link.url }}" class="site-nav__link{% if link.url == '/' %} logotype{% endif %}">{{ link.title }}</a><!-- {{ link.title | handleize }} -->
+                  <a href="{{ link.url }}" class="site-nav__link{% if link.url == '/' %} logotype{% endif %}">
+                    {% if link.url == '/' %}
+                      {{ 'LogoType.png' | asset_url | img_tag: shop.name }}
+                    {% else %}
+                      {{ link.title }}
+                    {% endif %}
+                  </a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -378,7 +384,7 @@
 
               <!-- Logotype Home Link -->
               <div class="home-link">
-                <h1><a href="/" class="logotype">Pike Place Fish Market</a></h1>
+                <a href="/" class="logotype">{{ 'LogoType.png' | asset_url | img_tag: shop.name }}</a>
               </div>
               <!-- /Logotype Home Link -->
 

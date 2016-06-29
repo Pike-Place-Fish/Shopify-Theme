@@ -736,6 +736,9 @@ th, td {
 .nav-bar {
   padding                       : ($gutter / 2) 0 $gutter;
   background-color              : {{ settings.color_body_bg }}; // Was $colorNav;
+  @include at-query($max, $large) {
+    padding-bottom              : 0;
+  }
 }
 
 .site-nav {
@@ -777,6 +780,9 @@ th, td {
     display                     : table-cell;
     text-align                  : center;
     vertical-align              : middle;
+    @include at-query($max, $small) {
+      padding-top               : 1%;
+    }
   }
   .site-nav--mobile {
     width                       : 10%;
@@ -819,7 +825,11 @@ th, td {
 
   // New
   .icon-hamburger {
-    font-size                   : 5.625vw;
+    font-size                   : 2em;
+    font-size                   : 3.75vw;
+    @include at-query($max, $medium) {
+      font-size                 : 4.25vw;
+    }
   }
 
 }
