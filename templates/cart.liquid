@@ -47,36 +47,30 @@
               <!-- /Product Name (and vendor) -->
 
               <!-- Product Specs (weight, instructions) -->
-              <div class="specifications">
+              <ul class="specifications">
 
+                <!-- Variants -->
+                {% unless item.variant.title contains 'Default' %}
+                  <li class="variant">{{ item.variant.title }}</li>
+                {% endunless %}
+                <!-- /Variants -->
+
+                <!-- Custom Properties -->
                 {% comment %}
-                  ### NOTE KLT061516: Added containing element for variants
+                  Optional, loop through custom product line items if available
+
+                  For more info on line item properties, visit:
+                    - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+
+                  ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
                 {% endcomment %}
-                <div class="variants">
-                  {% unless item.variant.title contains 'Default' %}
-                    <p><small>{{ item.variant.title }}</small></p>
-                  {% endunless %}
-                </div>
+                {% assign property_size = item.properties | size %}
+                {% if property_size > 0 %}
+                  {% for p in item.properties %}
+                    {% unless p.last == blank %}
 
-                {% comment %}
-                  ### NOTE KLT061516: Added containing element for additional properties
-                {% endcomment %}
-                <div class="properties">
-
-                  {% comment %}
-                    Optional, loop through custom product line items if available
-
-                    For more info on line item properties, visit:
-                      - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
-
-                    ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
-                  {% endcomment %}
-                  {% assign property_size = item.properties | size %}
-                  {% if property_size > 0 %}
-                    {% for p in item.properties %}
-                      {% unless p.last == blank %}
-
-                        <p>
+                      <li class="property">
+                        <!--
                         {% if p.first contains 'cuttingInstructions' %}
                           {{ 'cart.general.item_cutting_instructions' | t }}:
                         {% elsif p.first contains 'specialInstructions' %}
@@ -84,6 +78,7 @@
                         {% else %}
                           {{ p.first }}:
                         {% endif %}
+                        -->
 
                         {% comment %}
                           Check if there was an uploaded file associated
@@ -94,14 +89,12 @@
                           {{ p.last }}
                         {% endif %}
 
-                        </p>
-                      {% endunless %}
-                    {% endfor %}
-                  {% endif %}
+                      </li>
+                    {% endunless %}
+                  {% endfor %}
+                {% endif %}
 
-                </div>
-
-              </div>
+              </ul>
               <!-- /Product Specs (weight, instructions) -->
 
               <!-- Product Actions (delete) -->
@@ -135,10 +128,6 @@
           </tr>
         {% endfor %}
 
-        {% comment %}
-          ### NOTE KLT061516: Moved total/update information to bottom row of table, for striping
-                              - Everything within the <div /> was previously directly after the table
-        {% endcomment %}
         <tr class="cart__row table__section">
           <td colspan="5" class="summary">
 
@@ -149,52 +138,75 @@
                   <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
                 </div>
               {% endif %}
-              {% comment %}
-                ### NOTE KLT061516: Added grid item for shipping note and "Keep Shopping" button
-              {% endcomment %}
-              <div class="grid__item one-third small--one-whole">
 
+              <div class="grid__item medium--one-half medium--show medium-down--hide">
+
+                <!-- Shipping Weight Note -->
                 {% comment %}
                   ### NOTE KLT062216: Assign total cart weight to variable with unit prior to using in interpolation
                 {% endcomment %}
                 {% assign cart_weight = cart.total_weight | weight_with_unit %}
                 <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: total_weight: cart_weight }}</h3>
                 <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
-
-                {% comment %}
-                  ### TODO KLT061516: There is currently no resource corresponding to this label.
-                {% endcomment %}
-                <a href="/collections/all" class="btn--secondary">Keep Shopping</a>
+                <!-- /Shipping Weight Note -->
 
               </div>
-              <div class="grid__item text-center one-third small--one-whole">
-                {% comment %}
-                  ### NOTE KLT062016: jQuery UI implementation for shipping date picker - Autotag Delivery Date app should, in
-                                      theory, automatically hook into the date picker once activated.
-                {% endcomment %}
-                <div class="delivery-date">
-                  <h4>{{ settings.heading_delivery_date }}</h4>
-                  <input type="text" id="delivery_date" name="attributes[delivery_date]" value="{{ cart.attributes.delivery_date }}" size="30">
-                  <div class="day-warning"><small>{{ settings.warning_delivery_date_limited_friday }}</small></div>
-                </div>
-
-              </div>
-              <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
+              <div class="grid__item text-right{% if settings.cart_notes_enable %} small--one-half{% endif %}">
+                <!-- Subtotal and Shipping/Tax Note -->
                 <p>
                   <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}: </span>
                   <span class="h4 cart__subtotal">{{ cart.total_price | money }}</span>
                 </p>
                 {% if cart.total_discounts > 0 %}
                   {% assign savings = cart.total_discounts | money %}
-                  <p>
-                    <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
-                  </p>
+                  <p><span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span></p>
                 {% endif %}
-                <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+                <p class="shipping-note"><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+                <!-- /Subtotal and Shipping/Tax Note -->
+              </div>
+              <div class="grid__item medium--hide medium-down--show medium-down--text-center">
 
+                <!-- Shipping Weight Note -->
+                {% comment %}
+                  ### NOTE KLT062216: Assign total cart weight to variable with unit prior to using in interpolation
+                {% endcomment %}
+                {% assign cart_weight = cart.total_weight | weight_with_unit %}
+                <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: total_weight: cart_weight }}</h3>
+                <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
+                <!-- /Shipping Weight Note -->
+
+              </div>
+
+              <div class="grid__item spacer one-half medium-down--hide">&nbsp;</div>
+              <div class="grid__item medium--text-right medium--one-half medium-down--text-center">
+                <!-- Delivery Date Selection -->
+                {% comment %}
+                  ### NOTE KLT062016: jQuery UI implementation for shipping date picker - Autotag Delivery Date app should, in
+                                      theory, automatically hook into the date picker once activated.
+                {% endcomment %}
+                <div class="delivery-date">
+                  <label for="delivery_date">{{ settings.heading_delivery_date }}</label>
+                  <input type="text" id="delivery_date" name="attributes[delivery_date]" value="{{ cart.attributes.delivery_date }}" size="10" />
+                  <input type="hidden" id="delivery_day" name="delivery_day" />
+                  <div class="day-warning"><small>{{ settings.warning_delivery_date_limited_friday }}</small></div>
+                </div>
+                <!-- /Delivery Date Selection -->
+              </div>
+
+              <div class="grid__item medium--one-half medium-down--text-center">
+                <!-- Keep Shopping Button -->
+                {% comment %}
+                  ### TODO KLT061516: There is currently no resource corresponding to this label.
+                {% endcomment %}
+                <a href="/collections/all" class="btn--secondary">Keep Shopping</a>
+              </div>
+              <div class="grid__item medium--text-right medium--one-half medium-down--text-center">
+                <!-- Update Cart Button -->
                 <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
+                <!-- Checkout Button -->
                 <input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
               </div>
+
             </div>
 
           </td>
@@ -222,7 +234,9 @@
     $('#delivery_date').datepicker({
       minDate                   : '+1d',
       maxDate                   : '+3m',
-      dateFormat                : 'DD, MM d, yy',
+      dateFormat                : 'mm/dd/yy',
+      altField                  : '#delivery_day',
+      altFormat                 : 'DD',
       beforeShowDay: function(date) {
         var
           today                 = new Date(),
@@ -238,8 +252,9 @@
       }
     });
     $('#delivery_date').change(function() {
-      var selectedDate          = $(this).val();
-      if (selectedDate.toLowerCase().indexOf('saturday') > -1) {
+      var selectedDay           = $('#delivery_day').val();
+      console.log('selectedDay: ' + selectedDay);
+      if (selectedDay.toLowerCase().indexOf('saturday') > -1) {
         $('.delivery-date div.day-warning').show();
       }
       else {

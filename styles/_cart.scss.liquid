@@ -26,8 +26,28 @@
     .cart-table {
       border-width              : 0;
 
+      &.table--responsive {
+        @include at-query($max, $preSmall) {
+          th,
+          td {
+            text-align          : left;
+          }
+          td.thumbnail {
+            clear               : left;
+            width               : 26%;
+          }
+          td.details {
+            clear               : right;
+            width               : 74%;
+          }
+
+        }
+      }
+
       .cart__row.table__section {
-        border-bottom           : 2px solid {{ settings.color_body_bg_accent }};
+        @include at-query($min, $small) {
+          border-bottom         : 2px solid {{ settings.color_body_bg_accent }};
+        }
         &:last-child {
           border-bottom         : 0 none transparent;
         }
@@ -54,12 +74,21 @@
           font-weight           : 700;
           text-transform        : uppercase;
           background-color      : {{ settings.color_body_bg_accent }};
+          @include at-query($max, $preMedium) {
+            padding             : $gutter;
+          }
         }
       }
 
       tbody {
         td {
           padding               : ($gutter * 2) ($gutter * 1.5);
+          @include at-query($max, $preSmall) {
+            padding             : ($gutter / 2);
+          }
+          @include at-query(null, $small, $preMedium) {
+            padding             : $gutter;
+          }
           &.thumbnail,
           &.price,
           &.quantity,
@@ -69,14 +98,27 @@
             }
           }
           &.thumbnail {
+            @include at-query($max, $preMedium) {
+              vertical-align    : top;
+            }
+            &:before {
+              content           : "" !important;                // Needed to not display "Product" heading on small screens
+            }
             img {
               width             : 100%;
               max-width         : 125px;
+              @include at-query($max, $preSmall) {
+                max-width       : 60px;
+              }
+              @include at-query(null, $narrow, $preMedium) {
+                max-width       : 80px;
+              }
             }
           }
           &.details {
             position            : relative;
             padding-left        : ($gutter);
+            vertical-align      : top;
             @include at-query($min, 1024px) {
               width             : 50%;
             }
@@ -90,20 +132,16 @@
             }
           }
           &.summary {
-            padding-top         : ($gutter * 5);
-            padding-bottom      : ($gutter * 5);
             vertical-align      : bottom;
-          }
-
-          div.title,
-          div.actions {
+            padding-top         : ($gutter * 1.5);
+            padding-bottom      : ($gutter * 1.5);
             @include at-query($min, $medium) {
-              position          : absolute;
+              padding-top       : ($gutter * 5);
+              padding-bottom    : ($gutter * 5);
             }
           }
 
           div.title {
-            top                 : ($gutter * 1.5);
             h4 {
               margin-bottom     : 0;
               color             : {{ settings.color_body_text }};
@@ -112,7 +150,10 @@
           }
 
           div.actions {
-            bottom              : ($gutter * 2.5);
+            @include at-query($min, $medium) {
+              position          : absolute;
+              bottom            : ($gutter * 2);
+            }
             a {
               display           : inline-block;
               margin-right      : ($gutter);
@@ -133,13 +174,42 @@
 
     }
 
+    // Variant and Custom Property Specifications
+    ul.specifications {
+      margin                    : ($gutter / 2) 0 ($gutter / 2) 16px;
+      padding                   : 0;
+      font-family               : $interfaceFontStack;
+      font-size                 : em(12px);
+      line-height               : 140%;
+      li {
+        margin-bottom           : 0.15em;
+      }
+    }
+
     // Summary Information
     .summary {
+      font-family               : $interfaceFontStack;
       a[class*="btn"],
       input[type="submit"] {
         margin-top              : ($gutter * 2);
         min-width               : 125px;
         font-size               : em(12.5px);
+        @include at-query($max, $preMedium) {
+          margin                : ($gutter * 2) auto 0;
+        }
+      }
+      input[type="submit"] {
+        @include at-query($max, $preMedium) {
+          display               : block;
+        }
+      }
+      .medium-down--show {
+        .order-weight-heading {
+          padding-top           : ($gutter * 1.5);
+        }
+        .order-weight-disclaimer {
+          padding-bottom        : ($gutter * 1.5);
+        }
       }
     }
     h3,
@@ -153,12 +223,27 @@
         text-transform          : uppercase;
       }
     }
+    h3 {
+      margin-top                : 0;
+    }
+    .shipping-note {
+      font-size                 : em(12px);
+      font-weight               : 400;
+    }
+    .spacer {
+      @include at-query($min, $medium) {
+        clear                   : left;
+      }
+    }
 
     // Delivery Date Selection
     .delivery-date {
+      padding-top               : ($gutter / 2);
       input {
-        padding                 : 2px 5px 2px 33px;
-        background              : {{ settings.color_body_bg }} url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 5px 3px;
+        padding                 : 2px 30px 2px 5px;
+        font-family             : $interfaceFontStack;
+        font-size               : $baseFontSize;
+        background              : {{ settings.color_body_bg }} url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
         background-size         : auto 20px;
       }
       div.day-warning {
