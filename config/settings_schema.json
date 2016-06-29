@@ -662,7 +662,7 @@
         "type": "text",
         "id": "heading_delivery_date",
         "label": "Delivery date selection heading",
-        "default": "Select a delivery date:"
+        "default": "Select your delivery date:"
       },
       {
         "type": "text",
