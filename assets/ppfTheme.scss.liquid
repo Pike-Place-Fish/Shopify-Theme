@@ -86,8 +86,8 @@ $colorBtnPrimaryActive: darken($colorBtnPrimaryHover, 10%);
 $colorBtnPrimaryText: #fff;
 
 $colorBtnSecondary: $colorSecondary;
-$colorBtnSecondaryHover: darken($colorBtnSecondary, 10%);
-$colorBtnSecondaryActive: darken($colorBtnSecondaryHover, 10%);
+$colorBtnSecondaryHover         : lighten($colorBtnSecondary, 15%);     // Was darken($colorBtnSecondary, 10%)
+$colorBtnSecondaryActive        : lighten($colorBtnSecondaryHover, 10%); // Was darken($colorBtnSecondaryHover, 10%);
 $colorBtnSecondaryText: #fff;
 
 // Text link colors
@@ -2203,6 +2203,9 @@ th, td {
 .nav-bar {
   padding                       : ($gutter / 2) 0 $gutter;
   background-color              : {{ settings.color_body_bg }}; // Was $colorNav;
+  @include at-query($max, $large) {
+    padding-bottom              : 0;
+  }
 }
 
 .site-nav {
@@ -2244,6 +2247,9 @@ th, td {
     display                     : table-cell;
     text-align                  : center;
     vertical-align              : middle;
+    @include at-query($max, $small) {
+      padding-top               : 1%;
+    }
   }
   .site-nav--mobile {
     width                       : 10%;
@@ -2286,7 +2292,11 @@ th, td {
 
   // New
   .icon-hamburger {
-    font-size                   : 5.625vw;
+    font-size                   : 2em;
+    font-size                   : 3.75vw;
+    @include at-query($max, $medium) {
+      font-size                 : 4.25vw;
+    }
   }
 
 }
@@ -3217,27 +3227,30 @@ ul.article-filters {
         p {
           line-height           : 120%;
           text-transform        : uppercase;
-          @include at-query ($max, $siteWidth) {
-            font-size           : 2vw;
-          }
-          @include at-query ($max, $medium) {
-            font-size           : 3.75vw;
-          }
-          @include at-query (null, $medium, $large) {
-            font-size           : 1.75vw;
-          }
         }
         h2 {
-          margin-bottom         : 0;
+          margin                : 0;
           font-family           : $headerFontStack;
           font-size             : em(24px);
           font-weight           : 800;
+          @include at-query ($max, $medium) {
+            font-size           : 4vw;
+          }
+          @include at-query (null, $medium, $large) {
+            font-size           : 1.91vw;
+          }
         }
         p {
           margin-bottom         : 0;
           font-family           : $interfaceFontStack;
           font-size             : em(18px);
           font-weight           : 600;
+          @include at-query ($max, $medium) {
+            font-size           : 3.25vw;
+          }
+          @include at-query (null, $medium, $large) {
+            font-size           : 1.43vw;
+          }
         }
       }
 
@@ -3284,8 +3297,23 @@ ul.article-filters {
         &:hover,
         &:focus,
         &:active {
+          .link-image.hover {
+            z-index             : 5;
+          }
           .overlay {
             display             : block;
+          }
+        }
+        .link-image {
+          &.default,
+          &.hover {
+            z-index             : 3;
+            position            : absolute;
+            top                 : 0;
+            left                : 0;
+          }
+          &.hover {
+            z-index             : 2;
           }
         }
         .overlay {
@@ -3800,8 +3828,11 @@ ul.article-filters {
     // Title
     h1.title {
       margin-top                : 0;
-      margin-bottom             : 0.75em;
+      margin-bottom             : 0.75em !important;            // Needed for overriding .section-header__left without removing markup
       text-transform            : none;
+      &.h2 {
+        font-size               : em(22px);
+      }
     }
 
     // Content Headings
