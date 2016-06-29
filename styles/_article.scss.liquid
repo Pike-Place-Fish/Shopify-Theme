@@ -32,8 +32,11 @@
     // Title
     h1.title {
       margin-top                : 0;
-      margin-bottom             : 0.75em;
+      margin-bottom             : 0.75em !important;            // Needed for overriding .section-header__left without removing markup
       text-transform            : none;
+      &.h2 {
+        font-size               : em(22px);
+      }
     }
 
     // Content Headings
