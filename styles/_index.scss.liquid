@@ -104,27 +104,30 @@
         p {
           line-height           : 120%;
           text-transform        : uppercase;
-          @include at-query ($max, $siteWidth) {
-            font-size           : 2vw;
-          }
-          @include at-query ($max, $medium) {
-            font-size           : 3.75vw;
-          }
-          @include at-query (null, $medium, $large) {
-            font-size           : 1.75vw;
-          }
         }
         h2 {
-          margin-bottom         : 0;
+          margin                : 0;
           font-family           : $headerFontStack;
           font-size             : em(24px);
           font-weight           : 800;
+          @include at-query ($max, $medium) {
+            font-size           : 4vw;
+          }
+          @include at-query (null, $medium, $large) {
+            font-size           : 1.91vw;
+          }
         }
         p {
           margin-bottom         : 0;
           font-family           : $interfaceFontStack;
           font-size             : em(18px);
           font-weight           : 600;
+          @include at-query ($max, $medium) {
+            font-size           : 3.25vw;
+          }
+          @include at-query (null, $medium, $large) {
+            font-size           : 1.43vw;
+          }
         }
       }
 
@@ -171,8 +174,23 @@
         &:hover,
         &:focus,
         &:active {
+          .link-image.hover {
+            z-index             : 5;
+          }
           .overlay {
             display             : block;
+          }
+        }
+        .link-image {
+          &.default,
+          &.hover {
+            z-index             : 3;
+            position            : absolute;
+            top                 : 0;
+            left                : 0;
+          }
+          &.hover {
+            z-index             : 2;
           }
         }
         .overlay {

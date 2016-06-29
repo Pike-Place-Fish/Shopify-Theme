@@ -48,14 +48,19 @@
               <!-- Display promotion data -->
               <a href="{{ promo1_product.url }}" class="promotion-data">
                 <div>
-                  <h2 class="title">{{ promo1_product.title }}</h2>
+                  <h2 class="title">
+                    {% if settings.home_promotion_a_short_label != "" %}
+                      {{ settings.home_promotion_a_short_label }}
+                    {% else %}
+                      {{ promo1_product.title }}
+                    {% endif %}
+                  </h2>
                   <p class="price">
                     {% if promo1_product.variants.size > 1 %}From {% endif %}
                     ${{ promo1_variant.price | money_without_currency }}
                   </p>
                 </div>
               </a>
-
             </div>
 
           </div>
@@ -156,7 +161,13 @@
           <!-- Display promotion data -->
           <a href="{{ promo2_product.url }}" class="promotion-data">
             <div>
-              <h2 class="title">{{ promo2_product.title }}</h2>
+              <h2 class="title">
+                {% if settings.home_promotion_b_short_label != "" %}
+                  {{ settings.home_promotion_b_short_label }}
+                {% else %}
+                  {{ promo2_product.title }}
+                {% endif %}
+              </h2>
               <p class="price">
                 {% if promo2_product.variants.size > 1 %}From {% endif %}
                 ${{ promo2_variant.price | money_without_currency }}
@@ -240,7 +251,13 @@
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
             <div>
-              <h2 class="title">{{ promo3_product.title }}</h2>
+              <h2 class="title">
+                {% if settings.home_promotion_c_short_label != "" %}
+                  {{ settings.home_promotion_c_short_label }}
+                {% else %}
+                  {{ promo3_product.title }}
+                {% endif %}
+              </h2>
               <p class="price">
                 {% if promo3_product.variants.size > 1 %}From {% endif %}
                 ${{ promo3_variant.price | money_without_currency }}
@@ -294,7 +311,13 @@
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
             <div>
-              <h2 class="title">{{ promo3_product.title }}</h2>
+              <h2 class="title">
+                {% if settings.home_promotion_c_short_label != "" %}
+                  {{ settings.home_promotion_c_short_label }}
+                {% else %}
+                  {{ promo3_product.title }}
+                {% endif %}
+              </h2>
               <p class="price">
                 {% if promo3_product.variants.size > 1 %}From {% endif %}
                 ${{ promo3_variant.price | money_without_currency }}
@@ -312,22 +335,13 @@
         <div class="page-link">
 
           <!-- Assign Page Link Variables -->
-          {% assign pageLink7_handle = settings.home_link_7 %}
-          {% assign pageLink7_page = pages[pageLink7_handle] %}
+          {% assign seafoodWatch_page = pages["sustainable-seafood"] %}
 
           <!-- Display page link data -->
-          {% if settings.home_link_7 != "" %}
-            <a href="{{ pageLink7_page.url }}" class="link-data">
-              {{ 'Home.Monterey.png' | asset_url | img_tag: pageLink7_page.title, 'link-image' }}
-              <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink7_page.title }}</h2></div>
-              </div>
-            </a>
-          {% else %}
-            {{ 'Home.Monterey.png' | asset_url | img_tag: pageLink7_page.title, 'link-image' }}
-          {% endif %}
-
-          <!-- {{ settings.home_photo_7 }} -->
+          <a href="{{ seafoodWatch_page.url }}" class="link-data">
+            {{ 'Home.SeafoodWatch.png' | asset_url | img_tag: seafoodWatch_page.title, 'link-image default' }}
+            {{ 'Home.SeafoodWatch.Hover.png' | asset_url | img_tag: seafoodWatch_page.title, 'link-image hover' }}
+          </a>
 
         </div>
       </div>
@@ -344,7 +358,13 @@
           <!-- Display promotion data -->
           <a href="{{ promo4_product.url }}" class="promotion-data">
             <div>
-              <h2 class="title">{{ promo4_product.title }}</h2>
+              <h2 class="title">
+                {% if settings.home_promotion_d_short_label != "" %}
+                  {{ settings.home_promotion_d_short_label }}
+                {% else %}
+                  {{ promo4_product.title }}
+                {% endif %}
+              </h2>
               <p class="price">
                 {% if promo4_product.variants.size > 1 %}From {% endif %}
                 ${{ promo4_variant.price | money_without_currency }}
@@ -402,7 +422,13 @@
               <!-- Display promotion data -->
               <a href="{{ promo4_product.url }}" class="promotion-data">
                 <div>
-                  <h2 class="title">{{ promo4_product.title }}</h2>
+                  <h2 class="title">
+                    {% if settings.home_promotion_d_short_label != "" %}
+                      {{ settings.home_promotion_d_short_label }}
+                    {% else %}
+                      {{ promo4_product.title }}
+                    {% endif %}
+                  </h2>
                   <p class="price">
                     {% if promo4_product.variants.size > 1 %}From {% endif %}
                     ${{ promo4_variant.price | money_without_currency }}

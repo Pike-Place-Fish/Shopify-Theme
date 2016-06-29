@@ -350,10 +350,22 @@
         "info": "Will get name, price, and link from product page."
       },
       {
+        "type": "text",
+        "id": "home_promotion_a_short_label",
+        "label": "Featured Product (#1) Short Label",
+        "info": "Short text label for promotion tile"
+      },
+      {
         "type": "product",
         "id": "home_promotion_b",
         "label": "Featured Product (#2)",
         "info": "Will get name, price, and link from product page."
+      },
+      {
+        "type": "text",
+        "id": "home_promotion_b_short_label",
+        "label": "Featured Product (#2) Short Label",
+        "info": "Short text label for promotion tile"
       },
       {
         "type": "product",
@@ -362,10 +374,22 @@
         "info": "Will get name, price, and link from product page."
       },
       {
+        "type": "text",
+        "id": "home_promotion_c_short_label",
+        "label": "Featured Product (#3) Short Label",
+        "info": "Short text label for promotion tile"
+      },
+      {
         "type": "product",
         "id": "home_promotion_d",
         "label": "Featured Product (#4)",
         "info": "Will get name, price, and link from product page."
+      },
+      {
+        "type": "text",
+        "id": "home_promotion_d_short_label",
+        "label": "Featured Product (#4) Short Label",
+        "info": "Short text label for promotion tile"
       },
       {
         "type": "header",
@@ -387,6 +411,12 @@
         "label": "Image #1 Link"
       },
       {
+        "type": "text",
+        "id": "home_link_1_short_label",
+        "label": "Image #1 Short Label",
+        "info": "Short text label for page image link"
+      },
+      {
         "type": "image",
         "id": "home_photo_2.jpg",
         "label": "Image #2",
@@ -396,6 +426,12 @@
         "type": "page",
         "id": "home_link_2",
         "label": "Image #2 Link"
+      },
+      {
+        "type": "text",
+        "id": "home_link_2_short_label",
+        "label": "Image #2 Short Label",
+        "info": "Short text label for page image link"
       },
       {
         "type": "image",
@@ -409,6 +445,12 @@
         "label": "Image #3 Link"
       },
       {
+        "type": "text",
+        "id": "home_link_3_short_label",
+        "label": "Image #3 Short Label",
+        "info": "Short text label for page image link"
+      },
+      {
         "type": "image",
         "id": "home_photo_4.jpg",
         "label": "Image #4",
@@ -418,6 +460,12 @@
         "type": "page",
         "id": "home_link_4",
         "label": "Image #4 Link"
+      },
+      {
+        "type": "text",
+        "id": "home_link_4_short_label",
+        "label": "Image #4 Short Label",
+        "info": "Short text label for page image link"
       },
       {
         "type": "image",
@@ -431,6 +479,12 @@
         "label": "Image #5 Link"
       },
       {
+        "type": "text",
+        "id": "home_link_5_short_label",
+        "label": "Image #5 Short Label",
+        "info": "Short text label for page image link"
+      },
+      {
         "type": "image",
         "id": "home_photo_6.jpg",
         "label": "Image #6",
@@ -442,6 +496,12 @@
         "label": "Image #6 Link"
       },
       {
+        "type": "text",
+        "id": "home_link_6_short_label",
+        "label": "Image #6 Short Label",
+        "info": "Short text label for page image link"
+      },
+      {
         "type": "image",
         "id": "home_photo_7.jpg",
         "label": "Image #7",
@@ -451,8 +511,13 @@
         "type": "page",
         "id": "home_link_7",
         "label": "Image #7 Link"
+      },
+      {
+        "type": "text",
+        "id": "home_link_7_short_label",
+        "label": "Image #7 Short Label",
+        "info": "Short text label for page image link"
       }
-
     ]
   },
   {
