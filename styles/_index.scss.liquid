@@ -63,23 +63,33 @@
       }
       .tagline.shop-link {
         display                 : none;
-        padding-top             : 25.5%;
+        padding-top             : 23%;
         @include at-query ($max, $medium) {
           padding-top           : 20.5%;
         }
         h1 {
-          font-size             : em(42px);
+          font-size             : em(36px);
+          font-size             : 3vw;
           color                 : {{ settings.color_body_bg }};
+          text-transform        : uppercase;
           -webkit-text-stroke-width     : 1px;
           -webkit-text-stroke-color     : {{ settings.color_secondary }};
           @include at-query ($max, $small) {
             color               : rgb(67, 148, 68);             // #439444 TODO: Add to settings
           }
+          @include at-query ($max, $large) {
+            font-size           : 4.25vw;
+          }
+        }
+        a.btn {
+          min-width             : auto;
+          font-size             : em(18px);
           @include at-query ($max, $medium) {
-            font-size           : 4.281vw;
+            font-size           : 2.5vw;
+            line-height         : 120%;
           }
           @include at-query (null, $medium, $large) {
-            font-size           : 3.281vw;
+            font-size           : 2.25vw;
           }
         }
       }
@@ -113,7 +123,7 @@
           @include at-query ($max, $medium) {
             font-size           : 4vw;
           }
-          @include at-query (null, $medium, $large) {
+          @include at-query (null, $medium, $siteWidth) {
             font-size           : 1.91vw;
           }
         }
@@ -125,7 +135,7 @@
           @include at-query ($max, $medium) {
             font-size           : 3.25vw;
           }
-          @include at-query (null, $medium, $large) {
+          @include at-query (null, $medium, $siteWidth) {
             font-size           : 1.43vw;
           }
         }
