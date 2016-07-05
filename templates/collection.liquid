@@ -16,10 +16,6 @@
 <div class="grid--rev">
 
   <div class="grid__item one-whole">
-    <!-- Previous filters placement -->
-  </div>
-
-  <div class="grid__item one-whole">
 
     {% comment %}
       Different markup if a collection description exists
@@ -42,7 +38,24 @@
         <!-- <h1 class="section-header__title section-header__left">{{ collection.title }}</h1> -->
 
         <div class="section-header__left">
-          {% include 'collection-sidebar' %}
+
+          {% comment %}
+            ### NOTE KLT070516: Added Collections "tags" links, to be used before regular tags, if available
+          {% endcomment %}
+          {% if linklists.collections.links %}
+            <ul class="no-bullets collection-filters">
+
+            {% for link in linklists.collections.links %}
+              <li{% if (collection.url contains link.url) or (link.handle == 'all' and collection.handle == 'all') %} class="filter--active"{% endif %}>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+
+            </ul>
+          {% else %}
+            {% include 'collection-sidebar' %}
+          {% endif %}
+
         </div>
 
         <div class="section-header__right">
@@ -56,7 +69,7 @@
       Use class grid-uniform to have evenly sized columns clear
       each other properly at each breakpoint.
     {% endcomment %}
-    <div class="grid-uniformX grid--table grid-collection">
+    <div class="grid grid--table grid-collection">
 
       {% comment %}
         Loop through our products in the current collection.
