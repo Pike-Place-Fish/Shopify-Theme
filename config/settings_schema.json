@@ -547,6 +547,12 @@
         "label": "Show sorting options",
         "info": "Display the ability to sort the catalog by e.g. price.",
         "default": true
+      },
+      {
+        "type": "link_list",
+        "id": "collections_linklist",
+        "label": "Collections menu",
+        "info": "Choose which navigation menu, if any, to display on a Collections page as a list of 'tags'."
       }
     ]
   },
@@ -563,6 +569,13 @@
         "label": "Show price per pound, if available",
         "info": "Some products may be associated with a price per pound, which will be determined via a Meta Field. If available, this will be displayed below the product name.",
         "default": true
+      },
+      {
+        "type": "text",
+        "id": "label_whole_fish_total",
+        "label": "Calculated fish price label",
+        "default": "Price per fish:",
+        "info": "Text label for the total price of a whole fish product that is solid in per-pound increments."
       },
       {
         "type": "checkbox",
