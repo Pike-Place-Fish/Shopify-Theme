@@ -19,6 +19,11 @@
   {% endcomment %}
   {% assign current_variant = product.selected_or_first_available_variant %}
 
+  {% comment %}
+    Get unit price (e.g., price per pound), if available
+  {% endcomment %}
+  {% assign unitPrice = product.metafields.priceUnit.pricePerPound %}
+
   {% include 'breadcrumb' %}
 
   <div class="grid product-single">
@@ -74,17 +79,22 @@
         ### NOTE KLT061516: Added a "unit-price" containing div, for formatting
       {% endcomment %}
       <div class="unit-price">
+        {% if unitPrice %}
+          <h2>{{ unitPrice | times: 100 | money }} {{ 'products.general.weight_unit' | t }}</h2>
+        {% else %}
 
-        <span class="visually-hidden price-label">{{ 'products.general.regular_price' | t }}</span>
-        <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
-          {{ current_variant.price | money }}
-        </span>
+          <span class="visually-hidden price-label">{{ 'products.general.regular_price' | t }}</span>
+          <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
+            {{ current_variant.price | money }}
+          </span>
 
-        {% if product.compare_at_price_max > product.price %}
-          <span class="visually-hidden price-label">{{ 'products.general.sale_price' | t }}</span>
-          <p id="ComparePrice">
-            {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
-          </p>
+          {% if product.compare_at_price_max > product.price %}
+            <span class="visually-hidden price-label">{{ 'products.general.sale_price' | t }}</span>
+            <p id="ComparePrice">
+              {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
+            </p>
+          {% endif %}
+
         {% endif %}
 
       </div>
@@ -147,11 +157,6 @@
           {% comment %}
             Custom InfiniteOptions implementation
           {% endcomment %}
-          <div class="option-container">
-            <label for="testCustom">Test Custom Property</label>
-            <input type="text" id="testCustom" name="properties[TestCustom]" style="width: 100%">
-          </div>
-
           <div id="infiniteoptions-container" class="product-custom-options"></div>
 
           {% comment %}
@@ -160,6 +165,18 @@
           <div class="option-container">
             <label for="add" class="visually-hidden">Add</label>
             <span>
+
+              {% if unitPrice %}
+                <!-- Total Price -->
+                <span class="full-price h6">
+                  {{ settings.label_whole_fish_total }}
+                  <span id="ProductPrice" class="h6" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
+                    ***** {{ settings.label_whole_fish_total }} ***** {{ current_variant.price | money }}
+                  </span>
+                </span>
+                <!-- /Total Price -->
+              {% endif %}
+
               <button type="submit" name="add" id="AddToCart" class="btn">
                 <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
               </button>

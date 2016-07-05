@@ -49,6 +49,7 @@
               {% else %}
                 {% assign promo1_product_title = promo1_product.title %}
               {% endif %}
+              {% assign unitPrice = promo1_product.metafields.priceUnit.pricePerPound %}
 
               <!-- Display promotion data -->
               <a href="{{ promo1_product.url }}" class="promotion-data">
@@ -57,8 +58,11 @@
                     {{ promo1_product_title }}
                   </h2>
                   <p class="price">
-                    {% if promo1_product.variants.size > 1 %}From {% endif %}
-                    ${{ promo1_variant.price | money_without_currency }}
+                    {% if unitPrice %}
+                      ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                    {% else %}
+                      ${{ promo1_variant.price | money_without_currency }}
+                    {% endif %}
                   </p>
                 </div>
               </a>
@@ -178,6 +182,7 @@
           {% else %}
             {% assign promo2_product_title = promo2_product.title %}
           {% endif %}
+          {% assign unitPrice = promo2_product.metafields.priceUnit.pricePerPound %}
 
           <!-- Display promotion data -->
           <a href="{{ promo2_product.url }}" class="promotion-data">
@@ -186,8 +191,11 @@
                 {{ promo2_product_title }}
               </h2>
               <p class="price">
-                {% if promo2_product.variants.size > 1 %}From {% endif %}
-                ${{ promo2_variant.price | money_without_currency }}
+                {% if unitPrice %}
+                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                {% else %}
+                  ${{ promo2_variant.price | money_without_currency }}
+                {% endif %}
               </p>
             </div>
           </a>
@@ -279,6 +287,7 @@
           {% else %}
             {% assign promo3_product_title = promo3_product.title %}
           {% endif %}
+          {% assign unitPrice = promo3_product.metafields.priceUnit.pricePerPound %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
@@ -287,9 +296,11 @@
                 {{ promo3_product_title }}
               </h2>
               <p class="price">
-                {% if promo3_product.variants.size > 1 %}From {% endif %}
-                ${{ promo3_variant.price | money_without_currency }}
-                {{ promo3_product.product_type }}
+                {% if unitPrice %}
+                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                {% else %}
+                  ${{ promo3_variant.price | money_without_currency }}
+                {% endif %}
               </p>
             </div>
           </a>
@@ -345,6 +356,7 @@
           {% else %}
             {% assign promo3_product_title = promo3_product.title %}
           {% endif %}
+          {% assign unitPrice = promo3_product.metafields.priceUnit.pricePerPound %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
@@ -353,9 +365,11 @@
                 {{ promo3_product_title }}
               </h2>
               <p class="price">
-                {% if promo3_product.variants.size > 1 %}From {% endif %}
-                ${{ promo3_variant.price | money_without_currency }}
-                {{ promo3_product.product_type }}
+                {% if unitPrice %}
+                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                {% else %}
+                  ${{ promo3_variant.price | money_without_currency }}
+                {% endif %}
               </p>
             </div>
           </a>
@@ -393,6 +407,7 @@
           {% else %}
             {% assign promo4_product_title = promo4_product.title %}
           {% endif %}
+          {% assign unitPrice = promo4_product.metafields.priceUnit.pricePerPound %}
 
           <!-- Display promotion data -->
           <a href="{{ promo4_product.url }}" class="promotion-data">
@@ -401,9 +416,11 @@
                 {{ promo4_product_title }}
               </h2>
               <p class="price">
-                {% if promo4_product.variants.size > 1 %}From {% endif %}
-                ${{ promo4_variant.price | money_without_currency }}
-                {{ promo4_product.product_type }}
+                {% if unitPrice %}
+                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                {% else %}
+                  ${{ promo4_variant.price | money_without_currency }}
+                {% endif %}
               </p>
             </div>
           </a>
@@ -467,6 +484,7 @@
               {% else %}
                 {% assign promo4_product_title = promo4_product.title %}
               {% endif %}
+              {% assign unitPrice = promo4_product.metafields.priceUnit.pricePerPound %}
 
               <!-- Display promotion data -->
               <a href="{{ promo4_product.url }}" class="promotion-data">
@@ -475,9 +493,11 @@
                     {{ promo4_product_title }}
                   </h2>
                   <p class="price">
-                    {% if promo4_product.variants.size > 1 %}From {% endif %}
-                    ${{ promo4_variant.price | money_without_currency }}
-                    {{ promo4_product.product_type }}
+                    {% if unitPrice %}
+                      ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                    {% else %}
+                      ${{ promo4_variant.price | money_without_currency }}
+                    {% endif %}
                   </p>
                 </div>
               </a>

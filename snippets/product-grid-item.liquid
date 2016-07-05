@@ -77,9 +77,14 @@
               {{ product.price | money }}
             {% endif %}
           {% else %}
+            {% assign unitPrice = product.metafields.priceUnit.pricePerPound %}
             {% if product.price_varies %}
-              {% assign price = product.price | money %}
-              {{ 'products.general.from_text_html' | t: price: price }}
+              {% if unitPrice %}
+                {{ unitPrice | times: 100 | money }} {{ 'products.general.weight_unit' | t }}
+              {% else %}
+                {% assign price = product.price | money %}
+                {{ 'products.general.from_text_html' | t: price: price }}
+              {% endif %}
             {% else %}
               {{ product.price | money }}
             {% endif %}
