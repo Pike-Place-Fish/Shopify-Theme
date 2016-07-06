@@ -15,6 +15,19 @@
 {% endcomment %}
 
 {% comment %}
+  ### NOTE KLT062716: Beeketing Boost Sales Product Price Snippet
+  - http://bit.ly/1TB8dYB
+  - https://youtu.be/nxc_-VXavt8?t=2m11s
+  - Variables replacement:
+    - product.price = scn_product_min
+    - product.price_min = scn_product_min
+    - product.price_varies = scn_price_varies
+    - {{ product | json }} = scnProduct({{ product | json }})
+    - product.selected_or_first_available_variant = scn_first_product_variant
+{% endcomment %}
+{% include 'scn-product-price' with product %}
+
+{% comment %}
   Set the default grid_item_width if no variable is set
 {% endcomment %}
 {% unless grid_item_width %}
@@ -25,7 +38,7 @@
   Check if the product is on sale and set a variable to be used below.
 {% endcomment %}
 {% assign on_sale = false %}
-{% if product.compare_at_price > product.price %}
+{% if product.compare_at_price > scn_product_min %}
   {% assign on_sale = true %}
 {% endif %}
 
@@ -69,24 +82,24 @@
             if your variants have different prices.
           {% endcomment %}
           {% if on_sale %}
-            {% if product.price_varies %}
-              {% assign sale_price = product.price | money %}
+            {% if scn_price_varies %}
+              {% assign sale_price = scn_product_min | money %}
               {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
             {% else %}
               <strong>{{ 'products.product.on_sale' | t }}</strong>
-              {{ product.price | money }}
+              {{ scn_product_min | money }}
             {% endif %}
           {% else %}
             {% assign unitPrice = product.metafields.priceUnit.pricePerPound %}
-            {% if product.price_varies %}
+            {% if scn_price_varies %}
               {% if unitPrice %}
                 {{ unitPrice | times: 100 | money }} {{ 'products.general.weight_unit' | t }}
               {% else %}
-                {% assign price = product.price | money %}
+                {% assign price = scn_product_min | money %}
                 {{ 'products.general.from_text_html' | t: price: price }}
               {% endif %}
             {% else %}
-              {{ product.price | money }}
+              {{ scn_product_min | money }}
             {% endif %}
           {% endif %}
           {% if sold_out %}

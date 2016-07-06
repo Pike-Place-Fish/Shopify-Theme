@@ -46,11 +46,25 @@
 
         <div class="grid-uniform">
           {% for item in search.results %}
+
+            {% comment %}
+              ### NOTE KLT062716: Beeketing Boost Sales Product Price Snippet and Variable Replacements
+              - http://bit.ly/1TB8dYB
+              - https://youtu.be/nxc_-VXavt8?t=10m35s
+              - Variables replacement:
+                - item.price = scn_product_min
+                - item.price_min = scn_product_min
+                - item.price_varies = scn_price_varies
+                - {{ item | json }} = scnProduct({{ item | json }})
+                - item.selected_or_first_available_variant = scn_first_product_variant
+            {% endcomment %}
+            {% include 'scn-product-price' with item %}
+
             {% comment %}
               Check if the product is on sale and set a variable to be used below.
             {% endcomment %}
             {% assign on_sale = false %}
-            {% if item.compare_at_price > item.price %}
+            {% if item.compare_at_price > scn_product_min %}
               {% assign on_sale = true %}
             {% endif %}
 
@@ -83,26 +97,26 @@
                   <div class="grid__item two-thirds {% unless item.featured_image %}push--one-third{% endunless %}">
                     <h3>{{ item.title | link_to: item.url }}</h3>
 
-                    {% if item.price %}
+                    {% if scn_product_min %}
                       <p>
                         {% comment %}
                           You can show a leading 'from' or 'up to' by checking 'product.price_varies'
                           if your variants have different prices.
                         {% endcomment %}
                         {% if on_sale %}
-                          {% if item.price_varies %}
-                            {% assign sale_price = item.price | money %}
+                          {% if scn_price_varies %}
+                            {% assign sale_price = scn_product_min | money %}
                             {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
                           {% else %}
                             <strong>{{ 'products.product.on_sale' | t }}</strong>
-                            <span itemprop="price">{{ item.price | money }}</span>
+                            <span itemprop="price">{{ scn_product_min | money }}</span>
                           {% endif %}
                         {% else %}
-                          {% if item.price_varies %}
-                            {% assign price = item.price | money %}
+                          {% if scn_price_varies %}
+                            {% assign price = scn_product_min | money %}
                             <span itemprop="price">{{ 'products.general.from_text_html' | t: price: price }}</span>
                           {% else %}
-                            <span itemprop="price">{{ item.price | money }}</span>
+                            <span itemprop="price">{{ scn_product_min | money }}</span>
                           {% endif %}
                         {% endif %}
                         {% if sold_out %}
@@ -134,22 +148,22 @@
 
                 <h5>{{ item.title | link_to: item.url }}</h5>
 
-                {% if item.price %}
+                {% if scn_product_min %}
                   <p>
                     {% if on_sale %}
-                      {% if item.price_varies %}
-                        {% assign sale_price = item.price | money %}
+                      {% if scn_price_varies %}
+                        {% assign sale_price = scn_product_min | money %}
                         {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
                       {% else %}
                         <strong>{{ 'products.product.on_sale' | t }}</strong>
-                        <span itemprop="price">{{ item.price | money }}</span>
+                        <span itemprop="price">{{ scn_product_min | money }}</span>
                       {% endif %}
                     {% else %}
-                      {% if item.price_varies %}
-                        {% assign price = item.price | money %}
+                      {% if scn_price_varies %}
+                        {% assign price = scn_product_min | money %}
                         <span itemprop="price">{{ 'products.general.from_text_html' | t: price: price }}</span>
                       {% else %}
-                        <span itemprop="price">{{ item.price | money }}</span>
+                        <span itemprop="price">{{ scn_product_min | money }}</span>
                       {% endif %}
                     {% endif %}
                     {% if sold_out %}
