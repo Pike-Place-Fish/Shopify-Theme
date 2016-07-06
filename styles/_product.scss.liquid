@@ -108,10 +108,25 @@
           width                 : 75%;
         }
       }
+      .unit-price h2,
+      .full-price.h6,
       span[itemprop="price"] {
+        margin-top              : 0;
         font-family             : $interfaceFontStack;
         font-size               : em(18px);
         font-weight             : 700;
+      }
+      .full-price {
+        display                 : block;
+        margin-bottom           : $gutter;
+      }
+      .full-price.h6,
+      .full-price span.h6 {
+        font-size               : $baseFontSize;
+        font-weight             : 600;
+      }
+      .full-price span.h6 {
+        display                 : inline-block;
       }
 
       // Related articles
