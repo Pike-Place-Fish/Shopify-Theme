@@ -42,7 +42,7 @@
           {% comment %}
             ### NOTE KLT070516: Added Collections "tags" links, to be used before regular tags, if available
           {% endcomment %}
-          {% if linklists.collections.links %}
+          {% if settings.collections_collections_enable and linklists.collections.links %}
             <ul class="no-bullets collection-filters">
 
             {% for link in linklists.collections.links %}
