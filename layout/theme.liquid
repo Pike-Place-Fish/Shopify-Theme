@@ -78,8 +78,8 @@
     ### NOTE KLT062716: Beeketing Boost Sales Script
     - http://bit.ly/1TB8dYB
     - https://youtu.be/nxc_-VXavt8?t=19s
-    {% include 'scn-base-js' %}
   {% endcomment %}
+  {% include 'scn-base-js' %}
 
 </head>
 
@@ -554,22 +554,11 @@
   <script>
 
     /**
-     * Manage main content body height and site footer placement
+     * Manage page container bottom padding and site footer placement
      */
-    function setMainContentHeight() {
-
-      var
-        siteHeaderHeight        = jQuery('#PageContainer header.site-header').outerHeight(),
-        navbarHeight            = jQuery('#PageContainer nav.nav-bar').outerHeight(),
-        footerHeight            = jQuery('#PageContainer footer.site-footer').outerHeight(),
-        minContentHeight        = (jQuery('body').height() - siteHeaderHeight - navbarHeight - footerHeight);
-
-      if (jQuery(window).width() < 960) {
-        minContentHeight        = (minContentHeight - 1);
-      }
-
-      jQuery('main.main-content').css('min-height', minContentHeight);
-
+    function setPageContainerPadding() {
+      var footerHeight          = jQuery('#PageContainer footer.site-footer').outerHeight();
+      jQuery('#PageContainer').css('padding-bottom', footerHeight + 'px');
     };
 
     /**
@@ -578,7 +567,7 @@
     jQuery(function($) {
 
       // Call load functions
-      setMainContentHeight();
+      setPageContainerPadding();
 
       // Handle expanding search bar interaction
       $('site-header__search button[type="submit"]').on('click', function(e) {
@@ -588,7 +577,7 @@
 
       // Perform resize functionality
       $(window).resize(function () {
-        setMainContentHeight();
+        setPageContainerPadding();
       });
 
     });
