@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Cabin Regular';
+    src: url('Cabin-Regular.otf') format('opentype'),
+         url('Cabin-Regular.woff2') format('woff2'),
+         url('Cabin-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cabin Semibold';
+    src: url('Cabin-SemiBold.otf') format('opentype'),
+         url('Cabin-SemiBold.woff2') format('woff2'),
+         url('Cabin-SemiBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cabin Bold';
+    src: url('Cabin-Bold.otf') format('opentype'),
+         url('Cabin-Bold.woff2') format('woff2'),
+         url('Cabin-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
