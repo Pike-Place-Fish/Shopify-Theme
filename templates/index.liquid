@@ -50,6 +50,16 @@
                 {% assign promo1_product_title = promo1_product.title %}
               {% endif %}
               {% assign unitPrice = promo1_product.metafields.priceUnit.pricePerPound %}
+              {% assign unitName = promo1_product.metafields.priceUnit.unitName %}
+              {% if unitName %}
+                {% assign unitName = 'per ' | append: unitName %}
+              {% elsif unitPrice %}
+                {% assign unitName = 'per lb.' %}
+              {% elsif promo1_product.tags contains 'Whole Fish' %}
+                {% assign unitName = 'per fish' %}
+              {% elsif promo1_product.product_type == 'Fish' %}
+                {% assign unitName = 'per lb.' %}
+              {% endif %}
 
               <!-- Display promotion data -->
               <a href="{{ promo1_product.url }}" class="promotion-data">
@@ -59,9 +69,9 @@
                   </h2>
                   <p class="price">
                     {% if unitPrice %}
-                      ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                      ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
                     {% else %}
-                      ${{ promo1_variant.price | money_without_currency }}
+                      ${{ promo1_variant.price | money_without_currency | append: ' ' | append: unitName }}
                     {% endif %}
                   </p>
                 </div>
@@ -74,7 +84,6 @@
           <div class="grid__item large--one-whole large-down--one-whole">
             <div class="page-link">
 
-              <!-- Assign Page Link Variables -->
               {% assign pageLink4_handle = settings.home_link_4 %}
               {% assign pageLink4_collection = collections[pageLink4_handle] %}
               {% if settings.home_link_4_short_label != "" %}
@@ -106,21 +115,20 @@
       <div class="grid__item large--one-half large-down--one-half">
         <div class="page-link">
 
-          <!-- Assign Page Link Variables -->
           {% assign pageLink1_handle = settings.home_link_1 %}
-          {% assign pageLink1_page = pages[pageLink1_handle] %}
+          {% assign pageLink1_blog = blogs[pageLink1_handle] %}
           {% if settings.home_link_1_short_label != "" %}
-            {% assign pageLink1_page_title = settings.home_link_1_short_label %}
+            {% assign pageLink1_blog_title = settings.home_link_1_short_label %}
           {% else %}
-            {% assign pageLink1_page_title = pageLink1_page.title %}
+            {% assign pageLink1_blog_title = pageLink1_blog.title %}
           {% endif %}
 
           <!-- Display page link data or image -->
           {% if settings.home_link_1 != "" %}
-            <a href="{{ pageLink1_page.url }}" class="link-data">
-              {{ 'home_photo_1.jpg' | asset_url | img_tag: pageLink1_page_title, 'link-image' }}
+            <a href="{{ pageLink1_blog.url }}" class="link-data">
+              {{ 'home_photo_1.jpg' | asset_url | img_tag: pageLink1_blog_title, 'link-image' }}
               <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink1_page_title }}</h2></div>
+                <div class="link-text"><h2>{{ pageLink1_blog_title }}</h2></div>
               </div>
             </a>
           {% else %}
@@ -144,7 +152,6 @@
       <div class="grid__item large--one-whole large-down--one-whole row">
         <div class="page-link">
 
-          <!-- Assign Page Link Variables -->
           {% assign pageLink2_handle = settings.home_link_2 %}
           {% assign pageLink2_collection = collections[pageLink2_handle] %}
           {% if settings.home_link_2_short_label != "" %}
@@ -183,6 +190,16 @@
             {% assign promo2_product_title = promo2_product.title %}
           {% endif %}
           {% assign unitPrice = promo2_product.metafields.priceUnit.pricePerPound %}
+          {% assign unitName = promo2_product.metafields.priceUnit.unitName %}
+          {% if unitName %}
+            {% assign unitName = 'per ' | append: unitName %}
+          {% elsif unitPrice %}
+            {% assign unitName = 'per lb.' %}
+          {% elsif promo2_product.tags contains 'Whole Fish' %}
+            {% assign unitName = 'per fish' %}
+          {% elsif promo2_product.product_type == 'Fish' %}
+            {% assign unitName = 'per lb.' %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo2_product.url }}" class="promotion-data">
@@ -192,9 +209,9 @@
               </h2>
               <p class="price">
                 {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
                 {% else %}
-                  ${{ promo2_variant.price | money_without_currency }}
+                  ${{ promo2_variant.price | money_without_currency | append: ' ' | append: unitName }}
                 {% endif %}
               </p>
             </div>
@@ -208,7 +225,6 @@
       <div class="grid__item large--one-half large-down--one-half">
         <div class="page-link">
 
-          <!-- Assign Page Link Variables -->
           {% assign pageLink5_handle = settings.home_link_5 %}
           {% assign pageLink5_page = pages[pageLink5_handle] %}
           {% if settings.home_link_5_short_label != "" %}
@@ -241,7 +257,6 @@
   <div class="grid__item medium--one-fifth medium-down--hide row">
     <div class="page-link">
 
-      <!-- Assign Page Link Variables -->
       {% assign pageLink3_handle = settings.home_link_3 %}
       {% assign pageLink3_page = pages[pageLink3_handle] %}
       {% if settings.home_link_3_short_label != "" %}
@@ -267,7 +282,7 @@
   <!-- /Upper Right Column -->
 
   <!-- Bottom 'Row' -->
-  <div class="grid__item large--one-whole large-down--one-whole row">
+  <div class="grid__item large--one-whole large-down--one-whole">
 
     <div class="grid">
 
@@ -288,6 +303,16 @@
             {% assign promo3_product_title = promo3_product.title %}
           {% endif %}
           {% assign unitPrice = promo3_product.metafields.priceUnit.pricePerPound %}
+          {% assign unitName = promo3_product.metafields.priceUnit.unitName %}
+          {% if unitName %}
+            {% assign unitName = 'per ' | append: unitName %}
+          {% elsif unitPrice %}
+            {% assign unitName = 'per lb.' %}
+          {% elsif promo3_product.tags contains 'Whole Fish' %}
+            {% assign unitName = 'per fish' %}
+          {% elsif promo3_product.product_type == 'Fish' %}
+            {% assign unitName = 'per lb.' %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
@@ -297,9 +322,9 @@
               </h2>
               <p class="price">
                 {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
                 {% else %}
-                  ${{ promo3_variant.price | money_without_currency }}
+                  ${{ promo3_variant.price | money_without_currency | append: ' ' | append: unitName }}
                 {% endif %}
               </p>
             </div>
@@ -313,10 +338,9 @@
       {% comment %}
         ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
       {% endcomment %}
-      <div class="grid__item medium--two-fifths medium-down--one-whole">
+      <div class="grid__item medium--two-fifths medium-down--one-whole medium-down--row-half">
         <div class="page-link">
 
-          <!-- Assign Page Link Variables -->
           {% assign pageLink6_handle = settings.home_link_6 %}
           {% assign pageLink6_page = pages[pageLink6_handle] %}
           {% if settings.home_link_6_short_label != "" %}
@@ -344,7 +368,7 @@
       {% comment %}
         ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
       {% endcomment %}
-      <div class="grid__item medium--hide medium-down--one-half">
+      <div class="grid__item medium--hide medium-down--one-half medium-down--row">
 
         <div class="product-promotion green third">
           <!-- Assign Product Variables -->
@@ -357,6 +381,16 @@
             {% assign promo3_product_title = promo3_product.title %}
           {% endif %}
           {% assign unitPrice = promo3_product.metafields.priceUnit.pricePerPound %}
+          {% assign unitName = promo3_product.metafields.priceUnit.unitName %}
+          {% if unitName %}
+            {% assign unitName = 'per ' | append: unitName %}
+          {% elsif unitPrice %}
+            {% assign unitName = 'per lb.' %}
+          {% elsif promo3_product.tags contains 'Whole Fish' %}
+            {% assign unitName = 'per fish' %}
+          {% elsif promo3_product.product_type == 'Fish' %}
+            {% assign unitName = 'per lb.' %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
@@ -366,9 +400,9 @@
               </h2>
               <p class="price">
                 {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
                 {% else %}
-                  ${{ promo3_variant.price | money_without_currency }}
+                  ${{ promo3_variant.price | money_without_currency | append: ' ' | append: unitName }}
                 {% endif %}
               </p>
             </div>
@@ -379,10 +413,9 @@
       </div>
 
       <!-- Seafood Watch -->
-      <div class="grid__item medium--one-fifth medium-down--one-half">
+      <div class="grid__item medium--one-fifth medium-down--one-half medium-down--row">
         <div class="page-link">
 
-          <!-- Assign Page Link Variables -->
           {% assign seafoodWatch_page = pages["sustainable-seafood"] %}
 
           <!-- Display page link data -->
@@ -408,6 +441,16 @@
             {% assign promo4_product_title = promo4_product.title %}
           {% endif %}
           {% assign unitPrice = promo4_product.metafields.priceUnit.pricePerPound %}
+          {% assign unitName = promo4_product.metafields.priceUnit.unitName %}
+          {% if unitName %}
+            {% assign unitName = 'per ' | append: unitName %}
+          {% elsif unitPrice %}
+            {% assign unitName = 'per lb.' %}
+          {% elsif promo4_product.tags contains 'Whole Fish' %}
+            {% assign unitName = 'per fish' %}
+          {% elsif promo4_product.product_type == 'Fish' %}
+            {% assign unitName = 'per lb.' %}
+          {% endif %}
 
           <!-- Display promotion data -->
           <a href="{{ promo4_product.url }}" class="promotion-data">
@@ -417,9 +460,9 @@
               </h2>
               <p class="price">
                 {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
                 {% else %}
-                  ${{ promo4_variant.price | money_without_currency }}
+                  ${{ promo4_variant.price | money_without_currency | append: ' ' | append: unitName }}
                 {% endif %}
               </p>
             </div>
@@ -443,7 +486,6 @@
       <div class="grid__item medium-down--one-half">
         <div class="page-link">
 
-          <!-- Assign Page Link Variables -->
           {% assign pageLink3_handle = settings.home_link_3 %}
           {% assign pageLink3_page = pages[pageLink3_handle] %}
           {% if settings.home_link_3_short_label != "" %}
@@ -472,7 +514,7 @@
         <div class="grid">
 
           <!-- Product Promotion #4 -->
-          <div class="grid__item medium-down--one-whole row">
+          <div class="grid__item medium-down--one-whole medium-down--row">
 
             <div class="product-promotion grey fourth">
               <!-- Assign Product Variables -->
@@ -485,6 +527,16 @@
                 {% assign promo4_product_title = promo4_product.title %}
               {% endif %}
               {% assign unitPrice = promo4_product.metafields.priceUnit.pricePerPound %}
+              {% assign unitName = promo4_product.metafields.priceUnit.unitName %}
+              {% if unitName %}
+                {% assign unitName = 'per ' | append: unitName %}
+              {% elsif unitPrice %}
+                {% assign unitName = 'per lb.' %}
+              {% elsif promo4_product.tags contains 'Whole Fish' %}
+                {% assign unitName = 'per fish' %}
+              {% elsif promo4_product.product_type == 'Fish' %}
+                {% assign unitName = 'per lb.' %}
+              {% endif %}
 
               <!-- Display promotion data -->
               <a href="{{ promo4_product.url }}" class="promotion-data">
@@ -494,9 +546,9 @@
                   </h2>
                   <p class="price">
                     {% if unitPrice %}
-                      ${{ unitPrice | times: 100 | money_without_currency }} {{ 'products.general.weight_unit' | t }}
+                      ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
                     {% else %}
-                      ${{ promo4_variant.price | money_without_currency }}
+                      ${{ promo4_variant.price | money_without_currency | append: ' ' | append: unitName }}
                     {% endif %}
                   </p>
                 </div>
