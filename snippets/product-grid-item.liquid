@@ -91,15 +91,29 @@
             {% endif %}
           {% else %}
             {% assign unitPrice = product.metafields.priceUnit.pricePerPound %}
+            {% assign unitName = product.metafields.priceUnit.unitName %}
+            {% if unitName %}
+              {% assign unitName = 'per ' | append: unitName %}
+            {% elsif unitPrice %}
+              {% assign unitName = 'per lb.' %}
+            {% elsif product.tags contains 'Whole Fish' %}
+              {% assign unitName = 'per fish' %}
+            {% elsif product.product_type == 'Fish' %}
+              {% assign unitName = 'per lb.' %}
+            {% endif %}
+
             {% if scn_price_varies %}
               {% if unitPrice %}
-                {{ unitPrice | times: 100 | money }} {{ 'products.general.weight_unit' | t }}
+                {{ unitPrice | times: 100 | money | append: ' ' | append: unitName }}
               {% else %}
                 {% assign price = scn_product_min | money %}
+                {% comment %}
                 {{ 'products.general.from_text_html' | t: price: price }}
+                {% endcomment %}
+                {{ price | append: ' ' | append: unitName }}
               {% endif %}
             {% else %}
-              {{ scn_product_min | money }}
+              {{ scn_product_min | money | append: ' ' | append: unitName }}
             {% endif %}
           {% endif %}
           {% if sold_out %}

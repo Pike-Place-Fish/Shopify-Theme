@@ -37,9 +37,19 @@
   {% assign current_variant = scn_first_product_variant %}
 
   {% comment %}
-    Get unit price (e.g., price per pound), if available
+    Get unit price (e.g., price per pound) and unit label, if available
   {% endcomment %}
   {% assign unitPrice = product.metafields.priceUnit.pricePerPound %}
+  {% assign unitName = product.metafields.priceUnit.unitName %}
+  {% if unitName %}
+    {% assign unitName = 'per ' | append: unitName %}
+  {% elsif unitPrice %}
+    {% assign unitName = 'per lb.' %}
+  {% elsif product.tags contains 'Whole Fish' %}
+    {% assign unitName = 'per fish' %}
+  {% elsif product.product_type == 'Fish' %}
+    {% assign unitName = 'per lb.' %}
+  {% endif %}
 
   {% include 'breadcrumb' %}
 
@@ -96,19 +106,22 @@
         ### NOTE KLT061516: Added a "unit-price" containing div, for formatting
       {% endcomment %}
       <div class="unit-price">
+
         {% if unitPrice %}
-          <h2>{{ unitPrice | times: 100 | money }} {{ 'products.general.weight_unit' | t }}</h2>
+          <h2>{{ unitPrice | times: 100 | money }} {{ unitName }}</h2>
+
         {% else %}
 
           <span class="visually-hidden price-label">{{ 'products.general.regular_price' | t }}</span>
           <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
-            {{ current_variant.price | money }}
+            {{ current_variant.price | money | append: unitName }}
           </span>
+          <span class="h2 unit-label">{{ unitName }}</span>
 
           {% if product.compare_at_price_max > scn_product_min %}
             <span class="visually-hidden price-label">{{ 'products.general.sale_price' | t }}</span>
             <p id="ComparePrice">
-              {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
+              {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }} {{ unitName }}
             </p>
           {% endif %}
 
@@ -183,13 +196,13 @@
             <label for="add" class="visually-hidden">Add</label>
             <span>
 
-              {% if unitPrice %}
+              {% if unitPrice and product.tags contains 'Whole Fish' %}
                 <!-- Total Price -->
                 <span class="full-price h6">
                   {{ settings.label_whole_fish_total }}
                   <span id="ProductPrice" class="h6" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
-                    ***** {{ settings.label_whole_fish_total }} ***** {{ current_variant.price | money }}
-                  </span>
+                    Price {% if unitName %}{{ unitName }}{% else %}per fish{% endif %}: {{ current_variant.price | money }}
+                 </span>
                 </span>
                 <!-- /Total Price -->
               {% endif %}
