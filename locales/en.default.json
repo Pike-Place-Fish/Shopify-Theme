@@ -160,7 +160,7 @@
       "delete": "Delete"
     },
     "login": {
-      "title": "Login",
+      "title": "Sign In",
       "email": "Email",
       "password": "Password",
       "forgot_password": "Forgot your password?",
@@ -273,7 +273,8 @@
       "next_product_html": "Next Product &rarr;",
       "from_text_html": "From {{ price }}",
       "sale_price": "Sale price",
-      "regular_price": "Regular price"
+      "regular_price": "Regular price",
+      "weight_unit": "per lb"
     },
     "product": {
       "sold_out": "Sold Out",
