@@ -14,9 +14,17 @@
   .template-checkout {
 
     // Order Summary
+    div.sidebar {
+      padding                   : 2.5%;
+    }
     .order-summary-toggle {
       border                    : 0 none transparent;
       border-radius             : 0;
+      background-color          : {{ settings.color_body_bg_accent }};
+      .order-summary-toggle__text,
+      .order-summary-toggle__total-recap {
+        font-family             : $interfaceFontStack;
+      }
     }
     .order-summary {
       table {
@@ -24,7 +32,14 @@
         td {
           border                : 0 none transparent;
         }
-
+      }
+      .product__price {
+        font-family             : $interfaceFontStack;
+      }
+      .total-line-table {
+        td {
+          font-family           : $interfaceFontStack;
+        }
       }
     }
 
@@ -32,6 +47,12 @@
       border-radius             : 0;
     }
 
+    .product__description__name {
+      font-family               : $headerFontStack;
+      font-size                 : $baseFontSize;
+      line-height               : 115%;
+      font-weight               : $headerFontWeight;
+    }
     .product-thumbnail,
     .product-thumbnail__wrapper {
       border                    : 0 none transparent;
@@ -41,6 +62,16 @@
         border-radius           : 0;
         box-shadow              : none;
       }
+    }
+
+    // Body Content
+    h2.section__title {
+      @extend h3;
+    }
+
+    // Form Overrides
+    .input-radio {
+      width                     : 18px;
     }
 
   }
