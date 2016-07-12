@@ -75,7 +75,7 @@
           -webkit-text-stroke-width     : 1px;
           -webkit-text-stroke-color     : {{ settings.color_secondary }};
           @include at-query ($max, $small) {
-            color               : rgb(67, 148, 68);             // #439444 TODO: Add to settings
+          //color               : rgb(67, 148, 68);             // #439444 TODO: Add to settings
           }
           @include at-query ($max, $large) {
             font-size           : 4.25vw;
@@ -123,7 +123,10 @@
           @include at-query ($max, $medium) {
             font-size           : 4vw;
           }
-          @include at-query (null, $medium, $siteWidth) {
+          @include at-query (null, $medium, $preLarge) {
+            font-size           : 1.85vw;
+          }
+          @include at-query (null, $large, $siteWidth) {
             font-size           : 1.91vw;
           }
         }
