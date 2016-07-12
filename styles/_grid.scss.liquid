@@ -86,7 +86,10 @@ $class-type: unquote(".");
 
 // New - .row test
 .row {
-  padding-bottom                : ($gridGutter / 2);
+  padding-top                   : $gridGutter;
+}
+.row-half {
+  padding-top                   : ($gridGutter / 2);
 }
 
 /*============================================================================
@@ -216,6 +219,19 @@ $class-type: unquote(".");
   #{$class-type}#{$namespace}right       { float: right!important; }
 }
 
+// New
+@mixin grid-row($namespace:"") {
+  #{$class-type}#{$namespace}row {
+    padding-top                 : $gridGutter;
+  }
+}
+@mixin grid-row-half($namespace:"") {
+  #{$class-type}#{$namespace}row-half {
+    padding-top                 : ($gridGutter / 2);
+  }
+}
+
+
 /*================ Our regular, non-responsive width and helper classes ================*/
 @include device-type();
 @include device-helper();
@@ -227,6 +243,8 @@ $class-type: unquote(".");
       @include device-type('#{$name}--');
       @include device-helper('#{$name}--');
       @include clearfix-helper('#{$name}--');
+      @include grid-row('#{$name}--'); // New
+      @include grid-row-half('#{$name}--'); // New
     }
   }
 }
