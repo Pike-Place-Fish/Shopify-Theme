@@ -8,7 +8,7 @@
 <div class="grid">
 
   <!-- Banner / Media -->
-  <div class="grid__item large--one-whole large-down--one-whole row">
+  <div class="grid__item large--one-whole large-down--one-whole">
     <div class="banner-container">
       <div class="video-background">
         <video width="100%" height="100%" poster="{{ 'Home.Banner.jpg' | asset_url }}" autoplay loop muted>
@@ -27,7 +27,7 @@
   </div>
 
   <!-- Upper Left Two Columns -->
-  <div class="grid__item medium--two-fifths medium-down--one-whole row">
+  <div class="grid__item row-half medium--two-fifths medium-down--one-whole">
 
     <div class="grid">
 
@@ -36,7 +36,7 @@
         <div class="grid">
 
           <!-- Product Promotion #1 -->
-          <div class="grid__item large--one-whole large-down--one-whole row buffer-bottom">
+          <div class="grid__item large--one-whole large-down--one-whole">
 
             <div class="product-promotion blue first">
 
@@ -81,7 +81,7 @@
           </div>
 
           <!-- "Fresh Crab" -->
-          <div class="grid__item large--one-whole large-down--one-whole">
+          <div class="grid__item row large--one-whole large-down--one-whole">
             <div class="page-link">
 
               {% assign pageLink4_handle = settings.home_link_4 %}
@@ -144,12 +144,12 @@
   <!-- /Upper Left Two Columns -->
 
   <!-- Upper Middle Two Columns -->
-  <div class="grid__item medium--two-fifths medium-down--one-whole row">
+  <div class="grid__item row-half medium--two-fifths medium-down--one-whole">
 
     <div class="grid">
 
       <!-- "Fresh Salmon" -->
-      <div class="grid__item large--one-whole large-down--one-whole row">
+      <div class="grid__item large--one-whole large-down--one-whole">
         <div class="page-link">
 
           {% assign pageLink2_handle = settings.home_link_2 %}
@@ -176,7 +176,7 @@
       </div>
 
       <!-- Product Promotion #2 -->
-      <div class="grid__item large--one-half large-down--one-half">
+      <div class="grid__item row-half large--one-half large-down--one-half">
         <!-- {{ 'Home.ProductPromo2.png' | asset_url | img_tag }} -->
 
         <div class="product-promotion orange second">
@@ -222,7 +222,7 @@
       </div>
 
       <!-- "Fulfillment" -->
-      <div class="grid__item large--one-half large-down--one-half">
+      <div class="grid__item row-half large--one-half large-down--one-half">
         <div class="page-link">
 
           {% assign pageLink5_handle = settings.home_link_5 %}
@@ -254,7 +254,7 @@
   <!-- /Upper Middle Two Columns -->
 
   <!-- Upper Right Column: hide for small screens -->
-  <div class="grid__item medium--one-fifth medium-down--hide row">
+  <div class="grid__item row-half medium--one-fifth medium-down--hide">
     <div class="page-link">
 
       {% assign pageLink3_handle = settings.home_link_3 %}
@@ -282,7 +282,7 @@
   <!-- /Upper Right Column -->
 
   <!-- Bottom 'Row' -->
-  <div class="grid__item large--one-whole large-down--one-whole">
+  <div class="grid__item row-half large--one-whole large-down--one-whole">
 
     <div class="grid">
 
@@ -293,7 +293,6 @@
       <div class="grid__item medium--one-fifth medium-down--hide">
 
         <div class="product-promotion green third">
-          <!-- Assign Product Variables -->
           {% assign promo3_handle = settings.home_promotion_c %}
           {% assign promo3_product = all_products[promo3_handle] %}
           {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
@@ -338,7 +337,7 @@
       {% comment %}
         ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
       {% endcomment %}
-      <div class="grid__item medium--two-fifths medium-down--one-whole medium-down--row-half">
+      <div class="grid__item medium--two-fifths medium-down--one-whole">
         <div class="page-link">
 
           {% assign pageLink6_handle = settings.home_link_6 %}
@@ -368,10 +367,9 @@
       {% comment %}
         ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
       {% endcomment %}
-      <div class="grid__item medium--hide medium-down--one-half medium-down--row">
+      <div class="grid__item row-half medium--hide medium-down--one-half">
 
         <div class="product-promotion green third">
-          <!-- Assign Product Variables -->
           {% assign promo3_handle = settings.home_promotion_c %}
           {% assign promo3_product = all_products[promo3_handle] %}
           {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
@@ -413,7 +411,7 @@
       </div>
 
       <!-- Seafood Watch -->
-      <div class="grid__item medium--one-fifth medium-down--one-half medium-down--row">
+      <div class="grid__item medium-down--row-half medium--one-fifth medium-down--one-half">
         <div class="page-link">
 
           {% assign seafoodWatch_page = pages["sustainable-seafood"] %}
@@ -483,7 +481,7 @@
     <div class="grid">
 
       <!-- Monger #2 -->
-      <div class="grid__item medium-down--one-half">
+      <div class="grid__item row medium-down--one-half">
         <div class="page-link">
 
           {% assign pageLink3_handle = settings.home_link_3 %}
@@ -514,7 +512,7 @@
         <div class="grid">
 
           <!-- Product Promotion #4 -->
-          <div class="grid__item medium-down--one-whole medium-down--row">
+          <div class="grid__item row medium-down--one-whole">
 
             <div class="product-promotion grey fourth">
               <!-- Assign Product Variables -->
@@ -562,7 +560,7 @@
           {% comment %}
             ### NOTE KLT060816: Temporary!!! Conversation regarding what should fill this block pending
           {% endcomment %}
-          <div class="grid__item medium-down--one-whole" style="position: relative;">
+          <div class="grid__item row medium-down--one-whole" style="position: relative;">
             <div class="product-promotion" style="background: {{ settings.color_secondary }}">
               <div class="promotion-data"><h2>Content Needed</h2></div>
             </div>
