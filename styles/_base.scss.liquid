@@ -583,6 +583,9 @@ th, td {
 
   // Expandable Search (New)
   .site-header__search {
+    form.search-bar {
+      margin-bottom             : 0;
+    }
     ::-webkit-input-placeholder {
        color                    : rgb(110, 110, 110);
     }
@@ -596,11 +599,13 @@ th, td {
        color                    : rgb(110, 110, 110);
     }
     input[type="search"] {
+      margin-right              : 23px;
       padding                   : 0;
       width                     : 0;
-      -webkit-transition        : all .5s;
-      -moz-transition           : all .5s;
-      transition                : all .5s;
+      min-width                 : 0;
+      -webkit-transition        : all .25s;
+      -moz-transition           : all .25s;
+      transition                : all .25s;
     }
     &:focus {
       input[type="search"] {
@@ -609,6 +614,39 @@ th, td {
         min-width               : 140px;
       }
     }
+    button[type="submit"],
+    span.search-expander {
+      display                   : block;
+      position                  : absolute;
+      top                       : 0;
+      right                     : 0;
+      cursor                    : pointer;
+    }
+    button[type="submit"] {
+      z-index                   : 10px;
+    }
+    span.search-expander {
+      z-index                   : 15;
+      width                     : 22px;
+      height                    : 23px;
+    }
+
+    .search-bar.expanded {
+      input[type="search"] {
+        width                   : 140px;
+        min-width               : 140px;
+        -webkit-transition      : all .25s;
+        -moz-transition         : all .25s;
+        transition              : all .25s;
+      }
+      button[type="submit"] {
+        z-index                 : 15;
+      }
+      span.search-expander {
+        z-index                 : 10;
+      }
+    }
+
   }
 
 }

@@ -571,9 +571,13 @@
       setPageContainerPadding();
 
       // Handle expanding search bar interaction
-      $('site-header__search button[type="submit"]').on('click', function(e) {
-        // Prevent default search click
-        e.preventDefault();
+      $('.site-header__search span.search-expander').on('click', function(e) {
+        // Mark search bar as expanded
+        $('.site-header__search form.search-bar').addClass('expanded');
+      });
+      $('.site-header__search button[type="submit"]').on('click', function(e) {
+        // Remove expanded status on search bar
+        $('.site-header__search form.search-bar').removeClass('expanded');
       });
 
       // Perform resize functionality
