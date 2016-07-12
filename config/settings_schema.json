@@ -45,7 +45,7 @@
       {
         "type": "color",
         "id": "color_text_link",
-        "label": "Primary",
+        "label": "Text Links",
         "default": "#427a90",
         "info": "Used for text links"
       },
