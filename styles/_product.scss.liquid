@@ -16,6 +16,11 @@
     // Product Details
     .product-single {
 
+      // Layout
+      > .grid__item {
+        padding-bottom          : ($gutter * 3);
+      }
+
       // Images
       .product-single__photos,
       .product-single__thumbnails {
@@ -26,9 +31,9 @@
       .product-single__photos {
         @include at-query ($min, $large) {
           img {
-            margin-left           : 0;
-            margin-right          : 0;
-            width                 : 100%;
+            margin-left         : 0;
+            margin-right        : 0;
+            width               : 100%;
           }
         }
       }
