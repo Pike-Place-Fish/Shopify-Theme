@@ -17,14 +17,20 @@
 /*============================================================================
   #Basic Styles
 ==============================================================================*/
+// New
+html,
+body {
+  margin                        : 0;
+  padding                       : 0;
+  height                        : 100%;
+  min-height                    : 100%;
+}
 html {
-  height                        : 100%; // New
-  background-color: $colorFooterBg;
+  background-color              : $colorFooterBg;
 }
 
 body {
-  min-height                    : 100%; // New
-  background-color: $colorBody;
+  background-color              : $colorBody;
 }
 
 [tabindex='-1']:focus {
@@ -33,6 +39,9 @@ body {
 
 // New
 div.page-container {
+  position                      : relative;
+  width                         : 100%;
+  min-height                    : 100%;
   background-color              : {{ settings.color_body_bg_accent }};
 }
 
@@ -566,6 +575,18 @@ th, td {
 
   // Expandable Search (New)
   .site-header__search {
+    ::-webkit-input-placeholder {
+       color                    : rgb(110, 110, 110);
+    }
+    :-moz-placeholder {
+       color                    : rgb(110, 110, 110);
+    }
+    ::-moz-placeholder {
+       color                    : rgb(110, 110, 110);
+    }
+    :-ms-input-placeholder {
+       color                    : rgb(110, 110, 110);
+    }
     input[type="search"] {
       padding                   : 0;
       width                     : 0;
@@ -577,6 +598,7 @@ th, td {
       input[type="search"] {
         padding                 : 0 2px;
         width                   : auto;
+        min-width               : 140px;
       }
     }
   }
@@ -693,21 +715,23 @@ th, td {
     border-width                : 0 0 1px 0;
     border-color                : {{ settings.color_primary }};
     padding                     : 0 2px;
+    width                       : auto;
+    min-width                   : 140px;
     height                      : 24px;
     font-size                   : em(12px);
     background-color            : transparent;
   }
   ::-webkit-input-placeholder {
-     color                      : rgb(110, 110, 110);
+     color                      : {{ settings.color_body_bg_accent }};
   }
   :-moz-placeholder {
-     color                      : rgb(110, 110, 110);
+     color                      : {{ settings.color_body_bg_accent }};
   }
   ::-moz-placeholder {
-     color                      : rgb(110, 110, 110);
+     color                      : {{ settings.color_body_bg_accent }};
   }
   :-ms-input-placeholder {
-     color                      : rgb(110, 110, 110);
+     color                      : {{ settings.color_body_bg_accent }};
   }
 
   // New
@@ -986,6 +1010,7 @@ th, td {
 
 .mobile-nav__item a,
 .mobile-nav__toggle button {
+  margin-right                  : 13px; //New
   color: $colorDrawerText;
   padding: $gutter / 2;
   text-decoration: none;
@@ -1054,7 +1079,7 @@ th, td {
 }
 
 .mobile-nav__sublist {
-  margin: 0;
+  margin                        : 0 0 0 ($gutter * 1.5);        // New
   max-height: 0;
   visibility: hidden;
   overflow: hidden;
@@ -1070,6 +1095,11 @@ th, td {
   .mobile-nav__item:after {
     top: 0;
     bottom: auto;
+  }
+
+  // New
+  .mobile-nav__item a {
+    padding                     : 5px 0 5px 10px;
   }
 
   .mobile-nav__link {
@@ -1148,7 +1178,7 @@ th, td {
 }
 
 #PageContainer {
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .is-moved-by-drawer {
@@ -1207,14 +1237,22 @@ th, td {
   #Site Footer
 ==============================================================================*/
 .site-footer {
-  background-color: $colorFooterBg;
-  padding: $gutter 0;
-  font-size: em(12px);          // New
-  color: $colorFooterText;
+  position                      : absolute;                     // New
+  bottom                        : 0;                            // New
+  left                          : 0;                            // New
+  padding                       : $gutter 0;
+  width                         : 100%;                         // New
+  font-size                     : em(12px);                     // New
+  color                         : $colorFooterText;
+  background-color              : $colorFooterBg;
+
+  // New
+  @include at-query ($max, $medium) {
+    padding                     : $gutter 0 ($gutter * 2.5);
+  }
 
   @include at-query ($min, $large) {
-    padding: 17px 0 12px;       // Was padding: ($gutter * 2) 0;
-  //max-height: 60px;
+    padding                     : 17px 0 12px;       // Was padding: ($gutter * 2) 0;
   }
 
   // New
