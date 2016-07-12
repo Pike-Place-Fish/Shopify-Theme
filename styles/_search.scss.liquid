@@ -1,0 +1,45 @@
+//==============================================================================================
+// SEARCH (RESULTS)
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify search results view.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-search {
+
+    // Page Title
+    h1.results-title {
+      margin-top                : 0;
+      margin-bottom             : $gutter;
+    }
+
+    // On-page Search Form
+    form {
+      margin                    : 0 auto $gutter;
+      text-align                : center;
+    }
+
+    // Search Result Items
+    a.result-image {
+      display                   : inline-block;
+      img {
+        max-width               : 175px;
+      }
+    }
+    h3.result-title {
+      a {
+        color                   : {{ settings.color_secondary }};
+      }
+    }
+    span[itemprop="price"] {
+      font-family               : $interfaceFontStack;
+      font-weight               : 800;
+    }
+
+  }

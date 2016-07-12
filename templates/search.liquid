@@ -30,12 +30,12 @@
 
       {% if search.performed %}
         {% if search.results_count == 0 %}
-          <h1 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+          <h1 class="text-center results-title">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
         {% else %}
-          <h1 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+          <h1 class="text-center results-title">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
         {% endif %}
       {% else %}
-        <h1 class="text-center">{{ 'general.search.title' | t }}</h1>
+        <h1 class="text-center results-title">{{ 'general.search.title' | t }}</h1>
       {% endif %}
 
       {% include 'search-bar' %}
@@ -84,8 +84,8 @@
                     {% comment %}
                       We have a featured_image, so it's likely a product
                     {% endcomment %}
-                    <div class="grid__item one-third">
-                      <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                    <div class="grid__item one-quarter">
+                      <a href="{{ item.url }}" title="{{ item.title | escape }}" class="result-image">
                         {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
                       </a>
                     </div>
@@ -94,8 +94,8 @@
                   {% comment %}
                     If we don't have a featured_image, add a push-- class to keep the alignment the same
                   {% endcomment %}
-                  <div class="grid__item two-thirds {% unless item.featured_image %}push--one-third{% endunless %}">
-                    <h3>{{ item.title | link_to: item.url }}</h3>
+                  <div class="grid__item three-quarters {% unless item.featured_image %}push--one-quarter{% endunless %}">
+                    <h3 class="result-title">{{ item.title | link_to: item.url }}</h3>
 
                     {% if scn_product_min %}
                       <p>
@@ -112,12 +112,39 @@
                             <span itemprop="price">{{ scn_product_min | money }}</span>
                           {% endif %}
                         {% else %}
+
+
+                          {% comment %}
+                            ### NOTE KLT070816: Integrated unit price and label with search results
+                          {% endcomment %}
+                          {% assign unitPrice = item.metafields.priceUnit.pricePerPound %}
+                          {% assign unitName = item.metafields.priceUnit.unitName %}
+                          {% if unitName %}
+                            {% assign unitName = 'per ' | append: unitName %}
+                          {% elsif unitPrice %}
+                            {% assign unitName = 'per lb.' %}
+                          {% elsif item.tags contains 'Whole Fish' %}
+                            {% assign unitName = 'per fish' %}
+                          {% elsif item.product_type == 'Fish' %}
+                            {% assign unitName = 'per lb.' %}
+                          {% endif %}
+
+                          {% comment %}
                           {% if scn_price_varies %}
                             {% assign price = scn_product_min | money %}
                             <span itemprop="price">{{ 'products.general.from_text_html' | t: price: price }}</span>
                           {% else %}
                             <span itemprop="price">{{ scn_product_min | money }}</span>
                           {% endif %}
+                          {% endcomment %}
+
+                          {% if unitPrice %}
+                            <span itemprop="price">{{ unitPrice | times: 100 | money | append: ' ' | append: unitName }}</span>
+                          {% else %}
+                            {% assign price = scn_product_min | money %}
+                            <span itemprop="price">{{ price | append: ' ' | append: unitName }}</span>
+                          {% endif %}
+
                         {% endif %}
                         {% if sold_out %}
                           <br><strong>{{ 'products.product.sold_out' | t }}</strong>
@@ -159,12 +186,38 @@
                         <span itemprop="price">{{ scn_product_min | money }}</span>
                       {% endif %}
                     {% else %}
+
+                      {% comment %}
+                        ### NOTE KLT070816: Integrated unit price and label with search results
+                      {% endcomment %}
+                      {% assign unitPrice = item.metafields.priceUnit.pricePerPound %}
+                      {% assign unitName = item.metafields.priceUnit.unitName %}
+                      {% if unitName %}
+                        {% assign unitName = 'per ' | append: unitName %}
+                      {% elsif unitPrice %}
+                        {% assign unitName = 'per lb.' %}
+                      {% elsif item.tags contains 'Whole Fish' %}
+                        {% assign unitName = 'per fish' %}
+                      {% elsif item.product_type == 'Fish' %}
+                        {% assign unitName = 'per lb.' %}
+                      {% endif %}
+
+                      {% comment %}
                       {% if scn_price_varies %}
                         {% assign price = scn_product_min | money %}
                         <span itemprop="price">{{ 'products.general.from_text_html' | t: price: price }}</span>
                       {% else %}
                         <span itemprop="price">{{ scn_product_min | money }}</span>
                       {% endif %}
+                      {% endcomment %}
+
+                      {% if unitPrice %}
+                        <span itemprop="price">{{ unitPrice | times: 100 | money | append: ' ' | append: unitName }}</span>
+                      {% else %}
+                        {% assign price = scn_product_min | money %}
+                        <span itemprop="price">{{ price | append: ' ' | append: unitName }}</span>
+                      {% endif %}
+
                     {% endif %}
                     {% if sold_out %}
                       <br><strong>{{ 'products.product.sold_out' | t }}</strong>
