@@ -190,6 +190,15 @@
           <div id="infiniteoptions-container" class="product-custom-options"></div>
 
           {% comment %}
+            ### NOTE KLT071116: Added a hidden product type input, for pass-through to Bespoke
+          {% endcomment %}
+          {% assign shippingRestriction = 'isPerishable' %}
+          {% if product.type contains 'Not Fish' %}
+            {% assign shippingRestriction = 'isNotPerishable' %}
+          {% endif %}
+          <input type="hidden" name="properties[_shipping_restriction]" value="{{ shippingRestriction }}" />
+
+          {% comment %}
             ### NOTE KLT061516: Added a "option-container" containing div and button label, for formatting
           {% endcomment %}
           <div class="option-container">
