@@ -53,52 +53,9 @@
 
   {% include 'breadcrumb' %}
 
-  <div class="grid product-single">
-    <div class="grid__item large--one-half">
-      <div class="product-single__photos text-center" id="ProductPhoto">
-        {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
-        <img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
-      </div>
+  <div class="grid--rev product-single">
 
-      {% comment %}
-        Create thumbnails if we have more than one product image
-      {% endcomment %}
-      {% if product.images.size > 1 %}
-        <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
-
-          {% for image in product.images %}
-            <li class="grid__item one-quarter">
-              <a href="{{ image.src | img_url: 'large' }}" class="product-single__thumbnail">
-                <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-              </a>
-            </li>
-          {% endfor %}
-
-        </ul>
-      {% endif %}
-
-      {% comment %}
-        ### NOTE KLT061616: Relatable Implementation
-        - https://relatable.heliumdev.com/docs
-      {% endcomment %}
-      <div data-relatable="product.articles" data-relatable-id="{{product.id}}" class="related-recipes">
-        {% raw %}
-          {{#articles.length}}
-            <h6>Recipes:</h6>
-            <ul>
-          {{/articles.length}}
-          {{#articles}}
-              <li><a href="/blogs/recipes/{{id}}">{{title}}</a></li>
-          {{/articles}}
-          {{#articles.length}}
-            </ul>
-          {{/articles.length}}
-        {% endraw %}
-      </div>
-
-    </div>
-
-    <div class="grid__item large--one-half">
+    <div class="grid__item large--one-half medium--two-thirds">
 
       <h1 itemprop="name" class="h4">{{ product.title }}</h1>
 
@@ -248,6 +205,51 @@
       {% endif %}
 
     </div>
+
+    <div class="grid__item large--one-half medium--one-third">
+      <div class="product-single__photos text-center" id="ProductPhoto">
+        {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+        <img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
+      </div>
+
+      {% comment %}
+        Create thumbnails if we have more than one product image
+      {% endcomment %}
+      {% if product.images.size > 1 %}
+        <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
+
+          {% for image in product.images %}
+            <li class="grid__item one-quarter">
+              <a href="{{ image.src | img_url: 'large' }}" class="product-single__thumbnail">
+                <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+          {% endfor %}
+
+        </ul>
+      {% endif %}
+
+      {% comment %}
+        ### NOTE KLT061616: Relatable Implementation
+        - https://relatable.heliumdev.com/docs
+      {% endcomment %}
+      <div data-relatable="product.articles" data-relatable-id="{{product.id}}" class="related-recipes">
+        {% raw %}
+          {{#articles.length}}
+            <h6>Recipes:</h6>
+            <ul>
+          {{/articles.length}}
+          {{#articles}}
+              <li><a href="/blogs/recipes/{{id}}">{{title}}</a></li>
+          {{/articles}}
+          {{#articles.length}}
+            </ul>
+          {{/articles.length}}
+        {% endraw %}
+      </div>
+
+    </div>
+
   </div>
 
 </div>

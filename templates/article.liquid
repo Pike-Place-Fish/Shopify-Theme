@@ -22,49 +22,9 @@
 
 {% include 'breadcrumb' %}
 
-<div class="grid">
+<div class="grid--rev">
 
-  <section class="grid__item medium--one-third small--one-whole">
-    <!-- Featured Image -->
-    {{ article | img_url: '1024x1024' | img_tag: article.title | img_class: 'featured-image' }}
-
-    {% comment %}
-      ### NOTE KLT061616: Relatable Implementation
-      - https://relatable.heliumdev.com/docs
-    {% endcomment %}
-    <div data-relatable="article.products" data-relatable-id="{{article.id}}" class="related-products">
-      {% raw %}
-        {{#products.length}}
-      {% endraw %}
-          <h6>{{ settings.heading_related_products }}</h6>
-          <ul>
-      {% raw %}
-        {{/products.length}}
-      {% endraw %}
-      {% raw %}
-        {{#products}}
-            <li>
-              <a href="/products/{{handle}}">
-                <div class="image">
-                  {{#images.0}}
-                    <img src="{{src}}" alt="{{alt}}" />
-                  {{/images.0}}
-                </div>
-                <div class="h4 title">
-                  {{title}}
-                </div>
-              </a>
-            </li>
-        {{/products}}
-        {{#products.length}}
-          </ul>
-        {{/products.length}}
-      {% endraw %}
-    </div>
-
-  </section>
-
-  <article class="grid__item medium--two-thirds small--one-whole article-body" itemscope itemtype="http://schema.org/Article">
+  <article class="grid__item medium--two-thirds article-body" itemscope itemtype="http://schema.org/Article">
 
     <header class="section-header">
       <div class="section-header__left">
@@ -112,6 +72,46 @@
     {% endif %}
 
   </article>
+
+  <section class="grid__item medium--one-third">
+    <!-- Featured Image -->
+    {{ article | img_url: '1024x1024' | img_tag: article.title | img_class: 'featured-image' }}
+
+    {% comment %}
+      ### NOTE KLT061616: Relatable Implementation
+      - https://relatable.heliumdev.com/docs
+    {% endcomment %}
+    <div data-relatable="article.products" data-relatable-id="{{article.id}}" class="related-products">
+      {% raw %}
+        {{#products.length}}
+      {% endraw %}
+          <h6>{{ settings.heading_related_products }}</h6>
+          <ul>
+      {% raw %}
+        {{/products.length}}
+      {% endraw %}
+      {% raw %}
+        {{#products}}
+            <li>
+              <a href="/products/{{handle}}">
+                <div class="image">
+                  {{#images.0}}
+                    <img src="{{src}}" alt="{{alt}}" />
+                  {{/images.0}}
+                </div>
+                <div class="h4 title">
+                  {{title}}
+                </div>
+              </a>
+            </li>
+        {{/products}}
+        {{#products.length}}
+          </ul>
+        {{/products.length}}
+      {% endraw %}
+    </div>
+
+  </section>
 
   {% comment %}
     ### NOTE KLT061616: Moved comments to their own section/grid item
