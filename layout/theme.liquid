@@ -11,6 +11,12 @@
   {% if settings.favicon_enable %}
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
   {% endif %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'favicon-180x180.png' | asset_url }}">
+  <link rel="icon" type="image/png" href="{{ 'favicon-32x32.png' | asset_url }}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{{ 'favicon-16x16.png' | asset_url }}" sizes="16x16">
+  <link rel="mask-icon" href="{{ 'safari-pinned-tab.svg' | asset_url }}" color="#ff671f">
+  <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}">
+  <meta name="theme-color" content="#ffffff">
 
   <!-- Title and description ================================================== -->
   <title>
