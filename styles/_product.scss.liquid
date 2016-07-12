@@ -40,6 +40,7 @@
         text-transform          : none;
       }
       .product-description {
+        padding-bottom          : $gutter;
         p {
           margin-bottom         : $gutter;
         }
@@ -95,7 +96,7 @@
         span.price-label {
           padding-top           : 0.25em;
           padding-right         : ($gutter * 1.5);
-          width                 : 25%;
+          width                 : 30%;
         //text-align            : right;
           font-family           : $interfaceFontStack;
           line-height           : 115%;
@@ -105,7 +106,10 @@
           }
         }
         label ~ span {
-          width                 : 75%;
+          width                 : 70%;
+        }
+        label[for="add"] ~ span {
+          width                 : 69.75%;
         }
       }
       .unit-price h2,
@@ -114,6 +118,12 @@
         margin-top              : 0;
         font-family             : $interfaceFontStack;
         font-size               : em(18px);
+        font-weight             : 700;
+      }
+      .unit-price .h2,
+      .unit-price .unit-label {
+        display                 : inline-block;
+        margin-right            : 5px;
         font-weight             : 700;
       }
       .full-price {
