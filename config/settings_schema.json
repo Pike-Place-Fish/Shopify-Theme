@@ -406,7 +406,7 @@
         "info": "Image at grid points B1 and B2 (two squares tall)."
       },
       {
-        "type": "page",
+        "type": "blog",
         "id": "home_link_1",
         "label": "Image #1 Link"
       },
@@ -414,7 +414,7 @@
         "type": "text",
         "id": "home_link_1_short_label",
         "label": "Image #1 Short Label",
-        "info": "Short text label for page image link"
+        "info": "Short text label for blog image link"
       },
       {
         "type": "image",
