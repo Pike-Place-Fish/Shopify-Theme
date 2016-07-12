@@ -13,10 +13,15 @@
     <!-- Checkout Stylesheets Include -->
     {{ checkout_stylesheets }}
 
+    <!-- PPF Stylesheet -->
     {{ 'ppfTheme.scss.css' | asset_url | stylesheet_tag }}
+
+    <!-- jQuery -->
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
 
     <!-- Checkout Scripts Include -->
     {{ checkout_scripts }}
+
   </head>
   <body id="checkout" class="template-checkout">
     <div class="banner" data-header>
@@ -55,6 +60,26 @@
       </div>
     </div>
 
+    <!-- Common Page Scripts -->
+    <script>
+
+      /**
+       * Document ready functionality
+       */
+      jQuery(function($) {
+
+        // Remove "cuttingInstructions: " labels from order summary items
+        $('span.product__description__property:contains("cuttingInstructions")').each(function() {
+          var propertyText      = $(this).text();
+          propertyText          = propertyText.replace('cuttingInstructions: ', '');
+          $(this).text(propertyText);
+        })
+
+      });
+
+    </script>
+
     {{ tracking_code }}
+
   </body>
 </html>
