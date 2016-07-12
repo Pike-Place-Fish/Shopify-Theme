@@ -263,14 +263,22 @@ hr {
 ==============================================================================*/
 a,
 .text-link {
-  color: $colorLink;
-  text-decoration: none;
-  background: transparent;
+  color                         : $colorLink;
+  text-decoration               : none;
+  background                    : transparent;
 }
 
 a:hover,
-a:focus {
-  color: $colorLinkHover;
+a:focus,
+a:active {
+  color                         : $colorLinkHover;
+}
+.text-link {
+  &:hover,
+  &:focus,
+  &:active {
+    color                       : $colorLinkHover;
+  }
 }
 
 button {
