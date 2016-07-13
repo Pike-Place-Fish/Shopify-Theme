@@ -557,12 +557,29 @@
           </div>
 
           <!-- Bottom Right Block -->
-          {% comment %}
-            ### NOTE KLT060816: Temporary!!! Conversation regarding what should fill this block pending
-          {% endcomment %}
-          <div class="grid__item row medium-down--one-whole" style="position: relative;">
-            <div class="product-promotion" style="background: {{ settings.color_secondary }}">
-              <div class="promotion-data"><h2>Content Needed</h2></div>
+          <div class="grid__item row medium-down--one-whole">
+            <div class="page-link">
+
+              {% assign pageLink7_handle = settings.home_link_7 %}
+              {% assign pageLink7_page = pages[pageLink7_handle] %}
+              {% if settings.home_link_7_short_label != "" %}
+                {% assign pageLink7_page_title = settings.home_link_7_short_label %}
+              {% else %}
+                {% assign pageLink7_page_title = pageLink7_page.title %}
+              {% endif %}
+
+              <!-- Display page link data or image -->
+              {% if settings.home_link_7 != "" %}
+                <a href="{{ pageLink7_page.url }}" class="link-data">
+                  {{ 'home_photo_7.jpg' | asset_url | img_tag: pageLink7_page_title, 'link-image' }}
+                  <div class="overlay">
+                    <div class="link-text"><h2>{{ pageLink7_page_title }}</h2></div>
+                  </div>
+                </a>
+              {% else %}
+                {{ 'home_photo_7.jpg' | asset_url | img_tag: '*', 'link-image' }}
+              {% endif %}
+
             </div>
           </div>
 
