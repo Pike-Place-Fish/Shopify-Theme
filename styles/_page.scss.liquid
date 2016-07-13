@@ -1,0 +1,58 @@
+//==============================================================================================
+// PAGE
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify basic page views.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-page {
+
+    // Page Title
+
+    // Splash Image
+    .grid__item.splash {
+      margin                    : 0 auto;
+      padding-bottom            : ($gutter * 2.5);
+      text-align                : center;
+      img {
+        max-width               : 100%;
+      }
+    }
+
+    // Sub-Navigation
+    ul.sub-nav {
+      list-style                : none;
+      margin-left               : 0;
+      li {
+        font-family             : $headerFontStack;
+        font-size               : $baseFontSize;
+        line-height             : 175%;
+        font-weight             : $headerFontWeight;
+        text-transform          : uppercase;
+        &.sub-nav--active {
+          a {
+            color               : $colorPrimary;
+          }
+        }
+      }
+    }
+
+    // App Links (e.g., on Sustainable Seafood)
+    .app-links {
+      margin-top                : ($gutter * 2);
+      .app-link {
+        display                 : inline-block;
+        margin-right            : $gutter;
+        img {
+          max-height            : 71px;
+        }
+      }
+    }
+
+  }
