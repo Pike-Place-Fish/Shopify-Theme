@@ -51,30 +51,6 @@
         }
       }
 
-      // Cutting instructions example
-      table.cutting-instructions {
-        td {
-          border                : 0 none transparent;
-          padding               : ($gutter * 1.5) ($gutter * 1.5) 0;
-          vertical-align        : middle;
-          background-color      : {{ settings.color_body_bg }};
-          &.label {
-            padding-bottom      : ($gutter * 1.5);
-            text-align          : center;
-            font-family         : $headerFontStack;
-            font-size           : $baseFontSize;
-            font-weight         : $headerFontWeight;
-            text-transform      : uppercase;
-          }
-          p {
-            margin              : 0;
-          }
-          img {
-            max-width           : 100%;
-          }
-        }
-      }
-
       // InifiteOptions and product form
       select,
       input[type="number"] {
@@ -100,7 +76,7 @@
         label,
         span.price-label {
           padding-top           : 0.25em;
-          padding-right         : ($gutter * 1.5);
+          padding-right         : ($gutter * 3);
           width                 : 30%;
         //text-align            : right;
           font-family           : $interfaceFontStack;
@@ -143,6 +119,24 @@
       .full-price span.h6 {
         display                 : inline-block;
       }
+      div.spb-select {
+        position                : relative;
+      }
+      a.info-link {
+        display                 : inline-block;
+        position                : absolute;
+        top                     : 5px;
+        @include at-query ($max, $preLarge) {
+          left                  : -25px;
+        }
+        @include at-query ($min, $large) {
+          right                 : -30px;
+        }
+        span.icon-info-circle {
+          font-size             : 24px;
+          color                 : $colorPrimary;
+        }
+      }
 
       // Related articles
       .related-recipes {
@@ -159,6 +153,74 @@
         }
       }
 
+    }
+
+    // Cutting instructions modal
+    .instructions.modal {
+      article {
+        header {
+          h2 {
+            margin              : 0;
+            padding             : 100px 0 30px;
+            text-align          : center;
+            text-transform      : uppercase;
+            @include at-query($max, $preSmall) {
+              padding           : 75px 25px 30px;
+            }
+            @include at-query($max, $narrow) {
+              padding           : 50px 20px 30px;
+            }
+          }
+        }
+        section {
+          padding               : 0 50px;
+          @include at-query($max, $preSmall) {
+            padding             : 0 10px;
+          }
+        }
+        footer {
+          margin-top            : 100px;
+          padding               : 35px 20%;
+          background-color      : {{ settings.color_body_bg_accent }};
+          @include at-query($max, $preSmall) {
+            margin-top          : 50px;
+            padding             : 30px 15%;
+          }
+          @include at-query($max, $narrow) {
+            margin-top          : 30px;
+          }
+        }
+      }
+    }
+
+    // Cutting instructions example
+    table.cutting-instructions {
+      td {
+        border                  : 0 none transparent;
+        padding                 : ($gutter * 1.5) ($gutter * 1.5) 0;
+        vertical-align          : middle;
+        background-color        : {{ settings.color_body_bg }};
+        @include at-query($max, $preSmall) {
+          padding               : $gutter $gutter 0;
+        }
+        &.label {
+          padding-bottom        : ($gutter * 1.5);
+          text-align            : center;
+          font-family           : $headerFontStack;
+          font-size             : $baseFontSize;
+          font-weight           : $headerFontWeight;
+          text-transform        : uppercase;
+          @include at-query($max, $preSmall) {
+            font-size           : em(12px);
+          }
+        }
+        p {
+          margin                : 0;
+        }
+        img {
+          max-width             : 100%;
+        }
+      }
     }
 
   }

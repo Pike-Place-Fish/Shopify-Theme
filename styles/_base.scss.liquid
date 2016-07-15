@@ -732,7 +732,6 @@ th, td {
       height                    : 13px;
       font-size                 : 12px;                         // em(13px);
       font-weight               : $headerFontWeight;
-      color                     : {{ settings.color_footer_text }};
       text-align                : center;
     }
     span.title {
@@ -747,6 +746,9 @@ th, td {
   &.full {
     background-image            : url({{ 'Icon.Basket.Items.png' | asset_url }});
   }
+  span.cart-count {
+    color                       : {{ settings.color_footer_text }};
+  }
 }
 .mobile-nav__item.menu-cart span.cart {
   &.empty {
@@ -754,6 +756,9 @@ th, td {
   }
   &.full {
     background-image            : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
+  }
+  span.cart-count {
+    color                       : rgb(45, 45, 45);
   }
 }
 
