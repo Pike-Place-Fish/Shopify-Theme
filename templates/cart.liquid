@@ -67,7 +67,7 @@
                 {% assign property_size = item.properties | size %}
                 {% if property_size > 0 %}
                   {% for p in item.properties %}
-                    {% unless p.last == blank %}
+                    {% unless (p.last == blank or p.first == '_shipping_restriction' or p.first == '_delivery_date' or p.first == '_delivery_day') %}
 
                       <li class="property">
                         <!--
@@ -185,8 +185,8 @@
                                       theory, automatically hook into the date picker once activated.
                 {% endcomment %}
                 <div class="delivery-date">
-                  <label for="delivery_date">{{ settings.heading_delivery_date }}</label>
-                  <input type="text" id="delivery_date" name="attributes[delivery_date]" value="{{ cart.attributes.delivery_date }}" size="10" />
+                  <label for="date">{{ settings.heading_delivery_date }}</label>
+                  <input type="text" id="delivery_date" name="attributes[date]" value="{{ cart.attributes.date }}" size="10" required />
                   <input type="hidden" id="delivery_day" name="delivery_day" />
                   <div class="day-warning"><small>{{ settings.warning_delivery_date_limited_friday }}</small></div>
                 </div>
@@ -228,8 +228,18 @@
 <script>
   $(function() {
 
+    /*
+     * Instantiate CartJS
+     */
+    CartJS.init({{ cart | json }}, {
+      "dataAPI": false,
+      "requestBodyClass": "loading"
+    });
+    console.log('Properties? ');
+    console.log(CartJS.cart.items[0].properties);
+
     /**
-     * Shipping date selection functionality - datepicker and business rules for Friday and weekend shipping
+     * Delivery date selection functionality - datepicker and business rules for Friday and weekend shipping
      */
     $('#delivery_date').datepicker({
       minDate                   : '+1d',
@@ -247,19 +257,63 @@
           return [true, 'day-warning', warningTooltip];
         }
         else {
-          return [(dayOfWeek != 0)];
+          return [(dayOfWeek != 0 && dayOfWeek != 1)];
         }
       }
     });
     $('#delivery_date').change(function() {
       var selectedDay           = $('#delivery_day').val();
-      console.log('selectedDay: ' + selectedDay);
+
+      // Show $20 surcharge warning is Saturday is selected
       if (selectedDay.toLowerCase().indexOf('saturday') > -1) {
         $('.delivery-date div.day-warning').show();
       }
       else {
         $('.delivery-date div.day-warning').hide();
       }
+
+      if ($(this).val().length > 0) {
+        // Remove validation treatments if value is available
+        $('label[for="date"]').css('color', 'rgb(51, 51, 51)');
+        $('#delivery_date').css('border-color', 'rgb(229, 229, 229');
+      }
+
+    });
+
+    $('form.cart.table-wrap').on('submit', function(e) {
+      e.preventDefault();
+
+      var
+        errorColor              = 'rgb(208, 46, 46)',   // #d02e2e
+        isDeliveryDateSelected  = ($('#delivery_date').val().length > 0);
+
+      // If delivery date is not selected, provide validation/error handling
+      if (!isDeliveryDateSelected) {
+        $('label[for="date"]').css('color', errorColor);
+        $('#delivery_date').css('border-color', errorColor);
+        return false;
+      }
+      // If delivery date is available, continue the submission
+      else {
+
+        // Add selected delivery date and day to first line item
+        var
+          itemQuantity          = CartJS.cart.items[0].quantity,
+          itemProperties        = CartJS.cart.items[0].properties;
+
+        itemProperties._delivery_date   = $('#delivery_date').val();
+        itemProperties._delivery_day    = $('#delivery_day').val();
+
+        console.log('properties after add:');
+        console.log(CartJS.cart.items[0].properties);
+
+        CartJS.updateItem(1, itemQuantity, itemProperties);
+
+        // Submit form
+        $(this).off('submit').submit();
+
+      }
+
     });
 
   });
