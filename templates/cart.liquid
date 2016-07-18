@@ -240,24 +240,28 @@
 
     /**
      * Delivery date selection functionality - datepicker and business rules for Friday and weekend shipping
+     * ### NOTE 071816: Added holiday blackouts based on
+     * https://www.ups.com/content/us/en/resources/ship/imp_exp/operation.html
      */
     $('#delivery_date').datepicker({
       minDate                   : '+1d',
-      maxDate                   : '+3m',
+      maxDate                   : '+5m',
       dateFormat                : 'mm/dd/yy',
       altField                  : '#delivery_day',
       altFormat                 : 'DD',
       beforeShowDay: function(date) {
         var
           today                 = new Date(),
-          dayOfWeek             = date.getDay()
+          dayOfWeek             = date.getDay(),
+          dateString            = jQuery.datepicker.formatDate('yy-mm-dd', date);
+          holidays              = ['2016-01-01','2016-05-30','2016-07-04','2016-09-05','2016-11-24','2016-12-24','2016-12-25','2016-12-26','2016-12-31','2017-01-01','2017-01-02'];
           warningTooltip        = '{{ settings.warning_delivery_date_limited_friday }}';
 
         if (dayOfWeek == 6) {
           return [true, 'day-warning', warningTooltip];
         }
         else {
-          return [(dayOfWeek != 0 && dayOfWeek != 1)];
+          return [(dayOfWeek != 0 && dayOfWeek != 1 && holidays.indexOf(dateString) == -1)];
         }
       }
     });
