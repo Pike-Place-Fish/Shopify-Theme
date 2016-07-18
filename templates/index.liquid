@@ -38,7 +38,7 @@
           <!-- Product Promotion #1 -->
           <div class="grid__item large--one-whole large-down--one-whole">
 
-            <div class="product-promotion blue first">
+            <div class="product-promotion 1x1 blue first">
 
               <!-- Assign Product Variables -->
               {% assign promo1_handle = settings.home_promotion_a %}
@@ -82,7 +82,7 @@
 
           <!-- "Fresh Crab" -->
           <div class="grid__item row large--one-whole large-down--one-whole">
-            <div class="page-link">
+            <div class="page-link 1x1" style="background-image: url({{ 'home_photo_4.jpg' | asset_url }});">
 
               {% assign pageLink4_handle = settings.home_link_4 %}
               {% assign pageLink4_collection = collections[pageLink4_handle] %}
@@ -95,13 +95,10 @@
               <!-- Display page link data or image -->
               {% if settings.home_link_4 != "" %}
                 <a href="{{ pageLink4_collection.url }}" class="link-data">
-                  {{ 'home_photo_4.jpg' | asset_url | img_tag: pageLink4_collection_title, 'link-image' }}
                   <div class="overlay">
                     <div class="link-text"><h2>{{ pageLink4_collection_title }}</h2></div>
                   </div>
                 </a>
-              {% else %}
-                {{ 'home_photo_4.jpg' | asset_url | img_tag: '*', 'link-image' }}
               {% endif %}
 
             </div>
@@ -113,7 +110,7 @@
 
       <!-- Meet the Mongers -->
       <div class="grid__item large--one-half large-down--one-half">
-        <div class="page-link">
+        <div class="page-link 1x2" style="background-image: url({{ 'home_photo_1.jpg' | asset_url }});">
 
           {% assign pageLink1_handle = settings.home_link_1 %}
           {% assign pageLink1_blog = blogs[pageLink1_handle] %}
@@ -126,13 +123,10 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_1 != "" %}
             <a href="{{ pageLink1_blog.url }}" class="link-data">
-              {{ 'home_photo_1.jpg' | asset_url | img_tag: pageLink1_blog_title, 'link-image' }}
               <div class="overlay">
                 <div class="link-text"><h2>{{ pageLink1_blog_title }}</h2></div>
               </div>
             </a>
-          {% else %}
-            {{ 'home_photo_1.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -144,13 +138,13 @@
   <!-- /Upper Left Two Columns -->
 
   <!-- Upper Middle Two Columns -->
-  <div class="grid__item row-half medium--two-fifths medium-down--one-whole">
+  <div class="grid__item medium--row-half medium--two-fifths medium-down--row medium-down--one-whole">
 
     <div class="grid">
 
       <!-- "Fresh Salmon" -->
       <div class="grid__item large--one-whole large-down--one-whole">
-        <div class="page-link">
+        <div class="page-link 2x1" style="background-image: url({{ 'home_photo_2.jpg' | asset_url }});">
 
           {% assign pageLink2_handle = settings.home_link_2 %}
           {% assign pageLink2_collection = collections[pageLink2_handle] %}
@@ -163,23 +157,20 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_2 != "" %}
             <a href="{{ pageLink2_collection.url }}" class="link-data">
-              {{ 'home_photo_2.jpg' | asset_url | img_tag: pageLink2_collection_title, 'link-image' }}
               <div class="overlay">
                 <div class="link-text"><h2>{{ pageLink2_collection_title }}</h2></div>
               </div>
             </a>
-          {% else %}
-            {{ 'home_photo_2.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
       </div>
 
       <!-- Product Promotion #2 -->
-      <div class="grid__item row-half large--one-half large-down--one-half">
+      <div class="grid__item row large--one-half large-down--one-half">
         <!-- {{ 'Home.ProductPromo2.png' | asset_url | img_tag }} -->
 
-        <div class="product-promotion orange second">
+        <div class="product-promotion 1x1 orange second">
           <!-- Assign Product Variables -->
           {% assign promo2_handle = settings.home_promotion_b %}
           {% assign promo2_product = all_products[promo2_handle] %}
@@ -222,8 +213,8 @@
       </div>
 
       <!-- "Fulfillment" -->
-      <div class="grid__item row-half large--one-half large-down--one-half">
-        <div class="page-link">
+      <div class="grid__item row large--one-half large-down--one-half">
+        <div class="page-link 1x1" style="background-image: url({{ 'home_photo_5.jpg' | asset_url }});">
 
           {% assign pageLink5_handle = settings.home_link_5 %}
           {% assign pageLink5_page = pages[pageLink5_handle] %}
@@ -236,13 +227,10 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_5 != "" %}
             <a href="{{ pageLink5_page.url }}" class="link-data">
-              {{ 'home_photo_5.jpg' | asset_url | img_tag: pageLink5_page_title, 'link-image' }}
               <div class="overlay">
                 <div class="link-text"><h2>{{ pageLink5_page_title }}</h2></div>
               </div>
             </a>
-          {% else %}
-            {{ 'home_photo_5.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -255,7 +243,7 @@
 
   <!-- Upper Right Column: hide for small screens -->
   <div class="grid__item row-half medium--one-fifth medium-down--hide">
-    <div class="page-link">
+    <div class="page-link 1x2" style="background-image: url({{ 'home_photo_3.jpg' | asset_url }});">
 
       {% assign pageLink3_handle = settings.home_link_3 %}
       {% assign pageLink3_page = pages[pageLink3_handle] %}
@@ -268,13 +256,10 @@
       <!-- Display page link data or image -->
       {% if settings.home_link_3 != "" %}
         <a href="{{ pageLink3_page.url }}" class="link-data">
-          {{ 'home_photo_3.jpg' | asset_url | img_tag: pageLink3_page_title, 'link-image' }}
           <div class="overlay">
             <div class="link-text"><h2>{{ pageLink3_page_title }}</h2></div>
           </div>
         </a>
-      {% else %}
-        {{ 'home_photo_3.jpg' | asset_url | img_tag: '*', 'link-image' }}
       {% endif %}
 
     </div>
@@ -282,7 +267,7 @@
   <!-- /Upper Right Column -->
 
   <!-- Bottom 'Row' -->
-  <div class="grid__item row-half large--one-whole large-down--one-whole">
+  <div class="grid__item row large--one-whole large-down--one-whole">
 
     <div class="grid">
 
@@ -292,7 +277,7 @@
       {% endcomment %}
       <div class="grid__item medium--one-fifth medium-down--hide">
 
-        <div class="product-promotion green third">
+        <div class="product-promotion 1x1 green third">
           {% assign promo3_handle = settings.home_promotion_c %}
           {% assign promo3_product = all_products[promo3_handle] %}
           {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
@@ -338,7 +323,7 @@
         ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
       {% endcomment %}
       <div class="grid__item medium--two-fifths medium-down--one-whole">
-        <div class="page-link">
+        <div class="page-link 2x1" style="background-image: url({{ 'home_photo_6.jpg' | asset_url }});">
 
           {% assign pageLink6_handle = settings.home_link_6 %}
           {% assign pageLink6_page = pages[pageLink6_handle] %}
@@ -351,13 +336,10 @@
           <!-- Display page link data -->
           {% if settings.home_link_6 != "" %}
             <a href="{{ pageLink6_page.url }}" class="link-data">
-              {{ 'home_photo_6.jpg' | asset_url | img_tag: pageLink6_page_title, 'link-image' }}
               <div class="overlay">
                 <div class="link-text"><h2>{{ pageLink6_page_title }}</h2></div>
               </div>
             </a>
-          {% else %}
-            {{ 'home_photo_6.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -367,9 +349,9 @@
       {% comment %}
         ### TODO KLT060816: Should be able to pull/push this item to swap positions, but not working as exepected
       {% endcomment %}
-      <div class="grid__item row-half medium--hide medium-down--one-half">
+      <div class="grid__item row medium--hide medium-down--one-half">
 
-        <div class="product-promotion green third">
+        <div class="product-promotion 1x1 green third">
           {% assign promo3_handle = settings.home_promotion_c %}
           {% assign promo3_product = all_products[promo3_handle] %}
           {% assign promo3_variant = promo3_product.selected_or_first_available_variant %}
@@ -411,8 +393,8 @@
       </div>
 
       <!-- Seafood Watch -->
-      <div class="grid__item medium-down--row-half medium--one-fifth medium-down--one-half">
-        <div class="page-link">
+      <div class="grid__item medium--one-fifth medium-down--row medium-down--one-half">
+        <div class="page-link 1x1">
 
           {% assign seafoodWatch_page = pages["sustainable-seafood"] %}
 
@@ -428,7 +410,7 @@
       <!-- Product Promotion #4 -->
       <div class="grid__item medium--one-fifth medium-down--hide">
 
-        <div class="product-promotion grey fourth">
+        <div class="product-promotion 1x1 grey fourth">
           <!-- Assign Product Variables -->
           {% assign promo4_handle = settings.home_promotion_d %}
           {% assign promo4_product = all_products[promo4_handle] %}
@@ -482,7 +464,7 @@
 
       <!-- Monger #2 -->
       <div class="grid__item row medium-down--one-half">
-        <div class="page-link">
+        <div class="page-link 1x2" style="background-image: url({{ 'home_photo_3.jpg' | asset_url }});">
 
           {% assign pageLink3_handle = settings.home_link_3 %}
           {% assign pageLink3_page = pages[pageLink3_handle] %}
@@ -495,13 +477,10 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_3 != "" %}
             <a href="{{ pageLink3_page.url }}" class="link-data">
-              {{ 'home_photo_3.jpg' | asset_url | img_tag: pageLink3_page_title, 'link-image' }}
               <div class="overlay">
                 <div class="link-text"><h2>{{ pageLink3_page_title }}</h2></div>
               </div>
             </a>
-          {% else %}
-            {{ 'home_photo_3.jpg' | asset_url | img_tag: '*', 'link-image' }}
           {% endif %}
 
         </div>
@@ -514,7 +493,7 @@
           <!-- Product Promotion #4 -->
           <div class="grid__item row medium-down--one-whole">
 
-            <div class="product-promotion grey fourth">
+            <div class="product-promotion 1x1 grey fourth">
               <!-- Assign Product Variables -->
               {% assign promo4_handle = settings.home_promotion_d %}
               {% assign promo4_product = all_products[promo4_handle] %}
@@ -558,7 +537,7 @@
 
           <!-- Bottom Right Block -->
           <div class="grid__item row medium-down--one-whole">
-            <div class="page-link">
+            <div class="page-link 1x1" style="background-image: url({{ 'home_photo_7.jpg' | asset_url }});">
 
               {% assign pageLink7_handle = settings.home_link_7 %}
               {% assign pageLink7_page = pages[pageLink7_handle] %}
@@ -571,13 +550,10 @@
               <!-- Display page link data or image -->
               {% if settings.home_link_7 != "" %}
                 <a href="{{ pageLink7_page.url }}" class="link-data">
-                  {{ 'home_photo_7.jpg' | asset_url | img_tag: pageLink7_page_title, 'link-image' }}
                   <div class="overlay">
                     <div class="link-text"><h2>{{ pageLink7_page_title }}</h2></div>
                   </div>
                 </a>
-              {% else %}
-                {{ 'home_photo_7.jpg' | asset_url | img_tag: '*', 'link-image' }}
               {% endif %}
 
             </div>
@@ -600,11 +576,34 @@
   /**
     * Ensures each production promotion block maintains square dimensions
     */
-  function setPromotionDimenions() {
+  var blockDimension            = 0;
+  function setBlockSizes() {
+
+    // Set all product promotion squares to equal width and height
     $('div.product-promotion').each(function() {
       var promotion             = $(this);
       $(promotion).height($(promotion).width());
     });
+
+    // Set the size of a square side based on the product promotion squares
+    blockDimension              = $('div.product-promotion').first().outerWidth();
+
+    // Set image-based block width and heights based on how many squares they cover
+    $('div.page-link').each(function() {
+      // Set 1x1 blocks
+      if ($(this).hasClass('1x1')) {
+        $(this).width(blockDimension).height(blockDimension);
+      }
+      // Set 1x2 blocks - include gutter in height
+      if ($(this).hasClass('1x2')) {
+        $(this).width(blockDimension).height((blockDimension*2)+10);
+      }
+      // Set 2x1 blocks - include gutter in width
+      if ($(this).hasClass('2x1')) {
+        $(this).width((blockDimension*2)+10).height(blockDimension);
+      }
+    });
+
   };
 
   /**
@@ -623,11 +622,11 @@
     * Document ready and window resize function calls
     */
   $(function() {
-    setPromotionDimenions();
+    setBlockSizes();
     revealTagline();
   });
   $(window).resize(function() {
-    setPromotionDimenions();
+    setBlockSizes();
   });
 </script>
 <!-- /Page Scripts -->
