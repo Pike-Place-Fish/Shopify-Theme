@@ -125,9 +125,27 @@
       a.info-link {
         display                 : inline-block;
         position                : absolute;
-        top                     : 5px;
+        top                     : 8px;
+        border-radius           : 50%;
+        padding-left            : 1px;
+        width                   : 25px;
+        height                  : 25px;
+        font-family             : $interfaceFontStack;
+        font-size               : 16px;
+        line-height             : 26px;
+        color                   : {{ settings.color_body_bg }};
+        font-weight             : 700;
+        text-align              : center;
+        background              : $colorPrimary;
         @include at-query ($max, $preLarge) {
           left                  : -25px;
+        }
+        @include at-query ($max, $preMedium) {
+          padding-left          : 0;
+          width                 : 20px;
+          height                : 20px;
+          font-size             : 14px;
+          line-height           : 22px;
         }
         @include at-query ($min, $large) {
           right                 : -30px;
@@ -148,6 +166,11 @@
             a {
               font-family       : 'Cabin Semibold', $bodyFontStack;
               color             : $colorLink;
+              &:hover,
+              &:focus,
+              &:active {
+                color           : $colorLinkHover;
+              }
             }
           }
         }

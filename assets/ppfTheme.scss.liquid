@@ -3767,9 +3767,27 @@ ul.article-filters {
       a.info-link {
         display                 : inline-block;
         position                : absolute;
-        top                     : 5px;
+        top                     : 8px;
+        border-radius           : 50%;
+        padding-left            : 1px;
+        width                   : 25px;
+        height                  : 25px;
+        font-family             : $interfaceFontStack;
+        font-size               : 16px;
+        line-height             : 26px;
+        color                   : {{ settings.color_body_bg }};
+        font-weight             : 700;
+        text-align              : center;
+        background              : $colorPrimary;
         @include at-query ($max, $preLarge) {
           left                  : -25px;
+        }
+        @include at-query ($max, $preMedium) {
+          padding-left          : 0;
+          width                 : 20px;
+          height                : 20px;
+          font-size             : 14px;
+          line-height           : 22px;
         }
         @include at-query ($min, $large) {
           right                 : -30px;
@@ -3790,6 +3808,11 @@ ul.article-filters {
             a {
               font-family       : 'Cabin Semibold', $bodyFontStack;
               color             : $colorLink;
+              &:hover,
+              &:focus,
+              &:active {
+                color           : $colorLinkHover;
+              }
             }
           }
         }
@@ -4215,11 +4238,30 @@ ul.article-filters {
     }
     .input-checkbox:checked,
     .input-radio:checked {
-      box-shadow                : 0 0 0 10px $colorPrimary inset;
+      box-shadow                : none; // Was 0 0 0 10px $colorPrimary inset;
+      &:before {
+        content                 : "";
+        position                : absolute;
+        border-radius           : 50%;
+        width                   : 18px;
+        height                  : 18px;
+        background-color        : $colorPrimary;
+      }
+    }
+    .input-checkbox:checked {
+      &:before {
+        border-radius           : 0;
+      }
+      &:after {
+        margin-left             : -2px;
+      }
     }
     .input-checkbox:checked:focus,
     .input-radio:checked:focus {
       border-color              : $colorPrimary;
+    }
+    select {
+      background-image          : none;
     }
 
   }

@@ -70,8 +70,43 @@
     }
 
     // Form Overrides
-    .input-radio {
+    input,
+    textarea,
+    select {
+    //border-radius             : 50%;
+    }
+    .input-radio,
+    div.radio__input input[type="radio"] {
+      border-radius             : 50%;
       width                     : 18px;
+      height                    : 18px;
+    }
+    .input-checkbox:checked,
+    .input-radio:checked {
+      box-shadow                : none; // Was 0 0 0 10px $colorPrimary inset;
+      &:before {
+        content                 : "";
+        position                : absolute;
+        border-radius           : 50%;
+        width                   : 18px;
+        height                  : 18px;
+        background-color        : $colorPrimary;
+      }
+    }
+    .input-checkbox:checked {
+      &:before {
+        border-radius           : 0;
+      }
+      &:after {
+        margin-left             : -2px;
+      }
+    }
+    .input-checkbox:checked:focus,
+    .input-radio:checked:focus {
+      border-color              : $colorPrimary;
+    }
+    select {
+      background-image          : none;
     }
 
   }
