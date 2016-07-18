@@ -342,7 +342,10 @@
       var cuttingInstructions   = '#infiniteoptions-container div.spb-select select[name="properties[cuttingInstructions]"]';
       if ($(cuttingInstructions).length) {
         $(cuttingInstructions).after(function() {
+          /*
           return '<a class="icon-fallback-text info-link" href="#CuttingInstructionsModal" title="Cutting Instructions Information"><span class="icon icon-info-circle" aria-hidden="true"></span><span class="fallback-text">(i)</span></a>';
+          */
+          return '<a class="info-link" href="#CuttingInstructionsModal" title="Cutting Instructions Information">i</a>';
         });
         clearInterval(hasCuttingInstructions);
       }
@@ -352,7 +355,7 @@
       var
         infoLink                = '#infiniteoptions-container div.spb-select a.info-link',
         modalWidth              = '50%';
-      if ($(window).width() < 768) {
+      if ($(window).width() < 960) {
         modalWidth              = '75%';
       }
       else if ($(window).width() < 480) {
