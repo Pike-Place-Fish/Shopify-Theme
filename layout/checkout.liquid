@@ -68,12 +68,22 @@
        */
       jQuery(function($) {
 
-        // Remove "cuttingInstructions: " labels from order summary items
-        $('span.product__description__property:contains("cuttingInstructions")').each(function() {
-          var propertyText      = $(this).text();
-          propertyText          = propertyText.replace('cuttingInstructions: ', '');
-          $(this).text(propertyText);
-        })
+        setTimeout(function() {
+          // Remove "cuttingInstructions: " labels from order summary items
+          $('span.product__description__property:contains("cuttingInstructions")').each(function() {
+            var propertyText    = $(this).text();
+            propertyText        = $.trim(propertyText);
+            propertyText        = propertyText.replace('cuttingInstructions: ', '');
+            $(this).text(propertyText);
+          });
+          // Remove "special_instructions: " labels from order summary items
+          $('span.product__description__property:contains("special_instructions")').each(function() {
+            var propertyText    = $(this).text();
+            propertyText        = $.trim(propertyText);
+            propertyText        = propertyText.replace('special_instructions: ', '');
+            $(this).text(propertyText);
+          });
+        }, 800);
 
       });
 
