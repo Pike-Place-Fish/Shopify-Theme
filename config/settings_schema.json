@@ -508,7 +508,7 @@
         "info": "Image at grid point D3 (single square)."
       },
       {
-        "type": "page",
+        "type": "collection",
         "id": "home_link_7",
         "label": "Image #7 Link"
       },
@@ -516,7 +516,7 @@
         "type": "text",
         "id": "home_link_7_short_label",
         "label": "Image #7 Short Label",
-        "info": "Short text label for page image link"
+        "info": "Short text label for collection image link"
       }
     ]
   },

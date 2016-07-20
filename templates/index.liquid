@@ -545,18 +545,18 @@
             <div class="page-link 1x1" style="background-image: url({{ 'home_photo_7.jpg' | asset_url }});">
 
               {% assign pageLink7_handle = settings.home_link_7 %}
-              {% assign pageLink7_page = pages[pageLink7_handle] %}
+              {% assign pageLink7_collection = collections[pageLink7_handle] %}
               {% if settings.home_link_7_short_label != "" %}
-                {% assign pageLink7_page_title = settings.home_link_7_short_label %}
+                {% assign pageLink7_collection_title = settings.home_link_7_short_label %}
               {% else %}
-                {% assign pageLink7_page_title = pageLink7_page.title %}
+                {% assign pageLink7_collection_title = pageLink7_collection.title %}
               {% endif %}
 
               <!-- Display page link data or image -->
               {% if settings.home_link_7 != "" %}
-                <a href="{{ pageLink7_page.url }}" class="link-data">
+                <a href="{{ pageLink7_collection.url }}" class="link-data">
                   <div class="overlay">
-                    <div class="link-text"><h2>{{ pageLink7_page_title }}</h2></div>
+                    <div class="link-text"><h2>{{ pageLink7_collection_title }}</h2></div>
                   </div>
                 </a>
               {% endif %}
