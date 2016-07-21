@@ -58,8 +58,9 @@
       {
         "type": "color",
         "id": "color_interface_accent",
-        "label": "Used for supplementary/ancillary links, form borders, etc.",
-        "default": "#427a90"
+        "label": "Interface Accent Color",
+        "default": "#427a90",
+        "info": "Used for supplementary/ancillary links, form borders, etc."
       },
       {
         "type": "header",
