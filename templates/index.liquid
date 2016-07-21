@@ -64,6 +64,8 @@
                 {% assign unitName = 'per fish' %}
               {% elsif promo1_product.product_type == 'Fish' %}
                 {% assign unitName = 'per lb.' %}
+              {% else %}
+                {% assign unitName = 'each' %}
               {% endif %}
 
               <!-- Display promotion data -->
@@ -195,6 +197,8 @@
             {% assign unitName = 'per fish' %}
           {% elsif promo2_product.product_type == 'Fish' %}
             {% assign unitName = 'per lb.' %}
+          {% else %}
+            {% assign unitName = 'each' %}
           {% endif %}
 
           <!-- Display promotion data -->
@@ -301,6 +305,8 @@
             {% assign unitName = 'per fish' %}
           {% elsif promo3_product.product_type == 'Fish' %}
             {% assign unitName = 'per lb.' %}
+          {% else %}
+            {% assign unitName = 'each' %}
           {% endif %}
 
           <!-- Display promotion data -->
@@ -375,6 +381,8 @@
             {% assign unitName = 'per fish' %}
           {% elsif promo3_product.product_type == 'Fish' %}
             {% assign unitName = 'per lb.' %}
+          {% else %}
+            {% assign unitName = 'each' %}
           {% endif %}
 
           <!-- Display promotion data -->
@@ -435,6 +443,8 @@
             {% assign unitName = 'per fish' %}
           {% elsif promo4_product.product_type == 'Fish' %}
             {% assign unitName = 'per lb.' %}
+          {% else %}
+            {% assign unitName = 'each' %}
           {% endif %}
 
           <!-- Display promotion data -->
@@ -518,6 +528,8 @@
                 {% assign unitName = 'per fish' %}
               {% elsif promo4_product.product_type == 'Fish' %}
                 {% assign unitName = 'per lb.' %}
+              {% else %}
+                {% assign unitName = 'each' %}
               {% endif %}
 
               <!-- Display promotion data -->
