@@ -251,7 +251,35 @@
         color                   : $errorRed;
       }
     }
+    div.ui-datepicker.ui-widget,
+    div.ui-datepicker-header.ui-widget-header {
+      border-radius             : 0 !important;                 // !important needed for header
+      border-color              : {{ settings.color_borders }} !important;
+    }
+    div.ui-datepicker-header.ui-widget-header {
+      background                : rgb(245, 245, 245);
+    }
     .ui-datepicker-calendar {
+      td {
+        &.ui-datepicker-disabled {
+          span.ui-state-default {
+            border-color        : rgb(245, 245, 245);
+            background          : rgb(245, 245, 245);
+          }
+        }
+        a {
+          &.ui-state-default {
+            border-color        : rgb(235, 237, 237);
+            color               : {{ settings.color_body_text }};
+            background          : {{ settings.color_body_bg_accent }};
+          }
+          &.ui-state-hover {
+            border-color        : {{ settings.color_secondary }};
+            color               : {{ settings.color_secondary }};
+            background          : rgb(229, 229, 229);
+          }
+        }
+      }
       td.day-warning {
         a {
           border-color          : $errorRed;
