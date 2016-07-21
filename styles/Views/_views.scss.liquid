@@ -1,0 +1,26 @@
+//==============================================================================================
+// VIEWS
+//----------------------------------------------------------------------------------------------
+// Views represent page-specific styles, which may impact unique layout or skin. When practical,
+// styles should be centralized via _components.scss if they might be shared across pages;
+// otherwise, they can be included here.
+//----------------------------------------------------------------------------------------------
+// NOTE: When practical, it is recommended that views be compiled independently and called
+// exclusively from their corresponding page so that they aren't bloating the main CSS file. In
+// that scenario, no imports are needed here.
+//----------------------------------------------------------------------------------------------
+// NOTE: Since views are intended to be self-contained, they should each be included in their
+// own file (e.g., in /Views/_view.scss) and imported into this manifest.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+  @import url('_index.scss.liquid');
+  @import url('_search.scss.liquid');
+  @import url('_page.scss.liquid');
+  @import url('_article.scss.liquid');
+  @import url('_collection.scss.liquid');
+  @import url('_product.scss.liquid');
+  @import url('_cart.scss.liquid');
+  @import url('_checkout.scss.liquid');
