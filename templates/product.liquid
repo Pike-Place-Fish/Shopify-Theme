@@ -49,6 +49,8 @@
     {% assign unitName = 'per fish' %}
   {% elsif product.product_type == 'Fish' %}
     {% assign unitName = 'per lb.' %}
+  {% else %}
+    {% assign unitName = 'each' %}
   {% endif %}
 
   {% include 'breadcrumb' %}
@@ -336,6 +338,13 @@
     /**
      * Modal cutting instructions functionality: injection of info icon and modal/popup instantiation
      */
+    var modalWidth              = '50%';
+    if ($(window).width() < 960) {
+      modalWidth                = '75%';
+    }
+    else if ($(window).width() < 480) {
+      modalWidth                = '95%';
+    }
 
     // Make sure the cutting instructions selection exists before applying modal link
     var hasCuttingInstructions = setInterval(function() {
@@ -352,16 +361,7 @@
     }, 100);
     // Instantiate the cutting instructions popup once the info link exists
     var hasInfoLink = setInterval(function() {
-      var
-        infoLink                = '#infiniteoptions-container div.spb-select a.info-link',
-        modalWidth              = '50%';
-      if ($(window).width() < 960) {
-        modalWidth              = '75%';
-      }
-      else if ($(window).width() < 480) {
-        modalWidth              = '95%';
-      }
-
+      var infoLink              = '#infiniteoptions-container div.spb-select a.info-link';
       if ($(infoLink).length) {
         $(infoLink).colorbox({
           inline: true,
@@ -372,6 +372,13 @@
         clearInterval(hasInfoLink);
       }
     }, 100);
+    // Instantiate the cutting instructions popup for text links (in product description)
+    $('a.instructions-link').colorbox({
+      inline: true,
+      opacity: 0.3,
+      maxWidth: modalWidth,
+      title: false
+    });
 
   });
 
