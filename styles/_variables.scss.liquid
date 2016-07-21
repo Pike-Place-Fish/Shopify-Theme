@@ -1,6 +1,66 @@
-/*============================================================================
-  #Breakpoint and Grid Variables
-==============================================================================*/
+//==============================================================================================
+// VARIABLES
+//----------------------------------------------------------------------------------------------
+// Primary customization point for making expected modifications to the site.
+//----------------------------------------------------------------------------------------------
+// NOTE: Unless otherwise specified (e.g., with "// New", or "// Was [property value]", styles
+// are OOTB Timber definitions; only formatting and property organization have been altered.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// COLORS
+//----------------------------------------------------------------------------------------------
+
+  // Timber / Theme
+  $colorPrimary                 : {{ settings.color_primary }};
+  $colorSecondary               : {{ settings.color_secondary }};
+
+  // Helpers / Interface
+  $disabledGrey                 : #f6f6f6;
+  $disabledBorder               : darken($disabledGrey, 25%);
+  $errorRed                     : #d02e2e;
+  $errorRedBg                   : #fff6f6;
+  $successGreen                 : #56ad6a;
+  $successGreenBg               : #ecfef0;
+
+  // Backgrounds
+  $colorBody                    : {{ settings.color_body_bg }};
+  $colorAccent                  : {{ settings.color_body_bg_accent }};  // New
+  $colorAccent2                 : lighten($colorAccent, 1%);    // New
+
+  // Text
+  $colorTextBody                : {{ settings.color_body_text }};
+
+  // Links colors
+  $colorLinkText                : {{ settings.color_text_link }};       // New
+  $colorLink                    : $colorLinkText;               // Was $colorPrimary
+  $colorLinkHover               : $colorPrimary;                // Was lighten($colorPrimary, 15%)
+
+  // Buttons
+  $colorBtnPrimary              : $colorPrimary;
+  $colorBtnPrimaryHover         : darken($colorBtnPrimary, 10%);
+  $colorBtnPrimaryActive        : darken($colorBtnPrimaryHover, 10%);
+  $colorBtnPrimaryText          : #fff;
+
+  $colorBtnSecondary            : $colorSecondary;
+  $colorBtnSecondaryHover       : lighten($colorBtnSecondary, 15%);     // Was darken($colorBtnSecondary, 10%)
+  $colorBtnSecondaryActive      : lighten($colorBtnSecondaryHover, 10%);// Was darken($colorBtnSecondaryHover, 10%);
+  $colorBtnSecondaryText        : #fff;
+
+  // Borders
+  $colorBorder                  : {{ settings.color_borders }};
+
+  // Nav and dropdown link background
+  $colorNav                     : $colorAccent;                 // Was #f2f2f2 (hard-coded)
+  $colorNavText                 : #333;
+
+  // Site Footer
+  $colorFooterBg                : {{ settings.color_footer_bg }};
+  $colorFooterText              : {{ settings.color_footer_text }};
+
+//----------------------------------------------------------------------------------------------
+// BREAKPOINT/GRID
+//----------------------------------------------------------------------------------------------
   $viewportIncrement            : 1px;
 
   $narrow                       : 320px;
@@ -14,7 +74,7 @@
   $postMedium                   : $small + $viewportIncrement;
   $preLarge                     : $large - $viewportIncrement;
 
-  /*================ The following are dependencies of csswizardry grid ================*/
+  // The following are dependencies of csswizardry grid
   $breakpoints: (
     'small' '(min-width: #{$small})',
     'small-medium' '(min-width: #{$postSmall}) and (max-width: #{$preMedium})',
@@ -24,101 +84,49 @@
     'large' '(min-width: #{$large})',
     'large-down' '(max-width: #{$preLarge})'
   );
-  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - large-down
-  $breakpoint-has-push:  ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - small, large-down
-  $breakpoint-has-pull:  ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - small, large-down
+  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down');  // New - large-down
+  $breakpoint-has-push:  ('small', 'medium', 'medium-down', 'large', 'large-down');   // New - small, large-down
+  $breakpoint-has-pull:  ('small', 'medium', 'medium-down', 'large', 'large-down');   // New - small, large-down
 
-/*============================================================================
-  #General Variables
-==============================================================================*/
+//----------------------------------------------------------------------------------------------
+// BASE/GENERAL
+//----------------------------------------------------------------------------------------------
 
-// Timber Colors
-$colorPrimary: {{ settings.color_primary }};
-$colorSecondary: {{ settings.color_secondary }};
-$colorLinkText                  : {{ settings.color_text_link }}; // New
+  // Logo max width
+  $logoMaxWidth                 : {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 
-// Button colors
-$colorBtnPrimary: $colorPrimary;
-$colorBtnPrimaryHover: darken($colorBtnPrimary, 10%);
-$colorBtnPrimaryActive: darken($colorBtnPrimaryHover, 10%);
-$colorBtnPrimaryText: #fff;
+  // Typography
+  $bodyFontStack                : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;  // New - Cabin, Open Sans
+  // Henceforth known as 1em
+  $baseFontSize                 : 14px;
+  $headerFontStack              : 'Prompt', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;  // New - Prompt
+  $headerFontWeight             : 800;
+  $interfaceFontStack           : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;  // New
+  $socialIconFontStack          : 'icons';
 
-$colorBtnSecondary: $colorSecondary;
-$colorBtnSecondaryHover         : lighten($colorBtnSecondary, 15%);     // Was darken($colorBtnSecondary, 10%)
-$colorBtnSecondaryActive        : lighten($colorBtnSecondaryHover, 10%); // Was darken($colorBtnSecondaryHover, 10%);
-$colorBtnSecondaryText: #fff;
+//----------------------------------------------------------------------------------------------
+// COMPONENTS
+//----------------------------------------------------------------------------------------------
 
-// Text link colors
-$colorLink                      : $colorLinkText;               // Was $colorPrimary
-$colorLinkHover                 : $colorPrimary;                // Was lighten($colorPrimary, 15%)
+  // Drawers
+  $drawerNavWidth               : 300px;
+  $drawerCartWidth              : 300px;
+  $colorDrawers                 : $colorAccent2;                // Was #f6f6f6
+  $colorDrawerBorder            : darken($colorDrawers, 5%);
+  $colorDrawerText              : #333;
+  $drawerTransition             : all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 
-// Text colors
-$colorTextBody: {{ settings.color_body_text }};
+//----------------------------------------------------------------------------------------------
+// LAYOUT
+//----------------------------------------------------------------------------------------------
 
-// Backgrounds
-$colorBody: {{ settings.color_body_bg }};
+  // Sizing
+  $siteWidth                    : 1280px;                       // Was 1180px
+  $gutter                       : 10px;                         // Was 30px (also for $gridGutter)
+  // can be a %, but nested grids will have smaller margins because of it
+  $gridGutter                   : 10px;
+  $radius                       : 0;                            // Was 3px
 
-// Border colors
-$colorBorder: {{ settings.color_borders }};
-
-// Nav and dropdown link background
-$colorNav: #f2f2f2;
-$colorNavText: #333;
-
-// Site Footer
-$colorFooterBg: {{ settings.color_footer_bg }};
-$colorFooterText: {{ settings.color_footer_text }};
-
-// Logo max width
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-
-// Helper colors
-$disabledGrey: #f6f6f6;
-$disabledBorder: darken($disabledGrey, 25%);
-$errorRed: #d02e2e;
-$errorRedBg: #fff6f6;
-$successGreen: #56ad6a;
-$successGreenBg: #ecfef0;
-
-// Drawers
-$drawerNavWidth: 300px;
-$drawerCartWidth: 300px;
-$colorDrawers                   : rgb(245, 245, 245);           // Was #f6f6f6;
-$colorDrawerBorder: darken($colorDrawers, 5%);
-$colorDrawerText: #333;
-$drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
-
-// Sizing variables
-$siteWidth: 1280px;             // Was 1180px;
-$gutter: 10px;                  // Was 30px (also for $gridGutter)
-$gridGutter: 10px; // can be a %, but nested grids will have smaller margins because of it
-$radius: 0;                     // Was 3px;
-
-// Z-index
-$zindexNavDropdowns: 5;
-$zindexDrawer: 10;
-
-/*================ Typography ================*/
-
-// Font Families
-
-
-$headerFontStack                : 'Prompt', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;   // New - Eagle Bold
-$headerFontWeight: 800;
-
-$bodyFontStack                  : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New - Cabin, Open Sans
-$baseFontSize: 14px; // Henceforth known as 1em
-
-$interfaceFontStack             : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New
-
-@font-face {
-  font-family: 'icons';
-  src: url('{{ "icons.eot" | asset_url }}');
-  src: url('{{ "icons.eot" | asset_url }}#iefix') format("embedded-opentype"),
-       url('{{ "icons.woff" | asset_url }}') format("woff"),
-       url('{{ "icons.ttf" | asset_url }}') format("truetype"),
-       url('{{ "icons.svg" | asset_url }}#timber-icons') format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-$socialIconFontStack: 'icons';
+  // Z-index
+  $zindexNavDropdowns           : 5;
+  $zindexDrawer                 : 10;
