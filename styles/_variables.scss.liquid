@@ -96,12 +96,12 @@
   $logoMaxWidth                 : {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 
   // Typography
-  $bodyFontStack                : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;  // New - Cabin, Open Sans
+  $bodyFontStack                : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', {{ settings.type_base_family }};  // New - Cabin, Open Sans
   // Henceforth known as 1em
-  $baseFontSize                 : 14px;
-  $headerFontStack              : 'Prompt', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;  // New - Prompt
+  $baseFontSize                 : {{ settings.type_base_size }}px;
+  $headerFontStack              : 'Prompt', $bodyFontStack;     // New - Prompt + $bodyFontStack
   $headerFontWeight             : 800;
-  $interfaceFontStack           : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;  // New
+  $interfaceFontStack           : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', {{ settings.type_base_family }};  // New
   $socialIconFontStack          : 'icons';
 
 //----------------------------------------------------------------------------------------------

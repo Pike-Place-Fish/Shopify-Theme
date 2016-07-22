@@ -15,7 +15,7 @@
   select {
     font-family                 : $bodyFontStack;
     font-size                   : $baseFontSize;
-    line-height                 : 1.6;
+    line-height                 : ({{ settings.type_base_lineheight }} / {{ settings.type_base_size }});  // Was 1.6
     font-weight                 : 300;
     color                       : $colorTextBody;
     -webkit-font-smoothing      : antialiased;
@@ -68,7 +68,7 @@
     display                     : block;
     margin-bottom               : 0.25em;
     font-family                 : $headerFontStack;
-    line-height                 : 1.4;
+    line-height                 : ({{ settings.type_header_lineheight }} / {{ settings.type_header_size }});  // Was 1.4
     font-weight                 : $headerFontWeight;
 
     a {
