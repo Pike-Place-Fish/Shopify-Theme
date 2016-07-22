@@ -3,632 +3,687 @@
 //----------------------------------------------------------------------------------------------
 // Provides global overrides for standard HTML elements based on element, attribute, and single-
 // class selectors. Selectors in this section should never be nested more than two layers deep.
+//----------------------------------------------------------------------------------------------
+// NOTE: Unless otherwise specified (e.g., with "// New", or "// Was [property value]"), styles
+// are OOTB Timber definitions; only formatting and property organization have been altered.
 //==============================================================================================
 
 //----------------------------------------------------------------------------------------------
 // IMPORTS
 //----------------------------------------------------------------------------------------------
+  @import url('_utilities.scss.liquid');
   @import url('_fonts.scss.liquid');
   @import url('_icons.scss.liquid');
   @import url('_typography.scss.liquid');
   @import url('_forms.scss.liquid');
-  @import url('_media.scss.liquid');
-  @import url('_utilities.scss.liquid');
+  @import url('_navigation.scss.liquid');
 
-/*============================================================================
-  #Normalize
-==============================================================================*/
-*, input, :before, :after {
-  box-sizing: border-box;
-}
-
-html, body {
-  padding: 0;
-  margin: 0;
-}
-
-article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
-  display: block;
-}
-
-audio, canvas, progress, video {
-  display: inline-block;
-  vertical-align: baseline;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-/*============================================================================
-  #Basic Styles
-==============================================================================*/
-// New
-html,
-body {
-  margin                        : 0;
-  padding                       : 0;
-  height                        : 100%;
-  min-height                    : 100%;
-}
-html {
-  background-color              : $colorFooterBg;
-}
-
-body {
-  background-color              : $colorBody;
-}
-
-[tabindex='-1']:focus {
-  outline: none;
-}
-
-// New
-div.page-container {
-  position                      : relative;
-  width                         : 100%;
-  min-height                    : 100%;
-  background-color              : {{ settings.color_body_bg_accent }};
-}
-
-.wrapper {
-  @include clearfix();
-  max-width: $siteWidth;
-  margin: 0 auto;
-  padding: 0 ($gutter / 2);
-
-  @include at-query ($min, $small) {
-    padding                     : 0 ($gutter * 1.5);            // Was $gutter
+//----------------------------------------------------------------------------------------------
+// NORMALIZE/RESET
+//----------------------------------------------------------------------------------------------
+  *, input, :before, :after {
+    box-sizing                  : border-box;
   }
-  // New
-  @include at-query ($min, $medium) {
-    padding                     : 0 $gutter;
-  }
-}
-
-.main-content {
-  display                       : block;
-//margin-top                    : ($gutter * 3);                // Was $gutter
-  padding-top                   : ($gutter * 2);
-  padding-bottom                : ($gutter * 2);
-
-  @include at-query ($min, $large) {
-    padding                     : 45px;
-  }
-}
-
-/* ========================================================================================== */
-
-/*================ Blockquotes ================*/
-blockquote {
-  font-size: 1.125em;
-  line-height: 1.45;
-  font-style: italic;
-  margin: 0 0 $gutter;
-  padding: ($gutter / 2) $gutter;
-  border-left: 1px solid $colorBorder;
-
-  p {
-    margin-bottom: 0;
-
-    & + cite {
-      margin-top: $gutter / 2;
-    }
-  }
-
-  cite {
-    display: block;
-    font-size: 0.75em;
-
-    &:before {
-      content: '\2014 \0020';
-    }
-  }
-}
-
-/*================ Code ================*/
-code, pre {
-  background-color: #faf7f5;
-  font-family: Consolas,monospace;
-  font-size: 1em;
-  border: 0 none;
-  padding: 0 2px;
-  color: #51ab62;
-}
-
-pre {
-  overflow: auto;
-  padding: $gutter / 2;
-  margin: 0 0 $gutter;
-}
-
-/*================ Horizontal Rules ================*/
-hr {
-  clear: both;
-  border-top: solid $colorBorder;
-  border-width: 1px 0 0;
-  margin: $gutter 0;
-  height: 0;
-
-  &.hr--small {
-    margin: ($gutter / 2) 0;
-  }
-
-  &.hr--clear {
-    border-top-color: transparent;
-  }
-}
-
-/*================ Section Headers ================*/
-.section-header {
-  margin-bottom: $gutter / 1.5;
-}
-
-@include at-query ($min, $large) {
-  .section-header {
-    display: table;
-    width: 100%;
-  }
-
-  .section-header__title {
-    margin-bottom: $gutter / 2.5;
-  }
-
-  .section-header__left {
-    display: table-cell;
-    vertical-align: middle;
-    margin-bottom: 0;
-
-    h1, h2, h3, h4,
-    .h1, .h2, .h3, .h4 {
-      margin-bottom: 0;
-    }
-  }
-
-  .section-header__right {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: right;
-    width: 335px;
-
-    @include at-query ($max, $medium) {
-      margin-bottom: $gutter;
-    }
-  }
-}
-
-.section-header__right {
-  .form-horizontal,
-  .collection-view {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  @include at-query ($min, $postSmall) {
-    label + select,
-    .collection-view {
-      margin-left: $gutter / 2;
-    }
-  }
-}
-
-.collection-view {
-  display                       : none !important;              // Was inline-block
-  border: 1px solid $colorBorder;
-  border-radius: $radius;
-  padding: 0 5px;
-  height: 37px; // same as form elements
-  overflow: hidden;
-
-  /*================ Only show on larger screens ================*/
-  @include at-query ($min, $large) {
-    display                     : none !important;              // Was inline-block
-  }
-}
-
-.change-view {
-  display: block;
-  background: none;
-  border: 0 none;
-  float: left;
-  padding: 10px 8px;
-  color: $colorBorder;
-  line-height: 1;
-
-  &:hover,
-  &:focus {
-    color: $colorPrimary;
-  }
-}
-
-.change-view--active {
-  cursor: default;
-  color: $colorPrimary;
-}
-
-/* ========================================================================================== */
-
-/*============================================================================
-  #Rich Text Editor
-==============================================================================*/
-.rte {
-  margin-bottom: $gutter / 2;
-
-  a {
-    text-decoration             : none;                         // Was underline
-  }
-
-  // Add some top margin to headers from the rich text editor
-  h1, h2, h3, h4, h5, h6 {
-    margin-top: 1em;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    a {
-      text-decoration: none;
-    }
-  }
-
-  > div {
-    margin-bottom: $gutter / 2;
-  }
-
-  li {
-    margin-bottom: 0.4em;
-  }
-}
-
-.rte--header {
-  margin-bottom: 0;
-}
-
-/*============================================================================
-  #Links and Buttons
-==============================================================================*/
-a,
-.text-link {
-  color                         : $colorLink;
-  text-decoration               : none;
-  background                    : transparent;
-}
-
-a:hover,
-a:focus,
-a:active {
-  color                         : $colorLinkHover;
-}
-.text-link {
-  &:hover,
-  &:focus,
-  &:active {
-    color                       : $colorLinkHover;
-  }
-}
-
-button {
-  overflow: visible;
-}
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-.btn,
-.rte .btn {
-  display: inline-block;
-  padding: 8px 10px;
-  width                         : auto;
-  min-width                     : 128px;
-  margin: 0;
-  line-height: 1.42;
-  font-weight                   : 700; // Was 700
-  text-decoration: none;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  cursor: pointer;
-  border: 1px solid transparent;
-
-  // New
-  font-family                   : $interfaceFontStack;
-  text-transform                : uppercase;
-
-  @include user-select(none);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: $radius;
-
-  /*================ Set primary button colors - can override later ================*/
-  background-color: $colorBtnPrimary;
-  color: $colorBtnPrimaryText;
-
-  &:hover {
-    background-color: $colorBtnPrimaryHover;
-    color: $colorBtnPrimaryText;
-  }
-
-  &:active,
-  &:focus {
-   background-color: $colorBtnPrimaryActive;
-   color: $colorBtnPrimaryText;
-  }
-
-  &[disabled],
-  &.disabled {
-    cursor: default;
-    color: $disabledBorder;
-    background-color: $disabledGrey;
-  }
-}
-
-.btn--secondary,
-.rte .btn--secondary {
-  @extend .btn;
-  background-color: $colorBtnSecondary;
-
-  &:hover {
-    background-color: $colorBtnSecondaryHover;
-    color: $colorBtnSecondaryText;
-  }
-
-  &:active,
-  &:focus {
-   background-color: $colorBtnSecondaryActive;
-   color: $colorBtnSecondaryText;
-  }
-}
-
-.btn--small {
-  padding: 4px 5px;
-  font-size: em(12px);
-}
-
-.btn--large {
-  padding: 12px 15px;
-  font-size: em(16px);
-}
-
-.btn--full {
-  width: 100%;
-}
-
-/*================ Force an input/button to look like a text link ================*/
-.text-link {
-  display: inline;
-  border: 0 none;
-  background: none;
-  padding: 0;
-  margin: 0;
-}
-
-/*============================================================================
-  #Lists
-==============================================================================*/
-ul, ol {
-  margin: 0 0 ($gutter / 2) 20px;
-  padding: 0;
-}
-
-ol { list-style: decimal; }
-ul ul, ul ol,
-ol ol, ol ul { margin: 4px 0 5px 20px; }
-li { margin-bottom: 0.25em; }
-
-ul.square { list-style: square outside; }
-ul.disc { list-style: disc outside; }
-ol.alpha { list-style: lower-alpha outside; }
-
-.no-bullets {
-  list-style: none outside;
-  margin-left: 0;
-}
-
-.inline-list {
-  margin-left: 0;
-
-  li {
-    display: inline-block;
-    margin-bottom: 0;
-  }
-}
-
-/*============================================================================
-  #Tables
-==============================================================================*/
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-table.full {
-  width: 100%;
-  margin-bottom: 1em;
-}
-
-.table-wrap {
-  max-width: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-th {
-  font-weight: bold;
-}
-
-th, td {
-  text-align: left;
-  padding: $gutter / 2;
-  border: 1px solid $colorBorder;
-}
-
-/*============================================================================
-  Responsive tables, defined with .table--responsive on table element.
-  Only defined for IE9+
-==============================================================================*/
-.table--responsive {
-  // Was $max, $small
-  @include at-query($max, $preSmall) {
-    thead {
-      display: none;
-    }
-
-    tr {
-      display: block;
-    }
-
-    // IE9 table layout fixes
-    tr,
-    td {
-      float: left;
-      clear: both;
-      width: 100%;
-    }
-
-    th,
-    td {
-      display: block;
-      text-align: right;
-      padding: 15px;
-    }
-
-    td:before {
-      content: attr(data-label);
-      float: left;
-      text-align: center;
-      font-size: 12px;
-      padding-right: 10px;
-    }
-
-    &.cart-table {
-      img {
-        margin: 0 auto;
-      }
-
-      .js-qty {
-        float: right;
-      }
-    }
-  }
-}
-
-// Was $max, $small
-@include at-query($max, $preSmall) {
-  .table--small-hide {
-    display: none !important;
-  }
-
-  .table__section + .table__section {
-    position: relative;
-    margin-top: 10px;
-    padding-top: 15px;
-
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left                      : $gutter;                      // Was 15px
-      right                     : $gutter;                      // Was 15px
-      border-bottom             : 2px solid {{ settings.color_body_bg_accent }}; // Was 2px $colorBorder;
-    }
-  }
-}
-
-/* ========================================================================================== */
-
-/*============================================================================
-  #Pagination
-==============================================================================*/
-.pagination {
-  margin-bottom: 1em;
-  text-align: center;
-
-  > span {
-    display: inline-block;
-    line-height: 1;
-  }
-
-  a {
-    display: block;
-  }
-
-  a,
-  .page.current {
-    padding: 8px;
-  }
-}
-
-/*============================================================================
-  #Site Header
-==============================================================================*/
-.site-header {
-  padding                       : ($gutter / 2) 0;
-  background-color              : rgb(245, 245, 245);           // #F5F5F5 - make variable? New
-
-  // New
-  @include at-query ($max, $medium) {
+  html,
+  body {
+    margin                      : 0;
     padding                     : 0;
   }
-
-  .wrapper {
-    @include at-query ($min, $large) {
-      padding                   : ($gutter / 2) 45px;
-    }
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  main,
+  nav,
+  section,
+  summary {
+    display                     : block;
+  }
+  audio,
+  canvas,
+  progress,
+  video {
+    display                     : inline-block;
+    vertical-align              : baseline;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    height                      : auto;
+  }
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance          : none;
   }
 
-  .grid--table {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
+//----------------------------------------------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------------------------------------------
+  html {
+    background-color            : $colorFooterBg;
+  }
+  body {
+    background-color            : $colorBody;
+  }
 
-    > .grid__item {
-      float: none;
-      display: table-cell;
-      vertical-align: middle;
+//----------------------------------------------------------------------------------------------
+// COMMON ELEMENTS
+//----------------------------------------------------------------------------------------------
 
-      // Ancillary Nav (Social Icons, Cart, Account, Search)
-      div {
-        display                 : inline-block;
+  // Selected/Active Content
+  [tabindex='-1']:focus {
+    outline                     : none;
+  }
+
+  // Blockquotes
+  blockquote {
+    margin                      : 0 0 $gutter;
+    border-left                 : 1px solid $colorBorder;
+    padding                     : ($gutter / 2) $gutter;
+    font-size                   : 1.125em;
+    line-height                 : 1.45;
+    font-style                  : italic;
+    p {
+      margin-bottom: 0;
+      & + cite {
+        margin-top              : $gutter / 2;
       }
-
+    }
+    cite {
+      display                   : block;
+      font-size                 : 0.75em;
+      &:before {
+        content                 : '\2014 \0020';
+      }
     }
   }
 
-  // Social Icons (New)
-  .social-icons {
+  // Code
+  code,
+  pre {
+    border                      : 0 none;
+    padding                     : 0 2px;
+    font-family                 : Consolas,monospace;
+    font-size                   : 1em;
+    color                       : #51ab62;
+    background-color            : #faf7f5;
+  }
+  pre {
+    overflow                    : auto;
+    margin                      : 0 0 $gutter;
+    padding                     : $gutter / 2;
+  }
+
+  // Horizontal Rules
+  hr {
+    clear                       : both;
+    margin                      : $gutter 0;
+    border-top                  : solid $colorBorder;
+    border-width                : 1px 0 0;
+    height                      : 0;
+    &.hr--small {
+      margin                    : ($gutter / 2) 0;
+    }
+    &.hr--clear {
+      border-top-color          : transparent;
+    }
+  }
+
+  // Section Headers
+  .section-header {
+    margin-bottom               : $gutter / 1.5;
+  }
+  @include at-query ($min, $large) {
+    .section-header {
+      display                   : table;
+      width                     : 100%;
+    }
+    .section-header__title {
+      margin-bottom             : $gutter / 2.5;
+    }
+    .section-header__left {
+      display                   : table-cell;
+      margin-bottom             : 0;
+      vertical-align            : middle;
+      h1,
+      h2,
+      h3,
+      h4,
+      .h1,
+      .h2,
+      .h3,
+      .h4 {
+        margin-bottom           : 0;
+      }
+    }
+    .section-header__right {
+      display                   : table-cell;
+      width                     : 335px;
+      text-align                : right;
+      vertical-align            : middle;
+      @include at-query ($max, $medium) {
+        margin-bottom           : $gutter;
+      }
+    }
+  }
+  .section-header__right {
+    .form-horizontal,
+    .collection-view {
+      display                   : inline-block;
+      vertical-align            : middle;
+    }
+    @include at-query ($min, $postSmall) {
+      label + select,
+      .collection-view {
+        margin-left             : $gutter / 2;
+      }
+    }
+  }
+  .collection-view {
+    display                     : none !important;              // Was inline-block
+    overflow                    : hidden;
+    border                      : 1px solid $colorBorder;
+    border-radius               : $radius;
+    padding                     : 0 5px;
+    height                      : 37px; // same as form elements
+    @include at-query ($min, $large) {
+      display                   : none !important;              // Was inline-block
+    }
+  }
+  .change-view {
+    display                     : block;
+    float                       : left;
+    border                      : 0 none;
+    padding                     : 10px 8px;
+    line-height                 : 1;
+    color                       : $colorBorder;
+    background                  : none;
+    &:hover,
+    &:focus {
+      color                     : $colorPrimary;
+    }
+  }
+  .change-view--active {
+    color                       : $colorPrimary;
+    cursor                      : default;
+  }
+
+  // #OOCSS Media Object
+  // - http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+  .media,
+  .media-flex {
+    overflow                    : hidden;
+    _overflow                   : visible;
+    zoom                        : 1;
+  }
+  .media-img {
+    float                       : left;
+    margin-right                : $gutter;
+  }
+  .media-img-right {
+    float                       : right;
+    margin-left                 : $gutter;
+  }
+  .media-img img,
+  .media-img-right img {
+    display                     : block;
+  }
+
+  // Images and Iframes
+  img,
+  iframe {
+    max-width                   : 100%;
+  }
+  img {
+    border                      : 0 none;
+  }
+  svg:not(:root) {
+    overflow: hidden;
+  }
+  .video-wrapper {
+    position                    : relative;
+    overflow                    : hidden;
+    padding-bottom              : 56.25%;
+    max-width                   : 100%;
+    height                      : 0;
+    height                      : auto;
+    iframe {
+      position                  : absolute;
+      top                       : 0;
+      left                      : 0;
+      width                     : 100%;
+      height                    : 100%;
+    }
+  }
+
+  // New
+  .logotype {
+    img {
+      max-width                 : 303px;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// ADMIN INTERFACE
+//----------------------------------------------------------------------------------------------
+
+  // Rich Text Editor
+  .rte {
+    margin-bottom               : $gutter / 2;
+    a {
+      text-decoration           : none;                         // Was underline
+    }
+    // Add some top margin to headers from the rich text editor
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top                : 1em;
+      &:first-child {
+        margin-top: 0;
+      }
+      a {
+        text-decoration         : none;
+      }
+    }
+    > div {
+      margin-bottom             : $gutter / 2;
+    }
+    li {
+      margin-bottom             : 0.4em;
+    }
+  }
+  .rte--header {
+    margin-bottom               : 0;
+  }
+
+//----------------------------------------------------------------------------------------------
+// LINKS
+//----------------------------------------------------------------------------------------------
+  a,
+  .text-link {
+    color                       : $colorLink;
+    text-decoration             : none;
+    background                  : transparent;
+  }
+  a:hover,
+  a:focus,
+  a:active {
+    color                       : $colorLinkHover;
+  }
+  .text-link {
+    &:hover,
+    &:focus,
+    &:active {
+      color                     : $colorLinkHover;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// BUTTONS
+//----------------------------------------------------------------------------------------------
+  button {
+    overflow                    : visible;
+  }
+  button[disabled],
+  html input[disabled] {
+    cursor                      : default;
+  }
+  .btn,
+  .rte .btn {
+    @include user-select(none);
+    display                     : inline-block;
     margin                      : 0;
-    .icon {
-      font-size                 : em(16px);
-      color                     : {{ settings.color_secondary }};
+    border                      : 1px solid transparent;
+    border-radius               : $radius;
+    padding                     : 8px 10px;
+    width                       : auto;                         // New
+    min-width                   : 128px;                        // New
+    font-family                 : $interfaceFontStack;          // New
+    line-height                 : 1.42;
+    font-weight                 : 700;
+    color                       : $colorBtnPrimaryText;
+    text-transform              : uppercase;                    // New
+    text-decoration             : none;
+    text-align                  : center;
+    vertical-align              : middle;
+    white-space                 : nowrap;
+    background-color            : $colorBtnPrimary;
+    cursor                      : pointer;
+    -webkit-appearance          : none;
+    -moz-appearance             : none;
+    &:hover {
+      color                     : $colorBtnPrimaryText;
+      background-color          : $colorBtnPrimaryHover;
+    }
+    &:active,
+    &:focus {
+     color                      : $colorBtnPrimaryText;
+     background-color           : $colorBtnPrimaryActive;
+    }
+    &[disabled],
+    &.disabled {
+      cursor: default;
+      color: $disabledBorder;
+      background-color: $disabledGrey;
+    }
+  }
+  .btn--secondary,
+  .rte .btn--secondary {
+    @extend .btn;
+    background-color            : $colorBtnSecondary;
+    &:hover {
+      color                     : $colorBtnSecondaryText;
+      background-color          : $colorBtnSecondaryHover;
+    }
+    &:active,
+    &:focus {
+     color                      : $colorBtnSecondaryText;
+     background-color           : $colorBtnSecondaryActive;
+    }
+  }
+  .btn--small {
+    padding                     : 4px 5px;
+    font-size                   : em(12px);
+  }
+  .btn--large {
+    padding                     : 12px 15px;
+    font-size                   : em(16px);
+  }
+  .btn--full {
+    width                       : 100%;
+  }
+
+  // Force an input/button to look like a text link
+  .text-link {
+    display                     : inline;
+    margin                      : 0;
+    border                      : 0 none;
+    padding                     : 0;
+    background                  : none;
+  }
+
+//----------------------------------------------------------------------------------------------
+// LISTS
+//----------------------------------------------------------------------------------------------
+  ul, ol {
+    margin                      : 0 0 ($gutter / 2) 20px;
+    padding                     : 0;
+  }
+  ol {
+    list-style                  : decimal;
+  }
+  ul ul,
+  ul ol,
+  ol ol,
+  ol ul {
+    margin                      : 4px 0 5px 20px;
+  }
+  li {
+    margin-bottom               : 0.25em;
+  }
+  ul.square {
+    list-style                  : square outside;
+  }
+  ul.disc {
+    list-style                  : disc outside;
+  }
+  ol.alpha {
+    list-style                  : lower-alpha outside;
+  }
+  .no-bullets {
+    list-style                  : none outside;
+    margin-left                 : 0;
+  }
+  .inline-list {
+    margin-left                 : 0;
+    li {
+      display                   : inline-block;
+      margin-bottom             : 0;
     }
   }
 
-  // Expandable Search (New)
+//----------------------------------------------------------------------------------------------
+// TABLES
+//----------------------------------------------------------------------------------------------
+  table {
+    border-collapse             : collapse;
+    border-spacing              : 0;
+    width                       : 100%;
+  }
+  table.full {
+    margin-bottom               : 1em;
+    width                       : 100%;
+  }
+  .table-wrap {
+    overflow                    : auto;
+    -webkit-overflow-scrolling  : touch;
+    max-width                   : 100%;
+  }
+  th {
+    font-weight                 : bold;
+  }
+  th, td {
+    text-align                  : left;
+    padding                     : $gutter / 2;
+    border                      : 1px solid $colorBorder;
+  }
+
+  // Responsive tables, defined with .table--responsive on table element.
+  // Only defined for IE9+
+  .table--responsive {
+    @include at-query($max, $preSmall) {                        // Was $max, $small
+      thead {
+        display                 : none;
+      }
+      tr {
+        display                 : block;
+      }
+      // IE9 table layout fixes
+      tr,
+      td {
+        float                   : left;
+        clear                   : both;
+        width                   : 100%;
+      }
+      th,
+      td {
+        display                 : block;
+        padding                 : 15px;
+        text-align              : right;
+      }
+      td:before {
+        content                 : attr(data-label);
+        float                   : left;
+        padding-right           : 10px;
+        font-size               : 12px;
+        text-align              : center;
+      }
+      &.cart-table {
+        img {
+          margin                : 0 auto;
+        }
+        .js-qty {
+          float                 : right;
+        }
+      }
+    }
+  }
+  @include at-query($max, $preSmall) {                          // Was $max, $small
+    .table--small-hide {
+      display                   : none !important;
+    }
+    .table__section + .table__section {
+      position                  : relative;
+      margin-top                : 10px;
+      padding-top               : 15px;
+      &:after {
+        content                 : '';
+        display                 : block;
+        position                : absolute;
+        top                     : 0;
+        left                    : $gutter;                      // Was 15px
+        right                   : $gutter;                      // Was 15px
+        border-bottom           : 2px solid $colorAccent; // Was 2px $colorBorder;
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// PAGINATION
+//----------------------------------------------------------------------------------------------
+  .pagination {
+    margin-bottom               : 1em;
+    text-align                  : center;
+    > span {
+      display                   : inline-block;
+      line-height               : 1;
+    }
+    a {
+      display                   : block;
+    }
+    a,
+    .page.current {
+      padding                   : 8px;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// SEARCH BAR
+//----------------------------------------------------------------------------------------------
+// NOTE: New, in part - reorganized common treatments to outside site header definitions
+//----------------------------------------------------------------------------------------------
+  .search-bar {
+    max-width                   : 100%;
+    @include at-query ($max, $medium) {
+      margin-left               : auto;
+      margin-right              : auto;
+    }
+
+    // New
+    input[type="search"] {
+      margin-right              : 0;
+      border-width              : 0 0 1px 0;
+      border-color              : $colorPrimary;
+      padding                   : 0 2px;
+      width                     : auto;
+      min-width                 : 140px;
+      height                    : 24px;
+      font-size                 : em(12px);
+      background-color          : transparent;
+    }
+    ::-webkit-input-placeholder {
+      color                     : $colorAccent;
+    }
+    :-moz-placeholder {
+      color                     : $colorAccent;
+    }
+    ::-moz-placeholder {
+      color                     : $colorAccent;
+    }
+    :-ms-input-placeholder {
+      color                     : $colorAccent;
+    }
+    .input-group-btn {
+      padding-left              : 0;
+      width                     : auto;
+    }
+    button[type="submit"],
+    button.btn {
+      padding                     : 0;
+      width                       : 22px;
+      min-width                   : auto;
+      height                      : 21px;
+      background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
+      background-size             : 21px 21px;
+    }
+    .icon-search {
+      display                     : none !important;
+    }
+
+  }
+
+//----------------------------------------------------------------------------------------------
+// PRIMARY CONTENT AREA
+//----------------------------------------------------------------------------------------------
+  div.page-container {
+    background-color            : $colorAccent;
+  }
+
+//----------------------------------------------------------------------------------------------
+// SITE HEADER
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* site header moved to
+// _layout.scss.liquid.
+//----------------------------------------------------------------------------------------------
+  .site-header {
+    background-color            : $colorAccent2;                // New
+
+    // Social Icons (New)
+    .social-icons {
+      margin                    : 0;
+      .icon {
+        font-size               : em(16px);
+        color                   : {{ settings.color_header_social_link }};
+      }
+    }
+
+  }
+
+  .site-header__logo {
+    text-align                  : center;
+    margin                      : 0 auto;
+    max-width                   : 100%;
+    @include at-query ($min, $large) {
+      text-align                : left;
+    }
+    a,
+    a:hover,
+    a:focus {
+      text-decoration           : none;
+    }
+    a, img {
+      display                   : block;
+    }
+    img {
+      margin                    : 0 auto;
+    }
+  }
+  .site-header__logo-link {
+    max-width                   : $logoMaxWidth;
+    margin                      : 0 auto;
+  }
+
+  .site-header__cart-toggle {
+    display                     : inline-block;
+  }
+
   .site-header__search {
+    display                     : inline-block;
+    max-width                   : 207px;                        // Was 400px
+    margin-top                  : $gutter / 2;
+    width                       : auto;                         // Was 100%
+
+    // Expandable Search (New) - specific to large-screen site header
     form.search-bar {
       margin-bottom             : 0;
     }
     ::-webkit-input-placeholder {
-       color                    : rgb(110, 110, 110);
+      color                     : rgb(110, 110, 110);
     }
     :-moz-placeholder {
-       color                    : rgb(110, 110, 110);
+      color                     : rgb(110, 110, 110);
     }
     ::-moz-placeholder {
-       color                    : rgb(110, 110, 110);
+      color                     : rgb(110, 110, 110);
     }
     :-ms-input-placeholder {
-       color                    : rgb(110, 110, 110);
+      color                     : rgb(110, 110, 110);
     }
     input[type="search"] {
       margin-right              : 23px;
@@ -662,7 +717,6 @@ th, td {
       width                     : 22px;
       height                    : 23px;
     }
-
     .search-bar.expanded {
       input[type="search"] {
         width                   : 140px;
@@ -681,1109 +735,524 @@ th, td {
 
   }
 
-}
-
-.site-header__logo {
-  text-align: center;
-  margin: 0 auto;
-  max-width: 100%;
-
-  @include at-query ($min, $large) {
-    text-align: left;
+  // Ancillary Nav Links (New)
+  .nav-ancillary {
+    position                    : relative;
+    bottom                      : 8px;
+    margin-right                : 16px;
+    padding-top                 : 8px;
+    font-family                 : $interfaceFontStack;
+    font-size                   : em(10px);
+    font-weight                 : 600;
+    color                       : rgb(12, 12, 12);              // #0C0C0C
+    text-transform              : uppercase;
+    a {
+      color                     : rgb(12, 12, 12);
+    }
   }
 
-  a,
-  a:hover,
-  a:focus {
-    text-decoration: none;
+  // Cart (New - main and mobile)
+  .nav-ancillary span.cart,
+  .mobile-nav__item.menu-cart span.cart {
+    display                     : inline-block;
+    position                    : relative;
+    padding                     : 15px 0 7px 34px;
+    line-height                 : 100%;
+    background-repeat           : no-repeat;
+    background-position         : 0 0;
+    background-size             : contain;
+    &.full {
+      span.cart-count,
+      span.title {
+        display                 : inline-block;
+        position                : relative;
+      }
+      span.cart-count {
+        position                : absolute;
+        top                     : 20px;
+        left                    : 0;
+        width                   : 29px;
+        height                  : 13px;
+        font-size               : 12px;
+        font-weight             : $headerFontWeight;
+        text-align              : center;
+      }
+    }
   }
-
-  a, img {
-    display: block;
-  }
-
-  img {
-    margin: 0 auto;
-  }
-}
-
-.site-header__logo-link {
-  max-width: $logoMaxWidth;
-  margin: 0 auto;
-}
-
-.site-header__cart-toggle {
-  display: inline-block;
-}
-
-.site-header__search {
-  display                       : inline-block;
-  max-width                     : 207px;                        // Was 400px
-  margin-top                    : $gutter / 2;
-  width                         : auto;                         // Was 100%
-}
-
-// Ancillary Nav Links (New)
-.nav-ancillary {
-  position                      : relative;
-  bottom                        : 8px;
-  margin-right                  : 16px;
-  padding-top                   : 8px;
-  font-family                   : $interfaceFontStack;
-  font-size                     : em(10px);
-  font-weight                   : 600;
-  color                         : rgb(12, 12, 12);              // #0C0C0C
-  text-transform                : uppercase;
-  a {
-    color                       : rgb(12, 12, 12);
-  }
-}
-
-// Cart (New - main and mobile)
-.nav-ancillary span.cart,
-.mobile-nav__item.menu-cart span.cart {
-  display                       : inline-block;
-  position                      : relative;
-  padding                       : 15px 0 7px 34px;
-  line-height                   : 100%;
-  background-repeat             : no-repeat;
-  background-position           : 0 0;
-  background-size               : contain;
-  &.full {
-  //padding-left                : 46px;
-    span.cart-count,
-    span.title {
-      display                   : inline-block;
-      position                  : relative;
+  .nav-ancillary span.cart {
+    &.empty {
+      background-image          : url({{ 'Icon.Basket.Empty.png' | asset_url }});
+    }
+    &.full {
+      background-image          : url({{ 'Icon.Basket.Items.png' | asset_url }});
     }
     span.cart-count {
-      position                  : absolute;
-      top                       : 20px;
-      left                      : 0;
-      width                     : 29px;
-      height                    : 13px;
-      font-size                 : 12px;                         // em(13px);
-      font-weight               : $headerFontWeight;
-      text-align                : center;
-    }
-    span.title {
-      //padding-left
+      color                     : {{ settings.color_footer_text }};
     }
   }
-}
-.nav-ancillary span.cart {
-  &.empty {
-    background-image            : url({{ 'Icon.Basket.Empty.png' | asset_url }});
-  }
-  &.full {
-    background-image            : url({{ 'Icon.Basket.Items.png' | asset_url }});
-  }
-  span.cart-count {
-    color                       : {{ settings.color_footer_text }};
-  }
-}
-.mobile-nav__item.menu-cart span.cart {
-  &.empty {
-    background-image            : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
-  }
-  &.full {
-    background-image            : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
-  }
-  span.cart-count {
-    color                       : rgb(45, 45, 45);
-  }
-}
-
-.search-bar {
-  max-width: 100%;
-
-  // New
-  input[type="search"] {
-    margin-right                : 0;
-    border-width                : 0 0 1px 0;
-    border-color                : {{ settings.color_primary }};
-    padding                     : 0 2px;
-    width                       : auto;
-    min-width                   : 140px;
-    height                      : 24px;
-    font-size                   : em(12px);
-    background-color            : transparent;
-  }
-  ::-webkit-input-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-  :-moz-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-  ::-moz-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-  :-ms-input-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-
-  // New
-  .input-group-btn {
-    padding-left                : 0;
-    width                       : auto;
-  }
-  button[type="submit"],
-  button.btn {
-    padding                     : 0;
-    width                       : 22px;
-    min-width                   : auto;
-    height                      : 21px;
-    background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
-    background-size             : 21px 21px;
-  }
-
-  // New
-  .icon-search {
-    display                     : none !important;
-  }
-
-
-  @include at-query ($max, $medium) {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/*============================================================================
-  #Site Nav and Dropdowns
-==============================================================================*/
-.nav-bar {
-  padding                       : ($gutter / 2) 0 $gutter;
-  background-color              : {{ settings.color_body_bg }}; // Was $colorNav;
-  @include at-query($max, $large) {
-    padding-bottom              : 0;
-  }
-}
-
-.site-nav {
-  font-family                   : $headerFontStack;             // New
-  font-size                     : em(14px);                     // Was em(16px)
-  font-weight                   : 800;
-  text-transform                : uppercase;                    // New
-  cursor: default;
-  margin: ($gutter * 1.5) 0 ($gutter / 2) (-$gutter / 2); // Was 0 0 0 (-$gutter / 2)
-
-  li {
-    margin: 0;
-    display: block;
-  }
-
-  > li {
-    position: relative;
-    display: inline-block;
-  }
-}
-
-/*================ Home to hamburger and cart that toggle drawers ================*/
-
-// New - targeting specific element so as not to interfere with cart drawer
-#NavDrawer,
-#NavDrawer .drawer__header {
-  background                    : rgb(45, 45, 45);              // #2D2D2D
-  button {
-    color                       : {{ settings.color_body_bg }};
-  }
-}
-#NavDrawer .drawer__header {
-  border-bottom                 : 1px solid rgb(92, 92, 92);    // #5C5C5C
-}
-.mobile-navbar {
-  display                       : table;
-  .site-nav--mobile,
-  .home-link {
-    display                     : table-cell;
-    text-align                  : center;
-    vertical-align              : middle;
-    @include at-query($max, $small) {
-      padding-top               : 1%;
+  .mobile-nav__item.menu-cart span.cart {
+    &.empty {
+      background-image          : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
+    }
+    &.full {
+      background-image          : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
+    }
+    span.cart-count {
+      color                     : rgb(45, 45, 45);
     }
   }
-  .site-nav--mobile {
-    width                       : 10%;
-  }
-  .home-link {
-    padding-right               : 5%;
-    h1 {
-      margin                    : 0;
-      font-size                 : em(28px);
-      font-size                 : 4vw;
-      letter-spacing            : 0.85em;
-      letter-spacing            : 0.35vw;
-    }
-  }
-  .search-bar {
-    input {
-      ::-webkit-input-placeholder {
-       color                    : darken({{ settings.color_body_bg }}, 5%);
+
+//----------------------------------------------------------------------------------------------
+// NAVIGATION (SITE NAV, DROPDOWNS)
+//----------------------------------------------------------------------------------------------
+// NOTE: Site navigation (large and mobile) moved to _navigation.scss.liquid.
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// DRAWERS
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* drawers styles moved to
+// _layout.scss.liquid.
+//----------------------------------------------------------------------------------------------
+  .drawer {
+    @include promote-layer();
+    color                       : $colorDrawerText;
+    background-color            : $colorDrawers;
+    transition                  : $drawerTransition;
+
+    a {
+      color                     : $colorDrawerText;
+      &:hover,
+      &:focus {
+        opacity                 : 0.7;
       }
-      :-moz-placeholder {
-         color                  : darken({{ settings.color_body_bg }}, 5%);
+    }
+
+    input,
+    textarea {
+      border-color              : $colorDrawerBorder;
+    }
+  }
+
+  .drawer--left {
+    border-right                : 1px solid $colorDrawerBorder;
+    .js-drawer-open-left & {
+      display                   : block;
+      @include transform(translateX($drawerNavWidth));
+      .lt-ie9 & {
+        left                    : 0;
       }
-      ::-moz-placeholder {
-         color                  : darken({{ settings.color_body_bg }}, 5%);
+    }
+  }
+
+  .drawer--right {
+    border-left                 : 1px solid $colorDrawerBorder;
+    .js-drawer-open-right & {
+      display                   : block;
+      @include transform(translateX(-$drawerCartWidth));
+      .lt-ie9 & {
+        right                   : 0;
       }
-      :-ms-input-placeholder {
-         color                  : darken({{ settings.color_body_bg }}, 5%);
-      }
-
-    }
-  }
-}
-
-.site-nav--mobile {
-  @extend .site-nav;
-
-  .text-right & {
-    margin: 0 (-$gutter / 2) 0 0;
-  }
-
-  // New
-  .icon-hamburger {
-    font-size                   : 2em;
-    font-size                   : 3.75vw;
-    @include at-query($max, $medium) {
-      font-size                 : 4.25vw;
     }
   }
 
-}
-
-.site-nav__link {
-  display: block;
-  text-decoration: none;
-  padding                       : ($gutter / 2) $gutter;        // Was $gutter / 2;
-  white-space: nowrap;
-  color: $colorNavText;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color                       : $colorPrimary;                // Was darken($colorNavText, 15%)
+  #PageContainer {
+    //overflow: hidden;                                         // Removed
   }
 
-  .icon-arrow-down {
-    position: relative;
-    top: -2px;
-    font-size: 10px;
-    padding-left: $gutter / 4;
-  }
+  .is-moved-by-drawer {
+    @include promote-layer();
+    transition                  : $drawerTransition;
 
-  .site-nav--active > & {
-  //font-weight: bold;
-    color                       : $colorPrimary;                // Was $colorLink
-  }
+    .js-drawer-open-left & {
+      @include transform(translateX($drawerNavWidth));
+    }
 
-  .site-nav--mobile & {
-    display: inline-block;
-  }
-
-  // New
-  &.logotype {
-    position                    : relative;
-    top                         : 4px;
-    padding                     : 0 15px 0;
-    font-size                   : 150%;
-    color                       : $colorPrimary;
-    letter-spacing              : em(2px);
-    -webkit-text-stroke-width   : 1px;
-    -webkit-text-stroke-color   : {{ settings.color_secondary }};
-    img {
-      max-width                 : 303px;
+    .js-drawer-open-right & {
+      @include transform(translateX(-$drawerCartWidth));
     }
   }
 
-}
-
-/*================ Dropdowns ================*/
-.site-nav__dropdown {
-  display: none;
-  position: absolute;
-  left: 0;
-  margin: 0;
-  z-index: $zindexNavDropdowns;
-
-  .supports-no-touch .site-nav--has-dropdown:hover &,
-  .site-nav--has-dropdown.nav-hover &,
-  .nav-focus + & {
-    display: block;
+  .drawer__header {
+    display                     : table;
+    margin-bottom               : $gutter / 2;
+    //height: 70px;                                             // Removed
+    width                       : 100%;
+    background                  : $colorBody;
+    //border-bottom: 1px solid $colorDrawerBorder;              // Removed
   }
 
-  a {
-    background-color: $colorNav;
-
-    &:hover,
-    &:active,
-    &:focus {
-      background-color: darken($colorNav, 10%);
-    }
-  }
-}
-
-/*================ Search bar in header ================*/
-.nav-search {
-  position: relative;
-  padding: 10px 0;
-
-  @include at-query ($max, $medium) {
-    padding: 0 0 ($gutter / 2);
-    margin: 0 auto;
-    text-align: center;
-  }
-}
-
-/*============================================================================
-  #Mobile Nav
-  - List of items inside the mobile drawer
-==============================================================================*/
-.mobile-nav {
-  // Negative of .drawer left/right padding for full-width link tap area
-  margin: (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
-
-  li {
-    margin-bottom: 0;
-  }
-}
-
-.mobile-nav__search {
-  padding: $gutter / 2;
-
-  .search-bar {
-    margin-bottom: 0;
-    // New
-    input[type="search"] {
-      color                     : {{ settings.color_body_bg }};
-    }
-  }
-}
-
-.mobile-nav__item {
-  position: relative;
-  display: block;
-
-  // Background color on top level items so there is no
-  // element overlap on subnav's CSS toggle animation
-  .mobile-nav > & {
-    border                      : 1px solid rgb(59, 59, 59);    // #3B3B3B
-    background-color            : rgb(59, 59, 59);              // #3B3B3B - Was $colorDrawers
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: $gutter / 2;
-    right: $gutter / 2;
-  //border-bottom: 1px solid $colorDrawerBorder;
-  }
-
-  .mobile-nav > &:last-child:after {
-    display: none;
-  }
-
-  // New
-  .search-bar {
-    margin                      : 0;
-    padding                     : 5%;
-  }
-
-}
-.mobile-nav__item:nth-child(even) {
-  .mobile-nav > & {
-    border-color                : rgb(92, 92, 92);              // #5C5C5C
-    background-color            : rgb(45, 45, 45);              // #2D2D2D
-  }
-}
-
-.mobile-nav__item a,
-.mobile-nav__toggle button {
-  margin-right                  : 13px; //New
-  color: $colorDrawerText;
-  padding: $gutter / 2;
-  text-decoration: none;
-
-  &:hover,
-  &:active,
-  &:focus {
-    // color: darken($colorDrawerText, 15%);
-  }
-
-  &:active,
-  &:focus {
-    // background-color: darken($colorDrawers, 5%);
-  }
-}
-
-// Login/logout links can't have a class on them, so style <a> element
-.mobile-nav__item a {
-  display: block;
-  padding                       : 5%;                           // New
-  font-family                   : $headerFontStack;
-  font-size                     : em(12px);
-  font-weight                   : 600;
-  color                         : {{ settings.color_body_bg }} !important; // New - needs to be important due to .drawer a override
-  text-transform                : uppercase;
-  &:hover,
-  &:active,
-  &:focus {
-    color                       : darken({{ settings.color_body_bg }}, 5%);// Was darken($colorDrawerText, 15%);
-  }
-}
-
-.mobile-nav__item--active {
-  // font-weight: bold;
-}
-
-.mobile-nav__has-sublist {
-  display: table;
-  width: 100%;
-
-  .mobile-nav__link {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100%;
-  }
-}
-
-.mobile-nav__toggle {
-  display: table-cell;
-  vertical-align: middle;
-  width: 1%;
-}
-
-.mobile-nav__toggle-open {
-  .mobile-nav--expanded & {
-    display: none;
-  }
-}
-
-.mobile-nav__toggle-close {
-  display: none;
-
-  .mobile-nav--expanded & {
-    display: block;
-  }
-}
-
-.mobile-nav__sublist {
-  margin                        : 0 0 0 ($gutter * 1.5);        // New
-  max-height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition: all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
-  @include backface();
-
-  .mobile-nav--expanded + & {
-    visibility: visible;
-    max-height: 700px;
-    transition: all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
-  }
-
-  .mobile-nav__item:after {
-    top: 0;
-    bottom: auto;
-  }
-
-  // New
-  .mobile-nav__item a {
-    padding                     : 5px 0 5px 10px;
-  }
-
-  .mobile-nav__link {
-    padding-left: $gutter;
-    font-weight: normal;
-  }
-}
-
-/*============================================================================
-  #Drawers
-==============================================================================*/
-.js-drawer-open {
-  overflow: hidden;
-  height: 100%;
-}
-
-.drawer {
-  @include promote-layer();
-  display: none;
-  position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  top: 0;
-  bottom: 0;
-  padding                       : 0 0 ($gutter / 2);            // Was 0 ($gutter / 2) ($gutter / 2);
-  max-width: 95%;
-  z-index: $zindexDrawer;
-  color: $colorDrawerText;
-  background-color: $colorDrawers;
-  transition: $drawerTransition;
-
-  a {
-    color: $colorDrawerText;
-
-    &:hover,
-    &:focus {
-      opacity: 0.7;
-    }
-  }
-
-  input,
-  textarea {
-    border-color: $colorDrawerBorder;
-  }
-}
-
-.drawer--left {
-  width: $drawerNavWidth;
-  left: -$drawerNavWidth;
-  border-right: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-left & {
-    display: block;
-    @include transform(translateX($drawerNavWidth));
-
-    .lt-ie9 & {
-      left: 0;
-    }
-  }
-}
-
-.drawer--right {
-  width: $drawerCartWidth;
-  right: -$drawerCartWidth;
-  border-left: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-right & {
-    display: block;
-    @include transform(translateX(-$drawerCartWidth));
-
-    .lt-ie9 & {
-      right: 0;
-    }
-  }
-}
-
-#PageContainer {
-  // overflow: hidden;
-}
-
-.is-moved-by-drawer {
-  @include promote-layer();
-  transition: $drawerTransition;
-
-  .js-drawer-open-left & {
-    @include transform(translateX($drawerNavWidth));
-  }
-
-  .js-drawer-open-right & {
-    @include transform(translateX(-$drawerCartWidth));
-  }
-}
-
-.drawer__header {
-  display: table;
-//height: 70px;
-  margin-bottom: $gutter / 2;
-  width: 100%;
-  background                    : {{ settings.color_body_bg }};
-//border-bottom: 1px solid $colorDrawerBorder;
-}
-
-.drawer__title,
-.drawer__close {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.drawer__title {
-  width: 100%;
-}
-
-.drawer__close {
-  padding-right                 : 5%;                           // New
-  width: 1%;
-  text-align                    : right;                        // Was center;
-  font-size: em(18px);
-}
-
-.drawer__close button {
-  position: relative;
-  right: -20px;
-  height: 100%;
-  padding: 0 20px;
-  color: inherit;
-
-  &:active,
-  &:focus {
-    // background-color: darken($colorDrawers, 5%);
-  }
-}
-
-/*============================================================================
-  #Site Footer
-==============================================================================*/
-.site-footer {
-  position                      : absolute;                     // New
-  bottom                        : 0;                            // New
-  left                          : 0;                            // New
-  padding                       : $gutter 0;
-  width                         : 100%;                         // New
-  font-size                     : em(12px);                     // New
-  color                         : $colorFooterText;
-  background-color              : $colorFooterBg;
-
-  // New
-  @include at-query ($max, $preMedium) {
-    padding                     : $gutter 0 ($gutter * 2);
-  }
-  @include at-query ($min, $medium) {
-    padding                     : $gutter 0 ($gutter * 1.5);
-  }
-  @include at-query ($min, $large) {
-    padding                     : 17px 0 0;       // Was padding: ($gutter * 2) 0;
-  }
-
-  // New
-  .grid__item {
+  .drawer__title,
+  .drawer__close {
     display                     : table-cell;
     vertical-align              : middle;
   }
 
-  // New
-  a {
-    display                     : inline-block;
-    color                       : $colorFooterText;
-    white-space                 : nowrap;
-  }
-
-  // Copyright, Links (New)
-  p {
-    margin-bottom               : 0;
-    &.copyright {
-      padding-left              : ($gutter * 1.333);
-      @include at-query ($max, $medium) {
-        padding-left            : 0;
-        padding-top             : $gutter;
-      }
-    }
-    &.links {
-      padding-right             : ($gutter * 1.333);
-      @include at-query ($max, $medium) {
-        padding-right           : 0;
-        padding-top             : $gutter;
-      }
-      @include at-query ($min, $medium) {
-        text-align              : right;
-      }
-    }
-  }
-
-  // Social Icons (New)
-  .social-icons {
-    position                    : relative;
-    margin                      : 0;
-    .icon {
-      font-size                 : em(26px);
-    }
-    @include at-query ($max, $medium) {
-      padding-top             : $gutter;
-    }
-  }
-
-}
-
-/*============================================================================
-  #Product and Collection Grids
-==============================================================================*/
-.grid__image {
-  display: block;
-  margin: 0 auto ($gutter / 2);
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-.product-custom-options {
-  textarea {
-    display                     : block;
+  .drawer__title {
     width                       : 100%;
   }
-}
 
+  .drawer__close {
+    padding-right               : 5%;                           // New
+    width                       : 1%;
+    font-size                   : em(18px);
+    text-align                  : right;                        // Was center
+  }
 
-/*============================================================================
-  #Collection Filters
-==============================================================================*/
-// New
-ul.collection-filters,
-ul.article-filters {
-  li {
-    display                     : inline-block;
-    margin                      : 0 1px 5px 0;
-    padding                     : 2px 6px;
-    background                  : {{ settings.color_body_bg }};
-    a {
-      font-family               : $interfaceFontStack;
-      font-size                 : em(10px);
-      line-height               : 100%;
-      font-weight               : 600;
-      color                     : {{ settings.color_secondary }};
-      text-transform            : capitalize;
+  .drawer__close button {
+    position                    : relative;
+    right                       : -20px;
+    padding                     : 0 20px;
+    height                      : 100%;
+    color                       : inherit;
+    &:active,
+    &:focus {
+      //background-color: darken($colorDrawers, 5%);            // Removed
     }
-    &.filter--active {
+  }
+
+//----------------------------------------------------------------------------------------------
+// SITE FOOTER
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* site footer moved to
+// _layout.scss.liquid.
+//----------------------------------------------------------------------------------------------
+  .site-footer {
+    font-size                   : em(12px);                     // New
+    color                       : $colorFooterText;
+    background-color            : $colorFooterBg;
+    @include at-query ($max, $preMedium) {                      // New
+      padding                   : $gutter 0 ($gutter * 2);
+    }
+    @include at-query ($min, $medium) {                         // New
+      padding                   : $gutter 0 ($gutter * 1.5);
+    }
+    @include at-query ($min, $large) {
+      padding                   : 17px 0 0;                     // Was padding: ($gutter * 2) 0
+    }
+
+    // New
+    .grid__item {
+      display                   : table-cell;
+      vertical-align            : middle;
+    }
+
+    // New
+    a {
+      display                   : inline-block;
+      color                     : $colorFooterText;
+      white-space               : nowrap;
+    }
+
+    // Copyright, Links (New)
+    p {
+      margin-bottom             : 0;
+      &.copyright {
+        padding-left            : ($gutter * 1.333);
+        @include at-query ($max, $medium) {
+          padding-left          : 0;
+          padding-top           : $gutter;
+        }
+      }
+      &.links {
+        padding-right           : ($gutter * 1.333);
+        @include at-query ($max, $medium) {
+          padding-right         : 0;
+          padding-top           : $gutter;
+        }
+        @include at-query ($min, $medium) {
+          text-align            : right;
+        }
+      }
+    }
+
+    // Social Icons (New)
+    .social-icons {
+      position                  : relative;
+      margin                    : 0;
+      .icon {
+        font-size               : em(26px);
+        color                   : {{ settings.color_footer_social_link }};
+      }
+      @include at-query ($max, $medium) {
+        padding-top           : $gutter;
+      }
+    }
+
+  }
+
+//----------------------------------------------------------------------------------------------
+// PRODUCT AND COLLECTION GRIDS
+//----------------------------------------------------------------------------------------------
+  .grid__image {
+    display                     : block;
+    margin                      : 0 auto ($gutter / 2);
+
+    img {
+      display                   : block;
+      margin                    : 0 auto;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// COLLECTION FILTERS / TAGS
+//----------------------------------------------------------------------------------------------
+  .filter--active {
+    //font-weight: bold;                                        // Removed
+    a {
+      color                     : $colorPrimary;
+    }
+  }
+  // New
+  ul.collection-filters,
+  ul.article-filters {
+    li {
+      display                   : inline-block;
+      margin                    : 0 1px 5px 0;
+      padding                   : 2px 6px;
+      background                : $colorBody;
       a {
-        color                   : {{ settings.color_primary }};
+        font-family             : $interfaceFontStack;
+        font-size               : em(10px);
+        line-height             : 100%;
+        font-weight             : 600;
+        color                   : $colorSecondary;
+        text-transform          : capitalize;
+      }
+      &.filter--active {
+        a {
+          color                 : $colorPrimary;
+        }
       }
     }
   }
-}
-.filter--active {
-//font-weight: bold;
-  a {
-    color                       : {{ settings.color_primary }};
-  }
-}
 
-/*============================================================================
-  #Breadcrumbs
-==============================================================================*/
-.breadcrumb {
-  display                       : none;                         // New
-  margin-bottom: $gutter;
-
-  a,
-  span {
-    display: inline-block;
-    padding: 0 7px 0 0;
-    margin-right: 7px;
-
-    &:first-child {
-      padding-left: 0;
+//----------------------------------------------------------------------------------------------
+// BREADCRUMBS
+//----------------------------------------------------------------------------------------------
+  .breadcrumb {
+    display                     : none;                         // New
+    margin-bottom               : $gutter;
+    a,
+    span {
+      display                   : inline-block;
+      margin-right              : 7px;
+      padding                   : 0 7px 0 0;
+      &:first-child {
+        padding-left            : 0;
+      }
     }
   }
-}
 
+//----------------------------------------------------------------------------------------------
+// PRODUCT PAGE
+//----------------------------------------------------------------------------------------------
+// NOTE: Moved to Views/_product.scss.liquid.
+//----------------------------------------------------------------------------------------------
 
-/*============================================================================
-  #Product Page - should be moved to _product.scss.liquid
-==============================================================================*/
-.product-single__variants {
-  display: none;
+//----------------------------------------------------------------------------------------------
+// NOTES AND FORM FEEDBACK
+//----------------------------------------------------------------------------------------------
+// NOTE: Feedback = interface feedback (errors, etc.)
+//----------------------------------------------------------------------------------------------
+  .note,
+  .errors {
+    margin-bottom               : $gutter / 2;
+    border                      : 1px solid transparent;
+    border-radius               : $radius;
+    padding                     : 6px 12px;
+    font-size                   : 0.9em;
+    text-align                  : left;
 
-  .no-js & {
-    display: block;
-  }
-}
+    ul,
+    ol {
+      margin-top                : 0;
+      margin-bottom             : 0;
+    }
 
-.product-single__photos {
-  margin-bottom: $gutter;
-}
+    li:last-child {
+      margin-bottom             : 0;
+    }
 
-.product-single__photos,
-.product-single__thumbnails {
-  a, img {
-    display: block;
-    margin: 0 auto;
-  }
-
-  li {
-    margin-bottom: $gutter;
-  }
-}
-
-
-/*============================================================================
-  #Notes and Form Feedback
-==============================================================================*/
-.note,
-.errors {
-  border-radius: $radius;
-  padding: 6px 12px;
-  margin-bottom: $gutter / 2;
-  border: 1px solid transparent;
-  font-size: 0.9em;
-  text-align: left;
-
-  ul,
-  ol {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  li:last-child {
-    margin-bottom: 0;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-}
-
-.note {
-  border-color: $colorBorder;
-}
-
-.errors {
-  ul {
-    list-style: disc outside;
-    margin-left: 20px;
-  }
-}
-
-.form-success {
-  color: $successGreen;
-  background-color: $successGreenBg;
-  border-color: $successGreen;
-
-  a {
-    color: $successGreen;
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
+    p {
+      margin-bottom             : 0;
     }
   }
-}
 
-.form-error,
-.errors {
-  color: $errorRed;
-  background-color: $errorRedBg;
-  border-color: $errorRed;
+  .note {
+    border-color                : $colorBorder;
+  }
 
-  a {
-    color: $errorRed;
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
+  .errors {
+    ul {
+      list-style                : disc outside;
+      margin-left               : 20px;
     }
   }
-}
 
+  .form-success {
+    color                       : $successGreen;
+    background-color            : $successGreenBg;
+    border-color                : $successGreen;
 
-/*============================================================================
-  #Cart Page
-==============================================================================*/
-.cart__row {
-  position: relative;
-  margin-top: $gutter;
-  padding-top: $gutter;
-  border-top: 1px solid $colorBorder;
+    a {
+      color                     : $successGreen;
+      text-decoration           : underline;
 
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  .js-qty {
-    margin: 0 auto;
-  }
-}
-
-.cart-table {
-  th {
-    font-weight: normal;
-  }
-
-  td,
-  th {
-    padding: 30px 15px;
-    border: none;
-  }
-}
-
-@include at-query ($min, $large) {
-  .cart__row--table-large {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-
-    .grid__item {
-      display: table-cell;
-      vertical-align: middle;
-      float: none;
+      &:hover {
+        text-decoration         : none;
+      }
     }
   }
-}
 
-.cart__image {
-  display: block;
+  .form-error,
+  .errors {
+    color                       : $errorRed;
+    background-color            : $errorRedBg;
+    border-color                : $errorRed;
 
-  img {
-    display: block;
-    max-width: 100%;
+    a {
+      color                     : $errorRed;
+      text-decoration           : underline;
+
+      &:hover {
+        text-decoration         : none;
+      }
+    }
   }
-}
 
-.cart__subtotal {
-  margin: 0 0 0 ($gutter / 3);
-  display: inline;
-}
+//----------------------------------------------------------------------------------------------
+// CART PAGE
+//----------------------------------------------------------------------------------------------
+// NOTE: Moved to Views/_cart.scss.liquid.
+//----------------------------------------------------------------------------------------------
 
-.cart__mini-labels {
-  display: block;
-  margin: ($gutter / 3) 0;
-  font-size: em(12px);
-
-  @include at-query ($min, $large) {
-    display: none;
-  }
-}
-
-.cart__remove {
-  display: block;
-}
-
-/*============================================================================
-  #Ajax Cart Styles (conditionally loaded)
-==============================================================================*/
+//----------------------------------------------------------------------------------------------
+// AJAX CART STYLES (conditionally loaded)
+//----------------------------------------------------------------------------------------------
 {% if settings.ajax_cart_method == "drawer" %}
 
-.ajaxcart__inner {
-  margin-bottom: $gutter;
-}
+  .ajaxcart__inner {
+    margin-bottom               : $gutter;
+  }
 
-.ajaxcart__row {
-  > .grid {
-    margin-left: -$gutter / 2;
-
-    > .grid__item {
-      padding-left: $gutter / 2;
+  .ajaxcart__row {
+    > .grid {
+      margin-left               : -$gutter / 2;
+      > .grid__item {
+        padding-left            : $gutter / 2;
+      }
     }
   }
-}
 
-.ajaxcart__product {
-  position: relative;
-  max-height: 500px;
+  .ajaxcart__product {
+    position                    : relative;
+    max-height                  : 500px;
 
-  &.is-removed {
-    max-height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    transition: all 450ms cubic-bezier(0.57,.06,.05,.95);
-    @include backface();
+    &.is-removed {
+      @include backface();
+      visibility                : hidden;
+      overflow                  : hidden;
+      max-height                : 0;
+      transition                : all 450ms cubic-bezier(0.57,.06,.05,.95);
+    }
   }
-}
 
-.ajaxcart__row {
-  padding-bottom: $gutter / 2;
-  margin-bottom: $gutter / 2;
-  border-bottom: 1px solid $colorDrawerBorder;
-}
-
-.ajaxcart__product-image {
-  display: block;
-  overflow: hidden;
-  margin-bottom: 15px;
-
-  img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
+  .ajaxcart__row {
+    margin-bottom               : $gutter / 2;
+    border-bottom               : 1px solid $colorDrawerBorder;
+    padding-bottom              : $gutter / 2;
   }
-}
 
-.ajaxcart__product-name,
-.ajaxcart__product-meta {
-  display: block;
-}
-
-.ajaxcart__product-name + .ajaxcart__product-meta {
-  padding-top: $gutter / 5;
-}
-
-/*================ Quantity Selectors ================*/
-.js-qty {
-  position: relative;
-  margin-bottom: 1em;
-  max-width: 100px;
-  min-width: 75px;
-  overflow: visible;
-
-  input {
-    display: block;
-    background: none;
-    text-align: center;
-    width: 100%;
-    padding: 5px 25px;
-    margin: 0;
+  .ajaxcart__product-image {
+    display                     : block;
+    overflow                    : hidden;
+    margin-bottom               : 15px;
+    img {
+      display                   : block;
+      margin                    : 0 auto;
+      max-width                 : 100%;
+    }
   }
-}
 
-.js-qty__adjust {
-  cursor: pointer;
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  border: 0 none;
-  padding: 0 8px;
-  background: none;
-  text-align: center;
-  overflow: hidden;
-  @include user-select(none);
-
-  &:hover,
-  &:focus {
-    color: $colorPrimary;
+  .ajaxcart__product-name,
+  .ajaxcart__product-meta {
+    display                     : block;
   }
-}
 
-.js-qty__adjust--plus {
-  right: 0;
-  border-left: 1px solid $colorBorder;
-}
-
-.js-qty__adjust--minus {
-  left: 0;
-  border-right: 1px solid $colorBorder;
-}
-
-/*================ Quantity Selectors in Ajax Cart ================*/
-.ajaxcart__qty {
-  @extend .js-qty;
-  margin: 0;
-
-  .is-loading & {
-    opacity: 0.5;
-    transition: none;
+  .ajaxcart__product-name + .ajaxcart__product-meta {
+    padding-top                 : $gutter / 5;
   }
-}
 
-.ajaxcart__qty-num {
-  border-color: $colorDrawerBorder;
-  color: $colorDrawerText;
-}
+  // Quantity Selectors
+  .js-qty {
+    position                    : relative;
+    overflow                    : visible;
+    margin-bottom               : 1em;
+    min-width                   : 75px;
+    max-width                   : 100px;
+    input {
+      display                   : block;
+      margin                    : 0;
+      padding                   : 5px 25px;
+      width                     : 100%;
+      text-align                : center;
+      background                : none;
+    }
+  }
+  .js-qty__adjust {
+    @include user-select(none);
+    display                     : block;
+    position                    : absolute;
+    top                         : 0;
+    bottom                      : 0;
+    overflow                    : hidden;
+    border                      : 0 none;
+    padding                     : 0 8px;
+    text-align                  : center;
+    background                  : none;
+    cursor                      : pointer;
+    &:hover,
+    &:focus {
+      color                     : $colorPrimary;
+    }
+  }
+  .js-qty__adjust--plus {
+    right                       : 0;
+    border-left                 : 1px solid $colorBorder;
+  }
+  .js-qty__adjust--minus {
+    left                        : 0;
+    border-right                : 1px solid $colorBorder;
+  }
 
-.ajaxcart__qty-adjust {
-  @extend .js-qty__adjust;
-  color: $colorDrawerText;
-}
-
-.ajaxcart__qty--plus {
-  @extend .js-qty__adjust--plus;
-  border-color: $colorDrawerBorder;
-}
-
-.ajaxcart__qty--minus {
-  @extend .js-qty__adjust--minus;
-  border-color: $colorDrawerBorder;
-}
-
-.ajaxcart-item__price-strikethrough {
-  float: right;
-}
+  // Quantity Selectors in Ajax Cart
+  .ajaxcart__qty {
+    @extend .js-qty;
+    margin                      : 0;
+    .is-loading & {
+      opacity                   : 0.5;
+      transition                : none;
+    }
+  }
+  .ajaxcart__qty-num {
+    border-color                : $colorDrawerBorder;
+    color                       : $colorDrawerText;
+  }
+  .ajaxcart__qty-adjust {
+    @extend .js-qty__adjust;
+    color                       : $colorDrawerText;
+  }
+  .ajaxcart__qty--plus {
+    @extend .js-qty__adjust--plus;
+    border-color                : $colorDrawerBorder;
+  }
+  .ajaxcart__qty--minus {
+    @extend .js-qty__adjust--minus;
+    border-color                : $colorDrawerBorder;
+  }
+  .ajaxcart-item__price-strikethrough {
+    float                       : right;
+  }
 
 {% endif %} // settings.ajax_cart_method
