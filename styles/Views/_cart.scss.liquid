@@ -76,7 +76,7 @@
 
     // Page Chrome
     div.page-container {
-      background-color          : {{ settings.color_body_bg }};
+      background-color          : $colorBody;
     }
 
     // Cart Items Table
@@ -107,20 +107,11 @@
 
       .cart__row.table__section {
         @include at-query($min, $small) {
-          border-bottom         : 2px solid {{ settings.color_body_bg_accent }};
+          border-bottom         : 2px solid $colorAccent;
         }
         &:last-child {
           border-bottom         : 0 none transparent;
         }
-        /*
-        &:nth-child(odd) {
-          background-color      : {{ settings.color_body_bg }};
-          input[type="number"],
-          input[type="text"] {
-            background-color    : {{ settings.color_body_bg_accent }};
-          }
-        }
-        */
       }
 
       thead th,
@@ -134,7 +125,7 @@
           font-size             : em(12px);
           font-weight           : 700;
           text-transform        : uppercase;
-          background-color      : {{ settings.color_body_bg_accent }};
+          background-color      : $colorAccent;
           @include at-query($max, $preMedium) {
             padding             : $gutter;
           }
@@ -205,7 +196,7 @@
           div.title {
             h4 {
               margin-bottom     : 0;
-              color             : {{ settings.color_body_text }};
+              color             : $colorTextBody;
               text-transform    : none;
             }
           }
@@ -278,7 +269,7 @@
       margin-bottom             : 0;
       &.order-weight-heading,
       &.order-weight-disclaimer {
-        color                   : {{ settings.color_primary }};
+        color                   : $colorPrimary;
       }
       &.order-weight-heading {
         text-transform          : uppercase;
@@ -304,7 +295,7 @@
         padding                 : 2px 30px 2px 5px;
         font-family             : $interfaceFontStack;
         font-size               : $baseFontSize;
-        background              : {{ settings.color_body_bg }} url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
+        background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
         background-size         : auto 20px;
       }
       div.day-warning {
@@ -315,28 +306,28 @@
     div.ui-datepicker.ui-widget,
     div.ui-datepicker-header.ui-widget-header {
       border-radius             : 0 !important;                 // !important needed for header
-      border-color              : {{ settings.color_borders }} !important;
+      border-color              : $colorBorder !important;
     }
     div.ui-datepicker-header.ui-widget-header {
-      background                : rgb(245, 245, 245);
+      background                : $colorAccent2;
     }
     .ui-datepicker-calendar {
       td {
         &.ui-datepicker-disabled {
           span.ui-state-default {
-            border-color        : rgb(245, 245, 245);
-            background          : rgb(245, 245, 245);
+            border-color        : $colorAccent2;
+            background          : $colorAccent2;
           }
         }
         a {
           &.ui-state-default {
             border-color        : rgb(235, 237, 237);
-            color               : {{ settings.color_body_text }};
-            background          : {{ settings.color_body_bg_accent }};
+            color               : $colorTextBody;
+            background          : $colorAccent;
           }
           &.ui-state-hover {
-            border-color        : {{ settings.color_secondary }};
-            color               : {{ settings.color_secondary }};
+            border-color        : $colorSecondary;
+            color               : $colorSecondary;
             background          : rgb(229, 229, 229);
           }
         }

@@ -20,7 +20,7 @@
     }
 
     div.page-container {
-      background-color          : {{ settings.color_body_bg }};
+      background-color          : $colorBody;
     }
     .main-content {
       margin-top                : $gutter;
@@ -56,10 +56,10 @@
         h1 {
           font-size             : em(36px);
           font-size             : 3vw;
-          color                 : {{ settings.color_body_bg }};
+          color                 : $colorBody;
           text-transform        : uppercase;
           -webkit-text-stroke-width     : 1px;
-          -webkit-text-stroke-color     : {{ settings.color_secondary }};
+          -webkit-text-stroke-color     : $colorSecondary;
           @include at-query ($max, $large) {
             font-size           : 4.25vw;
           }
@@ -91,7 +91,7 @@
         display                 : table-cell;
         text-align              : center;
         vertical-align          : middle;
-        color                   : {{ settings.color_body_bg }};
+        color                   : $colorBody;
         h2,
         p {
           line-height           : 120%;
@@ -152,7 +152,7 @@
       }
       .promotion-data {
         padding                 : ($gridGutter / 2) $gutter;
-        border                  : 4px solid {{ settings.color_body_bg }};
+        border                  : 4px solid $colorBody;
       }
     }
     .page-link {

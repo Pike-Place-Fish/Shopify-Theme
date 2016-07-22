@@ -53,7 +53,7 @@
     }
     select,
     select option {
-      background-color          : {{ settings.color_body_bg }};
+      background-color          : $colorBody;
     }
     select {
       padding                   : 2px 25px 2px 10px;
@@ -68,7 +68,7 @@
         margin-bottom           : 0;
         font-family             : $headerFontStack;
         font-weight             : 600;
-        color                   : {{ settings.color_body_text }};
+        color                   : $colorTextBody;
         text-transform          : none;
       }
       a {
@@ -76,7 +76,7 @@
         &:focus,
         &:active {
           h5 {
-            color               : {{ settings.color_primary }};
+            color               : $colorPrimary;
           }
         }
       }

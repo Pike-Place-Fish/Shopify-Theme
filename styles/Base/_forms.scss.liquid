@@ -124,7 +124,7 @@ input[type="image"] {
 input[type="text"],
 input[type="number"],
 .js-qty input[class*="js-qty__num"] {
-  background-color              : {{ settings.color_body_bg }};
+  background-color              : $colorBody;
 }
 
 // New - Checkout Elements
@@ -151,7 +151,7 @@ select {
     image: url('{{ "ico-select.svg" | asset_url }}');
     repeat: no-repeat;
     position: right 10px center;
-    color                       : {{ settings.color_body_bg }}; // Was transparent
+    color                       : $colorBody;                   // Was transparent
 
   }
   padding-right: 28px;

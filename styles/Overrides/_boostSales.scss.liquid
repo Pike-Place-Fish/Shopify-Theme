@@ -92,7 +92,7 @@
             // "Target Product" (Product Just Ordered) Summary Area
             .target-product {
               padding-top       : 25px !important;
-              background-color  : {{ settings.color_body_bg_accent }} !important;
+              background-color  : $colorAccent !important;
 
               &:before {
                 position        : relative !important;
@@ -124,7 +124,7 @@
                                 font-size               : $baseFontSize !important;
                                 line-height             : 142% !important;
                                 font-weight             : 700 !important;
-                                color                   : {{ settings.color_body_bg }} !important;
+                                color                   : $colorBody !important;
                                 text-transform          : uppercase !important;
                                 background              : $colorBtnPrimary none repeat scroll 0 0 !important;
                                 &:hover,
@@ -204,7 +204,7 @@
         font-size               : $baseFontSize !important;
         line-height             : 142% !important;
         font-weight             : 700 !important;
-        color                   : {{ settings.color_body_bg }} !important;
+        color                   : $colorBody !important;
         text-align              : center !important;
         text-transform          : uppercase !important;
         text-decoration         : none !important;
@@ -242,8 +242,8 @@
     a.scn-close {
       background-color          : $colorBtnSecondaryHover !important;   // #262626
       &:before {
-        border-bottom-color     : {{ settings.color_body_bg_accent }} !important;
-        border-left-color       : {{ settings.color_body_bg_accent }} !important;
+        border-bottom-color     : $colorAccent !important;
+        border-left-color       : $colorAccent !important;
         background              : transparent url({{ 'RecommendedProducts.CloseX.png' | asset_url }}) no-repeat scroll 35px 8px !important;
       }
       &:hover,
@@ -269,7 +269,7 @@
       font-family               : $interfaceFontStack !important;
       font-size                 : $baseFontSize !important;
       font-weight               : 700 !important;
-      color                     : {{ settings.color_body_bg }} !important;
+      color                     : $colorBody !important;
       text-transform            : uppercase !important;
       background-color          : $colorBtnSecondary !important;
       &:hover,
@@ -341,7 +341,7 @@
         font-family             : $headerFontStack !important;
         font-size               : $baseFontSize !important;
         line-height             : 105% !important;
-        color                   : {{ settings.color_secondary }} !important;
+        color                   : $colorSecondary !important;
         text-decoration         : none !important;
         strong {
           max-height            : 40px !important;
@@ -372,7 +372,7 @@
             a {
               font-family       : $interfaceFontStack !important;
               font-size         : 12px !important;
-              color             : {{ settings.color_secondary }} !important;
+              color             : $colorSecondary !important;
               font-weight       : 700 !important;
               text-decoration   : none !important;
             }

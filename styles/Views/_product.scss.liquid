@@ -163,7 +163,7 @@
         font-family             : $interfaceFontStack;
         font-size               : 16px;
         line-height             : 26px;
-        color                   : {{ settings.color_body_bg }};
+        color                   : $colorBody;
         font-weight             : 700;
         text-align              : center;
         background              : $colorPrimary;
@@ -234,7 +234,7 @@
         footer {
           margin-top            : 100px;
           padding               : 35px 20%;
-          background-color      : {{ settings.color_body_bg_accent }};
+          background-color      : $colorAccent;
           @include at-query($max, $preSmall) {
             margin-top          : 50px;
             padding             : 30px 15%;
@@ -252,7 +252,7 @@
         border                  : 0 none transparent;
         padding                 : ($gutter * 1.5) ($gutter * 1.5) 0;
         vertical-align          : middle;
-        background-color        : {{ settings.color_body_bg }};
+        background-color        : $colorBody;
         @include at-query($max, $preSmall) {
           padding               : $gutter $gutter 0;
         }
