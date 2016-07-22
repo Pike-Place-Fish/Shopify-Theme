@@ -1,0 +1,341 @@
+//==============================================================================================
+// NAVIGATION (SITE NAV, DROPDOWNS)
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* site navigation moved to
+// _layout.scss.liquid.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// NAVIGATION AREA
+//----------------------------------------------------------------------------------------------
+  .nav-bar {
+    background-color            : $colorBody;                   // Was $colorNav;
+  }
+
+  .site-nav {
+    font-family                 : $headerFontStack;             // New
+    font-size                   : em(14px);                     // Was em(16px)
+    font-weight                 : 800;
+    text-transform              : uppercase;                    // New
+    cursor                      : default;
+    li {
+      display                   : block;
+      margin                    : 0;
+    }
+    > li {
+      display                   : inline-block;
+      position                  : relative;
+    }
+  }
+
+  // Home to hamburger and cart that toggle drawers
+  .site-nav--mobile {
+    @extend .site-nav;
+
+    .text-right & {
+      margin                    : 0 (-$gutter / 2) 0 0;
+    }
+
+    // New
+    .icon-hamburger {
+      font-size                 : 2em;
+      font-size                 : 3.75vw;
+      @include at-query($max, $medium) {
+        font-size               : 4.25vw;
+      }
+    }
+
+  }
+
+  // New - targeting specific element so as not to interfere with cart drawer
+  #NavDrawer,
+  #NavDrawer .drawer__header {
+    background                  : rgb(45, 45, 45);              // #2D2D2D
+    button {
+      color                     : $colorBody;
+    }
+  }
+  #NavDrawer .drawer__header {
+    border-bottom               : 1px solid rgb(92, 92, 92);    // #5C5C5C
+  }
+  .mobile-navbar {
+    display                     : table;
+    .site-nav--mobile,
+    .home-link {
+      display                   : table-cell;
+      text-align                : center;
+      vertical-align            : middle;
+      @include at-query($max, $small) {
+        padding-top             : 1%;
+      }
+    }
+    .site-nav--mobile {
+      width                     : 10%;
+    }
+    .home-link {
+      padding-right             : 5%;
+      h1 {
+        margin                  : 0;
+        font-size               : em(28px);
+        font-size               : 4vw;
+        letter-spacing          : 0.85em;
+        letter-spacing          : 0.35vw;
+      }
+    }
+    .search-bar {
+      input {
+        ::-webkit-input-placeholder {
+         color                  : darken($colorBody, 5%);
+        }
+        :-moz-placeholder {
+           color                : darken($colorBody, 5%);
+        }
+        ::-moz-placeholder {
+           color                : darken($colorBody, 5%);
+        }
+        :-ms-input-placeholder {
+           color                : darken($colorBody, 5%);
+        }
+
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// NAVIGATION ITEMS / LINKS
+//----------------------------------------------------------------------------------------------
+  .site-nav__link {
+    display                     : block;
+    padding                     : ($gutter / 2) $gutter;        // Was $gutter / 2
+    color                       : $colorNavText;
+    text-decoration             : none;
+    white-space                 : nowrap;
+    &:hover,
+    &:active,
+    &:focus {
+      color                     : $colorPrimary;                // Was darken($colorNavText, 15%)
+    }
+
+    .icon-arrow-down {
+      position                  : relative;
+      top                       : -2px;
+      padding-left              : $gutter / 4;
+      font-size                 : 10px;
+    }
+
+    .site-nav--active > & {
+      //font-weight: bold;                                      // Removed
+      color                     : $colorPrimary;                // Was $colorLink
+    }
+
+    .site-nav--mobile & {
+      display                   : inline-block;
+    }
+
+    // New
+    &.logotype {
+      position                  : relative;
+      top                       : 4px;
+      padding                   : 0 15px 0;
+      font-size                 : 150%;
+      color                     : $colorPrimary;
+      letter-spacing            : em(2px);
+      -webkit-text-stroke-width : 1px;
+      -webkit-text-stroke-color : $colorSecondary;
+    }
+
+  }
+
+//----------------------------------------------------------------------------------------------
+// DROPDOWNS
+//----------------------------------------------------------------------------------------------
+  .site-nav__dropdown {
+
+    .supports-no-touch .site-nav--has-dropdown:hover &,
+    .site-nav--has-dropdown.nav-hover &,
+    .nav-focus + & {
+      display                   : block;
+    }
+
+    a {
+      background-color          : $colorNav;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color        : darken($colorNav, 10%);
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// SEARCH BAR IN NAVIGATION
+//----------------------------------------------------------------------------------------------
+// From Timber: Search bar in header
+//----------------------------------------------------------------------------------------------
+  .nav-search {
+    @include at-query ($max, $medium) {
+      text-align                : center;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// MOBILE NAVIGATION
+//----------------------------------------------------------------------------------------------
+// From Timber: #Mobile Nav
+// - List of items inside the mobile drawer
+//----------------------------------------------------------------------------------------------
+  .mobile-nav {
+    li {
+      margin-bottom             : 0;
+    }
+  }
+
+  .mobile-nav__search {
+    padding                     : $gutter / 2;
+    .search-bar {
+      margin-bottom: 0;
+      // New
+      input[type="search"] {
+        color                   : $colorBody;
+      }
+    }
+  }
+
+  .mobile-nav__item {
+    display                     : block;
+    position                    : relative;
+
+    // Background color on top level items so there is no
+    // element overlap on subnav's CSS toggle animation
+    .mobile-nav > & {
+      border                    : 1px solid rgb(59, 59, 59);    // New - #3B3B3B
+      background-color          : rgb(59, 59, 59);              // Was $colorDrawers
+    }
+
+    &:after {
+      content                   : '';
+      position                  : absolute;
+      bottom                    : 0;
+      right                     : $gutter / 2;
+      left                      : $gutter / 2;
+      //border-bottom: 1px solid $colorDrawerBorder;            // Removed
+    }
+
+    // New
+    .mobile-nav__item:nth-child(even) {
+      .mobile-nav > & {
+        border-color            : rgb(92, 92, 92);              // #5C5C5C
+        background-color        : rgb(45, 45, 45);              // #2D2D2D
+      }
+    }
+
+    .mobile-nav > &:last-child:after {
+      display                   : none;
+    }
+
+    // New
+    .search-bar {
+      margin                    : 0;
+      padding                   : 5%;
+    }
+
+  }
+
+  .mobile-nav__item a,
+  .mobile-nav__toggle button {
+    margin-right                : 13px;                         // New
+    padding                     : $gutter / 2;
+    color                       : $colorDrawerText;
+    text-decoration             : none;
+    &:hover,
+    &:active,
+    &:focus {
+      //color: darken($colorDrawerText, 15%);                   // Removed
+    }
+    &:active,
+    &:focus {
+      //background-color: darken($colorDrawers, 5%);            // Removed
+    }
+  }
+
+  // Login/logout links can't have a class on them, so style <a> element
+  .mobile-nav__item a {
+    display                     : block;
+    padding                     : 5%;                           // New
+    font-family                 : $headerFontStack;
+    font-size                   : em(12px);
+    font-weight                 : 600;
+    color                       : $colorBody !important;        // New - needs to be important due to .drawer a override
+    text-transform              : uppercase;
+    &:hover,
+    &:active,
+    &:focus {
+      color                     : darken($colorBody, 5%);       // Was darken($colorDrawerText, 15%)
+    }
+  }
+
+  .mobile-nav__item--active {
+    //font-weight: bold;                                        // Removed
+  }
+
+  .mobile-nav__has-sublist {
+    display                     : table;
+    width                       : 100%;
+
+    .mobile-nav__link {
+      display                   : table-cell;
+      width                     : 100%;
+      vertical-align            : middle;
+    }
+  }
+
+  .mobile-nav__toggle {
+    display                     : table-cell;
+    width                       : 1%;
+    vertical-align              : middle;
+  }
+
+  .mobile-nav__toggle-open {
+    .mobile-nav--expanded & {
+      display                   : none;
+    }
+  }
+
+  .mobile-nav__toggle-close {
+    display                     : none;
+
+    .mobile-nav--expanded & {
+      display                   : block;
+    }
+  }
+
+  .mobile-nav__sublist {
+    visibility                  : hidden;
+    overflow                    : hidden;
+    margin                      : 0 0 0 ($gutter * 1.5);        // New
+    max-height                  : 0;
+    transition                  : all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+    @include backface();
+
+    .mobile-nav--expanded + & {
+      visibility                : visible;
+      max-height                : 700px;
+      transition                : all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+    }
+
+    .mobile-nav__item:after {
+      top                       : 0;
+      bottom                    : auto;
+    }
+
+    // New
+    .mobile-nav__item a {
+      padding                   : 5px 0 5px 10px;
+    }
+
+    .mobile-nav__link {
+      padding-left              : $gutter;
+      font-weight               : normal;
+    }
+
+  }
