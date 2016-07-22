@@ -21,20 +21,148 @@
   @import "_grid.scss.liquid";
 
 //----------------------------------------------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------------------------------------------
+  html,
+  body {
+    height                      : 100%;
+    min-height                  : 100%;
+  }
+
+//----------------------------------------------------------------------------------------------
 // HEADER
 //----------------------------------------------------------------------------------------------
-
+  .site-header {
+    padding                     : ($gutter / 2) 0;
+    @include at-query ($max, $medium) {                         // New
+      padding                   : 0;
+    }
+    .wrapper {
+      @include at-query ($min, $large) {
+        padding                 : ($gutter / 2) 45px;           // Was ($gutter / 2)
+      }
+    }
+    .grid--table {
+      display                   : table;
+      table-layout              : fixed;
+      width                     : 100%;
+      > .grid__item {
+        display                 : table-cell;
+        float                   : none;
+        vertical-align          : middle;
+        // Ancillary Nav (Social Icons, Cart, Account, Search)
+        div {
+          display               : inline-block;
+        }
+      }
+    }
+  }
 
 //----------------------------------------------------------------------------------------------
 // NAVIGATION
 //----------------------------------------------------------------------------------------------
+  .nav-bar {
+    padding                     : ($gutter / 2) 0 $gutter;      // New
+    @include at-query($max, $large) {
+      padding-bottom            : 0;                            // New
+    }
+  }
+  .site-nav {
+    margin                      : ($gutter * 1.5) 0 ($gutter / 2) (-$gutter / 2);  // Was 0 0 0 (-$gutter / 2)
+  }
 
+  // Nav Dropdowns
+  .site-nav__dropdown {
+    z-index                     : $zindexNavDropdowns;
+    display                     : none;                         // New
+    position                    : absolute;
+    left                        : 0;
+    margin                      : 0;
+  }
+
+  // Search Bar in Navivation
+  .nav-search {
+    position                    : relative;
+    padding                     : 10px 0;
+    @include at-query ($max, $medium) {
+      margin                    : 0 auto;
+      padding                   : 0 0 ($gutter / 2);
+    }
+  }
+
+  // Mobile Navigation
+  .mobile-nav {
+    // Negative of .drawer left/right padding for full-width link tap area
+    margin                      : (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
+  }
 
 //----------------------------------------------------------------------------------------------
-// SIDEBAR
+// DRAWERS
 //----------------------------------------------------------------------------------------------
+  .js-drawer-open {
+    overflow                    : hidden;
+    height                      : 100%;
+  }
+  .drawer {
+    z-index                     : $zindexDrawer;
+    display                     : none;
+    position                    : fixed;
+    top                         : 0;
+    bottom                      : 0;
+    overflow-x                  : hidden;
+    overflow-y                  : auto;
+    -webkit-overflow-scrolling  : touch;
+    padding                     : 0 0 ($gutter / 2);            // Was 0 ($gutter / 2) ($gutter / 2)
+    max-width                   : 95%;
+  }
+  .drawer--left {
+    left                        : -$drawerNavWidth;
+    width                       : $drawerNavWidth;
+  }
+  .drawer--right {
+    right                       : -$drawerCartWidth;
+    width                       : $drawerCartWidth;
+  }
 
+//----------------------------------------------------------------------------------------------
+// PRIMARY CONTENT AREA
+//----------------------------------------------------------------------------------------------
+  div.page-container {
+    position                    : relative;
+    width                       : 100%;
+    min-height                  : 100%;
+  }
+  .wrapper {
+    @include clearfix();
+    max-width                   : $siteWidth;
+    margin                      : 0 auto;
+    padding                     : 0 ($gutter / 2);
+    @include at-query ($min, $small) {
+      padding                   : 0 ($gutter * 1.5);            // Was $gutter
+    }
+    // New
+    @include at-query ($min, $medium) {
+      padding                   : 0 $gutter;
+    }
+  }
+  .main-content {
+    display                     : block;
+  //margin-top                  : ($gutter * 3);                // Was $gutter
+    padding-top                 : ($gutter * 2);
+    padding-bottom              : ($gutter * 2);
+    // New
+    @include at-query ($min, $large) {
+      padding                   : 45px;
+    }
+  }
 
 //----------------------------------------------------------------------------------------------
 // FOOTER
 //----------------------------------------------------------------------------------------------
+  .site-footer {
+    position                    : absolute;                     // New
+    bottom                      : 0;                            // New
+    left                        : 0;                            // New
+    padding                     : $gutter 0;
+    width                       : 100%;                         // New
+  }
