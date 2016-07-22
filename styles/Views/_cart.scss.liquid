@@ -13,6 +13,67 @@
 //----------------------------------------------------------------------------------------------
   .template-cart {
 
+    // Defaults from Timber
+    .cart__row {
+      position                  : relative;
+      margin-top                : $gutter;
+      border-top                : 1px solid $colorBorder;
+      padding-top               : $gutter;
+      &:first-child {
+        margin-top              : 0;
+      }
+      &:first-child {
+        padding-top             : 0;
+      }
+      .js-qty {
+        margin                  : 0 auto;
+      }
+    }
+    .cart-table {
+      td,
+      th {
+        border                  : none;
+        padding                 : 30px 15px;
+      }
+      th {
+        font-weight             : normal;
+      }
+    }
+    @include at-query ($min, $large) {
+      .cart__row--table-large {
+        display                 : table;
+        table-layout            : fixed;
+        width                   : 100%;
+        .grid__item {
+          display               : table-cell;
+          float                 : none;
+          vertical-align        : middle;
+        }
+      }
+    }
+    .cart__image {
+      display                   : block;
+      img {
+        display                 : block;
+        max-width: 100%;
+      }
+    }
+    .cart__subtotal {
+      margin                    : 0 0 0 ($gutter / 3);
+      display                   : inline;
+    }
+    .cart__mini-labels {
+      display                   : block;
+      margin                    : ($gutter / 3) 0;
+      font-size                 : em(12px);
+      @include at-query ($min, $large) {
+        display                 : none;
+      }
+    }
+    .cart__remove {
+      display                   : block;
+    }
+
     // Page Chrome
     div.page-container {
       background-color          : {{ settings.color_body_bg }};
