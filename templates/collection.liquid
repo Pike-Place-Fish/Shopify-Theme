@@ -6,7 +6,10 @@
 
 {% endcomment %}
 
-{% paginate collection.products by 12 %}
+{% comment %}
+{% ### NOTE KLT072516: Updated paging to 20 / page %}
+{% endcomment %}
+{% paginate collection.products by 20 %}
 
 {% include 'breadcrumb' %}
 
@@ -52,8 +55,10 @@
             {% endfor %}
 
             </ul>
-          {% else %}
+          {% elsif settings.collections_tags_enable %}
             {% include 'collection-sidebar' %}
+          {% else %}
+
           {% endif %}
 
         </div>
