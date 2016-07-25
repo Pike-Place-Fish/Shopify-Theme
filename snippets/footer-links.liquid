@@ -1,9 +1,0 @@
-<!-- /snippets/footer-links.liquid -->
-
-{% assign footer_linklist_handle = settings.footer_linklist %}
-{% if linklists[footer_linklist_handle].links != blank %}
-  {% assign footer_linklist = linklists[footer_linklist_handle] %}
-  {% for link in footer_linklist.links %}
-    <a href="{{ link.url }}" class="footer-nav__link">{{ link.title }}</a>{% unless forloop.last == true %} &#183; {% endunless %}
-  {% endfor %}
-{% endif %}
