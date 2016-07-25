@@ -947,18 +947,26 @@
     // Copyright, Links (New)
     p {
       margin-bottom             : 0;
+      &.copyright,
+      &.links {
+        @include at-query ($max, $preMedium) {
+          padding-top           : $gutter;
+        }
+        @include at-query ($min, $medium) {
+          padding-top           : 4px;
+        }
+      }
       &.copyright {
         padding-left            : ($gutter * 1.333);
-        @include at-query ($max, $medium) {
+        @include at-query ($max, $preMedium) {
           padding-left          : 0;
-          padding-top           : $gutter;
         }
       }
       &.links {
         padding-right           : ($gutter * 1.333);
-        @include at-query ($max, $medium) {
+        @include at-query ($max, $preMedium) {
           padding-right         : 0;
-          padding-top           : $gutter;
+          padding-bottom        : 8px;
         }
         @include at-query ($min, $medium) {
           text-align            : right;
@@ -974,8 +982,8 @@
         font-size               : em(26px);
         color                   : {{ settings.color_footer_social_link }};
       }
-      @include at-query ($max, $medium) {
-        padding-top           : $gutter;
+      @include at-query ($max, $preMedium) {
+        padding-top           : 6px;
       }
     }
 

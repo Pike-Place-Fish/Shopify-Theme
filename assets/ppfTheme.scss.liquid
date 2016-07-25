@@ -4,47 +4,72 @@
 // Primary entry point for application. Imports all other manifest files, including variables.
 //==============================================================================================
 
-/*==============================================================================================
-  Table of Contents
-
-  #Breakpoint and Grid Variables
-  #General Variables
-  #Sass Mixins
-  #Normalize
-  #Grid Setup
-  #Basic Styles
-  #Helper Classes
-  #Typography
-  #Rich Text Editor
-  #Links and Buttons
-  #Lists
-  #Tables
-  #Reponsive Tables
-  #OOCSS Media Object
-  #Images and Iframes
-  #Forms
-  #Icons
-  #Pagination
-  #Site Header
-  #Site Nav and Dropdowns
-  #Mobile Nav
-  #Drawers
-  #Site Footer
-  #Product and Collection Grids
-  #Collection Filters
-  #Breadcrumbs
-  #Product Page
-  #Notes and Form Feedback
-  #Cart Page
-  #Ajax Cart Styles
-==============================================================================================*/
-
 //----------------------------------------------------------------------------------------------
 // IMPORT VARIABLES
 //----------------------------------------------------------------------------------------------
-  /*============================================================================
-  #Breakpoint and Grid Variables
-==============================================================================*/
+  //==============================================================================================
+// VARIABLES
+//----------------------------------------------------------------------------------------------
+// Primary customization point for making expected modifications to the site.
+//----------------------------------------------------------------------------------------------
+// NOTE: Unless otherwise specified (e.g., with "// New", or "// Was [property value]"), styles
+// are OOTB Timber definitions; only formatting and property organization have been altered.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// COLORS
+//----------------------------------------------------------------------------------------------
+
+  // Timber / Theme
+  $colorPrimary                 : {{ settings.color_primary }};
+  $colorSecondary               : {{ settings.color_secondary }};
+
+  // Helpers / Interface
+  $disabledGrey                 : #f6f6f6;
+  $disabledBorder               : darken($disabledGrey, 25%);
+  $errorRed                     : #d02e2e;
+  $errorRedBg                   : #fff6f6;
+  $successGreen                 : #56ad6a;
+  $successGreenBg               : #ecfef0;
+
+  // Backgrounds
+  $colorBody                    : {{ settings.color_body_bg }};
+  $colorAccent                  : {{ settings.color_body_bg_accent }};  // New
+  $colorAccent2                 : lighten($colorAccent, 1%);    // New
+
+  // Text
+  $colorTextBody                : {{ settings.color_body_text }};
+
+  // Links colors
+  $colorLinkText                : {{ settings.color_text_link }};       // New
+  $colorLink                    : $colorLinkText;               // Was $colorPrimary
+  $colorLinkHover               : $colorPrimary;                // Was lighten($colorPrimary, 15%)
+
+  // Buttons
+  $colorBtnPrimary              : $colorPrimary;
+  $colorBtnPrimaryHover         : darken($colorBtnPrimary, 10%);
+  $colorBtnPrimaryActive        : darken($colorBtnPrimaryHover, 10%);
+  $colorBtnPrimaryText          : #fff;
+
+  $colorBtnSecondary            : $colorSecondary;
+  $colorBtnSecondaryHover       : lighten($colorBtnSecondary, 15%);     // Was darken($colorBtnSecondary, 10%)
+  $colorBtnSecondaryActive      : lighten($colorBtnSecondaryHover, 10%);// Was darken($colorBtnSecondaryHover, 10%);
+  $colorBtnSecondaryText        : #fff;
+
+  // Borders
+  $colorBorder                  : {{ settings.color_borders }};
+
+  // Nav and dropdown link background
+  $colorNav                     : $colorAccent;                 // Was #f2f2f2 (hard-coded)
+  $colorNavText                 : #333;
+
+  // Site Footer
+  $colorFooterBg                : {{ settings.color_footer_bg }};
+  $colorFooterText              : {{ settings.color_footer_text }};
+
+//----------------------------------------------------------------------------------------------
+// BREAKPOINT/GRID
+//----------------------------------------------------------------------------------------------
   $viewportIncrement            : 1px;
 
   $narrow                       : 320px;
@@ -58,7 +83,7 @@
   $postMedium                   : $small + $viewportIncrement;
   $preLarge                     : $large - $viewportIncrement;
 
-  /*================ The following are dependencies of csswizardry grid ================*/
+  // The following are dependencies of csswizardry grid
   $breakpoints: (
     'small' '(min-width: #{$small})',
     'small-medium' '(min-width: #{$postSmall}) and (max-width: #{$preMedium})',
@@ -68,108 +93,72 @@
     'large' '(min-width: #{$large})',
     'large-down' '(max-width: #{$preLarge})'
   );
-  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - large-down
-  $breakpoint-has-push:  ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - small, large-down
-  $breakpoint-has-pull:  ('small', 'medium', 'medium-down', 'large', 'large-down'); // New - small, large-down
+  $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'large-down');  // New - large-down
+  $breakpoint-has-push:  ('small', 'medium', 'medium-down', 'large', 'large-down');   // New - small, large-down
+  $breakpoint-has-pull:  ('small', 'medium', 'medium-down', 'large', 'large-down');   // New - small, large-down
 
-/*============================================================================
-  #General Variables
-==============================================================================*/
+//----------------------------------------------------------------------------------------------
+// BASE/GENERAL
+//----------------------------------------------------------------------------------------------
 
-// Timber Colors
-$colorPrimary: {{ settings.color_primary }};
-$colorSecondary: {{ settings.color_secondary }};
-$colorLinkText                  : {{ settings.color_text_link }}; // New
+  // Logo max width
+  $logoMaxWidth                 : {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 
-// Button colors
-$colorBtnPrimary: $colorPrimary;
-$colorBtnPrimaryHover: darken($colorBtnPrimary, 10%);
-$colorBtnPrimaryActive: darken($colorBtnPrimaryHover, 10%);
-$colorBtnPrimaryText: #fff;
+  // Typography
+  $bodyFontStack                : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', {{ settings.type_base_family }};  // New - Cabin, Open Sans
+  // Henceforth known as 1em
+  $baseFontSize                 : {{ settings.type_base_size }}px;
+  $headerFontStack              : 'Prompt', $bodyFontStack;     // New - Prompt + $bodyFontStack
+  $headerFontWeight             : 800;
+  $interfaceFontStack           : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', {{ settings.type_base_family }};  // New
+  $socialIconFontStack          : 'icons';
 
-$colorBtnSecondary: $colorSecondary;
-$colorBtnSecondaryHover         : lighten($colorBtnSecondary, 15%);     // Was darken($colorBtnSecondary, 10%)
-$colorBtnSecondaryActive        : lighten($colorBtnSecondaryHover, 10%); // Was darken($colorBtnSecondaryHover, 10%);
-$colorBtnSecondaryText: #fff;
+//----------------------------------------------------------------------------------------------
+// COMPONENTS
+//----------------------------------------------------------------------------------------------
 
-// Text link colors
-$colorLink                      : $colorLinkText;               // Was $colorPrimary
-$colorLinkHover                 : $colorPrimary;                // Was lighten($colorPrimary, 15%)
+  // Drawers
+  $drawerNavWidth               : 300px;
+  $drawerCartWidth              : 300px;
+  $colorDrawers                 : $colorAccent2;                // Was #f6f6f6
+  $colorDrawerBorder            : darken($colorDrawers, 5%);
+  $colorDrawerText              : #333;
+  $drawerTransition             : all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 
-// Text colors
-$colorTextBody: {{ settings.color_body_text }};
+//----------------------------------------------------------------------------------------------
+// LAYOUT
+//----------------------------------------------------------------------------------------------
 
-// Backgrounds
-$colorBody: {{ settings.color_body_bg }};
+  // Sizing
+  $siteWidth                    : 1280px;                       // Was 1180px
+  $gutter                       : 10px;                         // Was 30px (also for $gridGutter)
+  // can be a %, but nested grids will have smaller margins because of it
+  $gridGutter                   : 10px;
+  $radius                       : 0;                            // Was 3px
 
-// Border colors
-$colorBorder: {{ settings.color_borders }};
-
-// Nav and dropdown link background
-$colorNav: #f2f2f2;
-$colorNavText: #333;
-
-// Site Footer
-$colorFooterBg: {{ settings.color_footer_bg }};
-$colorFooterText: {{ settings.color_footer_text }};
-
-// Logo max width
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-
-// Helper colors
-$disabledGrey: #f6f6f6;
-$disabledBorder: darken($disabledGrey, 25%);
-$errorRed: #d02e2e;
-$errorRedBg: #fff6f6;
-$successGreen: #56ad6a;
-$successGreenBg: #ecfef0;
-
-// Drawers
-$drawerNavWidth: 300px;
-$drawerCartWidth: 300px;
-$colorDrawers                   : rgb(245, 245, 245);           // Was #f6f6f6;
-$colorDrawerBorder: darken($colorDrawers, 5%);
-$colorDrawerText: #333;
-$drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
-
-// Sizing variables
-$siteWidth: 1280px;             // Was 1180px;
-$gutter: 10px;                  // Was 30px (also for $gridGutter)
-$gridGutter: 10px; // can be a %, but nested grids will have smaller margins because of it
-$radius: 0;                     // Was 3px;
-
-// Z-index
-$zindexNavDropdowns: 5;
-$zindexDrawer: 10;
-
-/*================ Typography ================*/
-
-// Font Families
-
-
-$headerFontStack                : 'Prompt', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;   // New - Eagle Bold
-$headerFontWeight: 800;
-
-$bodyFontStack                  : 'Cabin Regular', 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New - Cabin, Open Sans
-$baseFontSize: 14px; // Henceforth known as 1em
-
-$interfaceFontStack             : 'Open Sans', 'Cabin Regular', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; // New
-
-@font-face {
-  font-family: 'icons';
-  src: url('{{ "icons.eot" | asset_url }}');
-  src: url('{{ "icons.eot" | asset_url }}#iefix') format("embedded-opentype"),
-       url('{{ "icons.woff" | asset_url }}') format("woff"),
-       url('{{ "icons.ttf" | asset_url }}') format("truetype"),
-       url('{{ "icons.svg" | asset_url }}#timber-icons') format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-$socialIconFontStack: 'icons';
+  // Z-index
+  $zindexNavDropdowns           : 5;
+  $zindexDrawer                 : 10;
 
 
 //----------------------------------------------------------------------------------------------
 // IMPORT OTHER MANIFESTS
+//----------------------------------------------------------------------------------------------
+  //==============================================================================================
+// HELPERS
+//----------------------------------------------------------------------------------------------
+// Provides functional helpers for the stylesheets, including mixins, functions, and
+// placeholders.
+//----------------------------------------------------------------------------------------------
+// IMPORTANT: Under no circumstances should helpers export CSS directly; they should only export
+// CSS when called from another SCSS file (e.g., /_base.scss).
+//----------------------------------------------------------------------------------------------
+// NOTE: Helpers in this file should be migrated to individual files under /Helpers and imported
+// if they get too long (say, over 10 selectors).
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
 //----------------------------------------------------------------------------------------------
   /*============================================================================
   #Sass Mixins
@@ -289,37 +278,2348 @@ $max: max-width;
   }
 }
 
+  //==============================================================================================
+// BASE CLASSES
+//----------------------------------------------------------------------------------------------
+// Provides global overrides for standard HTML elements based on element, attribute, and single-
+// class selectors. Selectors in this section should never be nested more than two layers deep.
+//----------------------------------------------------------------------------------------------
+// NOTE: Unless otherwise specified (e.g., with "// New", or "// Was [property value]"), styles
+// are OOTB Timber definitions; only formatting and property organization have been altered.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
   /*============================================================================
-  #Normalize
+  #Helper Classes
 ==============================================================================*/
-*, input, :before, :after {
-  box-sizing: border-box;
+.is-transitioning {
+  display: block !important;
+  visibility: visible !important;
 }
 
-html, body {
+.display-table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.display-table-cell {
+  display: table-cell;
+  vertical-align: middle;
+  float: none;
+}
+
+@include at-query ($min, $large) {
+  .large--display-table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .large--display-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+  //==============================================================================================
+// FONTS
+//----------------------------------------------------------------------------------------------
+// Imports web fonts, such as EOT, WOFF, OTF, etc.
+//----------------------------------------------------------------------------------------------
+// NOTE: Font styles should be defined in _typography.scss.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// PROMPT
+//----------------------------------------------------------------------------------------------
+  @font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Prompt'), local('Prompt-Regular'), url(https://fonts.gstatic.com/s/prompt/v1/xR0emLgPi6AvMYbJewy8xQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Prompt SemiBold'), local('Prompt-SemiBold'), url(https://fonts.gstatic.com/s/prompt/v1/3_KC0-To5jGOKtudoVFJIKCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Prompt Bold'), local('Prompt-Bold'), url(https://fonts.gstatic.com/s/prompt/v1/AcHtr8ZFPMAttYPZKPJ36KCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Prompt ExtraBold'), local('Prompt-ExtraBold'), url(https://fonts.gstatic.com/s/prompt/v1/J8YTz9_BMPN5gZxnvdtlVaCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+
+
+//----------------------------------------------------------------------------------------------
+// OPEN SANS
+//----------------------------------------------------------------------------------------------
+  @font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzInF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-honF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
+}
+
+
+//----------------------------------------------------------------------------------------------
+// ICONS
+//----------------------------------------------------------------------------------------------
+  @font-face {
+    font-family                 : 'icons';
+    src                         : url('{{ "icons.eot" | asset_url }}');
+    src                         : url('{{ "icons.eot" | asset_url }}#iefix') format("embedded-opentype"),
+      url('{{ "icons.woff" | asset_url }}') format("woff"),
+      url('{{ "icons.ttf" | asset_url }}') format("truetype"),
+      url('{{ "icons.svg" | asset_url }}#timber-icons') format("svg");
+    font-weight                 : normal;
+    font-style                  : normal;
+  }
+
+//----------------------------------------------------------------------------------------------
+// CABIN
+//----------------------------------------------------------------------------------------------
+  @font-face {
+    font-family                 : 'Cabin Regular';
+    src                         : url({{ 'Cabin-Regular.otf' | asset_url }});
+    src                         : url({{ 'Cabin-Regular.otf?' | asset_url }}) format('opentype'),
+      url({{ 'Cabin-Regular.woff' | asset_url }}) format('woff'),
+      url({{ 'Cabin-Regular.woff2' | asset_url }}) format('woff2');
+    font-weight                 : normal;
+    font-style                  : normal;
+  }
+  @font-face {
+    font-family                 : 'Cabin Semibold';
+    src                         : url({{ 'Cabin-SemiBold.otf' | asset_url }});
+    src                         : url({{ 'Cabin-SemiBold.otf?' | asset_url }}) format('opentype'),
+      url({{ 'Cabin-SemiBold.woff' | asset_url }}) format('woff'),
+      url({{ 'Cabin-SemiBold.woff2' | asset_url }}) format('woff2');
+    font-weight                 : normal;
+    font-style                  : normal;
+  }
+  @font-face {
+    font-family                 : 'Cabin Bold';
+    src                         : url({{ 'Cabin-Bold.otf' | asset_url }});
+    src                         : url({{ 'Cabin-Bold.otf?' | asset_url }}) format('opentype'),
+      url({{ 'Cabin-Bold.woff' | asset_url }}) format('woff'),
+      url({{ 'Cabin-Bold.woff2' | asset_url }}) format('woff2');
+    font-weight                 : normal;
+    font-style                  : normal;
+  }
+
+//----------------------------------------------------------------------------------------------
+// EAGLE
+//----------------------------------------------------------------------------------------------
+  /*
+  @font-face {
+    font-family                 : 'Eagle Book';
+    src                         : url({{ 'Eagle-Book.otf' | asset_url }});
+    src                         : url({{ 'Eagle-Book.otf?' | asset_url }}) format('opentype'),
+      url({{ 'Eagle-Book.woff' | asset_url }}) format('woff'),
+      url({{ 'Eagle-Book.woff2' | asset_url }}) format('woff2');
+    font-weight                 : normal;
+    font-style                  : normal;
+  }
+  @font-face {
+    font-family                 : 'Eagle Bold';
+    src                         : url({{ 'Eagle-Bold.otf' | asset_url }});
+    src                         : url({{ 'Eagle-Bold.otf?' | asset_url }}) format('opentype'),
+      url({{ 'Eagle-Bold.woff' | asset_url }}) format('woff'),
+      url({{ 'Eagle-Bold.woff2' | asset_url }}) format('woff2');
+    font-weight                 : normal;
+    font-style                  : normal;
+  }
+  */
+
+  /*============================================================================
+  #Icons
+==============================================================================*/
+.icon-fallback-text .icon {
+  display: none;
+
+  .supports-fontface & {
+    display: inline-block;
+  }
+}
+
+/*============================================================================
+  A generic way to visually hide content while
+  remaining accessible to screen readers (h5bp.com)
+==============================================================================*/
+.supports-fontface .icon-fallback-text .fallback-text {
+  @extend .visually-hidden;
+}
+
+.icon:before {
+  display: none;
+}
+
+.supports-fontface .icon:before {
+  display: inline;
+  font-family: $socialIconFontStack;
+  text-decoration: none;
+  speak: none; // future fallback, limited in effect currently
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*================ Icon mapping ================*/
+.icon-amazon_payments:before { content: "\e800"; }
+.icon-american_express:before { content: "\41"; }
+.icon-arrow-down:before { content: "\e607"; }
+.icon-bitcoin:before { content: "\42"; }
+.icon-cart:before { content: "\e600"; }
+.icon-cirrus:before { content: "\43"; }
+.icon-dankort:before { content: "\64"; }
+.icon-diners_club:before { content: "\63"; }
+.icon-discover:before { content: "\44"; }
+.icon-dogecoin:before { content: "\e904"; }
+.icon-dwolla:before { content: "\e905"; }
+.icon-facebook:before { content: "\66"; }
+.icon-fancy:before { content: "\46"; }
+.icon-forbrugsforeningen:before { content: "\e906"; }
+.icon-google-plus:before { content: "\e900"; }
+.icon-grid-view:before { content: "\e603"; }
+.icon-hamburger:before { content: "\e601"; }
+.icon-instagram:before { content: "\e901"; }
+.icon-interac:before { content: "\49"; }
+.icon-jcb:before { content: "\4a"; }
+.icon-laser:before { content: "\e907"; }
+.icon-list-view:before { content: "\e604"; }
+.icon-litecoin:before { content: "\e908"; }
+.icon-maestro:before { content: "\6d"; }
+.icon-master:before { content: "\4d"; }
+.icon-minus:before { content: "\e602"; }
+.icon-paypal:before { content: "\50"; }
+.icon-pinterest:before { content: "\70"; }
+.icon-plus:before { content: "\e605"; }
+.icon-rss:before { content: "\72"; }
+.icon-search:before { content: "\73"; }
+.icon-solo:before { content: "\e902"; }
+.icon-stripe:before { content: "\53"; }
+.icon-switch:before { content: "\e903"; }
+.icon-tumblr:before { content: "\74"; }
+.icon-twitter:before { content: "\54"; }
+.icon-vimeo:before { content: "\76"; }
+.icon-visa:before { content: "\56"; }
+.icon-x:before { content: "\e606"; }
+.icon-youtube:before { content: "\79"; }
+// New
+.icon-info-circle:before {
+  content                       : "\f05a";
+}
+
+.payment-icons {
+  @include user-select(none);
+  cursor: default;
+
+  li {
+    margin: 0 ($gutter / 4) ($gutter / 4);
+    color: {{ settings.color_footer_social_link }};
+    cursor: default;
+  }
+
+  .icon {
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  .fallback-text {
+    text-transform: capitalize;
+  }
+}
+
+.social-icons li {
+  margin: 0 ($gutter / 2) ($gutter / 2);
+  vertical-align: middle;
+
+  @include at-query ($min, $postSmall) {
+    margin-left: 0;
+  }
+
+  .icon {
+    font-size: 30px;
+    line-height: 26px;
+  }
+
+  a {
+    color: {{ settings.color_footer_social_link }};
+
+    &:hover {
+      color: darken({{ settings.color_footer_social_link }}, 10%);
+    }
+  }
+}
+
+  //==============================================================================================
+// TYPOGRAPHY
+//----------------------------------------------------------------------------------------------
+// Overrides type-related settings such as default fonts, headings, and common text-related
+// styles, such as .error.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// DEFAULTS
+//----------------------------------------------------------------------------------------------
+  body,
+  input,
+  textarea,
+  button,
+  select {
+    font-family                 : $bodyFontStack;
+    font-size                   : $baseFontSize;
+    line-height                 : ({{ settings.type_base_lineheight }} / {{ settings.type_base_size }});  // Was 1.6
+    font-weight                 : 300;
+    color                       : $colorTextBody;
+    -webkit-font-smoothing      : antialiased;
+    -webkit-text-size-adjust    : 100%;
+  }
+
+  p {
+    margin                      : 0 0 ($gutter / 2) 0;
+
+    img {
+      margin                    : 0;
+    }
+  }
+
+  em {
+    font-style                  : italic;
+  }
+
+  b,
+  strong {
+    font-weight                 : bold;
+  }
+
+  small {
+    font-size                   : 0.9em;
+  }
+
+  sup,
+  sub {
+    position                    : relative;
+    vertical-align              : baseline;
+    font-size                   : 60%;
+  }
+  sup {
+    top                         : -0.5em;
+  }
+  sub {
+    bottom                      : -0.5em;
+  }
+
+//----------------------------------------------------------------------------------------------
+// HEADINGS
+//----------------------------------------------------------------------------------------------
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    display                     : block;
+    margin-bottom               : 0.25em;
+    font-family                 : $headerFontStack;
+    line-height                 : ({{ settings.type_header_lineheight }} / {{ settings.type_header_size }});  // Was 1.4
+    font-weight                 : $headerFontWeight;
+
+    a {
+      text-decoration           : none;
+      font-weight               : inherit;
+    }
+  }
+
+  // New
+  h1,
+  h2 {
+  //text-transform              : uppercase;
+  }
+
+  // Note: headings use em() Sass function to declare font-size
+  h1 {
+    font-size                   : em(28px);                     // Was em(36px)
+  }
+
+  h2 {
+    font-size                   : em(22px);                     // Was em(28px)
+  }
+
+  h3 {
+    font-size                   : em(18px);                     // Was em(22px)
+  }
+
+  h4 {
+    font-size                   : em(16px);                     // Was em(20px)
+  }
+
+  h5 {
+    font-size                   : em(14px);                     // Was em(16px)
+  }
+
+  h6 {
+    font-size                   : em(14px);
+  }
+
+  .h1 { @extend h1; }
+  .h2 { @extend h2; }
+  .h3 { @extend h3; }
+  .h4 { @extend h4; }
+  .h5 { @extend h5; }
+  .h6 { @extend h6; }
+
+  // Special heading treatments
+  .logotype {
+    color                       : $colorLink;
+    letter-spacing              : em(2px);
+    -webkit-text-stroke-width   : 1px;
+    -webkit-text-stroke-color   : $colorSecondary;
+  }
+
+  /*============================================================================
+  #Forms
+==============================================================================*/
+form {
+  margin-bottom: 0;
+}
+
+.form-vertical {
+  margin-bottom: $gutter / 2;
+}
+
+/*================ Prevent zoom on touch devices in active inputs ================*/
+
+// Was $max, $medium
+@include at-query($max, $preMedium) {
+  input,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+input,
+textarea,
+button,
+select {
   padding: 0;
+  margin: 0;
+  @include user-select(text);
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button,
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button {
+  background: none;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+input[type="image"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+fieldset {
+  border: 1px solid $colorBorder;
+  padding: $gutter / 2;
+}
+
+legend {
+  border: 0;
+  padding: 0;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  border: 1px solid $colorBorder;
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: $radius;
+
+  &:focus {
+    border: 1px solid darken($colorBorder, 10%);
+  }
+
+  &[disabled],
+  &.disabled {
+    cursor: default;
+    background-color: $disabledGrey;
+    border-color: $disabledBorder;
+  }
+
+  &.input-full {
+    width: 100%;
+  }
+}
+
+textarea {
+  min-height: 100px;
+}
+
+/*================ Input element overrides ================*/
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline;
+  margin: 0 8px 0 0;
+  padding: 0;
+  width: auto;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+}
+
+input[type="radio"] {
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+}
+
+input[type="image"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// New
+input[type="text"],
+input[type="number"],
+.js-qty input[class*="js-qty__num"] {
+  background-color              : $colorBody;
+}
+
+// New - Checkout Elements
+.boxshadow {
+  .main {
+    .field__input {
+      box-shadow                : none;
+      &:focus {
+        box-shadow              : 0 0 1px {{ settings.color_interface_accent }};
+      }
+    }
+  }
+}
+.field__input {
+  border-radius                 : 0;
+}
+
+select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-position: right center;
+  background: {
+    image: url('{{ "ico-select.svg" | asset_url }}');
+    repeat: no-repeat;
+    position: right 10px center;
+    color                       : $colorBody;                   // Was transparent
+
+  }
+  padding-right: 28px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  cursor: pointer;
+
+  /*================ Hide the svg arrow in IE9 and below ================*/
+  .ie9 &,
+  .lt-ie9 & {
+    padding-right: 10px;
+    background-image: none;
+  }
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+// Force option color (affects IE only)
+option {
+  color: #000;
+  background-color: #fff;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/*================ Form labels ================*/
+.hidden-label {
+  position: absolute;
+  height: 0;
+  width: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+
+  // No placeholders, so force show labels
+  .ie9 &,
+  .lt-ie9 & {
+    position: static;
+    height: auto;
+    width: auto;
+    margin-bottom: 2px;
+    overflow: visible;
+    clip: initial;
+  }
+}
+
+label[for] {
+  cursor: pointer;
+}
+
+/*================ Horizontal Form ================*/
+.form-vertical {
+  input,
+  select,
+  textarea {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: inline-block;
+  }
+}
+
+/*================ Error styles ================*/
+input,
+select,
+textarea {
+  &.error {
+    border-color: $errorRed;
+    background-color: $errorRedBg;
+    color: $errorRed;
+  }
+}
+
+label.error {
+  color: $errorRed;
+}
+
+
+/*================ Input Group ================*/
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+
+  .input-group-field:first-child,
+  .input-group-btn:first-child,
+  .input-group-btn:first-child > .btn,
+  input[type="hidden"]:first-child + .input-group-field,
+  input[type="hidden"]:first-child + .input-group-btn > .btn {
+    border-radius: $radius 0 0 $radius;
+  }
+
+  .input-group-field:last-child,
+  .input-group-btn:last-child > .btn {
+   border-radius: 0 $radius $radius 0;
+  }
+
+  input {
+    // Nasty Firefox hack for inputs http://davidwalsh.name/firefox-buttons
+    &::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+      margin-top: -1px;
+      margin-bottom: -1px;
+    }
+  }
+}
+
+.input-group-field,
+.input-group-btn {
+  display: table-cell;
+  vertical-align: middle;
   margin: 0;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
-  display: block;
+.input-group .btn,
+.input-group .input-group-field {
+  height: 37px;
 }
 
-audio, canvas, progress, video {
-  display: inline-block;
-  vertical-align: baseline;
+.input-group .input-group-field {
+  width: 100%;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
+.input-group-btn {
+  position: relative;
+  white-space: nowrap;
+  width: 1%;
+  padding: 0;
 }
 
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
+  //==============================================================================================
+// NAVIGATION (SITE NAV, DROPDOWNS)
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* site navigation moved to
+// _layout.scss.liquid.
+//==============================================================================================
 
+//----------------------------------------------------------------------------------------------
+// NAVIGATION AREA
+//----------------------------------------------------------------------------------------------
+  .nav-bar {
+    background-color            : $colorBody;                   // Was $colorNav;
+  }
+
+  .site-nav {
+    font-family                 : $headerFontStack;             // New
+    font-size                   : em(14px);                     // Was em(16px)
+    font-weight                 : 800;
+    text-transform              : uppercase;                    // New
+    cursor                      : default;
+    li {
+      display                   : block;
+      margin                    : 0;
+    }
+    > li {
+      display                   : inline-block;
+      position                  : relative;
+    }
+  }
+
+  // Home to hamburger and cart that toggle drawers
+  .site-nav--mobile {
+    @extend .site-nav;
+
+    .text-right & {
+      margin                    : 0 (-$gutter / 2) 0 0;
+    }
+
+    // New
+    .icon-hamburger {
+      font-size                 : 2em;
+      font-size                 : 3.75vw;
+      @include at-query($max, $medium) {
+        font-size               : 4.25vw;
+      }
+    }
+
+  }
+
+  // New - targeting specific element so as not to interfere with cart drawer
+  #NavDrawer,
+  #NavDrawer .drawer__header {
+    background                  : rgb(45, 45, 45);              // #2D2D2D
+    button {
+      color                     : $colorBody;
+    }
+  }
+  #NavDrawer .drawer__header {
+    border-bottom               : 1px solid rgb(92, 92, 92);    // #5C5C5C
+  }
+  .mobile-navbar {
+    display                     : table;
+    .site-nav--mobile,
+    .home-link {
+      display                   : table-cell;
+      text-align                : center;
+      vertical-align            : middle;
+      @include at-query($max, $small) {
+        padding-top             : 1%;
+      }
+    }
+    .site-nav--mobile {
+      width                     : 10%;
+    }
+    .home-link {
+      padding-right             : 5%;
+      h1 {
+        margin                  : 0;
+        font-size               : em(28px);
+        font-size               : 4vw;
+        letter-spacing          : 0.85em;
+        letter-spacing          : 0.35vw;
+      }
+    }
+    .search-bar {
+      input {
+        ::-webkit-input-placeholder {
+         color                  : darken($colorBody, 5%);
+        }
+        :-moz-placeholder {
+           color                : darken($colorBody, 5%);
+        }
+        ::-moz-placeholder {
+           color                : darken($colorBody, 5%);
+        }
+        :-ms-input-placeholder {
+           color                : darken($colorBody, 5%);
+        }
+
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// NAVIGATION ITEMS / LINKS
+//----------------------------------------------------------------------------------------------
+  .site-nav__link {
+    display                     : block;
+    padding                     : ($gutter / 2) $gutter;        // Was $gutter / 2
+    color                       : $colorNavText;
+    text-decoration             : none;
+    white-space                 : nowrap;
+    &:hover,
+    &:active,
+    &:focus {
+      color                     : $colorPrimary;                // Was darken($colorNavText, 15%)
+    }
+
+    .icon-arrow-down {
+      position                  : relative;
+      top                       : -2px;
+      padding-left              : $gutter / 4;
+      font-size                 : 10px;
+    }
+
+    .site-nav--active > & {
+      //font-weight: bold;                                      // Removed
+      color                     : $colorPrimary;                // Was $colorLink
+    }
+
+    .site-nav--mobile & {
+      display                   : inline-block;
+    }
+
+    // New
+    &.logotype {
+      position                  : relative;
+      top                       : 4px;
+      padding                   : 0 15px 0;
+      font-size                 : 150%;
+      color                     : $colorPrimary;
+      letter-spacing            : em(2px);
+      -webkit-text-stroke-width : 1px;
+      -webkit-text-stroke-color : $colorSecondary;
+    }
+
+  }
+
+//----------------------------------------------------------------------------------------------
+// DROPDOWNS
+//----------------------------------------------------------------------------------------------
+  .site-nav__dropdown {
+
+    .supports-no-touch .site-nav--has-dropdown:hover &,
+    .site-nav--has-dropdown.nav-hover &,
+    .nav-focus + & {
+      display                   : block;
+    }
+
+    a {
+      background-color          : $colorNav;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color        : darken($colorNav, 10%);
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// SEARCH BAR IN NAVIGATION
+//----------------------------------------------------------------------------------------------
+// From Timber: Search bar in header
+//----------------------------------------------------------------------------------------------
+  .nav-search {
+    @include at-query ($max, $medium) {
+      text-align                : center;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// MOBILE NAVIGATION
+//----------------------------------------------------------------------------------------------
+// From Timber: #Mobile Nav
+// - List of items inside the mobile drawer
+//----------------------------------------------------------------------------------------------
+  .mobile-nav {
+    li {
+      margin-bottom             : 0;
+    }
+  }
+
+  .mobile-nav__search {
+    padding                     : $gutter / 2;
+    .search-bar {
+      margin-bottom: 0;
+      // New
+      input[type="search"] {
+        color                   : $colorBody;
+      }
+    }
+  }
+
+  .mobile-nav__item {
+    display                     : block;
+    position                    : relative;
+
+    // Background color on top level items so there is no
+    // element overlap on subnav's CSS toggle animation
+    .mobile-nav > & {
+      border                    : 1px solid rgb(59, 59, 59);    // New - #3B3B3B
+      background-color          : rgb(59, 59, 59);              // Was $colorDrawers
+    }
+
+    &:after {
+      content                   : '';
+      position                  : absolute;
+      bottom                    : 0;
+      right                     : $gutter / 2;
+      left                      : $gutter / 2;
+      //border-bottom: 1px solid $colorDrawerBorder;            // Removed
+    }
+
+    // New
+    .mobile-nav__item:nth-child(even) {
+      .mobile-nav > & {
+        border-color            : rgb(92, 92, 92);              // #5C5C5C
+        background-color        : rgb(45, 45, 45);              // #2D2D2D
+      }
+    }
+
+    .mobile-nav > &:last-child:after {
+      display                   : none;
+    }
+
+    // New
+    .search-bar {
+      margin                    : 0;
+      padding                   : 5%;
+    }
+
+  }
+
+  .mobile-nav__item a,
+  .mobile-nav__toggle button {
+    margin-right                : 13px;                         // New
+    padding                     : $gutter / 2;
+    color                       : $colorDrawerText;
+    text-decoration             : none;
+    &:hover,
+    &:active,
+    &:focus {
+      //color: darken($colorDrawerText, 15%);                   // Removed
+    }
+    &:active,
+    &:focus {
+      //background-color: darken($colorDrawers, 5%);            // Removed
+    }
+  }
+
+  // Login/logout links can't have a class on them, so style <a> element
+  .mobile-nav__item a {
+    display                     : block;
+    padding                     : 5%;                           // New
+    font-family                 : $headerFontStack;
+    font-size                   : em(12px);
+    font-weight                 : 600;
+    color                       : $colorBody !important;        // New - needs to be important due to .drawer a override
+    text-transform              : uppercase;
+    &:hover,
+    &:active,
+    &:focus {
+      color                     : darken($colorBody, 5%);       // Was darken($colorDrawerText, 15%)
+    }
+  }
+
+  .mobile-nav__item--active {
+    //font-weight: bold;                                        // Removed
+  }
+
+  .mobile-nav__has-sublist {
+    display                     : table;
+    width                       : 100%;
+
+    .mobile-nav__link {
+      display                   : table-cell;
+      width                     : 100%;
+      vertical-align            : middle;
+    }
+  }
+
+  .mobile-nav__toggle {
+    display                     : table-cell;
+    width                       : 1%;
+    vertical-align              : middle;
+  }
+
+  .mobile-nav__toggle-open {
+    .mobile-nav--expanded & {
+      display                   : none;
+    }
+  }
+
+  .mobile-nav__toggle-close {
+    display                     : none;
+
+    .mobile-nav--expanded & {
+      display                   : block;
+    }
+  }
+
+  .mobile-nav__sublist {
+    visibility                  : hidden;
+    overflow                    : hidden;
+    margin                      : 0 0 0 ($gutter * 1.5);        // New
+    max-height                  : 0;
+    transition                  : all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+    @include backface();
+
+    .mobile-nav--expanded + & {
+      visibility                : visible;
+      max-height                : 700px;
+      transition                : all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+    }
+
+    .mobile-nav__item:after {
+      top                       : 0;
+      bottom                    : auto;
+    }
+
+    // New
+    .mobile-nav__item a {
+      padding                   : 5px 0 5px 10px;
+    }
+
+    .mobile-nav__link {
+      padding-left              : $gutter;
+      font-weight               : normal;
+    }
+
+  }
+
+
+//----------------------------------------------------------------------------------------------
+// NORMALIZE/RESET
+//----------------------------------------------------------------------------------------------
+  *, input, :before, :after {
+    box-sizing                  : border-box;
+  }
+  html,
+  body {
+    margin                      : 0;
+    padding                     : 0;
+  }
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  main,
+  nav,
+  section,
+  summary {
+    display                     : block;
+  }
+  audio,
+  canvas,
+  progress,
+  video {
+    display                     : inline-block;
+    vertical-align              : baseline;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    height                      : auto;
+  }
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance          : none;
+  }
+
+//----------------------------------------------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------------------------------------------
+  html {
+    background-color            : $colorFooterBg;
+  }
+  body {
+    background-color            : $colorBody;
+  }
+
+//----------------------------------------------------------------------------------------------
+// COMMON ELEMENTS
+//----------------------------------------------------------------------------------------------
+
+  // Selected/Active Content
+  [tabindex='-1']:focus {
+    outline                     : none;
+  }
+
+  // Blockquotes
+  blockquote {
+    margin                      : 0 0 $gutter;
+    border-left                 : 1px solid $colorBorder;
+    padding                     : ($gutter / 2) $gutter;
+    font-size                   : 1.125em;
+    line-height                 : 1.45;
+    font-style                  : italic;
+    p {
+      margin-bottom: 0;
+      & + cite {
+        margin-top              : $gutter / 2;
+      }
+    }
+    cite {
+      display                   : block;
+      font-size                 : 0.75em;
+      &:before {
+        content                 : '\2014 \0020';
+      }
+    }
+  }
+
+  // Code
+  code,
+  pre {
+    border                      : 0 none;
+    padding                     : 0 2px;
+    font-family                 : Consolas,monospace;
+    font-size                   : 1em;
+    color                       : #51ab62;
+    background-color            : #faf7f5;
+  }
+  pre {
+    overflow                    : auto;
+    margin                      : 0 0 $gutter;
+    padding                     : $gutter / 2;
+  }
+
+  // Horizontal Rules
+  hr {
+    clear                       : both;
+    margin                      : $gutter 0;
+    border-top                  : solid $colorBorder;
+    border-width                : 1px 0 0;
+    height                      : 0;
+    &.hr--small {
+      margin                    : ($gutter / 2) 0;
+    }
+    &.hr--clear {
+      border-top-color          : transparent;
+    }
+  }
+
+  // Section Headers
+  .section-header {
+    margin-bottom               : $gutter / 1.5;
+  }
+  @include at-query ($min, $large) {
+    .section-header {
+      display                   : table;
+      width                     : 100%;
+    }
+    .section-header__title {
+      margin-bottom             : $gutter / 2.5;
+    }
+    .section-header__left {
+      display                   : table-cell;
+      margin-bottom             : 0;
+      vertical-align            : middle;
+      h1,
+      h2,
+      h3,
+      h4,
+      .h1,
+      .h2,
+      .h3,
+      .h4 {
+        margin-bottom           : 0;
+      }
+    }
+    .section-header__right {
+      display                   : table-cell;
+      width                     : 335px;
+      text-align                : right;
+      vertical-align            : middle;
+      @include at-query ($max, $medium) {
+        margin-bottom           : $gutter;
+      }
+    }
+  }
+  .section-header__right {
+    .form-horizontal,
+    .collection-view {
+      display                   : inline-block;
+      vertical-align            : middle;
+    }
+    @include at-query ($min, $postSmall) {
+      label + select,
+      .collection-view {
+        margin-left             : $gutter / 2;
+      }
+    }
+  }
+  .collection-view {
+    display                     : none !important;              // Was inline-block
+    overflow                    : hidden;
+    border                      : 1px solid $colorBorder;
+    border-radius               : $radius;
+    padding                     : 0 5px;
+    height                      : 37px; // same as form elements
+    @include at-query ($min, $large) {
+      display                   : none !important;              // Was inline-block
+    }
+  }
+  .change-view {
+    display                     : block;
+    float                       : left;
+    border                      : 0 none;
+    padding                     : 10px 8px;
+    line-height                 : 1;
+    color                       : $colorBorder;
+    background                  : none;
+    &:hover,
+    &:focus {
+      color                     : $colorPrimary;
+    }
+  }
+  .change-view--active {
+    color                       : $colorPrimary;
+    cursor                      : default;
+  }
+
+  // #OOCSS Media Object
+  // - http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+  .media,
+  .media-flex {
+    overflow                    : hidden;
+    _overflow                   : visible;
+    zoom                        : 1;
+  }
+  .media-img {
+    float                       : left;
+    margin-right                : $gutter;
+  }
+  .media-img-right {
+    float                       : right;
+    margin-left                 : $gutter;
+  }
+  .media-img img,
+  .media-img-right img {
+    display                     : block;
+  }
+
+  // Images and Iframes
+  img,
+  iframe {
+    max-width                   : 100%;
+  }
+  img {
+    border                      : 0 none;
+  }
+  svg:not(:root) {
+    overflow: hidden;
+  }
+  .video-wrapper {
+    position                    : relative;
+    overflow                    : hidden;
+    padding-bottom              : 56.25%;
+    max-width                   : 100%;
+    height                      : 0;
+    height                      : auto;
+    iframe {
+      position                  : absolute;
+      top                       : 0;
+      left                      : 0;
+      width                     : 100%;
+      height                    : 100%;
+    }
+  }
+
+  // New
+  .logotype {
+    img {
+      max-width                 : 303px;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// ADMIN INTERFACE
+//----------------------------------------------------------------------------------------------
+
+  // Rich Text Editor
+  .rte {
+    margin-bottom               : $gutter / 2;
+    a {
+      text-decoration           : none;                         // Was underline
+    }
+    // Add some top margin to headers from the rich text editor
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top                : 1em;
+      &:first-child {
+        margin-top: 0;
+      }
+      a {
+        text-decoration         : none;
+      }
+    }
+    > div {
+      margin-bottom             : $gutter / 2;
+    }
+    li {
+      margin-bottom             : 0.4em;
+    }
+  }
+  .rte--header {
+    margin-bottom               : 0;
+  }
+
+//----------------------------------------------------------------------------------------------
+// LINKS
+//----------------------------------------------------------------------------------------------
+  a,
+  .text-link {
+    color                       : $colorLink;
+    text-decoration             : none;
+    background                  : transparent;
+  }
+  a:hover,
+  a:focus,
+  a:active {
+    color                       : $colorLinkHover;
+  }
+  .text-link {
+    &:hover,
+    &:focus,
+    &:active {
+      color                     : $colorLinkHover;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// BUTTONS
+//----------------------------------------------------------------------------------------------
+  button {
+    overflow                    : visible;
+  }
+  button[disabled],
+  html input[disabled] {
+    cursor                      : default;
+  }
+  .btn,
+  .rte .btn {
+    @include user-select(none);
+    display                     : inline-block;
+    margin                      : 0;
+    border                      : 1px solid transparent;
+    border-radius               : $radius;
+    padding                     : 8px 10px;
+    width                       : auto;                         // New
+    min-width                   : 128px;                        // New
+    font-family                 : $interfaceFontStack;          // New
+    line-height                 : 1.42;
+    font-weight                 : 700;
+    color                       : $colorBtnPrimaryText;
+    text-transform              : uppercase;                    // New
+    text-decoration             : none;
+    text-align                  : center;
+    vertical-align              : middle;
+    white-space                 : nowrap;
+    background-color            : $colorBtnPrimary;
+    cursor                      : pointer;
+    -webkit-appearance          : none;
+    -moz-appearance             : none;
+    &:hover {
+      color                     : $colorBtnPrimaryText;
+      background-color          : $colorBtnPrimaryHover;
+    }
+    &:active,
+    &:focus {
+     color                      : $colorBtnPrimaryText;
+     background-color           : $colorBtnPrimaryActive;
+    }
+    &[disabled],
+    &.disabled {
+      cursor: default;
+      color: $disabledBorder;
+      background-color: $disabledGrey;
+    }
+  }
+  .btn--secondary,
+  .rte .btn--secondary {
+    @extend .btn;
+    background-color            : $colorBtnSecondary;
+    &:hover {
+      color                     : $colorBtnSecondaryText;
+      background-color          : $colorBtnSecondaryHover;
+    }
+    &:active,
+    &:focus {
+     color                      : $colorBtnSecondaryText;
+     background-color           : $colorBtnSecondaryActive;
+    }
+  }
+  .btn--small {
+    padding                     : 4px 5px;
+    font-size                   : em(12px);
+  }
+  .btn--large {
+    padding                     : 12px 15px;
+    font-size                   : em(16px);
+  }
+  .btn--full {
+    width                       : 100%;
+  }
+
+  // Force an input/button to look like a text link
+  .text-link {
+    display                     : inline;
+    margin                      : 0;
+    border                      : 0 none;
+    padding                     : 0;
+    background                  : none;
+  }
+
+//----------------------------------------------------------------------------------------------
+// LISTS
+//----------------------------------------------------------------------------------------------
+  ul, ol {
+    margin                      : 0 0 ($gutter / 2) 20px;
+    padding                     : 0;
+  }
+  ol {
+    list-style                  : decimal;
+  }
+  ul ul,
+  ul ol,
+  ol ol,
+  ol ul {
+    margin                      : 4px 0 5px 20px;
+  }
+  li {
+    margin-bottom               : 0.25em;
+  }
+  ul.square {
+    list-style                  : square outside;
+  }
+  ul.disc {
+    list-style                  : disc outside;
+  }
+  ol.alpha {
+    list-style                  : lower-alpha outside;
+  }
+  .no-bullets {
+    list-style                  : none outside;
+    margin-left                 : 0;
+  }
+  .inline-list {
+    margin-left                 : 0;
+    li {
+      display                   : inline-block;
+      margin-bottom             : 0;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// TABLES
+//----------------------------------------------------------------------------------------------
+  table {
+    border-collapse             : collapse;
+    border-spacing              : 0;
+    width                       : 100%;
+  }
+  table.full {
+    margin-bottom               : 1em;
+    width                       : 100%;
+  }
+  .table-wrap {
+    overflow                    : auto;
+    -webkit-overflow-scrolling  : touch;
+    max-width                   : 100%;
+  }
+  th {
+    font-weight                 : bold;
+  }
+  th, td {
+    text-align                  : left;
+    padding                     : $gutter / 2;
+    border                      : 1px solid $colorBorder;
+  }
+
+  // Responsive tables, defined with .table--responsive on table element.
+  // Only defined for IE9+
+  .table--responsive {
+    @include at-query($max, $preSmall) {                        // Was $max, $small
+      thead {
+        display                 : none;
+      }
+      tr {
+        display                 : block;
+      }
+      // IE9 table layout fixes
+      tr,
+      td {
+        float                   : left;
+        clear                   : both;
+        width                   : 100%;
+      }
+      th,
+      td {
+        display                 : block;
+        padding                 : 15px;
+        text-align              : right;
+      }
+      td:before {
+        content                 : attr(data-label);
+        float                   : left;
+        padding-right           : 10px;
+        font-size               : 12px;
+        text-align              : center;
+      }
+      &.cart-table {
+        img {
+          margin                : 0 auto;
+        }
+        .js-qty {
+          float                 : right;
+        }
+      }
+    }
+  }
+  @include at-query($max, $preSmall) {                          // Was $max, $small
+    .table--small-hide {
+      display                   : none !important;
+    }
+    .table__section + .table__section {
+      position                  : relative;
+      margin-top                : 10px;
+      padding-top               : 15px;
+      &:after {
+        content                 : '';
+        display                 : block;
+        position                : absolute;
+        top                     : 0;
+        left                    : $gutter;                      // Was 15px
+        right                   : $gutter;                      // Was 15px
+        border-bottom           : 2px solid $colorAccent; // Was 2px $colorBorder;
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// PAGINATION
+//----------------------------------------------------------------------------------------------
+  .pagination {
+    margin-bottom               : 1em;
+    text-align                  : center;
+    > span {
+      display                   : inline-block;
+      line-height               : 1;
+    }
+    a {
+      display                   : block;
+    }
+    a,
+    .page.current {
+      padding                   : 8px;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// SEARCH BAR
+//----------------------------------------------------------------------------------------------
+// NOTE: New, in part - reorganized common treatments to outside site header definitions
+//----------------------------------------------------------------------------------------------
+  .search-bar {
+    max-width                   : 100%;
+    @include at-query ($max, $medium) {
+      margin-left               : auto;
+      margin-right              : auto;
+    }
+
+    // New
+    input[type="search"] {
+      margin-right              : 0;
+      border-width              : 0 0 1px 0;
+      border-color              : $colorPrimary;
+      padding                   : 0 2px;
+      width                     : auto;
+      min-width                 : 140px;
+      height                    : 24px;
+      font-size                 : em(12px);
+      background-color          : transparent;
+    }
+    ::-webkit-input-placeholder {
+      color                     : $colorAccent;
+    }
+    :-moz-placeholder {
+      color                     : $colorAccent;
+    }
+    ::-moz-placeholder {
+      color                     : $colorAccent;
+    }
+    :-ms-input-placeholder {
+      color                     : $colorAccent;
+    }
+    .input-group-btn {
+      padding-left              : 0;
+      width                     : auto;
+    }
+    button[type="submit"],
+    button.btn {
+      padding                     : 0;
+      width                       : 22px;
+      min-width                   : auto;
+      height                      : 21px;
+      background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
+      background-size             : 21px 21px;
+    }
+    .icon-search {
+      display                     : none !important;
+    }
+
+  }
+
+//----------------------------------------------------------------------------------------------
+// PRIMARY CONTENT AREA
+//----------------------------------------------------------------------------------------------
+  div.page-container {
+    background-color            : $colorAccent;
+  }
+
+//----------------------------------------------------------------------------------------------
+// SITE HEADER
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* site header moved to
+// _layout.scss.liquid.
+//----------------------------------------------------------------------------------------------
+  .site-header {
+    background-color            : $colorAccent2;                // New
+
+    // Social Icons (New)
+    .social-icons {
+      margin                    : 0;
+      .icon {
+        font-size               : em(16px);
+        color                   : {{ settings.color_header_social_link }};
+      }
+    }
+
+  }
+
+  .site-header__logo {
+    text-align                  : center;
+    margin                      : 0 auto;
+    max-width                   : 100%;
+    @include at-query ($min, $large) {
+      text-align                : left;
+    }
+    a,
+    a:hover,
+    a:focus {
+      text-decoration           : none;
+    }
+    a, img {
+      display                   : block;
+    }
+    img {
+      margin                    : 0 auto;
+    }
+  }
+  .site-header__logo-link {
+    max-width                   : $logoMaxWidth;
+    margin                      : 0 auto;
+  }
+
+  .site-header__cart-toggle {
+    display                     : inline-block;
+  }
+
+  .site-header__search {
+    display                     : inline-block;
+    max-width                   : 207px;                        // Was 400px
+    margin-top                  : $gutter / 2;
+    width                       : auto;                         // Was 100%
+
+    // Expandable Search (New) - specific to large-screen site header
+    form.search-bar {
+      margin-bottom             : 0;
+    }
+    ::-webkit-input-placeholder {
+      color                     : rgb(110, 110, 110);
+    }
+    :-moz-placeholder {
+      color                     : rgb(110, 110, 110);
+    }
+    ::-moz-placeholder {
+      color                     : rgb(110, 110, 110);
+    }
+    :-ms-input-placeholder {
+      color                     : rgb(110, 110, 110);
+    }
+    input[type="search"] {
+      margin-right              : 23px;
+      padding                   : 0;
+      width                     : 0;
+      min-width                 : 0;
+      -webkit-transition        : all .25s;
+      -moz-transition           : all .25s;
+      transition                : all .25s;
+    }
+    &:focus {
+      input[type="search"] {
+        padding                 : 0 2px;
+        width                   : auto;
+        min-width               : 140px;
+      }
+    }
+    button[type="submit"],
+    span.search-expander {
+      display                   : block;
+      position                  : absolute;
+      top                       : 0;
+      right                     : 0;
+      cursor                    : pointer;
+    }
+    button[type="submit"] {
+      z-index                   : 10px;
+    }
+    span.search-expander {
+      z-index                   : 15;
+      width                     : 22px;
+      height                    : 23px;
+    }
+    .search-bar.expanded {
+      input[type="search"] {
+        width                   : 140px;
+        min-width               : 140px;
+        -webkit-transition      : all .25s;
+        -moz-transition         : all .25s;
+        transition              : all .25s;
+      }
+      button[type="submit"] {
+        z-index                 : 15;
+      }
+      span.search-expander {
+        z-index                 : 10;
+      }
+    }
+
+  }
+
+  // Ancillary Nav Links (New)
+  .nav-ancillary {
+    position                    : relative;
+    bottom                      : 8px;
+    margin-right                : 16px;
+    padding-top                 : 8px;
+    font-family                 : $interfaceFontStack;
+    font-size                   : em(10px);
+    font-weight                 : 600;
+    color                       : rgb(12, 12, 12);              // #0C0C0C
+    text-transform              : uppercase;
+    a {
+      color                     : rgb(12, 12, 12);
+    }
+  }
+
+  // Cart (New - main and mobile)
+  .nav-ancillary span.cart,
+  .mobile-nav__item.menu-cart span.cart {
+    display                     : inline-block;
+    position                    : relative;
+    padding                     : 15px 0 7px 34px;
+    line-height                 : 100%;
+    background-repeat           : no-repeat;
+    background-position         : 0 0;
+    background-size             : contain;
+    &.full {
+      span.cart-count,
+      span.title {
+        display                 : inline-block;
+        position                : relative;
+      }
+      span.cart-count {
+        position                : absolute;
+        top                     : 20px;
+        left                    : 0;
+        width                   : 29px;
+        height                  : 13px;
+        font-size               : 12px;
+        font-weight             : $headerFontWeight;
+        text-align              : center;
+      }
+    }
+  }
+  .nav-ancillary span.cart {
+    &.empty {
+      background-image          : url({{ 'Icon.Basket.Empty.png' | asset_url }});
+    }
+    &.full {
+      background-image          : url({{ 'Icon.Basket.Items.png' | asset_url }});
+    }
+    span.cart-count {
+      color                     : $colorBody;
+    }
+  }
+  .mobile-nav__item.menu-cart span.cart {
+    &.empty {
+      background-image          : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
+    }
+    &.full {
+      background-image          : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
+    }
+    span.cart-count {
+      color                     : rgb(45, 45, 45);
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// NAVIGATION (SITE NAV, DROPDOWNS)
+//----------------------------------------------------------------------------------------------
+// NOTE: Site navigation (large and mobile) moved to _navigation.scss.liquid.
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// DRAWERS
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* drawers styles moved to
+// _layout.scss.liquid.
+//----------------------------------------------------------------------------------------------
+  .drawer {
+    @include promote-layer();
+    color                       : $colorDrawerText;
+    background-color            : $colorDrawers;
+    transition                  : $drawerTransition;
+
+    a {
+      color                     : $colorDrawerText;
+      &:hover,
+      &:focus {
+        opacity                 : 0.7;
+      }
+    }
+
+    input,
+    textarea {
+      border-color              : $colorDrawerBorder;
+    }
+  }
+
+  .drawer--left {
+    border-right                : 1px solid $colorDrawerBorder;
+    .js-drawer-open-left & {
+      display                   : block;
+      @include transform(translateX($drawerNavWidth));
+      .lt-ie9 & {
+        left                    : 0;
+      }
+    }
+  }
+
+  .drawer--right {
+    border-left                 : 1px solid $colorDrawerBorder;
+    .js-drawer-open-right & {
+      display                   : block;
+      @include transform(translateX(-$drawerCartWidth));
+      .lt-ie9 & {
+        right                   : 0;
+      }
+    }
+  }
+
+  #PageContainer {
+    //overflow: hidden;                                         // Removed
+  }
+
+  .is-moved-by-drawer {
+    @include promote-layer();
+    transition                  : $drawerTransition;
+
+    .js-drawer-open-left & {
+      @include transform(translateX($drawerNavWidth));
+    }
+
+    .js-drawer-open-right & {
+      @include transform(translateX(-$drawerCartWidth));
+    }
+  }
+
+  .drawer__header {
+    display                     : table;
+    margin-bottom               : $gutter / 2;
+    //height: 70px;                                             // Removed
+    width                       : 100%;
+    background                  : $colorBody;
+    //border-bottom: 1px solid $colorDrawerBorder;              // Removed
+  }
+
+  .drawer__title,
+  .drawer__close {
+    display                     : table-cell;
+    vertical-align              : middle;
+  }
+
+  .drawer__title {
+    width                       : 100%;
+  }
+
+  .drawer__close {
+    padding-right               : 5%;                           // New
+    width                       : 1%;
+    font-size                   : em(18px);
+    text-align                  : right;                        // Was center
+  }
+
+  .drawer__close button {
+    position                    : relative;
+    right                       : -20px;
+    padding                     : 0 20px;
+    height                      : 100%;
+    color                       : inherit;
+    &:active,
+    &:focus {
+      //background-color: darken($colorDrawers, 5%);            // Removed
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// SITE FOOTER
+//----------------------------------------------------------------------------------------------
+// NOTE: Structural definitions (positioning, grid, etc.) for *overall* site footer moved to
+// _layout.scss.liquid.
+//----------------------------------------------------------------------------------------------
+  .site-footer {
+    font-size                   : em(12px);                     // New
+    color                       : $colorFooterText;
+    background-color            : $colorFooterBg;
+    @include at-query ($max, $preMedium) {                      // New
+      padding                   : $gutter 0 ($gutter * 2);
+    }
+    @include at-query ($min, $medium) {                         // New
+      padding                   : $gutter 0 ($gutter * 1.5);
+    }
+    @include at-query ($min, $large) {
+      padding                   : 17px 0 0;                     // Was padding: ($gutter * 2) 0
+    }
+
+    // New
+    .grid__item {
+      display                   : table-cell;
+      vertical-align            : middle;
+    }
+
+    // New
+    a {
+      display                   : inline-block;
+      color                     : $colorFooterText;
+      white-space               : nowrap;
+    }
+
+    // Copyright, Links (New)
+    p {
+      margin-bottom             : 0;
+      &.copyright,
+      &.links {
+        @include at-query ($max, $preMedium) {
+          padding-top           : $gutter;
+        }
+        @include at-query ($min, $medium) {
+          padding-top           : 4px;
+        }
+      }
+      &.copyright {
+        padding-left            : ($gutter * 1.333);
+        @include at-query ($max, $preMedium) {
+          padding-left          : 0;
+        }
+      }
+      &.links {
+        padding-right           : ($gutter * 1.333);
+        @include at-query ($max, $preMedium) {
+          padding-right         : 0;
+          padding-bottom        : 8px;
+        }
+        @include at-query ($min, $medium) {
+          text-align            : right;
+        }
+      }
+    }
+
+    // Social Icons (New)
+    .social-icons {
+      position                  : relative;
+      margin                    : 0;
+      .icon {
+        font-size               : em(26px);
+        color                   : {{ settings.color_footer_social_link }};
+      }
+      @include at-query ($max, $preMedium) {
+        padding-top           : 6px;
+      }
+    }
+
+  }
+
+//----------------------------------------------------------------------------------------------
+// PRODUCT AND COLLECTION GRIDS
+//----------------------------------------------------------------------------------------------
+  .grid__image {
+    display                     : block;
+    margin                      : 0 auto ($gutter / 2);
+
+    img {
+      display                   : block;
+      margin                    : 0 auto;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// COLLECTION FILTERS / TAGS
+//----------------------------------------------------------------------------------------------
+  .filter--active {
+    //font-weight: bold;                                        // Removed
+    a {
+      color                     : $colorPrimary;
+    }
+  }
+  // New
+  ul.collection-filters,
+  ul.article-filters {
+    li {
+      display                   : inline-block;
+      margin                    : 0 1px 5px 0;
+      padding                   : 2px 6px;
+      background                : $colorBody;
+      a {
+        font-family             : $interfaceFontStack;
+        font-size               : em(10px);
+        line-height             : 100%;
+        font-weight             : 600;
+        color                   : $colorSecondary;
+        text-transform          : capitalize;
+      }
+      &.filter--active {
+        a {
+          color                 : $colorPrimary;
+        }
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// BREADCRUMBS
+//----------------------------------------------------------------------------------------------
+  .breadcrumb {
+    display                     : none;                         // New
+    margin-bottom               : $gutter;
+    a,
+    span {
+      display                   : inline-block;
+      margin-right              : 7px;
+      padding                   : 0 7px 0 0;
+      &:first-child {
+        padding-left            : 0;
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// PRODUCT PAGE
+//----------------------------------------------------------------------------------------------
+// NOTE: Moved to Views/_product.scss.liquid.
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// NOTES AND FORM FEEDBACK
+//----------------------------------------------------------------------------------------------
+// NOTE: Feedback = interface feedback (errors, etc.)
+//----------------------------------------------------------------------------------------------
+  .note,
+  .errors {
+    margin-bottom               : $gutter / 2;
+    border                      : 1px solid transparent;
+    border-radius               : $radius;
+    padding                     : 6px 12px;
+    font-size                   : 0.9em;
+    text-align                  : left;
+
+    ul,
+    ol {
+      margin-top                : 0;
+      margin-bottom             : 0;
+    }
+
+    li:last-child {
+      margin-bottom             : 0;
+    }
+
+    p {
+      margin-bottom             : 0;
+    }
+  }
+
+  .note {
+    border-color                : $colorBorder;
+  }
+
+  .errors {
+    ul {
+      list-style                : disc outside;
+      margin-left               : 20px;
+    }
+  }
+
+  .form-success {
+    color                       : $successGreen;
+    background-color            : $successGreenBg;
+    border-color                : $successGreen;
+
+    a {
+      color                     : $successGreen;
+      text-decoration           : underline;
+
+      &:hover {
+        text-decoration         : none;
+      }
+    }
+  }
+
+  .form-error,
+  .errors {
+    color                       : $errorRed;
+    background-color            : $errorRedBg;
+    border-color                : $errorRed;
+
+    a {
+      color                     : $errorRed;
+      text-decoration           : underline;
+
+      &:hover {
+        text-decoration         : none;
+      }
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// CART PAGE
+//----------------------------------------------------------------------------------------------
+// NOTE: Moved to Views/_cart.scss.liquid.
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// AJAX CART STYLES (conditionally loaded)
+//----------------------------------------------------------------------------------------------
+{% if settings.ajax_cart_method == "drawer" %}
+
+  .ajaxcart__inner {
+    margin-bottom               : $gutter;
+  }
+
+  .ajaxcart__row {
+    > .grid {
+      margin-left               : -$gutter / 2;
+      > .grid__item {
+        padding-left            : $gutter / 2;
+      }
+    }
+  }
+
+  .ajaxcart__product {
+    position                    : relative;
+    max-height                  : 500px;
+
+    &.is-removed {
+      @include backface();
+      visibility                : hidden;
+      overflow                  : hidden;
+      max-height                : 0;
+      transition                : all 450ms cubic-bezier(0.57,.06,.05,.95);
+    }
+  }
+
+  .ajaxcart__row {
+    margin-bottom               : $gutter / 2;
+    border-bottom               : 1px solid $colorDrawerBorder;
+    padding-bottom              : $gutter / 2;
+  }
+
+  .ajaxcart__product-image {
+    display                     : block;
+    overflow                    : hidden;
+    margin-bottom               : 15px;
+    img {
+      display                   : block;
+      margin                    : 0 auto;
+      max-width                 : 100%;
+    }
+  }
+
+  .ajaxcart__product-name,
+  .ajaxcart__product-meta {
+    display                     : block;
+  }
+
+  .ajaxcart__product-name + .ajaxcart__product-meta {
+    padding-top                 : $gutter / 5;
+  }
+
+  // Quantity Selectors
+  .js-qty {
+    position                    : relative;
+    overflow                    : visible;
+    margin-bottom               : 1em;
+    min-width                   : 75px;
+    max-width                   : 100px;
+    input {
+      display                   : block;
+      margin                    : 0;
+      padding                   : 5px 25px;
+      width                     : 100%;
+      text-align                : center;
+      background                : none;
+    }
+  }
+  .js-qty__adjust {
+    @include user-select(none);
+    display                     : block;
+    position                    : absolute;
+    top                         : 0;
+    bottom                      : 0;
+    overflow                    : hidden;
+    border                      : 0 none;
+    padding                     : 0 8px;
+    text-align                  : center;
+    background                  : none;
+    cursor                      : pointer;
+    &:hover,
+    &:focus {
+      color                     : $colorPrimary;
+    }
+  }
+  .js-qty__adjust--plus {
+    right                       : 0;
+    border-left                 : 1px solid $colorBorder;
+  }
+  .js-qty__adjust--minus {
+    left                        : 0;
+    border-right                : 1px solid $colorBorder;
+  }
+
+  // Quantity Selectors in Ajax Cart
+  .ajaxcart__qty {
+    @extend .js-qty;
+    margin                      : 0;
+    .is-loading & {
+      opacity                   : 0.5;
+      transition                : none;
+    }
+  }
+  .ajaxcart__qty-num {
+    border-color                : $colorDrawerBorder;
+    color                       : $colorDrawerText;
+  }
+  .ajaxcart__qty-adjust {
+    @extend .js-qty__adjust;
+    color                       : $colorDrawerText;
+  }
+  .ajaxcart__qty--plus {
+    @extend .js-qty__adjust--plus;
+    border-color                : $colorDrawerBorder;
+  }
+  .ajaxcart__qty--minus {
+    @extend .js-qty__adjust--minus;
+    border-color                : $colorDrawerBorder;
+  }
+  .ajaxcart-item__price-strikethrough {
+    float                       : right;
+  }
+
+{% endif %} // settings.ajax_cart_method
+
+  //==============================================================================================
+// LAYOUT
+//----------------------------------------------------------------------------------------------
+// Provides structural definitions for the site's layout, such grids, dimensions, positioning,
+// z-indexes, margins, and padding.
+//----------------------------------------------------------------------------------------------
+// IMPORTANT: Skinning attributes such as font size, color, backgrounds, and gradients should
+// not be defined in layout; these should be handled elsewhere (e.g., /Base) to maintain
+// separation of concerns.
+//----------------------------------------------------------------------------------------------
+// NOTE: Since layout sections often map to exclusive parts of a page, it is acceptable to
+// use #ID selectors here (and ONLY here).
+//----------------------------------------------------------------------------------------------
+// NOTE: Layouts in this file should be migrated to individual files under /Layout and imported
+// if they get too long (say, over 10 selectors).
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
   /*============================================================================
   #Grid Setup
     - Based on csswizardry grid, but with floated columns, a fixed gutter size, and BEM classes
@@ -733,2525 +3033,173 @@ $class-type: unquote(".");
   }
 }
 
-  /*============================================================================
-  #Helper Classes
-==============================================================================*/
-.is-transitioning {
-  display: block !important;
-  visibility: visible !important;
-}
 
-.display-table {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-}
-
-.display-table-cell {
-  display: table-cell;
-  vertical-align: middle;
-  float: none;
-}
-
-@include at-query ($min, $large) {
-  .large--display-table {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
+//----------------------------------------------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------------------------------------------
+  html,
+  body {
+    position                    : relative;
+    width                       : 100%;
+    height                      : 100%;
+    min-height                  : 100%;
   }
 
-  .large--display-table-cell {
-    display: table-cell;
-    vertical-align: middle;
-    float: none;
+//----------------------------------------------------------------------------------------------
+// HEADER
+//----------------------------------------------------------------------------------------------
+  .site-header {
+    padding                     : ($gutter / 2) 0;
+    @include at-query ($max, $medium) {                         // New
+      padding                   : 0;
+    }
+    .wrapper {
+      @include at-query ($min, $large) {
+        padding                 : ($gutter / 2) 45px;           // Was ($gutter / 2)
+      }
+    }
+    .grid--table {
+      display                   : table;
+      table-layout              : fixed;
+      width                     : 100%;
+      > .grid__item {
+        display                 : table-cell;
+        float                   : none;
+        vertical-align          : middle;
+        // Ancillary Nav (Social Icons, Cart, Account, Search)
+        div {
+          display               : inline-block;
+        }
+      }
+    }
   }
-}
 
-.visually-hidden {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px; width: 1px;
-  margin: -1px; padding: 0; border: 0;
-}
+//----------------------------------------------------------------------------------------------
+// NAVIGATION
+//----------------------------------------------------------------------------------------------
+  .nav-bar {
+    padding                     : ($gutter / 2) 0 $gutter;      // New
+    @include at-query($max, $large) {
+      padding-bottom            : 0;                            // New
+    }
+  }
+  .site-nav {
+    margin                      : ($gutter * 1.5) 0 ($gutter / 2) (-$gutter / 2);  // Was 0 0 0 (-$gutter / 2)
+  }
+
+  // Nav Dropdowns
+  .site-nav__dropdown {
+    z-index                     : $zindexNavDropdowns;
+    display                     : none;                         // New
+    position                    : absolute;
+    left                        : 0;
+    margin                      : 0;
+  }
+
+  // Search Bar in Navivation
+  .nav-search {
+    position                    : relative;
+    padding                     : 10px 0;
+    @include at-query ($max, $medium) {
+      margin                    : 0 auto;
+      padding                   : 0 0 ($gutter / 2);
+    }
+  }
+
+  // Mobile Navigation
+  .mobile-nav {
+    // Negative of .drawer left/right padding for full-width link tap area
+    margin                      : (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
+  }
+
+//----------------------------------------------------------------------------------------------
+// DRAWERS
+//----------------------------------------------------------------------------------------------
+  .js-drawer-open {
+    overflow                    : hidden;
+    height                      : 100%;
+  }
+  .drawer {
+    z-index                     : $zindexDrawer;
+    display                     : none;
+    position                    : fixed;
+    top                         : 0;
+    bottom                      : 0;
+    overflow-x                  : hidden;
+    overflow-y                  : auto;
+    -webkit-overflow-scrolling  : touch;
+    padding                     : 0 0 ($gutter / 2);            // Was 0 ($gutter / 2) ($gutter / 2)
+    max-width                   : 95%;
+  }
+  .drawer--left {
+    left                        : -$drawerNavWidth;
+    width                       : $drawerNavWidth;
+  }
+  .drawer--right {
+    right                       : -$drawerCartWidth;
+    width                       : $drawerCartWidth;
+  }
+
+//----------------------------------------------------------------------------------------------
+// PRIMARY CONTENT AREA
+//----------------------------------------------------------------------------------------------
+  div.page-container {
+    position                    : absolute;
+    width                       : 100%;
+    min-height                  : 100%;
+  }
+  .wrapper {
+    @include clearfix();
+    max-width                   : $siteWidth;
+    margin                      : 0 auto;
+    padding                     : 0 ($gutter / 2);
+    @include at-query ($min, $small) {
+      padding                   : 0 ($gutter * 1.5);            // Was $gutter
+    }
+    // New
+    @include at-query ($min, $medium) {
+      padding                   : 0 $gutter;
+    }
+  }
+  .main-content {
+    display                     : block;
+  //margin-top                  : ($gutter * 3);                // Was $gutter
+    padding-top                 : ($gutter * 2);
+    padding-bottom              : ($gutter * 2);
+    // New
+    @include at-query ($min, $large) {
+      padding                   : 45px;
+    }
+  }
+
+//----------------------------------------------------------------------------------------------
+// FOOTER
+//----------------------------------------------------------------------------------------------
+  .site-footer {
+    position                    : absolute;                     // New
+    bottom                      : 0;                            // New
+    left                        : 0;                            // New
+    padding                     : $gutter 0;
+    width                       : 100%;                         // New
+  }
 
   //==============================================================================================
-// BASE CLASSES
+// VIEWS
 //----------------------------------------------------------------------------------------------
-// Provides global overrides for standard HTML elements based on element, attribute, and single-
-// class selectors. Selectors in this section should never be nested more than two layers deep.
+// Views represent page-specific styles, which may impact unique layout or skin. When practical,
+// styles should be centralized via _components.scss if they might be shared across pages;
+// otherwise, they can be included here.
+//----------------------------------------------------------------------------------------------
+// NOTE: When practical, it is recommended that views be compiled independently and called
+// exclusively from their corresponding page so that they aren't bloating the main CSS file. In
+// that scenario, no imports are needed here.
+//----------------------------------------------------------------------------------------------
+// NOTE: Since views are intended to be self-contained, they should each be included in their
+// own file (e.g., in /Views/_view.scss) and imported into this manifest.
 //==============================================================================================
 
 //----------------------------------------------------------------------------------------------
 // IMPORTS
-//----------------------------------------------------------------------------------------------
-  //==============================================================================================
-// FONTS
-//----------------------------------------------------------------------------------------------
-// Imports web fonts, such as EOT, WOFF, OTF, etc.
-//----------------------------------------------------------------------------------------------
-// NOTE: Font styles should be defined in _typography.scss.
-//==============================================================================================
-
-//----------------------------------------------------------------------------------------------
-// PROMPT
-//----------------------------------------------------------------------------------------------
-  @font-face {
-  font-family: 'Prompt';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Prompt'), local('Prompt-Regular'), url(https://fonts.gstatic.com/s/prompt/v1/xR0emLgPi6AvMYbJewy8xQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Prompt';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Prompt SemiBold'), local('Prompt-SemiBold'), url(https://fonts.gstatic.com/s/prompt/v1/3_KC0-To5jGOKtudoVFJIKCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Prompt';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Prompt Bold'), local('Prompt-Bold'), url(https://fonts.gstatic.com/s/prompt/v1/AcHtr8ZFPMAttYPZKPJ36KCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Prompt';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Prompt ExtraBold'), local('Prompt-ExtraBold'), url(https://fonts.gstatic.com/s/prompt/v1/J8YTz9_BMPN5gZxnvdtlVaCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-}
-
-
-//----------------------------------------------------------------------------------------------
-// OPEN SANS
-//----------------------------------------------------------------------------------------------
-  @font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzInF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(https://fonts.gstatic.com/s/opensans/v13/EInbV5DfGHOiMmvb1Xr-honF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
-}
-
-
-//----------------------------------------------------------------------------------------------
-// EAGLE
-//----------------------------------------------------------------------------------------------
-  /*
-  @font-face {
-    font-family                 : 'Eagle Book';
-    src                         : url({{ 'Eagle-Book.otf' | asset_url }});
-    src                         : url({{ 'Eagle-Book.otf?' | asset_url }}) format('opentype'),
-      url({{ 'Eagle-Book.woff' | asset_url }}) format('woff'),
-      url({{ 'Eagle-Book.woff2' | asset_url }}) format('woff2');
-    font-weight                 : normal;
-    font-style                  : normal;
-  }
-  @font-face {
-    font-family                 : 'Eagle Bold';
-    src                         : url({{ 'Eagle-Bold.otf' | asset_url }});
-    src                         : url({{ 'Eagle-Bold.otf?' | asset_url }}) format('opentype'),
-      url({{ 'Eagle-Bold.woff' | asset_url }}) format('woff'),
-      url({{ 'Eagle-Bold.woff2' | asset_url }}) format('woff2');
-    font-weight                 : normal;
-    font-style                  : normal;
-  }
-  */
-
-//----------------------------------------------------------------------------------------------
-// CABIN
-//----------------------------------------------------------------------------------------------
-  /*
-  @font-face {
-    font-family                 : 'Cabin Regular';
-    src                         : url({{ 'Cabin-Regular.otf' | asset_url }});
-    src                         : url({{ 'Cabin-Regular.otf?' | asset_url }}) format('opentype'),
-      url({{ 'Cabin-Regular.woff' | asset_url }}) format('woff'),
-      url({{ 'Cabin-Regular.woff2' | asset_url }}) format('woff2');
-    font-weight                 : normal;
-    font-style                  : normal;
-  }
-  @font-face {
-    font-family                 : 'Cabin Semibold';
-    src                         : url({{ 'Cabin-Semibold.otf' | asset_url }});
-    src                         : url({{ 'Cabin-Semibold.otf?' | asset_url }}) format('opentype'),
-      url({{ 'Cabin-Semibold.woff' | asset_url }}) format('woff'),
-      url({{ 'Cabin-Semibold.woff2' | asset_url }}) format('woff2');
-    font-weight                 : normal;
-    font-style                  : normal;
-  }
-  @font-face {
-    font-family                 : 'Cabin Bold';
-    src                         : url({{ 'Cabin-Bold.otf' | asset_url }});
-    src                         : url({{ 'Cabin-Bold.otf?' | asset_url }}) format('opentype'),
-      url({{ 'Cabin-Bold.woff' | asset_url }}) format('woff'),
-      url({{ 'Cabin-Bold.woff2' | asset_url }}) format('woff2');
-    font-weight                 : normal;
-    font-style                  : normal;
-  }
-  */
-  //==============================================================================================
-// TYPOGRAPHY
-//----------------------------------------------------------------------------------------------
-// Overrides type-related settings such as default fonts, headings, and common text-related
-// styles, such as .error.
-//==============================================================================================
-
-//----------------------------------------------------------------------------------------------
-// DEFAULTS
-//----------------------------------------------------------------------------------------------
-  body,
-  input,
-  textarea,
-  button,
-  select {
-    font-family                 : $bodyFontStack;
-    font-size                   : $baseFontSize;
-    line-height                 : 1.6;
-    font-weight                 : 300;
-    color                       : $colorTextBody;
-    -webkit-font-smoothing      : antialiased;
-    -webkit-text-size-adjust    : 100%;
-  }
-
-  p {
-    margin                      : 0 0 ($gutter / 2) 0;
-
-    img {
-      margin                    : 0;
-    }
-  }
-
-  em {
-    font-style                  : italic;
-  }
-
-  b,
-  strong {
-    font-weight                 : bold;
-  }
-
-  small {
-    font-size                   : 0.9em;
-  }
-
-  sup,
-  sub {
-    position                    : relative;
-    vertical-align              : baseline;
-    font-size                   : 60%;
-  }
-  sup {
-    top                         : -0.5em;
-  }
-  sub {
-    bottom                      : -0.5em;
-  }
-
-//----------------------------------------------------------------------------------------------
-// HEADINGS
-//----------------------------------------------------------------------------------------------
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    display                     : block;
-    margin-bottom               : 0.25em;
-    font-family                 : $headerFontStack;
-    line-height                 : 1.4;
-    font-weight                 : $headerFontWeight;
-
-    a {
-      text-decoration           : none;
-      font-weight               : inherit;
-    }
-  }
-
-  // New
-  h1,
-  h2 {
-  //text-transform              : uppercase;
-  }
-
-  // Note: headings use em() Sass function to declare font-size
-  h1 {
-    font-size                   : em(28px);                     // Was em(36px)
-  }
-
-  h2 {
-    font-size                   : em(22px);                     // Was em(28px)
-  }
-
-  h3 {
-    font-size                   : em(18px);                     // Was em(22px)
-  }
-
-  h4 {
-    font-size                   : em(16px);                     // Was em(20px)
-  }
-
-  h5 {
-    font-size                   : em(14px);                     // Was em(16px)
-  }
-
-  h6 {
-    font-size                   : em(14px);
-  }
-
-  .h1 { @extend h1; }
-  .h2 { @extend h2; }
-  .h3 { @extend h3; }
-  .h4 { @extend h4; }
-  .h5 { @extend h5; }
-  .h6 { @extend h6; }
-
-  // Special heading treatments
-  .logotype {
-    color                       : $colorLink;
-    letter-spacing              : em(2px);
-    -webkit-text-stroke-width   : 1px;
-    -webkit-text-stroke-color   : {{ settings.color_secondary }};
-  }
-
-  /*============================================================================
-  #Icons
-==============================================================================*/
-.icon-fallback-text .icon {
-  display: none;
-
-  .supports-fontface & {
-    display: inline-block;
-  }
-}
-
-/*============================================================================
-  A generic way to visually hide content while
-  remaining accessible to screen readers (h5bp.com)
-==============================================================================*/
-.supports-fontface .icon-fallback-text .fallback-text {
-  @extend .visually-hidden;
-}
-
-.icon:before {
-  display: none;
-}
-
-.supports-fontface .icon:before {
-  display: inline;
-  font-family: $socialIconFontStack;
-  text-decoration: none;
-  speak: none; // future fallback, limited in effect currently
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/*================ Icon mapping ================*/
-.icon-amazon_payments:before { content: "\e800"; }
-.icon-american_express:before { content: "\41"; }
-.icon-arrow-down:before { content: "\e607"; }
-.icon-bitcoin:before { content: "\42"; }
-.icon-cart:before { content: "\e600"; }
-.icon-cirrus:before { content: "\43"; }
-.icon-dankort:before { content: "\64"; }
-.icon-diners_club:before { content: "\63"; }
-.icon-discover:before { content: "\44"; }
-.icon-dogecoin:before { content: "\e904"; }
-.icon-dwolla:before { content: "\e905"; }
-.icon-facebook:before { content: "\66"; }
-.icon-fancy:before { content: "\46"; }
-.icon-forbrugsforeningen:before { content: "\e906"; }
-.icon-google-plus:before { content: "\e900"; }
-.icon-grid-view:before { content: "\e603"; }
-.icon-hamburger:before { content: "\e601"; }
-.icon-instagram:before { content: "\e901"; }
-.icon-interac:before { content: "\49"; }
-.icon-jcb:before { content: "\4a"; }
-.icon-laser:before { content: "\e907"; }
-.icon-list-view:before { content: "\e604"; }
-.icon-litecoin:before { content: "\e908"; }
-.icon-maestro:before { content: "\6d"; }
-.icon-master:before { content: "\4d"; }
-.icon-minus:before { content: "\e602"; }
-.icon-paypal:before { content: "\50"; }
-.icon-pinterest:before { content: "\70"; }
-.icon-plus:before { content: "\e605"; }
-.icon-rss:before { content: "\72"; }
-.icon-search:before { content: "\73"; }
-.icon-solo:before { content: "\e902"; }
-.icon-stripe:before { content: "\53"; }
-.icon-switch:before { content: "\e903"; }
-.icon-tumblr:before { content: "\74"; }
-.icon-twitter:before { content: "\54"; }
-.icon-vimeo:before { content: "\76"; }
-.icon-visa:before { content: "\56"; }
-.icon-x:before { content: "\e606"; }
-.icon-youtube:before { content: "\79"; }
-// New
-.icon-info-circle:before {
-  content                       : "\f05a";
-}
-
-.payment-icons {
-  @include user-select(none);
-  cursor: default;
-
-  li {
-    margin: 0 ($gutter / 4) ($gutter / 4);
-    color: {{ settings.color_footer_social_link }};
-    cursor: default;
-  }
-
-  .icon {
-    font-size: 30px;
-    line-height: 30px;
-  }
-
-  .fallback-text {
-    text-transform: capitalize;
-  }
-}
-
-.social-icons li {
-  margin: 0 ($gutter / 2) ($gutter / 2);
-  vertical-align: middle;
-
-  @include at-query ($min, $postSmall) {
-    margin-left: 0;
-  }
-
-  .icon {
-    font-size: 30px;
-    line-height: 26px;
-  }
-
-  a {
-    color: {{ settings.color_footer_social_link }};
-
-    &:hover {
-      color: darken({{ settings.color_footer_social_link }}, 10%);
-    }
-  }
-}
-
-  /*============================================================================
-  #OOCSS Media Object
-    - http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
-==============================================================================*/
-.media,
-.media-flex {
-  overflow: hidden;
-  _overflow: visible;
-  zoom: 1;
-}
-
-.media-img {
-  float: left;
-  margin-right: $gutter;
-}
-
-.media-img-right {
-  float: right;
-  margin-left: $gutter;
-}
-
-.media-img img,
-.media-img-right img {
-  display: block;
-}
-
-
-/*============================================================================
-  #Images and Iframes
-==============================================================================*/
-img {
-  border: 0 none;
-}
-
-svg:not(:root) {
-  overflow: hidden;
-}
-
-img,
-iframe {
-  max-width: 100%;
-}
-
-.video-wrapper {
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  padding-bottom: 56.25%;
-  height: 0;
-  height: auto;
-
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-  /*============================================================================
-  #Forms
-==============================================================================*/
-form {
-  margin-bottom: 0;
-}
-
-.form-vertical {
-  margin-bottom: $gutter / 2;
-}
-
-/*================ Prevent zoom on touch devices in active inputs ================*/
-
-// Was $max, $medium
-@include at-query($max, $preMedium) {
-  input,
-  textarea {
-    font-size: 16px;
-  }
-}
-
-input,
-textarea,
-button,
-select {
-  padding: 0;
-  margin: 0;
-  @include user-select(text);
-}
-
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-button,
-input,
-textarea {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-button {
-  background: none;
-  border: none;
-  display: inline-block;
-  cursor: pointer;
-}
-
-input[type="image"] {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-fieldset {
-  border: 1px solid $colorBorder;
-  padding: $gutter / 2;
-}
-
-legend {
-  border: 0;
-  padding: 0;
-}
-
-button,
-input[type="submit"] {
-  cursor: pointer;
-}
-
-input,
-textarea,
-select {
-  border: 1px solid $colorBorder;
-  max-width: 100%;
-  padding: 8px 10px;
-  border-radius: $radius;
-
-  &:focus {
-    border: 1px solid darken($colorBorder, 10%);
-  }
-
-  &[disabled],
-  &.disabled {
-    cursor: default;
-    background-color: $disabledGrey;
-    border-color: $disabledBorder;
-  }
-
-  &.input-full {
-    width: 100%;
-  }
-}
-
-textarea {
-  min-height: 100px;
-}
-
-/*================ Input element overrides ================*/
-input[type="checkbox"],
-input[type="radio"] {
-  display: inline;
-  margin: 0 8px 0 0;
-  padding: 0;
-  width: auto;
-}
-
-input[type="checkbox"] {
-  -webkit-appearance: checkbox;
-  -moz-appearance: checkbox;
-}
-
-input[type="radio"] {
-  -webkit-appearance: radio;
-  -moz-appearance: radio;
-}
-
-input[type="image"] {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-// New
-input[type="text"],
-input[type="number"],
-.js-qty input[class*="js-qty__num"] {
-  background-color              : {{ settings.color_body_bg }};
-}
-
-// New - Checkout Elements
-.boxshadow {
-  .main {
-    .field__input {
-      box-shadow                : none;
-      &:focus {
-        box-shadow              : 0 0 1px {{ settings.color_interface_accent }};
-      }
-    }
-  }
-}
-.field__input {
-  border-radius                 : 0;
-}
-
-select {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  background-position: right center;
-  background: {
-    image: url('{{ "ico-select.svg" | asset_url }}');
-    repeat: no-repeat;
-    position: right 10px center;
-    color                       : {{ settings.color_body_bg }}; // Was transparent
-
-  }
-  padding-right: 28px;
-  text-indent: 0.01px;
-  text-overflow: '';
-  cursor: pointer;
-
-  /*================ Hide the svg arrow in IE9 and below ================*/
-  .ie9 &,
-  .lt-ie9 & {
-    padding-right: 10px;
-    background-image: none;
-  }
-}
-
-optgroup {
-  font-weight: bold;
-}
-
-// Force option color (affects IE only)
-option {
-  color: #000;
-  background-color: #fff;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-/*================ Form labels ================*/
-.hidden-label {
-  position: absolute;
-  height: 0;
-  width: 0;
-  margin-bottom: 0;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-
-  // No placeholders, so force show labels
-  .ie9 &,
-  .lt-ie9 & {
-    position: static;
-    height: auto;
-    width: auto;
-    margin-bottom: 2px;
-    overflow: visible;
-    clip: initial;
-  }
-}
-
-label[for] {
-  cursor: pointer;
-}
-
-/*================ Horizontal Form ================*/
-.form-vertical {
-  input,
-  select,
-  textarea {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  input[type="radio"],
-  input[type="checkbox"] {
-    display: inline-block;
-  }
-}
-
-/*================ Error styles ================*/
-input,
-select,
-textarea {
-  &.error {
-    border-color: $errorRed;
-    background-color: $errorRedBg;
-    color: $errorRed;
-  }
-}
-
-label.error {
-  color: $errorRed;
-}
-
-
-/*================ Input Group ================*/
-.input-group {
-  position: relative;
-  display: table;
-  border-collapse: separate;
-
-  .input-group-field:first-child,
-  .input-group-btn:first-child,
-  .input-group-btn:first-child > .btn,
-  input[type="hidden"]:first-child + .input-group-field,
-  input[type="hidden"]:first-child + .input-group-btn > .btn {
-    border-radius: $radius 0 0 $radius;
-  }
-
-  .input-group-field:last-child,
-  .input-group-btn:last-child > .btn {
-   border-radius: 0 $radius $radius 0;
-  }
-
-  input {
-    // Nasty Firefox hack for inputs http://davidwalsh.name/firefox-buttons
-    &::-moz-focus-inner {
-      border: 0;
-      padding: 0;
-      margin-top: -1px;
-      margin-bottom: -1px;
-    }
-  }
-}
-
-.input-group-field,
-.input-group-btn {
-  display: table-cell;
-  vertical-align: middle;
-  margin: 0;
-}
-
-.input-group .btn,
-.input-group .input-group-field {
-  height: 37px;
-}
-
-.input-group .input-group-field {
-  width: 100%;
-}
-
-.input-group-btn {
-  position: relative;
-  white-space: nowrap;
-  width: 1%;
-  padding: 0;
-}
-
-
-/*============================================================================
-  #Basic Styles
-==============================================================================*/
-// New
-html,
-body {
-  margin                        : 0;
-  padding                       : 0;
-  height                        : 100%;
-  min-height                    : 100%;
-}
-html {
-  background-color              : $colorFooterBg;
-}
-
-body {
-  background-color              : $colorBody;
-}
-
-[tabindex='-1']:focus {
-  outline: none;
-}
-
-// New
-div.page-container {
-  position                      : relative;
-  width                         : 100%;
-  min-height                    : 100%;
-  background-color              : {{ settings.color_body_bg_accent }};
-}
-
-.wrapper {
-  @include clearfix();
-  max-width: $siteWidth;
-  margin: 0 auto;
-  padding: 0 ($gutter / 2);
-
-  @include at-query ($min, $small) {
-    padding                     : 0 ($gutter * 1.5);            // Was $gutter
-  }
-  // New
-  @include at-query ($min, $medium) {
-    padding                     : 0 $gutter;
-  }
-}
-
-.main-content {
-  display                       : block;
-//margin-top                    : ($gutter * 3);                // Was $gutter
-  padding-top                   : ($gutter * 2);
-  padding-bottom                : ($gutter * 2);
-
-  @include at-query ($min, $large) {
-    padding                     : 45px;
-  }
-}
-
-/* ========================================================================================== */
-
-/*================ Blockquotes ================*/
-blockquote {
-  font-size: 1.125em;
-  line-height: 1.45;
-  font-style: italic;
-  margin: 0 0 $gutter;
-  padding: ($gutter / 2) $gutter;
-  border-left: 1px solid $colorBorder;
-
-  p {
-    margin-bottom: 0;
-
-    & + cite {
-      margin-top: $gutter / 2;
-    }
-  }
-
-  cite {
-    display: block;
-    font-size: 0.75em;
-
-    &:before {
-      content: '\2014 \0020';
-    }
-  }
-}
-
-/*================ Code ================*/
-code, pre {
-  background-color: #faf7f5;
-  font-family: Consolas,monospace;
-  font-size: 1em;
-  border: 0 none;
-  padding: 0 2px;
-  color: #51ab62;
-}
-
-pre {
-  overflow: auto;
-  padding: $gutter / 2;
-  margin: 0 0 $gutter;
-}
-
-/*================ Horizontal Rules ================*/
-hr {
-  clear: both;
-  border-top: solid $colorBorder;
-  border-width: 1px 0 0;
-  margin: $gutter 0;
-  height: 0;
-
-  &.hr--small {
-    margin: ($gutter / 2) 0;
-  }
-
-  &.hr--clear {
-    border-top-color: transparent;
-  }
-}
-
-/*================ Section Headers ================*/
-.section-header {
-  margin-bottom: $gutter / 1.5;
-}
-
-@include at-query ($min, $large) {
-  .section-header {
-    display: table;
-    width: 100%;
-  }
-
-  .section-header__title {
-    margin-bottom: $gutter / 2.5;
-  }
-
-  .section-header__left {
-    display: table-cell;
-    vertical-align: middle;
-    margin-bottom: 0;
-
-    h1, h2, h3, h4,
-    .h1, .h2, .h3, .h4 {
-      margin-bottom: 0;
-    }
-  }
-
-  .section-header__right {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: right;
-    width: 335px;
-
-    @include at-query ($max, $medium) {
-      margin-bottom: $gutter;
-    }
-  }
-}
-
-.section-header__right {
-  .form-horizontal,
-  .collection-view {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  @include at-query ($min, $postSmall) {
-    label + select,
-    .collection-view {
-      margin-left: $gutter / 2;
-    }
-  }
-}
-
-.collection-view {
-  display                       : none !important;              // Was inline-block
-  border: 1px solid $colorBorder;
-  border-radius: $radius;
-  padding: 0 5px;
-  height: 37px; // same as form elements
-  overflow: hidden;
-
-  /*================ Only show on larger screens ================*/
-  @include at-query ($min, $large) {
-    display                     : none !important;              // Was inline-block
-  }
-}
-
-.change-view {
-  display: block;
-  background: none;
-  border: 0 none;
-  float: left;
-  padding: 10px 8px;
-  color: $colorBorder;
-  line-height: 1;
-
-  &:hover,
-  &:focus {
-    color: $colorPrimary;
-  }
-}
-
-.change-view--active {
-  cursor: default;
-  color: $colorPrimary;
-}
-
-/* ========================================================================================== */
-
-/*============================================================================
-  #Rich Text Editor
-==============================================================================*/
-.rte {
-  margin-bottom: $gutter / 2;
-
-  a {
-    text-decoration             : none;                         // Was underline
-  }
-
-  // Add some top margin to headers from the rich text editor
-  h1, h2, h3, h4, h5, h6 {
-    margin-top: 1em;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    a {
-      text-decoration: none;
-    }
-  }
-
-  > div {
-    margin-bottom: $gutter / 2;
-  }
-
-  li {
-    margin-bottom: 0.4em;
-  }
-}
-
-.rte--header {
-  margin-bottom: 0;
-}
-
-/*============================================================================
-  #Links and Buttons
-==============================================================================*/
-a,
-.text-link {
-  color                         : $colorLink;
-  text-decoration               : none;
-  background                    : transparent;
-}
-
-a:hover,
-a:focus,
-a:active {
-  color                         : $colorLinkHover;
-}
-.text-link {
-  &:hover,
-  &:focus,
-  &:active {
-    color                       : $colorLinkHover;
-  }
-}
-
-button {
-  overflow: visible;
-}
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-.btn,
-.rte .btn {
-  display: inline-block;
-  padding: 8px 10px;
-  width                         : auto;
-  min-width                     : 128px;
-  margin: 0;
-  line-height: 1.42;
-  font-weight                   : 700; // Was 700
-  text-decoration: none;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  cursor: pointer;
-  border: 1px solid transparent;
-
-  // New
-  font-family                   : $interfaceFontStack;
-  text-transform                : uppercase;
-
-  @include user-select(none);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: $radius;
-
-  /*================ Set primary button colors - can override later ================*/
-  background-color: $colorBtnPrimary;
-  color: $colorBtnPrimaryText;
-
-  &:hover {
-    background-color: $colorBtnPrimaryHover;
-    color: $colorBtnPrimaryText;
-  }
-
-  &:active,
-  &:focus {
-   background-color: $colorBtnPrimaryActive;
-   color: $colorBtnPrimaryText;
-  }
-
-  &[disabled],
-  &.disabled {
-    cursor: default;
-    color: $disabledBorder;
-    background-color: $disabledGrey;
-  }
-}
-
-.btn--secondary,
-.rte .btn--secondary {
-  @extend .btn;
-  background-color: $colorBtnSecondary;
-
-  &:hover {
-    background-color: $colorBtnSecondaryHover;
-    color: $colorBtnSecondaryText;
-  }
-
-  &:active,
-  &:focus {
-   background-color: $colorBtnSecondaryActive;
-   color: $colorBtnSecondaryText;
-  }
-}
-
-.btn--small {
-  padding: 4px 5px;
-  font-size: em(12px);
-}
-
-.btn--large {
-  padding: 12px 15px;
-  font-size: em(16px);
-}
-
-.btn--full {
-  width: 100%;
-}
-
-/*================ Force an input/button to look like a text link ================*/
-.text-link {
-  display: inline;
-  border: 0 none;
-  background: none;
-  padding: 0;
-  margin: 0;
-}
-
-/*============================================================================
-  #Lists
-==============================================================================*/
-ul, ol {
-  margin: 0 0 ($gutter / 2) 20px;
-  padding: 0;
-}
-
-ol { list-style: decimal; }
-ul ul, ul ol,
-ol ol, ol ul { margin: 4px 0 5px 20px; }
-li { margin-bottom: 0.25em; }
-
-ul.square { list-style: square outside; }
-ul.disc { list-style: disc outside; }
-ol.alpha { list-style: lower-alpha outside; }
-
-.no-bullets {
-  list-style: none outside;
-  margin-left: 0;
-}
-
-.inline-list {
-  margin-left: 0;
-
-  li {
-    display: inline-block;
-    margin-bottom: 0;
-  }
-}
-
-/*============================================================================
-  #Tables
-==============================================================================*/
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-table.full {
-  width: 100%;
-  margin-bottom: 1em;
-}
-
-.table-wrap {
-  max-width: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-th {
-  font-weight: bold;
-}
-
-th, td {
-  text-align: left;
-  padding: $gutter / 2;
-  border: 1px solid $colorBorder;
-}
-
-/*============================================================================
-  Responsive tables, defined with .table--responsive on table element.
-  Only defined for IE9+
-==============================================================================*/
-.table--responsive {
-  // Was $max, $small
-  @include at-query($max, $preSmall) {
-    thead {
-      display: none;
-    }
-
-    tr {
-      display: block;
-    }
-
-    // IE9 table layout fixes
-    tr,
-    td {
-      float: left;
-      clear: both;
-      width: 100%;
-    }
-
-    th,
-    td {
-      display: block;
-      text-align: right;
-      padding: 15px;
-    }
-
-    td:before {
-      content: attr(data-label);
-      float: left;
-      text-align: center;
-      font-size: 12px;
-      padding-right: 10px;
-    }
-
-    &.cart-table {
-      img {
-        margin: 0 auto;
-      }
-
-      .js-qty {
-        float: right;
-      }
-    }
-  }
-}
-
-// Was $max, $small
-@include at-query($max, $preSmall) {
-  .table--small-hide {
-    display: none !important;
-  }
-
-  .table__section + .table__section {
-    position: relative;
-    margin-top: 10px;
-    padding-top: 15px;
-
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left                      : $gutter;                      // Was 15px
-      right                     : $gutter;                      // Was 15px
-      border-bottom             : 2px solid {{ settings.color_body_bg_accent }}; // Was 2px $colorBorder;
-    }
-  }
-}
-
-/* ========================================================================================== */
-
-/*============================================================================
-  #Pagination
-==============================================================================*/
-.pagination {
-  margin-bottom: 1em;
-  text-align: center;
-
-  > span {
-    display: inline-block;
-    line-height: 1;
-  }
-
-  a {
-    display: block;
-  }
-
-  a,
-  .page.current {
-    padding: 8px;
-  }
-}
-
-/*============================================================================
-  #Site Header
-==============================================================================*/
-.site-header {
-  padding                       : ($gutter / 2) 0;
-  background-color              : rgb(245, 245, 245);           // #F5F5F5 - make variable? New
-
-  // New
-  @include at-query ($max, $medium) {
-    padding                     : 0;
-  }
-
-  .wrapper {
-    @include at-query ($min, $large) {
-      padding                   : ($gutter / 2) 45px;
-    }
-  }
-
-  .grid--table {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-
-    > .grid__item {
-      float: none;
-      display: table-cell;
-      vertical-align: middle;
-
-      // Ancillary Nav (Social Icons, Cart, Account, Search)
-      div {
-        display                 : inline-block;
-      }
-
-    }
-  }
-
-  // Social Icons (New)
-  .social-icons {
-    margin                      : 0;
-    .icon {
-      font-size                 : em(16px);
-      color                     : {{ settings.color_secondary }};
-    }
-  }
-
-  // Expandable Search (New)
-  .site-header__search {
-    form.search-bar {
-      margin-bottom             : 0;
-    }
-    ::-webkit-input-placeholder {
-       color                    : rgb(110, 110, 110);
-    }
-    :-moz-placeholder {
-       color                    : rgb(110, 110, 110);
-    }
-    ::-moz-placeholder {
-       color                    : rgb(110, 110, 110);
-    }
-    :-ms-input-placeholder {
-       color                    : rgb(110, 110, 110);
-    }
-    input[type="search"] {
-      margin-right              : 23px;
-      padding                   : 0;
-      width                     : 0;
-      min-width                 : 0;
-      -webkit-transition        : all .25s;
-      -moz-transition           : all .25s;
-      transition                : all .25s;
-    }
-    &:focus {
-      input[type="search"] {
-        padding                 : 0 2px;
-        width                   : auto;
-        min-width               : 140px;
-      }
-    }
-    button[type="submit"],
-    span.search-expander {
-      display                   : block;
-      position                  : absolute;
-      top                       : 0;
-      right                     : 0;
-      cursor                    : pointer;
-    }
-    button[type="submit"] {
-      z-index                   : 10px;
-    }
-    span.search-expander {
-      z-index                   : 15;
-      width                     : 22px;
-      height                    : 23px;
-    }
-
-    .search-bar.expanded {
-      input[type="search"] {
-        width                   : 140px;
-        min-width               : 140px;
-        -webkit-transition      : all .25s;
-        -moz-transition         : all .25s;
-        transition              : all .25s;
-      }
-      button[type="submit"] {
-        z-index                 : 15;
-      }
-      span.search-expander {
-        z-index                 : 10;
-      }
-    }
-
-  }
-
-}
-
-.site-header__logo {
-  text-align: center;
-  margin: 0 auto;
-  max-width: 100%;
-
-  @include at-query ($min, $large) {
-    text-align: left;
-  }
-
-  a,
-  a:hover,
-  a:focus {
-    text-decoration: none;
-  }
-
-  a, img {
-    display: block;
-  }
-
-  img {
-    margin: 0 auto;
-  }
-}
-
-.site-header__logo-link {
-  max-width: $logoMaxWidth;
-  margin: 0 auto;
-}
-
-.site-header__cart-toggle {
-  display: inline-block;
-}
-
-.site-header__search {
-  display                       : inline-block;
-  max-width                     : 207px;                        // Was 400px
-  margin-top                    : $gutter / 2;
-  width                         : auto;                         // Was 100%
-}
-
-// Ancillary Nav Links (New)
-.nav-ancillary {
-  position                      : relative;
-  bottom                        : 8px;
-  margin-right                  : 16px;
-  padding-top                   : 8px;
-  font-family                   : $interfaceFontStack;
-  font-size                     : em(10px);
-  font-weight                   : 600;
-  color                         : rgb(12, 12, 12);              // #0C0C0C
-  text-transform                : uppercase;
-  a {
-    color                       : rgb(12, 12, 12);
-  }
-}
-
-// Cart (New - main and mobile)
-.nav-ancillary span.cart,
-.mobile-nav__item.menu-cart span.cart {
-  display                       : inline-block;
-  position                      : relative;
-  padding                       : 15px 0 7px 34px;
-  line-height                   : 100%;
-  background-repeat             : no-repeat;
-  background-position           : 0 0;
-  background-size               : contain;
-  &.full {
-  //padding-left                : 46px;
-    span.cart-count,
-    span.title {
-      display                   : inline-block;
-      position                  : relative;
-    }
-    span.cart-count {
-      position                  : absolute;
-      top                       : 20px;
-      left                      : 0;
-      width                     : 29px;
-      height                    : 13px;
-      font-size                 : 12px;                         // em(13px);
-      font-weight               : $headerFontWeight;
-      text-align                : center;
-    }
-    span.title {
-      //padding-left
-    }
-  }
-}
-.nav-ancillary span.cart {
-  &.empty {
-    background-image            : url({{ 'Icon.Basket.Empty.png' | asset_url }});
-  }
-  &.full {
-    background-image            : url({{ 'Icon.Basket.Items.png' | asset_url }});
-  }
-  span.cart-count {
-    color                       : {{ settings.color_footer_text }};
-  }
-}
-.mobile-nav__item.menu-cart span.cart {
-  &.empty {
-    background-image            : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
-  }
-  &.full {
-    background-image            : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
-  }
-  span.cart-count {
-    color                       : rgb(45, 45, 45);
-  }
-}
-
-.search-bar {
-  max-width: 100%;
-
-  // New
-  input[type="search"] {
-    margin-right                : 0;
-    border-width                : 0 0 1px 0;
-    border-color                : {{ settings.color_primary }};
-    padding                     : 0 2px;
-    width                       : auto;
-    min-width                   : 140px;
-    height                      : 24px;
-    font-size                   : em(12px);
-    background-color            : transparent;
-  }
-  ::-webkit-input-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-  :-moz-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-  ::-moz-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-  :-ms-input-placeholder {
-     color                      : {{ settings.color_body_bg_accent }};
-  }
-
-  // New
-  .input-group-btn {
-    padding-left                : 0;
-    width                       : auto;
-  }
-  button[type="submit"],
-  button.btn {
-    padding                     : 0;
-    width                       : 22px;
-    min-width                   : auto;
-    height                      : 21px;
-    background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
-    background-size             : 21px 21px;
-  }
-
-  // New
-  .icon-search {
-    display                     : none !important;
-  }
-
-
-  @include at-query ($max, $medium) {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/*============================================================================
-  #Site Nav and Dropdowns
-==============================================================================*/
-.nav-bar {
-  padding                       : ($gutter / 2) 0 $gutter;
-  background-color              : {{ settings.color_body_bg }}; // Was $colorNav;
-  @include at-query($max, $large) {
-    padding-bottom              : 0;
-  }
-}
-
-.site-nav {
-  font-family                   : $headerFontStack;             // New
-  font-size                     : em(14px);                     // Was em(16px)
-  font-weight                   : 800;
-  text-transform                : uppercase;                    // New
-  cursor: default;
-  margin: ($gutter * 1.5) 0 ($gutter / 2) (-$gutter / 2); // Was 0 0 0 (-$gutter / 2)
-
-  li {
-    margin: 0;
-    display: block;
-  }
-
-  > li {
-    position: relative;
-    display: inline-block;
-  }
-}
-
-/*================ Home to hamburger and cart that toggle drawers ================*/
-
-// New - targeting specific element so as not to interfere with cart drawer
-#NavDrawer,
-#NavDrawer .drawer__header {
-  background                    : rgb(45, 45, 45);              // #2D2D2D
-  button {
-    color                       : {{ settings.color_body_bg }};
-  }
-}
-#NavDrawer .drawer__header {
-  border-bottom                 : 1px solid rgb(92, 92, 92);    // #5C5C5C
-}
-.mobile-navbar {
-  display                       : table;
-  .site-nav--mobile,
-  .home-link {
-    display                     : table-cell;
-    text-align                  : center;
-    vertical-align              : middle;
-    @include at-query($max, $small) {
-      padding-top               : 1%;
-    }
-  }
-  .site-nav--mobile {
-    width                       : 10%;
-  }
-  .home-link {
-    padding-right               : 5%;
-    h1 {
-      margin                    : 0;
-      font-size                 : em(28px);
-      font-size                 : 4vw;
-      letter-spacing            : 0.85em;
-      letter-spacing            : 0.35vw;
-    }
-  }
-  .search-bar {
-    input {
-      ::-webkit-input-placeholder {
-       color                    : darken({{ settings.color_body_bg }}, 5%);
-      }
-      :-moz-placeholder {
-         color                  : darken({{ settings.color_body_bg }}, 5%);
-      }
-      ::-moz-placeholder {
-         color                  : darken({{ settings.color_body_bg }}, 5%);
-      }
-      :-ms-input-placeholder {
-         color                  : darken({{ settings.color_body_bg }}, 5%);
-      }
-
-    }
-  }
-}
-
-.site-nav--mobile {
-  @extend .site-nav;
-
-  .text-right & {
-    margin: 0 (-$gutter / 2) 0 0;
-  }
-
-  // New
-  .icon-hamburger {
-    font-size                   : 2em;
-    font-size                   : 3.75vw;
-    @include at-query($max, $medium) {
-      font-size                 : 4.25vw;
-    }
-  }
-
-}
-
-.site-nav__link {
-  display: block;
-  text-decoration: none;
-  padding                       : ($gutter / 2) $gutter;        // Was $gutter / 2;
-  white-space: nowrap;
-  color: $colorNavText;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color                       : $colorPrimary;                // Was darken($colorNavText, 15%)
-  }
-
-  .icon-arrow-down {
-    position: relative;
-    top: -2px;
-    font-size: 10px;
-    padding-left: $gutter / 4;
-  }
-
-  .site-nav--active > & {
-  //font-weight: bold;
-    color                       : $colorPrimary;                // Was $colorLink
-  }
-
-  .site-nav--mobile & {
-    display: inline-block;
-  }
-
-  // New
-  &.logotype {
-    position                    : relative;
-    top                         : 4px;
-    padding                     : 0 15px 0;
-    font-size                   : 150%;
-    color                       : $colorPrimary;
-    letter-spacing              : em(2px);
-    -webkit-text-stroke-width   : 1px;
-    -webkit-text-stroke-color   : {{ settings.color_secondary }};
-  }
-
-}
-
-/*================ Dropdowns ================*/
-.site-nav__dropdown {
-  display: none;
-  position: absolute;
-  left: 0;
-  margin: 0;
-  z-index: $zindexNavDropdowns;
-
-  .supports-no-touch .site-nav--has-dropdown:hover &,
-  .site-nav--has-dropdown.nav-hover &,
-  .nav-focus + & {
-    display: block;
-  }
-
-  a {
-    background-color: $colorNav;
-
-    &:hover,
-    &:active,
-    &:focus {
-      background-color: darken($colorNav, 10%);
-    }
-  }
-}
-
-/*================ Search bar in header ================*/
-.nav-search {
-  position: relative;
-  padding: 10px 0;
-
-  @include at-query ($max, $medium) {
-    padding: 0 0 ($gutter / 2);
-    margin: 0 auto;
-    text-align: center;
-  }
-}
-
-/*============================================================================
-  #Mobile Nav
-  - List of items inside the mobile drawer
-==============================================================================*/
-.mobile-nav {
-  // Negative of .drawer left/right padding for full-width link tap area
-  margin: (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
-
-  li {
-    margin-bottom: 0;
-  }
-}
-
-.mobile-nav__search {
-  padding: $gutter / 2;
-
-  .search-bar {
-    margin-bottom: 0;
-    // New
-    input[type="search"] {
-      color                     : {{ settings.color_body_bg }};
-    }
-  }
-}
-
-.mobile-nav__item {
-  position: relative;
-  display: block;
-
-  // Background color on top level items so there is no
-  // element overlap on subnav's CSS toggle animation
-  .mobile-nav > & {
-    border                      : 1px solid rgb(59, 59, 59);    // #3B3B3B
-    background-color            : rgb(59, 59, 59);              // #3B3B3B - Was $colorDrawers
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: $gutter / 2;
-    right: $gutter / 2;
-  //border-bottom: 1px solid $colorDrawerBorder;
-  }
-
-  .mobile-nav > &:last-child:after {
-    display: none;
-  }
-
-  // New
-  .search-bar {
-    margin                      : 0;
-    padding                     : 5%;
-  }
-
-}
-.mobile-nav__item:nth-child(even) {
-  .mobile-nav > & {
-    border-color                : rgb(92, 92, 92);              // #5C5C5C
-    background-color            : rgb(45, 45, 45);              // #2D2D2D
-  }
-}
-
-.mobile-nav__item a,
-.mobile-nav__toggle button {
-  margin-right                  : 13px; //New
-  color: $colorDrawerText;
-  padding: $gutter / 2;
-  text-decoration: none;
-
-  &:hover,
-  &:active,
-  &:focus {
-    // color: darken($colorDrawerText, 15%);
-  }
-
-  &:active,
-  &:focus {
-    // background-color: darken($colorDrawers, 5%);
-  }
-}
-
-// Login/logout links can't have a class on them, so style <a> element
-.mobile-nav__item a {
-  display: block;
-  padding                       : 5%;                           // New
-  font-family                   : $headerFontStack;
-  font-size                     : em(12px);
-  font-weight                   : 600;
-  color                         : {{ settings.color_body_bg }} !important; // New - needs to be important due to .drawer a override
-  text-transform                : uppercase;
-  &:hover,
-  &:active,
-  &:focus {
-    color                       : darken({{ settings.color_body_bg }}, 5%);// Was darken($colorDrawerText, 15%);
-  }
-}
-
-.mobile-nav__item--active {
-  // font-weight: bold;
-}
-
-.mobile-nav__has-sublist {
-  display: table;
-  width: 100%;
-
-  .mobile-nav__link {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100%;
-  }
-}
-
-.mobile-nav__toggle {
-  display: table-cell;
-  vertical-align: middle;
-  width: 1%;
-}
-
-.mobile-nav__toggle-open {
-  .mobile-nav--expanded & {
-    display: none;
-  }
-}
-
-.mobile-nav__toggle-close {
-  display: none;
-
-  .mobile-nav--expanded & {
-    display: block;
-  }
-}
-
-.mobile-nav__sublist {
-  margin                        : 0 0 0 ($gutter * 1.5);        // New
-  max-height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition: all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
-  @include backface();
-
-  .mobile-nav--expanded + & {
-    visibility: visible;
-    max-height: 700px;
-    transition: all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
-  }
-
-  .mobile-nav__item:after {
-    top: 0;
-    bottom: auto;
-  }
-
-  // New
-  .mobile-nav__item a {
-    padding                     : 5px 0 5px 10px;
-  }
-
-  .mobile-nav__link {
-    padding-left: $gutter;
-    font-weight: normal;
-  }
-}
-
-/*============================================================================
-  #Drawers
-==============================================================================*/
-.js-drawer-open {
-  overflow: hidden;
-  height: 100%;
-}
-
-.drawer {
-  @include promote-layer();
-  display: none;
-  position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  top: 0;
-  bottom: 0;
-  padding                       : 0 0 ($gutter / 2);            // Was 0 ($gutter / 2) ($gutter / 2);
-  max-width: 95%;
-  z-index: $zindexDrawer;
-  color: $colorDrawerText;
-  background-color: $colorDrawers;
-  transition: $drawerTransition;
-
-  a {
-    color: $colorDrawerText;
-
-    &:hover,
-    &:focus {
-      opacity: 0.7;
-    }
-  }
-
-  input,
-  textarea {
-    border-color: $colorDrawerBorder;
-  }
-}
-
-.drawer--left {
-  width: $drawerNavWidth;
-  left: -$drawerNavWidth;
-  border-right: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-left & {
-    display: block;
-    @include transform(translateX($drawerNavWidth));
-
-    .lt-ie9 & {
-      left: 0;
-    }
-  }
-}
-
-.drawer--right {
-  width: $drawerCartWidth;
-  right: -$drawerCartWidth;
-  border-left: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-right & {
-    display: block;
-    @include transform(translateX(-$drawerCartWidth));
-
-    .lt-ie9 & {
-      right: 0;
-    }
-  }
-}
-
-#PageContainer {
-  // overflow: hidden;
-}
-
-.is-moved-by-drawer {
-  @include promote-layer();
-  transition: $drawerTransition;
-
-  .js-drawer-open-left & {
-    @include transform(translateX($drawerNavWidth));
-  }
-
-  .js-drawer-open-right & {
-    @include transform(translateX(-$drawerCartWidth));
-  }
-}
-
-.drawer__header {
-  display: table;
-//height: 70px;
-  margin-bottom: $gutter / 2;
-  width: 100%;
-  background                    : {{ settings.color_body_bg }};
-//border-bottom: 1px solid $colorDrawerBorder;
-}
-
-.drawer__title,
-.drawer__close {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.drawer__title {
-  width: 100%;
-}
-
-.drawer__close {
-  padding-right                 : 5%;                           // New
-  width: 1%;
-  text-align                    : right;                        // Was center;
-  font-size: em(18px);
-}
-
-.drawer__close button {
-  position: relative;
-  right: -20px;
-  height: 100%;
-  padding: 0 20px;
-  color: inherit;
-
-  &:active,
-  &:focus {
-    // background-color: darken($colorDrawers, 5%);
-  }
-}
-
-/*============================================================================
-  #Site Footer
-==============================================================================*/
-.site-footer {
-  position                      : absolute;                     // New
-  bottom                        : 0;                            // New
-  left                          : 0;                            // New
-  padding                       : $gutter 0;
-  width                         : 100%;                         // New
-  font-size                     : em(12px);                     // New
-  color                         : $colorFooterText;
-  background-color              : $colorFooterBg;
-
-  // New
-  @include at-query ($max, $preMedium) {
-    padding                     : $gutter 0 ($gutter * 2);
-  }
-  @include at-query ($min, $medium) {
-    padding                     : $gutter 0 ($gutter * 1.5);
-  }
-  @include at-query ($min, $large) {
-    padding                     : 17px 0 0;       // Was padding: ($gutter * 2) 0;
-  }
-
-  // New
-  .grid__item {
-    display                     : table-cell;
-    vertical-align              : middle;
-  }
-
-  // New
-  a {
-    display                     : inline-block;
-    color                       : $colorFooterText;
-    white-space                 : nowrap;
-  }
-
-  // Copyright, Links (New)
-  p {
-    margin-bottom               : 0;
-    &.copyright {
-      padding-left              : ($gutter * 1.333);
-      @include at-query ($max, $medium) {
-        padding-left            : 0;
-        padding-top             : $gutter;
-      }
-    }
-    &.links {
-      padding-right             : ($gutter * 1.333);
-      @include at-query ($max, $medium) {
-        padding-right           : 0;
-        padding-top             : $gutter;
-      }
-      @include at-query ($min, $medium) {
-        text-align              : right;
-      }
-    }
-  }
-
-  // Social Icons (New)
-  .social-icons {
-    position                    : relative;
-    margin                      : 0;
-    .icon {
-      font-size                 : em(26px);
-    }
-    @include at-query ($max, $medium) {
-      padding-top             : $gutter;
-    }
-  }
-
-}
-
-/*============================================================================
-  #Product and Collection Grids
-==============================================================================*/
-.grid__image {
-  display: block;
-  margin: 0 auto ($gutter / 2);
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-.product-custom-options {
-  textarea {
-    display                     : block;
-    width                       : 100%;
-  }
-}
-
-
-/*============================================================================
-  #Collection Filters
-==============================================================================*/
-// New
-ul.collection-filters,
-ul.article-filters {
-  li {
-    display                     : inline-block;
-    margin                      : 0 1px 5px 0;
-    padding                     : 2px 6px;
-    background                  : {{ settings.color_body_bg }};
-    a {
-      font-family               : $interfaceFontStack;
-      font-size                 : em(10px);
-      line-height               : 100%;
-      font-weight               : 600;
-      color                     : {{ settings.color_secondary }};
-      text-transform            : capitalize;
-    }
-    &.filter--active {
-      a {
-        color                   : {{ settings.color_primary }};
-      }
-    }
-  }
-}
-.filter--active {
-//font-weight: bold;
-  a {
-    color                       : {{ settings.color_primary }};
-  }
-}
-
-/*============================================================================
-  #Breadcrumbs
-==============================================================================*/
-.breadcrumb {
-  display                       : none;                         // New
-  margin-bottom: $gutter;
-
-  a,
-  span {
-    display: inline-block;
-    padding: 0 7px 0 0;
-    margin-right: 7px;
-
-    &:first-child {
-      padding-left: 0;
-    }
-  }
-}
-
-
-/*============================================================================
-  #Product Page - should be moved to _product.scss.liquid
-==============================================================================*/
-.product-single__variants {
-  display: none;
-
-  .no-js & {
-    display: block;
-  }
-}
-
-.product-single__photos {
-  margin-bottom: $gutter;
-}
-
-.product-single__photos,
-.product-single__thumbnails {
-  a, img {
-    display: block;
-    margin: 0 auto;
-  }
-
-  li {
-    margin-bottom: $gutter;
-  }
-}
-
-
-/*============================================================================
-  #Notes and Form Feedback
-==============================================================================*/
-.note,
-.errors {
-  border-radius: $radius;
-  padding: 6px 12px;
-  margin-bottom: $gutter / 2;
-  border: 1px solid transparent;
-  font-size: 0.9em;
-  text-align: left;
-
-  ul,
-  ol {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  li:last-child {
-    margin-bottom: 0;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-}
-
-.note {
-  border-color: $colorBorder;
-}
-
-.errors {
-  ul {
-    list-style: disc outside;
-    margin-left: 20px;
-  }
-}
-
-.form-success {
-  color: $successGreen;
-  background-color: $successGreenBg;
-  border-color: $successGreen;
-
-  a {
-    color: $successGreen;
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-.form-error,
-.errors {
-  color: $errorRed;
-  background-color: $errorRedBg;
-  border-color: $errorRed;
-
-  a {
-    color: $errorRed;
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-
-/*============================================================================
-  #Cart Page
-==============================================================================*/
-.cart__row {
-  position: relative;
-  margin-top: $gutter;
-  padding-top: $gutter;
-  border-top: 1px solid $colorBorder;
-
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  .js-qty {
-    margin: 0 auto;
-  }
-}
-
-.cart-table {
-  th {
-    font-weight: normal;
-  }
-
-  td,
-  th {
-    padding: 30px 15px;
-    border: none;
-  }
-}
-
-@include at-query ($min, $large) {
-  .cart__row--table-large {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-
-    .grid__item {
-      display: table-cell;
-      vertical-align: middle;
-      float: none;
-    }
-  }
-}
-
-.cart__image {
-  display: block;
-
-  img {
-    display: block;
-    max-width: 100%;
-  }
-}
-
-.cart__subtotal {
-  margin: 0 0 0 ($gutter / 3);
-  display: inline;
-}
-
-.cart__mini-labels {
-  display: block;
-  margin: ($gutter / 3) 0;
-  font-size: em(12px);
-
-  @include at-query ($min, $large) {
-    display: none;
-  }
-}
-
-.cart__remove {
-  display: block;
-}
-
-/*============================================================================
-  #Ajax Cart Styles (conditionally loaded)
-==============================================================================*/
-{% if settings.ajax_cart_method == "drawer" %}
-
-.ajaxcart__inner {
-  margin-bottom: $gutter;
-}
-
-.ajaxcart__row {
-  > .grid {
-    margin-left: -$gutter / 2;
-
-    > .grid__item {
-      padding-left: $gutter / 2;
-    }
-  }
-}
-
-.ajaxcart__product {
-  position: relative;
-  max-height: 500px;
-
-  &.is-removed {
-    max-height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    transition: all 450ms cubic-bezier(0.57,.06,.05,.95);
-    @include backface();
-  }
-}
-
-.ajaxcart__row {
-  padding-bottom: $gutter / 2;
-  margin-bottom: $gutter / 2;
-  border-bottom: 1px solid $colorDrawerBorder;
-}
-
-.ajaxcart__product-image {
-  display: block;
-  overflow: hidden;
-  margin-bottom: 15px;
-
-  img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-  }
-}
-
-.ajaxcart__product-name,
-.ajaxcart__product-meta {
-  display: block;
-}
-
-.ajaxcart__product-name + .ajaxcart__product-meta {
-  padding-top: $gutter / 5;
-}
-
-/*================ Quantity Selectors ================*/
-.js-qty {
-  position: relative;
-  margin-bottom: 1em;
-  max-width: 100px;
-  min-width: 75px;
-  overflow: visible;
-
-  input {
-    display: block;
-    background: none;
-    text-align: center;
-    width: 100%;
-    padding: 5px 25px;
-    margin: 0;
-  }
-}
-
-.js-qty__adjust {
-  cursor: pointer;
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  border: 0 none;
-  padding: 0 8px;
-  background: none;
-  text-align: center;
-  overflow: hidden;
-  @include user-select(none);
-
-  &:hover,
-  &:focus {
-    color: $colorPrimary;
-  }
-}
-
-.js-qty__adjust--plus {
-  right: 0;
-  border-left: 1px solid $colorBorder;
-}
-
-.js-qty__adjust--minus {
-  left: 0;
-  border-right: 1px solid $colorBorder;
-}
-
-/*================ Quantity Selectors in Ajax Cart ================*/
-.ajaxcart__qty {
-  @extend .js-qty;
-  margin: 0;
-
-  .is-loading & {
-    opacity: 0.5;
-    transition: none;
-  }
-}
-
-.ajaxcart__qty-num {
-  border-color: $colorDrawerBorder;
-  color: $colorDrawerText;
-}
-
-.ajaxcart__qty-adjust {
-  @extend .js-qty__adjust;
-  color: $colorDrawerText;
-}
-
-.ajaxcart__qty--plus {
-  @extend .js-qty__adjust--plus;
-  border-color: $colorDrawerBorder;
-}
-
-.ajaxcart__qty--minus {
-  @extend .js-qty__adjust--minus;
-  border-color: $colorDrawerBorder;
-}
-
-.ajaxcart-item__price-strikethrough {
-  float: right;
-}
-
-{% endif %} // settings.ajax_cart_method
-
-
-//----------------------------------------------------------------------------------------------
-// IMPORT VIEWS
 //----------------------------------------------------------------------------------------------
   //==============================================================================================
 // INDEX
@@ -3275,25 +3223,11 @@ ul.article-filters {
     }
 
     div.page-container {
-      background-color          : {{ settings.color_body_bg }};
+      background-color          : $colorBody;
     }
     .main-content {
       margin-top                : $gutter;
       padding                   : 0 $gutter $gutter;
-    }
-
-    // Grid normalization
-    /*
-    .grid__item {
-      display                   : flex;
-      align-items               : stretch;
-      .grid__item {
-        display                 : initial;
-      }
-    }
-    */
-    .buffer-bottom {
-      margin-bottom             : ($gridGutter / 2);
     }
 
     // Banner/video area
@@ -3325,13 +3259,10 @@ ul.article-filters {
         h1 {
           font-size             : em(36px);
           font-size             : 3vw;
-          color                 : {{ settings.color_body_bg }};
+          color                 : $colorBody;
           text-transform        : uppercase;
           -webkit-text-stroke-width     : 1px;
-          -webkit-text-stroke-color     : {{ settings.color_secondary }};
-          @include at-query ($max, $small) {
-          //color               : rgb(67, 148, 68);             // #439444 TODO: Add to settings
-          }
+          -webkit-text-stroke-color     : $colorSecondary;
           @include at-query ($max, $large) {
             font-size           : 4.25vw;
           }
@@ -3356,8 +3287,6 @@ ul.article-filters {
       display                   : table;
       position                  : relative;
       overflow                  : hidden;
-    //width                     : 100%;
-    //height                    : 100%;
 
       // promotion details, page link details
       .promotion-data,
@@ -3365,7 +3294,7 @@ ul.article-filters {
         display                 : table-cell;
         text-align              : center;
         vertical-align          : middle;
-        color                   : {{ settings.color_body_bg }};
+        color                   : $colorBody;
         h2,
         p {
           line-height           : 120%;
@@ -3426,7 +3355,7 @@ ul.article-filters {
       }
       .promotion-data {
         padding                 : ($gridGutter / 2) $gutter;
-        border                  : 4px solid {{ settings.color_body_bg }};
+        border                  : 4px solid $colorBody;
       }
     }
     .page-link {
@@ -3476,13 +3405,6 @@ ul.article-filters {
         }
         .link-text {
           z-index               : 5;
-          /*
-          position              : absolute;
-          top                   : 50%;
-          -webkit-transform     : translateY(-50%);
-          -ms-transform         : translateY(-50%);
-          transform             : translateY(-50%);
-          */
           display               : table;
           width                 : 100%;
           height                : 100%;
@@ -3536,12 +3458,158 @@ ul.article-filters {
     }
     h3.result-title {
       a {
-        color                   : {{ settings.color_secondary }};
+        color                   : $colorSecondary;
       }
     }
     span[itemprop="price"] {
       font-family               : $interfaceFontStack;
       font-weight               : 800;
+    }
+
+  }
+
+  //==============================================================================================
+// PAGE
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify basic page views.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-page {
+
+    // Page Title
+
+    // Splash Image
+    .grid__item.splash {
+      margin                    : 0 auto;
+      padding-bottom            : ($gutter * 2.5);
+      text-align                : center;
+      img {
+        max-width               : 100%;
+      }
+    }
+
+    // Sub-Navigation
+    ul.sub-nav {
+      list-style                : none;
+      margin-left               : 0;
+      li {
+        font-family             : $headerFontStack;
+        font-size               : $baseFontSize;
+        line-height             : 175%;
+        font-weight             : $headerFontWeight;
+        text-transform          : uppercase;
+        &.sub-nav--active {
+          a {
+            color               : $colorPrimary;
+          }
+        }
+      }
+    }
+
+    // App Links (e.g., on Sustainable Seafood)
+    .app-links {
+      margin-top                : ($gutter * 2);
+      .app-link {
+        display                 : inline-block;
+        margin-right            : $gutter;
+        img {
+          max-height            : 71px;
+        }
+      }
+    }
+
+  }
+
+  //==============================================================================================
+// ARTICLE
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market blog post artricle (e.g., recipe).
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+  .template-article {
+
+    .article-body {
+      @include at-query($min, $medium) {
+        padding-left            : ($gutter *1.5)
+      }
+      @include at-query($min, $large) {
+        padding-left            : ($gutter * 3)
+      }
+
+      // Servings Label (e.g., "Serves 4")
+      .servings {
+        margin-bottom           : 1em;
+        font-family             : 'Cabin Semibold', $bodyFontStack;
+      }
+
+    }
+
+    // Title
+    h1.title {
+      margin-top                : 0;
+      margin-bottom             : 0.75em !important;            // Needed for overriding .section-header__left without removing markup
+      text-transform            : none;
+      &.h2 {
+        font-size               : em(22px);
+      }
+    }
+
+    // Content Headings
+    h2 {
+      @extend .h4;
+    }
+
+    // Related articles
+    .related-products {
+      margin-top                : ($gutter * 2);
+      ul {
+        list-style              : none;
+        margin-left             : ($gutter / 5);
+        li {
+          display               : table;
+          margin-top            : ($gutter * 1.5);
+          div.image,
+          div.title {
+            display             : table-cell;
+            vertical-align      : middle;
+          }
+          div.image {
+            width               : 33%;
+            img {
+              width             : 100%;
+              max-width         : 125px;
+            }
+          }
+          div.title {
+            padding             : 0 ($gutter * 1.5);
+            font-family         : $interfaceFontStack;
+            line-height         : 110%;
+            font-weight         : 500;
+            color               : $colorTextBody;
+          }
+        }
+      }
+    }
+
+    // Comments
+    .comment-form {
+      textarea {
+        margin-left             : ($gutter * 2);
+      }
     }
 
   }
@@ -3601,7 +3669,7 @@ ul.article-filters {
     }
     select,
     select option {
-      background-color          : {{ settings.color_body_bg }};
+      background-color          : $colorBody;
     }
     select {
       padding                   : 2px 25px 2px 10px;
@@ -3616,7 +3684,7 @@ ul.article-filters {
         margin-bottom           : 0;
         font-family             : $headerFontStack;
         font-weight             : 600;
-        color                   : {{ settings.color_body_text }};
+        color                   : $colorTextBody;
         text-transform          : none;
       }
       a {
@@ -3624,7 +3692,7 @@ ul.article-filters {
         &:focus,
         &:active {
           h5 {
-            color               : {{ settings.color_primary }};
+            color               : $colorPrimary;
           }
         }
       }
@@ -3658,6 +3726,27 @@ ul.article-filters {
 // VIEW
 //----------------------------------------------------------------------------------------------
   .template-product {
+
+    // Defaults from Timber
+    .product-single__variants {
+      display                   : none;
+      .no-js & {
+        display                 : block;
+      }
+    }
+    .product-single__photos {
+      margin-bottom             : $gutter;
+    }
+    .product-single__photos,
+    .product-single__thumbnails {
+      a, img {
+        display                 : block;
+        margin                  : 0 auto;
+      }
+      li {
+        margin-bottom           : $gutter;
+      }
+    }
 
     // Product Details
     .product-single {
@@ -3696,6 +3785,11 @@ ul.article-filters {
           margin-bottom         : $gutter;
         }
       }
+      .text-link {
+        &.instructions-link {
+          color                 : $colorPrimary;
+        }
+      }
 
       // InifiteOptions and product form
       select,
@@ -3704,6 +3798,10 @@ ul.article-filters {
       }
       div.product-custom-options {
         margin                  : $gutter 0 ($gutter * 2);
+        textarea {
+          display               : block;
+          width                 : 100%;
+        }
       }
       .product-custom-options > div,
       div.selector-wrapper,
@@ -3750,6 +3848,7 @@ ul.article-filters {
       .unit-price .h2,
       .unit-price .unit-label {
         display                 : inline-block;
+        margin-top              : 10px;
         margin-right            : 5px;
         font-weight             : 700;
       }
@@ -3779,7 +3878,7 @@ ul.article-filters {
         font-family             : $interfaceFontStack;
         font-size               : 16px;
         line-height             : 26px;
-        color                   : {{ settings.color_body_bg }};
+        color                   : $colorBody;
         font-weight             : 700;
         text-align              : center;
         background              : $colorPrimary;
@@ -3850,7 +3949,7 @@ ul.article-filters {
         footer {
           margin-top            : 100px;
           padding               : 35px 20%;
-          background-color      : {{ settings.color_body_bg_accent }};
+          background-color      : $colorAccent;
           @include at-query($max, $preSmall) {
             margin-top          : 50px;
             padding             : 30px 15%;
@@ -3868,7 +3967,7 @@ ul.article-filters {
         border                  : 0 none transparent;
         padding                 : ($gutter * 1.5) ($gutter * 1.5) 0;
         vertical-align          : middle;
-        background-color        : {{ settings.color_body_bg }};
+        background-color        : $colorBody;
         @include at-query($max, $preSmall) {
           padding               : $gutter $gutter 0;
         }
@@ -3909,9 +4008,70 @@ ul.article-filters {
 //----------------------------------------------------------------------------------------------
   .template-cart {
 
+    // Defaults from Timber
+    .cart__row {
+      position                  : relative;
+      margin-top                : $gutter;
+      border-top                : 1px solid $colorBorder;
+      padding-top               : $gutter;
+      &:first-child {
+        margin-top              : 0;
+      }
+      &:first-child {
+        padding-top             : 0;
+      }
+      .js-qty {
+        margin                  : 0 auto;
+      }
+    }
+    .cart-table {
+      td,
+      th {
+        border                  : none;
+        padding                 : 30px 15px;
+      }
+      th {
+        font-weight             : normal;
+      }
+    }
+    @include at-query ($min, $large) {
+      .cart__row--table-large {
+        display                 : table;
+        table-layout            : fixed;
+        width                   : 100%;
+        .grid__item {
+          display               : table-cell;
+          float                 : none;
+          vertical-align        : middle;
+        }
+      }
+    }
+    .cart__image {
+      display                   : block;
+      img {
+        display                 : block;
+        max-width: 100%;
+      }
+    }
+    .cart__subtotal {
+      margin                    : 0 0 0 ($gutter / 3);
+      display                   : inline;
+    }
+    .cart__mini-labels {
+      display                   : block;
+      margin                    : ($gutter / 3) 0;
+      font-size                 : em(12px);
+      @include at-query ($min, $large) {
+        display                 : none;
+      }
+    }
+    .cart__remove {
+      display                   : block;
+    }
+
     // Page Chrome
     div.page-container {
-      background-color          : {{ settings.color_body_bg }};
+      background-color          : $colorBody;
     }
 
     // Cart Items Table
@@ -3942,20 +4102,11 @@ ul.article-filters {
 
       .cart__row.table__section {
         @include at-query($min, $small) {
-          border-bottom         : 2px solid {{ settings.color_body_bg_accent }};
+          border-bottom         : 2px solid $colorAccent;
         }
         &:last-child {
           border-bottom         : 0 none transparent;
         }
-        /*
-        &:nth-child(odd) {
-          background-color      : {{ settings.color_body_bg }};
-          input[type="number"],
-          input[type="text"] {
-            background-color    : {{ settings.color_body_bg_accent }};
-          }
-        }
-        */
       }
 
       thead th,
@@ -3969,7 +4120,7 @@ ul.article-filters {
           font-size             : em(12px);
           font-weight           : 700;
           text-transform        : uppercase;
-          background-color      : {{ settings.color_body_bg_accent }};
+          background-color      : $colorAccent;
           @include at-query($max, $preMedium) {
             padding             : $gutter;
           }
@@ -4040,7 +4191,7 @@ ul.article-filters {
           div.title {
             h4 {
               margin-bottom     : 0;
-              color             : {{ settings.color_body_text }};
+              color             : $colorTextBody;
               text-transform    : none;
             }
           }
@@ -4113,7 +4264,7 @@ ul.article-filters {
       margin-bottom             : 0;
       &.order-weight-heading,
       &.order-weight-disclaimer {
-        color                   : {{ settings.color_primary }};
+        color                   : $colorPrimary;
       }
       &.order-weight-heading {
         text-transform          : uppercase;
@@ -4139,7 +4290,7 @@ ul.article-filters {
         padding                 : 2px 30px 2px 5px;
         font-family             : $interfaceFontStack;
         font-size               : $baseFontSize;
-        background              : {{ settings.color_body_bg }} url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
+        background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
         background-size         : auto 20px;
       }
       div.day-warning {
@@ -4147,7 +4298,35 @@ ul.article-filters {
         color                   : $errorRed;
       }
     }
+    div.ui-datepicker.ui-widget,
+    div.ui-datepicker-header.ui-widget-header {
+      border-radius             : 0 !important;                 // !important needed for header
+      border-color              : $colorBorder !important;
+    }
+    div.ui-datepicker-header.ui-widget-header {
+      background                : $colorAccent2;
+    }
     .ui-datepicker-calendar {
+      td {
+        &.ui-datepicker-disabled {
+          span.ui-state-default {
+            border-color        : $colorAccent2;
+            background          : $colorAccent2;
+          }
+        }
+        a {
+          &.ui-state-default {
+            border-color        : rgb(235, 237, 237);
+            color               : $colorTextBody;
+            background          : $colorAccent;
+          }
+          &.ui-state-hover {
+            border-color        : $colorSecondary;
+            color               : $colorSecondary;
+            background          : rgb(229, 229, 229);
+          }
+        }
+      }
       td.day-warning {
         a {
           border-color          : $errorRed;
@@ -4179,7 +4358,7 @@ ul.article-filters {
     .order-summary-toggle {
       border                    : 0 none transparent;
       border-radius             : 0;
-      background-color          : {{ settings.color_body_bg_accent }};
+      background-color          : $colorAccent;
       .order-summary-toggle__text,
       .order-summary-toggle__total-recap {
         font-family             : $interfaceFontStack;
@@ -4271,154 +4450,18 @@ ul.article-filters {
   }
 
   //==============================================================================================
-// ARTICLE
+// OVERRIDES
 //----------------------------------------------------------------------------------------------
-// Represents styles specific to the Pike Place Fish Market blog post artricle (e.g., recipe).
+// Provides overrides of other styles, typically provided by third-party companies or other
+// teams.
+//----------------------------------------------------------------------------------------------
+// NOTE: Overrides in this file should be migrated to individual files under /Overrides and
+// imported if they get too long (say, over 10 selectors). In these cases, each file should be
+// named _vendor.scss, where "vendor" is the name of the corresponding file it is overriding.
 //==============================================================================================
 
 //----------------------------------------------------------------------------------------------
 // IMPORTS
-//----------------------------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------------------------
-// VIEW
-//----------------------------------------------------------------------------------------------
-  .template-article {
-
-    .article-body {
-      @include at-query($min, $medium) {
-        padding-left            : ($gutter *1.5)
-      }
-      @include at-query($min, $large) {
-        padding-left            : ($gutter * 3)
-      }
-
-      // Servings Label (e.g., "Serves 4")
-      .servings {
-        margin-bottom           : 1em;
-        font-family             : 'Cabin Semibold', $bodyFontStack;
-      }
-
-    }
-
-    // Title
-    h1.title {
-      margin-top                : 0;
-      margin-bottom             : 0.75em !important;            // Needed for overriding .section-header__left without removing markup
-      text-transform            : none;
-      &.h2 {
-        font-size               : em(22px);
-      }
-    }
-
-    // Content Headings
-    h2 {
-      @extend .h4;
-    }
-
-    // Related articles
-    .related-products {
-      margin-top                : ($gutter * 2);
-      ul {
-        list-style              : none;
-        margin-left             : ($gutter / 5);
-        li {
-          display               : table;
-          margin-top            : ($gutter * 1.5);
-          div.image,
-          div.title {
-            display             : table-cell;
-            vertical-align      : middle;
-          }
-          div.image {
-            width               : 33%;
-            img {
-              width             : 100%;
-              max-width         : 125px;
-            }
-          }
-          div.title {
-            padding             : 0 ($gutter * 1.5);
-            font-family         : $interfaceFontStack;
-            line-height         : 110%;
-            font-weight         : 500;
-            color               : {{ settings.color_body_text }};
-          }
-        }
-      }
-    }
-
-    // Comments
-    .comment-form {
-      textarea {
-        margin-left             : ($gutter * 2);
-      }
-    }
-
-  }
-
-  //==============================================================================================
-// PAGE
-//----------------------------------------------------------------------------------------------
-// Represents styles specific to the Pike Place Fish Market Shopify basic page views.
-//==============================================================================================
-
-//----------------------------------------------------------------------------------------------
-// IMPORTS
-//----------------------------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------------------------
-// VIEW
-//----------------------------------------------------------------------------------------------
-  .template-page {
-
-    // Page Title
-
-    // Splash Image
-    .grid__item.splash {
-      margin                    : 0 auto;
-      padding-bottom            : ($gutter * 2.5);
-      text-align                : center;
-      img {
-        max-width               : 100%;
-      }
-    }
-
-    // Sub-Navigation
-    ul.sub-nav {
-      list-style                : none;
-      margin-left               : 0;
-      li {
-        font-family             : $headerFontStack;
-        font-size               : $baseFontSize;
-        line-height             : 175%;
-        font-weight             : $headerFontWeight;
-        text-transform          : uppercase;
-        &.sub-nav--active {
-          a {
-            color               : $colorPrimary;
-          }
-        }
-      }
-    }
-
-    // App Links (e.g., on Sustainable Seafood)
-    .app-links {
-      margin-top                : ($gutter * 2);
-      .app-link {
-        display                 : inline-block;
-        margin-right            : $gutter;
-        img {
-          max-height            : 71px;
-        }
-      }
-    }
-
-  }
-
-
-//----------------------------------------------------------------------------------------------
-// IMPORT THIRD-PARTY OVERRIDES
 //----------------------------------------------------------------------------------------------
   //==============================================================================================
 // BEEKETING BOOST SALES APP POPUPS
@@ -4514,7 +4557,7 @@ ul.article-filters {
             // "Target Product" (Product Just Ordered) Summary Area
             .target-product {
               padding-top       : 25px !important;
-              background-color  : {{ settings.color_body_bg_accent }} !important;
+              background-color  : $colorAccent !important;
 
               &:before {
                 position        : relative !important;
@@ -4546,7 +4589,7 @@ ul.article-filters {
                                 font-size               : $baseFontSize !important;
                                 line-height             : 142% !important;
                                 font-weight             : 700 !important;
-                                color                   : {{ settings.color_body_bg }} !important;
+                                color                   : $colorBody !important;
                                 text-transform          : uppercase !important;
                                 background              : $colorBtnPrimary none repeat scroll 0 0 !important;
                                 &:hover,
@@ -4584,7 +4627,6 @@ ul.article-filters {
     }
 
     // Buttons, Actions (e.g., close 'X')
-    // #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail .target-product .scn-bsales-title .scn-bsales.scn-table .bk-upsell-tbody .bk-upsell-tr.bk-product .bk-upsell-td.bk-product-right .bk-product-container .bk-button-checkout .scn-product-button a.scn-button-check
     .bk-action button,
     .scn-button-check,
     .bk-button-inline {
@@ -4597,18 +4639,6 @@ ul.article-filters {
         }
       }
     }
-    /* -- add to cart btns
-      &:hover {
-        background-color: $colorBtnPrimaryHover;
-        color: $colorBtnPrimaryText;
-      }
-
-      &:active,
-      &:focus {
-       background-color: $colorBtnPrimaryActive;
-       color: $colorBtnPrimaryText;
-      }
-    */
     .bk-header-right {
       display                   : none !important;
       float                     : right;
@@ -4626,7 +4656,7 @@ ul.article-filters {
         font-size               : $baseFontSize !important;
         line-height             : 142% !important;
         font-weight             : 700 !important;
-        color                   : {{ settings.color_body_bg }} !important;
+        color                   : $colorBody !important;
         text-align              : center !important;
         text-transform          : uppercase !important;
         text-decoration         : none !important;
@@ -4658,14 +4688,11 @@ ul.article-filters {
       }
     }
 
-
-//#scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product a.scn-close:before
-// #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product a.scn-close
     a.scn-close {
       background-color          : $colorBtnSecondaryHover !important;   // #262626
       &:before {
-        border-bottom-color     : {{ settings.color_body_bg_accent }} !important;
-        border-left-color       : {{ settings.color_body_bg_accent }} !important;
+        border-bottom-color     : $colorAccent !important;
+        border-left-color       : $colorAccent !important;
         background              : transparent url({{ 'RecommendedProducts.CloseX.png' | asset_url }}) no-repeat scroll 35px 8px !important;
       }
       &:hover,
@@ -4676,9 +4703,6 @@ ul.article-filters {
       }
     }
 
-    /*
-    #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product .scn-offers-partial .upsell-row .upsell-container .scn-form .scn-bsales-container .scn-bsales-row .bk-product .bk-des-container .bk-action button.scn-addtocart
-    */
     #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product .scn-offers-partial .upsell-row .upsell-container .scn-form .scn-bsales-container .scn-bsales-row .bk-product .bk-des-container .bk-action button.scn-addtocart {
       border-radius             : 0 !important;
       -webkit-border-radius     : 0 !important;
@@ -4691,7 +4715,7 @@ ul.article-filters {
       font-family               : $interfaceFontStack !important;
       font-size                 : $baseFontSize !important;
       font-weight               : 700 !important;
-      color                     : {{ settings.color_body_bg }} !important;
+      color                     : $colorBody !important;
       text-transform            : uppercase !important;
       background-color          : $colorBtnSecondary !important;
       &:hover,
@@ -4712,8 +4736,6 @@ ul.article-filters {
     }
 
     // "You Just Added" Product summary
-    // #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail .target-product .scn-bsales-title .scn-bsales.scn-table .bk-upsell-tbody .bk-upsell-tr.bk-product .bk-upsell-td.bk-product-right .bk-product-container .bk-product-text:before
-    // bk-product-right bk-upsell-td
     .scn-bsales-title {
       div.bk-product {
         margin-top              : ($gutter * 1.5) !important;
@@ -4763,7 +4785,7 @@ ul.article-filters {
         font-family             : $headerFontStack !important;
         font-size               : $baseFontSize !important;
         line-height             : 105% !important;
-        color                   : {{ settings.color_secondary }} !important;
+        color                   : $colorSecondary !important;
         text-decoration         : none !important;
         strong {
           max-height            : 40px !important;
@@ -4773,7 +4795,6 @@ ul.article-filters {
     }
 
     // "Show More Items" spacer
-    // #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product .scn-offers-partial .bk-show-item
     .bk-show-item {
       min-height                : 15px !important;
       &:before {
@@ -4794,7 +4815,7 @@ ul.article-filters {
             a {
               font-family       : $interfaceFontStack !important;
               font-size         : 12px !important;
-              color             : {{ settings.color_secondary }} !important;
+              color             : $colorSecondary !important;
               font-weight       : 700 !important;
               text-decoration   : none !important;
             }
@@ -4825,107 +4846,117 @@ ul.article-filters {
 
   }
 
-  /*
-    Colorbox Core Style:
-    The following CSS is consistent between example themes and should not be altered.
-*/
-#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden; -webkit-transform: translate3d(0,0,0);}
-#cboxWrapper {max-width:none;}
-#cboxOverlay{position:fixed; width:100%; height:100%;}
-#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
-#cboxContent{position:relative;}
-#cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
-#cboxTitle{margin:0;}
-#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
-#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
-.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
-.cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
-#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+  //==============================================================================================
+// COLORBOX OVERRIDES
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify popups (e.g., for cutting
+// instructions).
+//----------------------------------------------------------------------------------------------
+// NOTE: Unless otherwise specified or in the "User Style" section, styles are OOTB colorbox.css
+// definitions; only some formatting and property organization have been altered.
+//==============================================================================================
 
-/*
-    User Style:
-    Change the following styles to modify the appearance of Colorbox.  They are
-    ordered & tabbed in a way that represents the nesting of the generated HTML.
-*/
-#cboxOverlay {
-  background                    : {{ settings.color_secondary }};
-  opacity                       : 0.3 !important;
-  filter                        : alpha(opacity = 30) !important;
-}
-#colorbox {
-  outline                       : 0;
-}
-#cboxContent {
-  margin-top                    : 0; // Was 20px;
-  background                    : transparent;
-}
-.cboxIframe {
-  background                    : {{ settings.color_body_bg }};
-}
-#cboxError {
-  padding                       : 50px;
-  border                        : 1px solid #ccc;
-}
-#cboxLoadedContent {
-  border                        : 0 none transparent;
-  background                    : {{ settings.color_body_bg }};
-}
-#cboxTitle {
-  display                       : none;
-  position                      : absolute;
-  top                           : -20px;
-  left                          : 0;
-  color                         : #ccc;
-}
-#cboxCurrent{
-  position                      : absolute;
-  top                           : -20px;
-  right                         : 0px;
-  color                         : #ccc;
-}
-#cboxLoadingGraphic {
-  background                    : url(images/loading.gif) no-repeat center center;
-}
+//----------------------------------------------------------------------------------------------
+// Colorbox Core Style:
+// The following CSS is consistent between example themes and should not be altered.
+//----------------------------------------------------------------------------------------------
+  #colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden; -webkit-transform: translate3d(0,0,0);}
+  #cboxWrapper {max-width:none;}
+  #cboxOverlay{position:fixed; width:100%; height:100%;}
+  #cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+  #cboxContent{position:relative;}
+  #cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
+  #cboxTitle{margin:0;}
+  #cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+  #cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+  .cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
+  .cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
+  #colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
 
-/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
-#cboxPrevious,
-#cboxNext,
-#cboxSlideshow,
-#cboxClose {
-  overflow                      : visible;
-  margin                        : 0;
-  border                        : 0;
-  padding                       : 0;
-  width                         : auto;
-  background                    : none;
-}
+//----------------------------------------------------------------------------------------------
+// User Style:
+// Change the following styles to modify the appearance of Colorbox. They are ordered & tabbed
+// in a way that represents the nesting of the generated HTML.
+//----------------------------------------------------------------------------------------------
+  #cboxOverlay {
+    background                  : $colorSecondary;
+    opacity                     : 0.3 !important;
+    filter                      : alpha(opacity = 30) !important;
+  }
+  #colorbox {
+    outline                     : 0;
+  }
+  #cboxContent {
+    margin-top                  : 0; // Was 20px;
+    background                  : transparent;
+  }
+  .cboxIframe {
+    background                  : $colorBody;
+  }
+  #cboxError {
+    padding                     : 50px;
+    border                      : 1px solid #ccc;
+  }
+  #cboxLoadedContent {
+    border                      : 0 none transparent;
+    background                  : $colorBody;
+  }
+  #cboxTitle {
+    display                     : none;
+    position                    : absolute;
+    top                         : -20px;
+    left                        : 0;
+    color                       : #ccc;
+  }
+  #cboxCurrent{
+    position                    : absolute;
+    top                         : -20px;
+    right                       : 0px;
+    color                       : #ccc;
+  }
+  #cboxLoadingGraphic {
+    background                  : url(images/loading.gif) no-repeat center center;
+  }
 
-/* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
-#cboxPrevious:active,
-#cboxNext:active,
-#cboxSlideshow:active,
-#cboxClose:active {
-  outline                       : 0;
-}
+  /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+  #cboxPrevious,
+  #cboxNext,
+  #cboxSlideshow,
+  #cboxClose {
+    overflow                    : visible;
+    margin                      : 0;
+    border                      : 0;
+    padding                     : 0;
+    width                       : auto;
+    background                  : none;
+  }
 
-#cboxClose {
-  position                      : absolute;
-  top                           : 5px;
-  right                         : 5px;
-  display                       : block;
-  background                    : url({{ 'Icon.CloseX.png' | asset_url }}) no-repeat center center;
-  width                         : 30px;
-  height                        : 30px;
-  text-indent                   : -9999px;
-}
-#cboxClose:hover {
-//background-position           : bottom center;
-}
+  /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+  #cboxPrevious:active,
+  #cboxNext:active,
+  #cboxSlideshow:active,
+  #cboxClose:active {
+    outline                     : 0;
+  }
 
-/*
-#cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
-#cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
-#cboxPrevious:hover{background-position:bottom left;}
-#cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
-#cboxNext:hover{background-position:bottom right;}
-*/
+  #cboxClose {
+    position                    : absolute;
+    top                         : 5px;
+    right                       : 5px;
+    display                     : block;
+    background                  : url({{ 'Icon.CloseX.png' | asset_url }}) no-repeat center center;
+    width                       : 30px;
+    height                      : 30px;
+    text-indent                 : -9999px;
+  }
+  #cboxClose:hover {
+  //background-position         : bottom center;
+  }
+
+  /* Removed
+  #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
+  #cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
+  #cboxPrevious:hover{background-position:bottom left;}
+  #cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
+  #cboxNext:hover{background-position:bottom right;}
+  */
