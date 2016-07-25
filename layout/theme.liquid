@@ -432,14 +432,13 @@
           <!-- /Social Media Links -->
           {% endif %}
 
-          <!-- Links -->
+          <!-- Navigation Links -->
           <div class="grid__item medium--one-third medium-down--one-whole medium-down--text-center">
             <p class="links">
-              {% for link in linklists.footer.links %}
-                <a href="{{ link.url }}" class="footer-nav__link">{{ link.title }}</a>{% unless forloop.last == true %} &#183; {% endunless %}
-              {% endfor %}
+              {% include 'footer-links' %}
             </p>
           </div>
+          <!-- /Navigation Links -->
 
         </div>
       </div>
