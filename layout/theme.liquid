@@ -434,9 +434,11 @@
 
           <!-- Navigation Links -->
           <div class="grid__item medium--one-third medium-down--one-whole medium-down--text-center">
-            <p class="links">
-              {% include 'footer-links' %}
-            </p>
+            {% assign handle = settings.footer_linklist %}
+            {% assign css_class = "inline-list" %}
+            <div class="links">
+              {% include 'linklist' with handle, css_class %}
+            </div>
           </div>
           <!-- /Navigation Links -->
 

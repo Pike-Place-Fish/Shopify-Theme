@@ -1,0 +1,11 @@
+<!-- /snippets/linklist.liquid -->
+
+{% assign linklist_handle = handle %}
+{% if linklists[linklist_handle].links != blank %}
+  {% assign linklist_links = linklists[linklist_handle].links %}
+  <ul class="link-list {{ css_class }}">
+  {% for link in linklist_links %}
+    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {% endfor %}
+  </ul>
+{% endif %}
