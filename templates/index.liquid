@@ -14,15 +14,15 @@
         <span class="medium-down--hide">
           <video width="100%" height="100%" poster="{{ 'Home.Banner.jpg' | asset_url }}" autoplay loop muted>
             <source src="{{ 'Home.SplashVideo.mp4' | asset_url" }}" type="video/mp4">
-            {{ 'Home.Banner.jpg' | asset_url | img_tag: 'Pike Place Fish Market' }}
+            {{ 'Home.Banner.jpg' | asset_url | img_tag: shop.name }}
           </video>
         </span>
         <span class="medium--hide">
-          {{ 'Home.Banner.jpg' | asset_url | img_tag: 'Pike Place Fish Market' }}
+          {{ 'Home.Banner.jpg' | asset_url | img_tag: shop.name }}
         </span>
       </div>
       <div class="logo">
-        {{ 'Logo.png' | asset_url | img_tag: 'Pike Place Fish Market' }}
+        {{ 'Logo.png' | asset_url | img_tag: shop.name }}
       </div>
       <div class="tagline shop-link">
         <h1>All Sustainable, All the Time</h1>
