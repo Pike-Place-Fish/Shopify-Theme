@@ -25,8 +25,18 @@
         {{ 'Logo.png' | asset_url | img_tag: shop.name }}
       </div>
       <div class="tagline shop-link">
-        <h1>All Sustainable, All the Time</h1>
-        <a href="/collections/all" class="btn">Shop Now</a>
+
+        <h1>{{ settings.home_tagline }}</h1>
+
+        {% if settings.home_cta != '' %}
+          {% assign cta_handle = settings.home_cta %}
+          {% assign cta_collection = collections[cta_handle] %}
+          {% assign cta_url = cta_collection.url %}
+        {% else %}
+          {% assign cta_url = '/collections/all' %}
+        {% endif %}
+        <a href="{{ cta_url }}" class="btn">{{ settings.home_cta_label }}</a>
+
       </div>
     </div>
   </div>

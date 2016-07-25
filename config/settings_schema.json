@@ -342,6 +342,28 @@
     "settings": [
       {
         "type": "header",
+        "content": "Splash"
+      },
+      {
+        "type": "text",
+        "id": "home_tagline",
+        "label": "Tagline",
+        "info": "Tagline for Shop - displayed in splash area"
+      },
+      {
+        "type": "collection",
+        "id": "home_cta",
+        "label": "Splash area CTA link"
+      },
+      {
+        "type": "text",
+        "id": "home_cta_label",
+        "label": "CTA Label",
+        "default": "Shop Now",
+        "info": "Button or link text for splash area CTA"
+      },
+      {
+        "type": "header",
         "content": "Promotions"
       },
       {
