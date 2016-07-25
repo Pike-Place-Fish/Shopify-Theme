@@ -466,8 +466,17 @@
 
           <!-- Copyright Information -->
           <div class="grid__item medium--one-third medium-down--one-whole medium-down--text-center">
-            <p class="copyright">Copyright &copy; {{ 'now' | date: '%Y' }} Pike Place Fish Market.</p>
+          {% if settings.footer_copyright_enable %}
+            {% if settings.footer_copyright_text != '' %}
+              {% assign copyright_text = settings.footer_copyright_text %}
+            {% else %}
+              {% assign copyright_year = 'now' | date: '%Y' %}
+              {% assign copyright_text = 'Copyright &copy; ' | append: copyright_year | append: ' ' | append: shop.name %}
+            {% endif %}
+            <p class="copyright">{{ copyright_text }}</p>
+          {% endif %}
           </div>
+          <!-- /Copyright Information -->
 
           {% if settings.footer_social_enable %}
           <!-- Social Media Links -->
