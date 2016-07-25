@@ -1,0 +1,19 @@
+<!-- /snippets/product-unit-price-label.liquid -->
+
+{% assign product = product_object %}
+{% assign unitPrice = unit_price %}
+{% assign unitName = product.metafields.priceUnit.unitName %}
+
+{% if unitName %}
+  {% assign unitName = 'per ' | append: unitName %}
+{% elsif product.tags contains '_pricePerPound' %}
+  {% assign unitName = 'per lb.' %}
+{% elsif product.tags contains 'Whole Fish' %}
+  {% assign unitName = 'per fish' %}
+{% elsif product.type == 'Fish' %}
+  {% assign unitName = 'per lb.' %}
+{% else %}
+  {% assign unitName = 'each' %}
+{% endif %}
+
+<span class="unit-price unit-label">{{ unitPrice }} {{ unitName }}<span>

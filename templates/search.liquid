@@ -117,33 +117,25 @@
                           {% comment %}
                             ### NOTE KLT070816: Integrated unit price and label with search results
                           {% endcomment %}
-                          {% assign unitPrice = item.metafields.priceUnit.pricePerPound %}
-                          {% assign unitName = item.metafields.priceUnit.unitName %}
-                          {% if unitName %}
-                            {% assign unitName = 'per ' | append: unitName %}
-                          {% elsif unitPrice %}
-                            {% assign unitName = 'per lb.' %}
-                          {% elsif item.tags contains 'Whole Fish' %}
-                            {% assign unitName = 'per fish' %}
-                          {% elsif item.product_type == 'Fish' %}
-                            {% assign unitName = 'per lb.' %}
-                          {% endif %}
+                          {% assign product_object = item %}
 
                           {% comment %}
-                          {% if scn_price_varies %}
-                            {% assign price = scn_product_min | money %}
-                            <span itemprop="price">{{ 'products.general.from_text_html' | t: price: price }}</span>
-                          {% else %}
-                            <span itemprop="price">{{ scn_product_min | money }}</span>
-                          {% endif %}
+                            {% if scn_price_varies %}
+                              {% assign price = scn_product_min | money %}
+                              <span itemprop="price">{{ 'products.general.from_text_html' | t: price: price }}</span>
+                            {% else %}
+                              <span itemprop="price">{{ scn_product_min | money }}</span>
+                            {% endif %}
                           {% endcomment %}
-
-                          {% if unitPrice %}
-                            <span itemprop="price">{{ unitPrice | times: 100 | money | append: ' ' | append: unitName }}</span>
+                          {% if item.metafields.priceUnit.pricePerPound %}
+                            {% assign unit_price = item.metafields.priceUnit.pricePerPound | times: 100 | money %}
                           {% else %}
-                            {% assign price = scn_product_min | money %}
-                            <span itemprop="price">{{ price | append: ' ' | append: unitName }}</span>
+                            {% assign unit_price = scn_product_min | money %}
                           {% endif %}
+
+                          <span itemprop="price">
+                            {% include 'product-unit-price-label' with product_object, unit_price %}
+                          </span>
 
                         {% endif %}
                         {% if sold_out %}

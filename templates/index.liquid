@@ -54,19 +54,7 @@
               {% else %}
                 {% assign promo1_product_title = promo1_product.title %}
               {% endif %}
-              {% assign unitPrice = promo1_product.metafields.priceUnit.pricePerPound %}
-              {% assign unitName = promo1_product.metafields.priceUnit.unitName %}
-              {% if unitName %}
-                {% assign unitName = 'per ' | append: unitName %}
-              {% elsif unitPrice %}
-                {% assign unitName = 'per lb.' %}
-              {% elsif promo1_product.tags contains 'Whole Fish' %}
-                {% assign unitName = 'per fish' %}
-              {% elsif promo1_product.product_type == 'Fish' %}
-                {% assign unitName = 'per lb.' %}
-              {% else %}
-                {% assign unitName = 'each' %}
-              {% endif %}
+              {% assign product_object = promo1_product %}
 
               <!-- Display promotion data -->
               <a href="{{ promo1_product.url }}" class="promotion-data">
@@ -75,10 +63,12 @@
                     {{ promo1_product_title }}
                   </h2>
                   <p class="price">
-                    {% if unitPrice %}
-                      ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
+                    {% if promo1_product.metafields.priceUnit.pricePerPound %}
+                      {% assign unit_price = promo1_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+                      {% include 'product-unit-price-label' with product_object, unit_price %}
                     {% else %}
-                      ${{ promo1_variant.price | money_without_currency | append: ' ' | append: unitName }}
+                      {% assign unit_price = promo1_variant.price | money %}
+                      {% include 'product-unit-price-label' with product_object, unit_price %}
                     {% endif %}
                   </p>
                 </div>
@@ -187,19 +177,7 @@
           {% else %}
             {% assign promo2_product_title = promo2_product.title %}
           {% endif %}
-          {% assign unitPrice = promo2_product.metafields.priceUnit.pricePerPound %}
-          {% assign unitName = promo2_product.metafields.priceUnit.unitName %}
-          {% if unitName %}
-            {% assign unitName = 'per ' | append: unitName %}
-          {% elsif unitPrice %}
-            {% assign unitName = 'per lb.' %}
-          {% elsif promo2_product.tags contains 'Whole Fish' %}
-            {% assign unitName = 'per fish' %}
-          {% elsif promo2_product.product_type == 'Fish' %}
-            {% assign unitName = 'per lb.' %}
-          {% else %}
-            {% assign unitName = 'each' %}
-          {% endif %}
+          {% assign product_object = promo2_product %}
 
           <!-- Display promotion data -->
           <a href="{{ promo2_product.url }}" class="promotion-data">
@@ -208,10 +186,12 @@
                 {{ promo2_product_title }}
               </h2>
               <p class="price">
-                {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
+                {% if promo2_product.metafields.priceUnit.pricePerPound %}
+                  {% assign unit_price = promo2_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% else %}
-                  ${{ promo2_variant.price | money_without_currency | append: ' ' | append: unitName }}
+                  {% assign unit_price = promo2_variant.price | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
             </div>
@@ -295,19 +275,7 @@
           {% else %}
             {% assign promo3_product_title = promo3_product.title %}
           {% endif %}
-          {% assign unitPrice = promo3_product.metafields.priceUnit.pricePerPound %}
-          {% assign unitName = promo3_product.metafields.priceUnit.unitName %}
-          {% if unitName %}
-            {% assign unitName = 'per ' | append: unitName %}
-          {% elsif unitPrice %}
-            {% assign unitName = 'per lb.' %}
-          {% elsif promo3_product.tags contains 'Whole Fish' %}
-            {% assign unitName = 'per fish' %}
-          {% elsif promo3_product.product_type == 'Fish' %}
-            {% assign unitName = 'per lb.' %}
-          {% else %}
-            {% assign unitName = 'each' %}
-          {% endif %}
+          {% assign product_object = promo3_product %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
@@ -316,10 +284,12 @@
                 {{ promo3_product_title }}
               </h2>
               <p class="price">
-                {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
+                {% if promo3_product.metafields.priceUnit.pricePerPound %}
+                  {% assign unit_price = promo3_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% else %}
-                  ${{ promo3_variant.price | money_without_currency | append: ' ' | append: unitName }}
+                  {% assign unit_price = promo3_variant.price | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
             </div>
@@ -371,19 +341,7 @@
           {% else %}
             {% assign promo3_product_title = promo3_product.title %}
           {% endif %}
-          {% assign unitPrice = promo3_product.metafields.priceUnit.pricePerPound %}
-          {% assign unitName = promo3_product.metafields.priceUnit.unitName %}
-          {% if unitName %}
-            {% assign unitName = 'per ' | append: unitName %}
-          {% elsif unitPrice %}
-            {% assign unitName = 'per lb.' %}
-          {% elsif promo3_product.tags contains 'Whole Fish' %}
-            {% assign unitName = 'per fish' %}
-          {% elsif promo3_product.product_type == 'Fish' %}
-            {% assign unitName = 'per lb.' %}
-          {% else %}
-            {% assign unitName = 'each' %}
-          {% endif %}
+          {% assign product_object = promo3_product %}
 
           <!-- Display promotion data -->
           <a href="{{ promo3_product.url }}" class="promotion-data">
@@ -392,10 +350,12 @@
                 {{ promo3_product_title }}
               </h2>
               <p class="price">
-                {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
+                {% if promo3_product.metafields.priceUnit.pricePerPound %}
+                  {% assign unit_price = promo3_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% else %}
-                  ${{ promo3_variant.price | money_without_currency | append: ' ' | append: unitName }}
+                  {% assign unit_price = promo3_variant.price | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
             </div>
@@ -433,19 +393,7 @@
           {% else %}
             {% assign promo4_product_title = promo4_product.title %}
           {% endif %}
-          {% assign unitPrice = promo4_product.metafields.priceUnit.pricePerPound %}
-          {% assign unitName = promo4_product.metafields.priceUnit.unitName %}
-          {% if unitName %}
-            {% assign unitName = 'per ' | append: unitName %}
-          {% elsif unitPrice %}
-            {% assign unitName = 'per lb.' %}
-          {% elsif promo4_product.tags contains 'Whole Fish' %}
-            {% assign unitName = 'per fish' %}
-          {% elsif promo4_product.product_type == 'Fish' %}
-            {% assign unitName = 'per lb.' %}
-          {% else %}
-            {% assign unitName = 'each' %}
-          {% endif %}
+          {% assign product_object = promo4_product %}
 
           <!-- Display promotion data -->
           <a href="{{ promo4_product.url }}" class="promotion-data">
@@ -454,10 +402,12 @@
                 {{ promo4_product_title }}
               </h2>
               <p class="price">
-                {% if unitPrice %}
-                  ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
+                {% if promo4_product.metafields.priceUnit.pricePerPound %}
+                  {% assign unit_price = promo4_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% else %}
-                  ${{ promo4_variant.price | money_without_currency | append: ' ' | append: unitName }}
+                  {% assign unit_price = promo4_variant.price | money %}
+                  {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
             </div>
@@ -518,19 +468,7 @@
               {% else %}
                 {% assign promo4_product_title = promo4_product.title %}
               {% endif %}
-              {% assign unitPrice = promo4_product.metafields.priceUnit.pricePerPound %}
-              {% assign unitName = promo4_product.metafields.priceUnit.unitName %}
-              {% if unitName %}
-                {% assign unitName = 'per ' | append: unitName %}
-              {% elsif unitPrice %}
-                {% assign unitName = 'per lb.' %}
-              {% elsif promo4_product.tags contains 'Whole Fish' %}
-                {% assign unitName = 'per fish' %}
-              {% elsif promo4_product.product_type == 'Fish' %}
-                {% assign unitName = 'per lb.' %}
-              {% else %}
-                {% assign unitName = 'each' %}
-              {% endif %}
+              {% assign product_object = promo4_product %}
 
               <!-- Display promotion data -->
               <a href="{{ promo4_product.url }}" class="promotion-data">
@@ -539,10 +477,12 @@
                     {{ promo4_product_title }}
                   </h2>
                   <p class="price">
-                    {% if unitPrice %}
-                      ${{ unitPrice | times: 100 | money_without_currency | append: ' ' | append: unitName }}
+                    {% if promo4_product.metafields.priceUnit.pricePerPound %}
+                      {% assign unit_price = promo4_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+                      {% include 'product-unit-price-label' with product_object, unit_price %}
                     {% else %}
-                      ${{ promo4_variant.price | money_without_currency | append: ' ' | append: unitName }}
+                      {% assign unit_price = promo4_variant.price | money %}
+                      {% include 'product-unit-price-label' with product_object, unit_price %}
                     {% endif %}
                   </p>
                 </div>
