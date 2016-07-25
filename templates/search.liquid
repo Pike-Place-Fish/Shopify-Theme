@@ -80,13 +80,22 @@
               <!-- begin list search results-->
               <div class="grid__item">
                 <div class="grid">
+                  {% comment %}
+                    ### NOTE KLT072516: Modified to include other image types as "featured" image
+                  {% endcomment %}
+                  {% assign result_image = null %}
                   {% if item.featured_image %}
+                    {% assign result_image = item.featured_image %}
+                  {% elsif item.image %}
+                    {% assign result_image = item.image %}
+                  {% endif %}
+                  {% if result_image %}
                     {% comment %}
                       We have a featured_image, so it's likely a product
                     {% endcomment %}
                     <div class="grid__item one-quarter">
                       <a href="{{ item.url }}" title="{{ item.title | escape }}" class="result-image">
-                        {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
+                        {{ result_image.src | img_url: 'medium' | img_tag: result_image.alt }}
                       </a>
                     </div>
                   {% endif %}
@@ -94,7 +103,7 @@
                   {% comment %}
                     If we don't have a featured_image, add a push-- class to keep the alignment the same
                   {% endcomment %}
-                  <div class="grid__item three-quarters {% unless item.featured_image %}push--one-quarter{% endunless %}">
+                  <div class="grid__item three-quarters {% unless result_image %}push--one-quarter{% endunless %}">
                     <h3 class="result-title">{{ item.title | link_to: item.url }}</h3>
 
                     {% if scn_product_min %}
