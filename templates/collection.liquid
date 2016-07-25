@@ -45,20 +45,21 @@
           {% comment %}
             ### NOTE KLT070516: Added Collections "tags" links, to be used before regular tags, if available
           {% endcomment %}
-          {% if settings.collections_collections_enable and linklists.collections.links %}
-            <ul class="no-bullets collection-filters">
-
-            {% for link in linklists.collections.links %}
-              <li{% if (collection.url contains link.url) or (link.handle == 'all' and collection.handle == 'all') %} class="filter--active"{% endif %}>
-                <a href="{{ link.url }}">{{ link.title }}</a>
-              </li>
-            {% endfor %}
-
-            </ul>
-          {% elsif settings.collections_tags_enable %}
+          {% if settings.collections_collections_enable and settings.collections_linklist != '' %}
+            {% assign collections_linklist_handle = settings.collections_linklist %}
+            {% if linklists[collections_linklist_handle].links != blank %}
+              {% assign collections_linklist = linklists[collections_linklist_handle] %}
+              <ul class="no-bullets collection-filters">
+                {% for link in collections_linklist.links %}
+                  <li{% if (collection.url contains link.url) or (link.handle == 'all' and collection.handle == 'all') %} class="filter--active"{% endif %}>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endif %}
+          {% if settings.collections_tags_enable %}
             {% include 'collection-sidebar' %}
-          {% else %}
-
           {% endif %}
 
         </div>

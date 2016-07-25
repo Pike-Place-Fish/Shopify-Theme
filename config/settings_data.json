@@ -58,7 +58,7 @@
     "home_link_7": "gear",
     "home_link_7_short_label": "",
     "collections_collections_enable": true,
-    "collections_tags_enable": true,
+    "collections_tags_enable": false,
     "collections_sort_enable": true,
     "collections_linklist": "collections",
     "product_priceperpound_enable": true,
