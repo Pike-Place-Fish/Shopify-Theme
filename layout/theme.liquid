@@ -235,41 +235,12 @@
 
         <div class="grid--full grid--table">
 
-
           <div class="grid__item large--one-quarter medium--one-third medium-down--hide">
-
             {% if settings.header_social_enable %}
             <!-- Social Media Links -->
-            <ul class="inline-list social-icons">
-              {% if settings.social_instagram_link != blank %}
-                <li>
-                  <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank">
-                    <span class="icon icon-instagram" aria-hidden="true"></span>
-                    <span class="fallback-text">Instagram</span>
-                  </a>
-                </li>
-              {% endif %}
-              {% if settings.social_twitter_link != blank %}
-                <li>
-                  <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank">
-                    <span class="icon icon-twitter" aria-hidden="true"></span>
-                    <span class="fallback-text">Twitter</span>
-                  </a>
-                </li>
-              {% endif %}
-              {% if settings.social_facebook_link != blank %}
-                <li>
-                  <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank">
-                    <span class="icon icon-facebook" aria-hidden="true"></span>
-                    <span class="fallback-text">Facebook</span>
-                  </a>
-                </li>
-              {% endif %}
-            </ul>
+            {% include 'social-media-links' %}
             <!-- /Social Media Links -->
             {% endif %}
-
-
           </div>
           <div class="grid__item medium--three-quarters medium--text-right medium-down--hide">
             {% comment %}
@@ -433,34 +404,9 @@
 
           {% if settings.footer_social_enable %}
           <!-- Social Media Links: small placement -->
-            <div class="grid__item medium--hide medium-down--show medium-down--one-whole">
-              <ul class="inline-list social-icons text-center">
-                {% if settings.social_instagram_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank">
-                      <span class="icon icon-instagram" aria-hidden="true"></span>
-                      <span class="fallback-text">Instagram</span>
-                    </a>
-                  </li>
-                {% endif %}
-                {% if settings.social_twitter_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank">
-                      <span class="icon icon-twitter" aria-hidden="true"></span>
-                      <span class="fallback-text">Twitter</span>
-                    </a>
-                  </li>
-                {% endif %}
-                {% if settings.social_facebook_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank">
-                      <span class="icon icon-facebook" aria-hidden="true"></span>
-                      <span class="fallback-text">Facebook</span>
-                    </a>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
+          <div class="grid__item medium--hide medium-down--show medium-down--one-whole text-center">
+            {% include 'social-media-links' %}
+          </div>
           <!-- /Social Media Links -->
           {% endif %}
 
@@ -480,34 +426,9 @@
 
           {% if settings.footer_social_enable %}
           <!-- Social Media Links -->
-            <div class="grid__item medium--one-third medium-down--hide">
-              <ul class="inline-list social-icons text-center">
-                {% if settings.social_instagram_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank">
-                      <span class="icon icon-instagram" aria-hidden="true"></span>
-                      <span class="fallback-text">Instagram</span>
-                    </a>
-                  </li>
-                {% endif %}
-                {% if settings.social_twitter_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank">
-                      <span class="icon icon-twitter" aria-hidden="true"></span>
-                      <span class="fallback-text">Twitter</span>
-                    </a>
-                  </li>
-                {% endif %}
-                {% if settings.social_facebook_link != blank %}
-                  <li>
-                    <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank">
-                      <span class="icon icon-facebook" aria-hidden="true"></span>
-                      <span class="fallback-text">Facebook</span>
-                    </a>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
+          <div class="grid__item medium--one-third medium-down--hide text-center">
+            {% include 'social-media-links' %}
+          </div>
           <!-- /Social Media Links -->
           {% endif %}
 

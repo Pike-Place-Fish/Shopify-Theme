@@ -1,0 +1,84 @@
+<!-- /snippets/social-media-links.liquid -->
+
+<ul class="inline-list social-icons">
+  {% if settings.social_instagram_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank">
+        <span class="icon icon-instagram" aria-hidden="true"></span>
+        <span class="fallback-text">Instagram</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_twitter_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank">
+        <span class="icon icon-twitter" aria-hidden="true"></span>
+        <span class="fallback-text">Twitter</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_facebook_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank">
+        <span class="icon icon-facebook" aria-hidden="true"></span>
+        <span class="fallback-text">Facebook</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_pinterest_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_pinterest_link }}" title="{{ shop.name }} on Pinterest" target="_blank">
+        <span class="icon icon-pinterest" aria-hidden="true"></span>
+        <span class="fallback-text">Pinterest</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_youtube_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ shop.name }} on YouTube" target="_blank">
+        <span class="icon icon-tumbler" aria-hidden="true"></span>
+        <span class="fallback-text">YouTube</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_vimeo_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_vimeo_link }}" title="{{ shop.name }} on Vimeo" target="_blank">
+        <span class="icon icon-tumbler" aria-hidden="true"></span>
+        <span class="fallback-text">Vimeo</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_tumblr_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_tumblr_link }}" title="{{ shop.name }} on Tumblr" target="_blank">
+        <span class="icon icon-tumbler" aria-hidden="true"></span>
+        <span class="fallback-text">Tumblr</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_google_plus_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_google_plus_link }}" title="{{ shop.name }} on Google+" target="_blank">
+        <span class="icon icon-tumbler" aria-hidden="true"></span>
+        <span class="fallback-text">Google+</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_fancy_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_fancy_link }}" title="{{ shop.name }} on Fancy" target="_blank">
+        <span class="icon icon-tumbler" aria-hidden="true"></span>
+        <span class="fallback-text">Fancy</span>
+      </a>
+    </li>
+  {% endif %}
+  {% if settings.social_rss_link != blank %}
+    <li>
+      <a class="icon-fallback-text" href="{{ settings.social_rss_link }}" title="{{ shop.name }} RSS" target="_blank">
+        <span class="icon icon-tumbler" aria-hidden="true"></span>
+        <span class="fallback-text">RSS</span>
+      </a>
+    </li>
+  {% endif %}
+</ul>
