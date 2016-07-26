@@ -157,7 +157,7 @@
           <li class="mobile-nav__item">
             {% if customer.first_name != blank %}
               {% capture first_name %}{{ customer.first_name }}{% endcapture %}
-              <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
+              <a href="/accountX">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
             {% else %}
               <a href="/account">{{ 'layout.customer.account' | t }}</a>
             {% endif %}
@@ -169,9 +169,11 @@
           <li class="mobile-nav__item medium--hide medium-down--show">
             {{ 'layout.customer.log_in' | t | customer_login_link }}
           </li>
+          {% comment %}
           <li class="mobile-nav__item">
             {{ 'layout.customer.create_account' | t | customer_register_link }}
           </li>
+          {% endcomment %}
         {% endif %}
       {% endif %}
 
@@ -258,7 +260,7 @@
                   {% unless cart.item_count == 0 %}
                     <span id="CartCount" class="cart-count">{{ cart.item_count }}</span>
                   {% endunless %}
-                  <span class="title">{{ 'layout.cart.title' | t }}</span>
+                  <span class="title">&nbsp;<!-- {{ 'layout.cart.title' | t }} --></span>
                 </span>
 
                 {% comment %}
@@ -278,16 +280,18 @@
               <div class="nav-ancillary">
                 {% if customer %}
                   {% if customer.first_name != blank %}
-                    {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-                    {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+                    {% capture first_name %}{{ customer.first_name }}{% endcapture %}
+                    <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
                   {% else %}
                     <a href="/account">{{ 'layout.customer.account' | t }}</a>
                   {% endif %}
                   | {{ 'layout.customer.log_out' | t | customer_logout_link }}
                 {% else %}
                   {{ 'layout.customer.log_in' | t | customer_login_link }}
-                  &nbsp;|&nbsp;
-                  {{ 'layout.customer.create_account' | t | customer_register_link }}
+                  {% comment %}
+                    &nbsp;|&nbsp;
+                    {{ 'layout.customer.create_account' | t | customer_register_link }}
+                  {% endcomment %}
                 {% endif %}
               </div>
             {% endif %}

@@ -2006,6 +2006,7 @@ label.error {
 
     // Expandable Search (New) - specific to large-screen site header
     form.search-bar {
+      top                       : 1px;
       margin-bottom             : 0;
     }
     ::-webkit-input-placeholder {
@@ -2084,6 +2085,9 @@ label.error {
     a {
       color                     : rgb(12, 12, 12);
     }
+    .site-header__cart-toggle {
+      margin-right              : -4px;
+    }
   }
 
   // Cart (New - main and mobile)
@@ -2091,7 +2095,7 @@ label.error {
   .mobile-nav__item.menu-cart span.cart {
     display                     : inline-block;
     position                    : relative;
-    padding                     : 15px 0 7px 34px;
+    padding                     : 15px 0 7px 28px;
     line-height                 : 100%;
     background-repeat           : no-repeat;
     background-position         : 0 0;
@@ -2115,6 +2119,7 @@ label.error {
     }
   }
   .nav-ancillary span.cart {
+    top                         : -5px;
     &.empty {
       background-image          : url({{ 'Icon.Basket.Empty.png' | asset_url }});
     }
@@ -2126,6 +2131,7 @@ label.error {
     }
   }
   .mobile-nav__item.menu-cart span.cart {
+    padding-left                : 34px;
     &.empty {
       background-image          : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
     }
@@ -2134,6 +2140,9 @@ label.error {
     }
     span.cart-count {
       color                     : rgb(45, 45, 45);
+    }
+    span.title {
+      top                       : 2px;
     }
   }
 
