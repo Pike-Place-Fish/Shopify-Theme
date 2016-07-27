@@ -65,9 +65,10 @@
                   ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
                 {% endcomment %}
                 {% assign property_size = item.properties | size %}
+                {% assign hidden_properties = '_shipping_restriction,_shipping_category,_delivery_date,_delivery_day' | split: ',' %}
                 {% if property_size > 0 %}
                   {% for p in item.properties %}
-                    {% unless (p.last == blank or p.first == '_shipping_restriction' or p.first == '_delivery_date' or p.first == '_delivery_day') %}
+                    {% unless (p.last == blank or hidden_properties contains p.first) %}
 
                       <li class="property">
                         <!--
@@ -243,9 +244,12 @@
      * ### NOTE 071816: Added holiday blackouts based on
      * https://www.ups.com/content/us/en/resources/ship/imp_exp/operation.html
      */
+    // First clear any previously selected date
+    $('#delivery_date').val('');
+    // Instantiate date picker
     $('#delivery_date').datepicker({
       minDate                   : '+1d',
-      maxDate                   : '+5m',
+      maxDate                   : '+6m',
       defaultDate               : '+1d',
       dateFormat                : 'mm/dd/yy',
       altField                  : '#delivery_day',
