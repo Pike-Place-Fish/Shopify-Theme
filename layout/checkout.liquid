@@ -52,6 +52,11 @@
           </div>
           <div class="main__content">
             {{ content_for_layout }}
+            {% comment %}
+              ### NOTE KLT0726: Added hidden checkout properties for passing to special order
+              processing logic.
+            {% endcomment %}
+            <div id="ShippingProvinceCode" style="display:none;">{{ checkout.shipping_address.province_code }}</div>
           </div>
           <div class="main__footer">
             {{ content_for_footer }}
@@ -63,11 +68,11 @@
     <!-- Common Page Scripts -->
     <script>
 
-      /**
-       * Document ready functionality
-       */
       jQuery(function($) {
 
+        /*
+         * Remove custom order item property labels from order summary display
+         */
         setTimeout(function() {
           // Remove "cuttingInstructions: " labels from order summary items
           $('span.product__description__property:contains("cuttingInstructions")').each(function() {
@@ -84,6 +89,26 @@
             $(this).text(propertyText);
           });
         }, 800);
+
+        /*
+         * Provide phone assistance instructions for customers shipping to restricted/special
+         * locations (Alaska, Hawaii, and Puerto Rico)
+         */
+        var
+          provinceCode          = $('#ShippingProvinceCode').text(),
+          restrictedProvinces   = ['AK','HI','PR'],
+          orderNumber           = '{{ checkout.order_number }}',
+          warningArea           = $('div.content-box.blank-slate');
+
+        var callMessage         = '<div class="message call-message">'          +
+          'Please <a href="tel:+800-542-7732">call us</a> toll-free at '        +
+          '<a href="tel:+800-542-7732">1-800-542-7732</a> so we may assist you '+
+          'with placing your order. Please reference order ' + orderNumber + ' '+
+          'when you call.</div>';
+
+        if ($(warningArea).length && $.inArray(provinceCode, restrictedProvinces)) {
+          $(warningArea).append(callMessage);
+        }
 
       });
 
