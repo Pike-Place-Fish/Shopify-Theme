@@ -159,6 +159,16 @@
           <input type="hidden" name="properties[_shipping_restriction]" value="{{ shippingRestriction }}" />
 
           {% comment %}
+            ### NOTE KLT072616: Added a _shipping_category property to be able to instruct
+            Bespoke to negate shipping costs.
+          {% endcomment %}
+          {% assign shippingCategory = 'na' %}
+          {% if product.tags contains '_includesShipping' %}
+            {% assign shippingCategory = 'free' %}
+          {% endif %}
+          <input type="hidden" name="properties[_shipping_category]" value="{{ shippingCategory }}" />
+
+          {% comment %}
             ### NOTE KLT061516: Added a "option-container" containing div and button label, for formatting
           {% endcomment %}
           <div class="option-container">
