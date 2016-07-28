@@ -91,6 +91,30 @@
         }, 800);
 
         /*
+         * Remove non-continental US territories (except for PR) from State dropdown in Shipping
+         * Address information
+         */
+        var
+          disabledProvinces     = ['AS', 'AA', 'AE', 'AP', 'FM', 'GU', 'MH', 'MP', 'PW', 'VI'],
+          checkCount            = 0,
+          isCustomerInformation = setInterval(function() {
+            var provinceSelect  = '#checkout_shipping_address_province';
+            if ($(provinceSelect).length || checkCount > 9) {
+              $(provinceSelect + ' option').each(function() {
+                if ($.inArray($(this).data('code'), disabledProvinces) > -1) {
+                  $(this).prop('disabled', true);
+                  $(this).addClass('disabled').addClass('disabled-province');
+                //$(this).detach();
+                }
+              });
+              clearInterval(isCustomerInformation);
+            }
+            else {
+              checkCount++;
+            }
+          }, 250);
+
+        /*
          * Provide phone assistance instructions for customers shipping to restricted/special
          * locations (Alaska, Hawaii, and Puerto Rico)
          */

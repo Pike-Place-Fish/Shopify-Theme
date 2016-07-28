@@ -4432,6 +4432,12 @@ $class-type: unquote(".");
     h2.section__title {
       @extend h3;
     }
+    .message {
+      &.call-message {
+        margin-top              : ($gutter * 1.5);
+        text-align              : left;
+      }
+    }
 
     // Form Overrides
     input,
@@ -4471,6 +4477,11 @@ $class-type: unquote(".");
     }
     select {
       background-image          : none;
+    }
+    option.disabled {
+      &.disabled-province {
+        color                   : $colorBorder;
+      }
     }
 
   }
