@@ -293,34 +293,43 @@
       e.preventDefault();
 
       var
+        clickedButton           = $(this).find('input[type=submit]:focus'),
         errorColor              = 'rgb(208, 46, 46)',   // #d02e2e
         isDeliveryDateSelected  = ($('#delivery_date').val().length > 0);
 
-      // If delivery date is not selected, provide validation/error handling
-      if (!isDeliveryDateSelected) {
-        $('label[for="date"]').css('color', errorColor);
-        $('#delivery_date').css('border-color', errorColor);
-        return false;
+      if ($(clickedButton).attr('name') === 'checkout') {
+
+        // If delivery date is not selected, provide validation/error handling
+        if (!isDeliveryDateSelected) {
+          $('label[for="date"]').css('color', errorColor);
+          $('#delivery_date').css('border-color', errorColor);
+          return false;
+        }
+        // If delivery date is available, continue the submission
+        else {
+
+          // Add selected delivery date and day to first line item
+          var
+            itemQuantity        = CartJS.cart.items[0].quantity,
+            itemProperties      = CartJS.cart.items[0].properties;
+
+          itemProperties._delivery_date = $('#delivery_date').val();
+          itemProperties._delivery_day  = $('#delivery_day').val();
+
+          console.log('properties after add:');
+          console.log(CartJS.cart.items[0].properties);
+
+          CartJS.updateItem(1, itemQuantity, itemProperties);
+
+          // Submit form
+          $(this).off('submit').submit();
+
+        }
+
       }
-      // If delivery date is available, continue the submission
       else {
-
-        // Add selected delivery date and day to first line item
-        var
-          itemQuantity          = CartJS.cart.items[0].quantity,
-          itemProperties        = CartJS.cart.items[0].properties;
-
-        itemProperties._delivery_date   = $('#delivery_date').val();
-        itemProperties._delivery_day    = $('#delivery_day').val();
-
-        console.log('properties after add:');
-        console.log(CartJS.cart.items[0].properties);
-
-        CartJS.updateItem(1, itemQuantity, itemProperties);
-
-        // Submit form
+        // Submit update form
         $(this).off('submit').submit();
-
       }
 
     });
