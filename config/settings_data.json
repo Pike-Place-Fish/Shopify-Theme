@@ -76,7 +76,7 @@
     "cart_ajax_enable": true,
     "ajax_cart_method": "page",
     "heading_delivery_date": "Select a delivery date:",
-    "warning_delivery_date_limited_friday": "Will add $20 to shipping. Hawaii not available.",
+    "warning_delivery_date_limited_friday": "Will add $20 to shipping.",
     "social_twitter_link": "https:\/\/twitter.com\/pikeplacefish",
     "social_facebook_link": "https:\/\/www.facebook.com\/pikeplacefish",
     "social_pinterest_link": "",
