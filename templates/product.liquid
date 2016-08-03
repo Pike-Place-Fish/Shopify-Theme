@@ -284,10 +284,10 @@
         <table cellpadding="0" cellspacing="0" class="table cutting-instructions">
           <tbody>
             <tr>
-              <td><img src="//cdn.shopify.com/s/files/1/1231/1452/files/Filet_large.jpg?4680317643184059922" alt="Filet" /></td>
-              <td><img src="//cdn.shopify.com/s/files/1/1231/1452/files/Steak_large.jpg?13725808287995858739" alt="Steak" /></td>
-              <td><img src="//cdn.shopify.com/s/files/1/1231/1452/files/HalfAndHalf_large.jpg?3700234642873991083" alt="Half and Half" /></td>
-              <td><img src="//cdn.shopify.com/s/files/1/1231/1452/files/WholeFish_large.jpg?8987810621051484521" alt="Whole Fish" /></td>
+              <td><img src="{{ 'Filet.jpg' | file_img_url: 'large' }}" alt="Filet" /></td>
+              <td><img src="{{ 'Steak.jpg' | file_img_url: 'large' }}" alt="Steak" /></td>
+              <td><img src="{{ 'HalfAndHalf.jpg' | file_img_url: 'large' }}" alt="Half and Half" /></td>
+              <td><img src="{{ 'WholeFish.jpg' | file_img_url: 'large' }}" alt="Whole Fish" /></td>
             </tr>
             <tr>
               <td class="label">Filet</td>
@@ -366,9 +366,6 @@
       var cuttingInstructions   = '#infiniteoptions-container div.spb-select select[name="properties[cuttingInstructions]"]';
       if ($(cuttingInstructions).length) {
         $(cuttingInstructions).after(function() {
-          /*
-          return '<a class="icon-fallback-text info-link" href="#CuttingInstructionsModal" title="Cutting Instructions Information"><span class="icon icon-info-circle" aria-hidden="true"></span><span class="fallback-text">(i)</span></a>';
-          */
           return '<a class="info-link" href="#CuttingInstructionsModal" title="Cutting Instructions Information">i</a>';
         });
         clearInterval(hasCuttingInstructions);
