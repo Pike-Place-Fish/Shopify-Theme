@@ -236,8 +236,6 @@
       "dataAPI": false,
       "requestBodyClass": "loading"
     });
-    console.log('Properties? ');
-    console.log(CartJS.cart.items[0].properties);
 
     /**
      * Delivery date selection functionality - datepicker and business rules for Friday and weekend shipping
@@ -315,9 +313,6 @@
 
           itemProperties._delivery_date = $('#delivery_date').val();
           itemProperties._delivery_day  = $('#delivery_day').val();
-
-          console.log('properties after add:');
-          console.log(CartJS.cart.items[0].properties);
 
           CartJS.updateItem(1, itemQuantity, itemProperties);
 
