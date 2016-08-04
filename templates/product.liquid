@@ -169,6 +169,23 @@
           <input type="hidden" name="properties[_shipping_category]" value="{{ shippingCategory }}" />
 
           {% comment %}
+            ### NOTE KLT080216: Added packing option properties to be able to instruct Bespoke
+            with regard to distributing line items in the order for packaging.
+          {% endcomment %}
+          {% assign poundsPerPackage = product.metafields.packingOption.poundsPerPackage %}
+          {% assign shipAlone = product.metafields.packingOption.shipAlone %}
+          {% assign useLargeContainer = product.metafields.packingOption.useLargeContainer %}
+          {% if poundsPerPackage %}
+            <input type="hidden" name="properties[_pounds_per_package]" value="{{ poundsPerPackage }}" />
+          {% endif %}
+          {% if shipAlone %}
+            <input type="hidden" name="properties[_ship_alone]" value="{{ shipAlone }}" />
+          {% endif %}
+          {% if useLargeContainer %}
+            <input type="hidden" name="properties[_use_large_container]" value="{{ useLargeContainer }}" />
+          {% endif %}
+
+          {% comment %}
             ### NOTE KLT061516: Added a "option-container" containing div and button label, for formatting
           {% endcomment %}
           <div class="option-container">

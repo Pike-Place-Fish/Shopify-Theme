@@ -65,21 +65,21 @@
                   ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
                 {% endcomment %}
                 {% assign property_size = item.properties | size %}
-                {% assign hidden_properties = '_shipping_restriction,_shipping_category,_delivery_date,_delivery_day' | split: ',' %}
+                {% assign hidden_properties = '_shipping_restriction,_shipping_category,_delivery_date,_delivery_day,_pounds_per_package,_ship_alone,_use_large_container' | split: ',' %}
                 {% if property_size > 0 %}
                   {% for p in item.properties %}
                     {% unless (p.last == blank or hidden_properties contains p.first) %}
 
                       <li class="property">
-                        <!--
-                        {% if p.first contains 'cuttingInstructions' %}
-                          {{ 'cart.general.item_cutting_instructions' | t }}:
-                        {% elsif p.first contains 'specialInstructions' %}
-                          {{ 'cart.general.item_special_instructions' | t }}:
-                        {% else %}
-                          {{ p.first }}:
-                        {% endif %}
-                        -->
+                        {% comment %}
+                          {% if p.first contains 'cuttingInstructions' %}
+                            {{ 'cart.general.item_cutting_instructions' | t }}:
+                          {% elsif p.first contains 'specialInstructions' %}
+                            {{ 'cart.general.item_special_instructions' | t }}:
+                          {% else %}
+                            {{ p.first }}:
+                          {% endif %}
+                        {% endcomment %}
 
                         {% comment %}
                           Check if there was an uploaded file associated
