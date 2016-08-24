@@ -171,7 +171,7 @@
           {% comment %}
             ### NOTE KLT080216: Added packing option properties to be able to instruct Bespoke
             with regard to distributing line items in the order for packaging.
-          {% endcomment %}
+
           {% assign poundsPerPackage = product.metafields.packingOption.poundsPerPackage %}
           {% assign shipAlone = product.metafields.packingOption.shipAlone %}
           {% assign useLargeContainer = product.metafields.packingOption.useLargeContainer %}
@@ -184,6 +184,8 @@
           {% if useLargeContainer %}
             <input type="hidden" name="properties[_use_large_container]" value="{{ useLargeContainer }}" />
           {% endif %}
+
+          {% endcomment %}
 
           {% comment %}
             ### NOTE KLT061516: Added a "option-container" containing div and button label, for formatting
@@ -366,6 +368,21 @@
     {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
       $('.selector-wrapper').hide();
     {% endif %}
+
+
+    /**
+     * Intercepts click on Boost Sales "CHECKOUT NOW" button, to direct the customer through the cart
+     */
+    $('body').on('click', '.scn-button-check', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Redirect to cart instead of checkout
+      window.location.href      = '/cart';
+
+      return false;
+
+    });
 
     /**
      * Modal cutting instructions functionality: injection of info icon and modal/popup instantiation
