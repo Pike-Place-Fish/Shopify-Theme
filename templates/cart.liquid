@@ -16,7 +16,7 @@
         <th colspan="2" class="text-left">{{ 'cart.label.product' | t }}</th>
         <th class="text-right">{{ 'cart.label.price' | t }}</th>
         <th class="text-right">{{ 'cart.label.quantity' | t }}</th>
-        <th class="text-right">{{ 'cart.label.total' | t }}</th>
+        <th class="text-right">{{ 'cart.general.subtotal' | t }}</th>{% comment %}Was 'cart.label.total'{% endcomment %}
       </thead>
       <tbody>
         {% for item in cart.items %}
@@ -115,7 +115,7 @@
             <td data-label="{{ 'cart.label.quantity' | t }}" class="text-right quantity">
               <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" min="0">
             </td>
-            <td data-label="{{ 'cart.label.total' | t }}" class="text-right total">
+            <td data-label="{{ 'cart.general.subtotal' | t }}" class="text-right total">
               {% if item.original_line_price != item.line_price %}
                 <span class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></span>
               {% endif %}

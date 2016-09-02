@@ -499,10 +499,12 @@
       }
       td:before {
         content                 : attr(data-label);
+        display                 : inline-block;                 // New
         float                   : left;
-        padding-right           : 10px;
+        padding-right           : 0;                            // Was 10px
+        width                   : 78.25%;                       // New
         font-size               : 12px;
-        text-align              : center;
+        text-align              : right;                        // Was 'center'
       }
       &.cart-table {
         img {
