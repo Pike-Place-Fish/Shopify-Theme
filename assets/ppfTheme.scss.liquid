@@ -3406,6 +3406,9 @@ $class-type: unquote(".");
           .overlay {
             display             : block;
           }
+          .link-text {
+            display             : table;
+          }
         }
         .link-image {
           object-fit            : fill;
@@ -3433,7 +3436,7 @@ $class-type: unquote(".");
         }
         .link-text {
           z-index               : 5;
-          display               : table;
+          display               : none;
           width                 : 100%;
           height                : 100%;
           h2 {
@@ -4657,6 +4660,30 @@ $class-type: unquote(".");
 
             }
 
+            // Specific selectors for upsell buttons
+            .scn-offers-partial {
+              .upsell-row {
+                .upsell-container {
+                  .scn-form {
+                    .scn-bsales-container {
+                      .scn-bsales-row {
+                        .bk-product {
+                          .bk-des-container {
+                            .bk-action {
+                              button.scn-addtocart {
+                                border-radius                   : 0 !important;
+                                -webkit-border-radius           : 0 !important;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
           }
 
         }
@@ -4883,6 +4910,11 @@ $class-type: unquote(".");
 
   }
 
+  #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product .scn-offers-partial .upsell-row .upsell-container .scn-form .scn-bsales-container .scn-bsales-row .bk-product .bk-des-container .bk-action button.scn-addtocart,
+  #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-one-product .scn-offers-partial .upsell-row .upsell-container .scn-form .scn-bsales-container .scn-bsales-row .bk-product .bk-des-container .bk-action button.scn-addtocart {
+    border-radius               : 0 !important;
+    -webkit-border-radius       : 0 !important;
+  }
   //==============================================================================================
 // COLORBOX OVERRIDES
 //----------------------------------------------------------------------------------------------

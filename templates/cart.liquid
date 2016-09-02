@@ -65,7 +65,7 @@
                   ### NOTE KLT061616: Merged recommended InfiniteOptions display with the below/pre-existing Timber implementation
                 {% endcomment %}
                 {% assign property_size = item.properties | size %}
-                {% assign hidden_properties = '_shipping_restriction,_shipping_category,_delivery_date,_delivery_day,_pounds_per_package,_ship_alone,_use_large_container' | split: ',' %}
+                {% assign hidden_properties = '_shipping_restriction,_shipping_category,_delivery_date,_delivery_day,_poundsPerPackage,_shipAlone,_useLargeContainer,_isPerishable,_includesShipping' | split: ',' %}
                 {% if property_size > 0 %}
                   {% for p in item.properties %}
                     {% unless (p.last == blank or hidden_properties contains p.first) %}
@@ -87,7 +87,7 @@
                         {% if p.last contains '/uploads/' %}
                           <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
                         {% else %}
-                          {{ p.last }}
+                          <!-- {{ p.first }} - -->{{ p.last }}
                         {% endif %}
 
                       </li>
