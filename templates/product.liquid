@@ -152,40 +152,38 @@
           {% comment %}
             ### NOTE KLT071116: Added a hidden product type input, for pass-through to Bespoke
           {% endcomment %}
-          {% assign shippingRestriction = 'isPerishable' %}
+          {% assign isPerishable = 1 %}
           {% if product.type contains 'Not Fish' %}
-            {% assign shippingRestriction = 'isNotPerishable' %}
+            {% assign isPerishable = 0 %}
           {% endif %}
-          <input type="hidden" name="properties[_shipping_restriction]" value="{{ shippingRestriction }}" />
+          <input type="hidden" name="properties[_isPerishable]" value="{{ isPerishable }}" />
 
           {% comment %}
-            ### NOTE KLT072616: Added a _shipping_category property to be able to instruct
+            ### NOTE KLT072616: Added a _includesShipping property to be able to instruct
             Bespoke to negate shipping costs.
           {% endcomment %}
-          {% assign shippingCategory = 'na' %}
+          {% assign includesShipping = 0 %}
           {% if product.tags contains '_includesShipping' %}
-            {% assign shippingCategory = 'free' %}
+            {% assign includesShipping = 1 %}
           {% endif %}
-          <input type="hidden" name="properties[_shipping_category]" value="{{ shippingCategory }}" />
+          <input type="hidden" name="properties[_includesShipping]" value="{{ includesShipping }}" />
 
           {% comment %}
             ### NOTE KLT080216: Added packing option properties to be able to instruct Bespoke
             with regard to distributing line items in the order for packaging.
-
+          {% endcomment %}
           {% assign poundsPerPackage = product.metafields.packingOption.poundsPerPackage %}
           {% assign shipAlone = product.metafields.packingOption.shipAlone %}
           {% assign useLargeContainer = product.metafields.packingOption.useLargeContainer %}
           {% if poundsPerPackage %}
-            <input type="hidden" name="properties[_pounds_per_package]" value="{{ poundsPerPackage }}" />
+            <input type="hidden" name="properties[_poundsPerPackage]" value="{{ poundsPerPackage }}" />
           {% endif %}
           {% if shipAlone %}
-            <input type="hidden" name="properties[_ship_alone]" value="{{ shipAlone }}" />
+            <input type="hidden" name="properties[_shipAlone]" value="{{ shipAlone }}" />
           {% endif %}
           {% if useLargeContainer %}
-            <input type="hidden" name="properties[_use_large_container]" value="{{ useLargeContainer }}" />
+            <input type="hidden" name="properties[_useLargeContainer]" value="{{ useLargeContainer }}" />
           {% endif %}
-
-          {% endcomment %}
 
           {% comment %}
             ### NOTE KLT061516: Added a "option-container" containing div and button label, for formatting
