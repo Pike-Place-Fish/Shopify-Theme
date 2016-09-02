@@ -165,7 +165,7 @@
                 <p class="shipping-note"><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
                 <!-- /Subtotal and Shipping/Tax Note -->
               </div>
-              <div class="grid__item medium--hide medium-down--show medium-down--text-center">
+              <div class="grid__item medium--hide medium-down--show medium-down--text-right">
 
                 <!-- Shipping Weight Note -->
                 {% comment %}
@@ -179,7 +179,7 @@
               </div>
 
               <div class="grid__item spacer one-half medium-down--hide">&nbsp;</div>
-              <div class="grid__item medium--text-right medium--one-half medium-down--text-center">
+              <div class="grid__item medium--text-right medium--one-half medium-down--text-right">
                 <!-- Delivery Date Selection -->
                 {% comment %}
                   ### NOTE KLT062016: jQuery UI implementation for shipping date picker - Autotag Delivery Date app should, in
@@ -194,18 +194,27 @@
                 <!-- /Delivery Date Selection -->
               </div>
 
-              <div class="grid__item medium--one-half medium-down--text-center">
+              <div class="grid__item medium--one-half medium-down--text-right">
+                {% comment %}
+                  ### NOTE KLT090116: Added checkout button for display just on mobile
+                {% endcomment %}
+                <div class="medium--hide medium-down--text-right btn-container">
+                  <!-- Checkout Button -->
+                  <input type="submit" id="CheckoutButtonMobile" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
+                </div>
                 <!-- Keep Shopping Button -->
                 {% comment %}
                   ### TODO KLT061516: There is currently no resource corresponding to this label.
                 {% endcomment %}
                 <a href="/collections/all" class="btn--secondary">Keep Shopping</a>
               </div>
-              <div class="grid__item medium--text-right medium--one-half medium-down--text-center">
+              <div class="grid__item medium--text-right medium--one-half medium-down--text-right">
                 <!-- Update Cart Button -->
                 <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
-                <!-- Checkout Button -->
-                <input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
+                <div class="medium-down--hide btn-container">
+                  <!-- Checkout Button -->
+                  <input type="submit" id="CheckoutButton" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
+                </div>
               </div>
 
             </div>
@@ -272,6 +281,12 @@
 
       }
     });
+    // Supress keyboard for datepicker on mobile
+    /*
+    $('#delivery_date').on('click', function(e) {
+      document.activeElement.blur();
+    });
+    */
     $('#delivery_date').change(function() {
       var selectedDay           = $('#delivery_day').val();
 
@@ -296,8 +311,16 @@
 
       var
         clickedButton           = $(this).find('input[type=submit]:focus'),
+        // Using native JS selector for iOS processing
+        checkoutButtonMobile    = document.getElementById('CheckoutButtonMobile'),
         errorColor              = 'rgb(208, 46, 46)',   // #d02e2e
         isDeliveryDateSelected  = ($('#delivery_date').val().length > 0);
+
+        alert('clickedButton: ' + $(clickedButton));
+        alert('clickedButton: ' + $(clickedButton).attr('name'));
+        alert('clickedButton: ' + $(clickedButton).prop('name'));
+
+      //document.getElementById('mydiv').getAttribute( 'data-mine' )
 
       if ($(clickedButton).attr('name') === 'checkout') {
 
