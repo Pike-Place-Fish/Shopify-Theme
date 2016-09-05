@@ -102,9 +102,9 @@
               <!-- Display page link data or image -->
               {% if settings.home_link_4 != "" %}
                 <a href="{{ pageLink4_collection.url }}" class="link-data">
-                  <div class="overlay">
-                    <div class="link-text"><h2>{{ pageLink4_collection_title }}</h2></div>
-                  </div>
+                  <span class="overlay">
+                    <span class="link-text"><h2>{{ pageLink4_collection_title }}</h2></span>
+                  </span>
                 </a>
               {% endif %}
 
@@ -130,9 +130,9 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_1 != "" %}
             <a href="{{ pageLink1_blog.url }}" class="link-data">
-              <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink1_blog_title }}</h2></div>
-              </div>
+              <span class="overlay">
+                <span class="link-text"><h2>{{ pageLink1_blog_title }}</h2></span>
+              </span>
             </a>
           {% endif %}
 
@@ -164,9 +164,9 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_2 != "" %}
             <a href="{{ pageLink2_collection.url }}" class="link-data">
-              <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink2_collection_title }}</h2></div>
-              </div>
+              <span class="overlay">
+                <span class="link-text"><h2>{{ pageLink2_collection_title }}</h2></span>
+              </span>
             </a>
           {% endif %}
 
@@ -226,9 +226,9 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_5 != "" %}
             <a href="{{ pageLink5_page.url }}" class="link-data">
-              <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink5_page_title }}</h2></div>
-              </div>
+              <span class="overlay">
+                <span class="link-text"><h2>{{ pageLink5_page_title }}</h2></span>
+              </span>
             </a>
           {% endif %}
 
@@ -255,9 +255,9 @@
       <!-- Display page link data or image -->
       {% if settings.home_link_3 != "" %}
         <a href="{{ pageLink3_page.url }}" class="link-data">
-          <div class="overlay">
-            <div class="link-text"><h2>{{ pageLink3_page_title }}</h2></div>
-          </div>
+          <span class="overlay">
+            <span class="link-text"><h2>{{ pageLink3_page_title }}</h2></span>
+          </span>
         </a>
       {% endif %}
 
@@ -327,9 +327,9 @@
           <!-- Display page link data -->
           {% if settings.home_link_6 != "" %}
             <a href="{{ pageLink6_page.url }}" class="link-data">
-              <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink6_page_title }}</h2></div>
-              </div>
+              <span class="overlay">
+                <span class="link-text"><h2>{{ pageLink6_page_title }}</h2></span>
+              </span>
             </a>
           {% endif %}
 
@@ -452,9 +452,9 @@
           <!-- Display page link data or image -->
           {% if settings.home_link_3 != "" %}
             <a href="{{ pageLink3_page.url }}" class="link-data">
-              <div class="overlay">
-                <div class="link-text"><h2>{{ pageLink3_page_title }}</h2></div>
-              </div>
+              <span class="overlay">
+                <span class="link-text"><h2>{{ pageLink3_page_title }}</h2></span>
+              </span>
             </a>
           {% endif %}
 
@@ -517,9 +517,9 @@
               <!-- Display page link data or image -->
               {% if settings.home_link_7 != "" %}
                 <a href="{{ pageLink7_collection.url }}" class="link-data">
-                  <div class="overlay">
-                    <div class="link-text"><h2>{{ pageLink7_collection_title }}</h2></div>
-                  </div>
+                  <span class="overlay">
+                    <span class="link-text"><h2>{{ pageLink7_collection_title }}</h2></span>
+                  </span>
                 </a>
               {% endif %}
 
@@ -591,6 +591,41 @@
   $(function() {
     setBlockSizes();
     revealTagline();
+
+    /**
+      * iOS-specific page link click functionality to simulate the image hover state and then
+      * successfully redirect to the clicked link
+      */
+    var
+      userAgent                 = window.navigator.userAgent.toLowerCase(),
+      iOS                       = /ipad|iphone|ipod/.test(userAgent) && !window.MSStream;
+    /*
+    if (iOS) {
+      $('div.page-link span.overlay, div.page-link span.link-text').hide();
+    }
+    */
+    $('div.page-link').click(function(e) {
+
+      if (iOS) {
+        e.preventDefault();
+
+        var
+          linkData              = $(this).children('a.link-data'),
+          linkUrl               = $(linkData).attr('href');
+
+        /*
+        // Simulate the hover state for the page links
+        $(linkData).children('span.overlay').css('display', 'block');
+        $(linkData).children('span.overlay').children('span.link-text').css('display', 'table');
+        */
+
+        // Redirect to the URL
+        window.location.href    = linkUrl;
+
+      }
+
+    });
+
   });
   $(window).resize(function() {
     setBlockSizes();
