@@ -118,12 +118,21 @@
           @include at-query($max, $preSmall) {
             font-size           : 3.25vw;
           }
+          @include at-query($max, $preMedium) {
+            width               : 40%;
+          }
         }
         label ~ span {
           width                 : 70%;
+          @include at-query($max, $preMedium) {
+            width               : 60%;
+          }
         }
         label[for="add"] ~ span {
           width                 : 69.75%;
+          @include at-query($max, $preMedium) {
+            width               : 60%;
+          }
         }
       }
       .unit-price h2,
@@ -142,7 +151,7 @@
         font-size               : em(16px);
         font-weight             : 500;
         @include at-query($max, $preMedium) {
-          font-size             : em(14px);
+          font-size             : em(12px);
         }
       }
       .full-price {

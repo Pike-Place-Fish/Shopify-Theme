@@ -263,6 +263,9 @@
   .logotype {
     img {
       max-width                 : 303px;
+      @include at-query($max, $preSmall) {
+        max-width               : 258px;
+      }
       @include at-query(null, $medium, $preLarge) {
         max-width               : 450px;
       }
@@ -985,6 +988,7 @@
       &.copyright,
       &.links {
         @include at-query ($max, $preMedium) {
+          font-size             : $baseFontSize;
           padding-top           : $gutter;
         }
         @include at-query ($min, $medium) {

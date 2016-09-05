@@ -30,9 +30,9 @@
 
       {% if search.performed %}
         {% if search.results_count == 0 %}
-          <h1 class="text-center results-title">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+          <h1 class="h2 text-center results-title">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
         {% else %}
-          <h1 class="text-center results-title">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+          <h1 class="h2 text-center results-title">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
         {% endif %}
       {% else %}
         <h1 class="h2 text-center results-title">{{ 'general.search.title' | t }}</h1>
