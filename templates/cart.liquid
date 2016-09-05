@@ -10,7 +10,7 @@
 {% if cart.item_count > 0 %}
 
   <h1 class="visually-hidden">{{ 'cart.general.title' | t }}</h1>
-  <form action="/cart" method="post" novalidate class="cart table-wrap">
+  <form id="CartForm" action="/cart" method="post" novalidate class="cart table-wrap">
     <table class="cart-table full table--responsive">
       <thead class="cart__row cart__header-labels">
         <th colspan="2" class="text-left">{{ 'cart.label.product' | t }}</th>
@@ -200,7 +200,7 @@
                 {% endcomment %}
                 <div class="medium--hide medium-down--text-right btn-container">
                   <!-- Checkout Button -->
-                  <input type="submit" id="CheckoutButtonMobile" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
+                  <input type="submit" id="CheckoutButtonMobile" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}" />
                 </div>
                 <!-- Keep Shopping Button -->
                 {% comment %}
@@ -306,23 +306,21 @@
 
     });
 
-    $('form.cart.table-wrap').on('submit', function(e) {
+    // Track which button was clicked to trigger the submit
+    $(':submit').click(function() {
+      $('#CartForm').data('submit-button', this.name);
+    });
+
+    // Validate delivery date selection on submit
+    $('#CartForm').submit(function(e) {
       e.preventDefault();
 
       var
-        clickedButton           = $(this).find('input[type=submit]:focus'),
-        // Using native JS selector for iOS processing
-        checkoutButtonMobile    = document.getElementById('CheckoutButtonMobile'),
-        errorColor              = 'rgb(208, 46, 46)',   // #d02e2e
+        clickedButton           = $(this).data('submit-button'),
+        errorColor              = 'rgb(208, 46, 46)',           // #d02e2e
         isDeliveryDateSelected  = ($('#delivery_date').val().length > 0);
 
-        alert('clickedButton: ' + $(clickedButton));
-        alert('clickedButton: ' + $(clickedButton).attr('name'));
-        alert('clickedButton: ' + $(clickedButton).prop('name'));
-
-      //document.getElementById('mydiv').getAttribute( 'data-mine' )
-
-      if ($(clickedButton).attr('name') === 'checkout') {
+      if (clickedButton === 'checkout') {
 
         // If delivery date is not selected, provide validation/error handling
         if (!isDeliveryDateSelected) {
@@ -350,7 +348,7 @@
 
       }
       else {
-        // Submit update form
+        // Submit update cart action
         $(this).off('submit').submit();
       }
 
