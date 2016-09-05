@@ -35,13 +35,13 @@
 // HEADER
 //----------------------------------------------------------------------------------------------
   .site-header {
-    padding                     : ($gutter / 2) 0;
+    padding                     : ($gutter * 1.5) 0 ($gutter / 2);
     @include at-query ($max, $medium) {                         // New
       padding                   : 0;
     }
     .wrapper {
       @include at-query ($min, $large) {
-        padding                 : ($gutter / 2) 45px;           // Was ($gutter / 2)
+        padding                 : 0 45px;                       // Was ($gutter / 2)
       }
     }
     .grid--table {
