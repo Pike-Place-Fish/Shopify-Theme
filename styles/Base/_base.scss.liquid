@@ -597,15 +597,18 @@
     }
     button[type="submit"],
     button.btn {
-      padding                     : 0;
-      width                       : 22px;
-      min-width                   : auto;
-      height                      : 21px;
-      background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
-      background-size             : 21px 21px;
+      padding                   : 0;
+      width                     : 22px;
+      min-width                 : auto;
+      height                    : 21px;
+      background                : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
+      background-size           : 21px 21px;
+      @include at-query($max, $preMedium) {
+        background-image        : url({{'Icon.Search.Mobile.png' | asset_url }});
+      }
     }
     .icon-search {
-      display                     : none !important;
+      display                   : none !important;
     }
 
   }
