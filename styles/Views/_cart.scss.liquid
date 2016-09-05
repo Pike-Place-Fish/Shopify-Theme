@@ -181,6 +181,7 @@
           &.quantity {
             input {
               max-width         : 64px;
+              text-align        : right;
             }
           }
           &.summary {
@@ -247,12 +248,21 @@
         min-width               : 125px;
         font-size               : em(12.5px);
         @include at-query($max, $preMedium) {
+          display               : inline-block;
           margin                : ($gutter * 2) auto 0;
         }
       }
+      /*
       input[type="submit"] {
         @include at-query($max, $preMedium) {
-          display               : block;
+          display               : inline-block;
+          margin-bottom         : $gutter;
+        }
+      }
+      */
+      .btn-container {
+        @include at-query($min, $medium) {
+          display               : inline-block;
         }
       }
       .medium-down--show {
@@ -295,7 +305,7 @@
         padding                 : 2px 30px 2px 5px;
         font-family             : $interfaceFontStack;
         font-size               : $baseFontSize;
-        background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
+        background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 1px;
         background-size         : auto 20px;
       }
       div.day-warning {
