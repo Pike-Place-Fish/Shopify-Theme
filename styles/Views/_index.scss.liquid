@@ -23,7 +23,7 @@
       background-color          : $colorBody;
     }
     .main-content {
-      margin-top                : $gutter;
+    //margin-top                : $gutter;
       padding                   : 0 $gutter $gutter;
     }
 
@@ -51,7 +51,7 @@
         display                 : none;
         padding-top             : 23%;
         @include at-query ($max, $medium) {
-          padding-top           : 20.5%;
+          padding-top           : 18.5%;
         }
         h1 {
           font-size             : em(36px);
@@ -60,19 +60,22 @@
           text-transform        : uppercase;
           -webkit-text-stroke-width     : 1px;
           -webkit-text-stroke-color     : $colorSecondary;
-          @include at-query ($max, $large) {
-            font-size           : 4.25vw;
+          @include at-query ($max, $preMedium) {
+            font-size           : 5vw;
+          }
+          @include at-query (null, $medium, $preLarge) {
+            font-size           : 4.5vw;
           }
         }
         a.btn {
           min-width             : auto;
           font-size             : em(18px);
-          @include at-query ($max, $medium) {
-            font-size           : 2.5vw;
+          @include at-query ($max, $preMedium) {
+            font-size           : 3.25vw;
             line-height         : 120%;
           }
-          @include at-query (null, $medium, $large) {
-            font-size           : 2.25vw;
+          @include at-query (null, $medium, $preLarge) {
+            font-size           : 3vw;
           }
         }
       }
@@ -117,11 +120,11 @@
           font-family           : $interfaceFontStack;
           font-size             : em(18px);
           font-weight           : 600;
-          @include at-query ($max, $medium) {
-            font-size           : 3.25vw;
+          @include at-query ($max, $preMedium) {
+            font-size           : 3.5vw;
           }
           @include at-query (null, $medium, $siteWidth) {
-            font-size           : 1.43vw;
+            font-size           : 1.475vw;
           }
         }
       }
