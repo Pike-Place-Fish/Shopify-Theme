@@ -263,6 +263,9 @@
   .logotype {
     img {
       max-width                 : 303px;
+      @include at-query(null, $medium, $preLarge) {
+        max-width               : 450px;
+      }
     }
   }
 
@@ -603,7 +606,7 @@
       height                    : 21px;
       background                : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
       background-size           : 21px 21px;
-      @include at-query($max, $preMedium) {
+      @include at-query($max, $preLarge) {
         background-image        : url({{'Icon.Search.Mobile.png' | asset_url }});
       }
     }
@@ -813,10 +816,14 @@
       background-image          : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
     }
     span.cart-count {
+      top                       : 22px !important;
+      left                      : 2px !important;
+      font-size                 : 4vw !important;
       color                     : rgb(45, 45, 45);
     }
     span.title {
-      top                       : 2px;
+      top                       : 4px;
+      left                      : 5px;
     }
   }
 
@@ -911,10 +918,13 @@
   }
 
   .drawer__close {
-    padding-right               : 5%;                           // New
+    padding                     : 1.75vw 5%;                    // New
     width                       : 1%;
     font-size                   : em(18px);
     text-align                  : right;                        // Was center
+    @include at-query($max, $preMedium) {
+      padding                   : 2.25vw 5%;                    // New
+    }
   }
 
   .drawer__close button {
@@ -926,6 +936,12 @@
     &:active,
     &:focus {
       //background-color: darken($colorDrawers, 5%);            // Removed
+    }
+    span.icon-x {
+      font-size                 : 4vw;
+      @include at-query($max, $preMedium) {
+        font-size               : 6.25vw;
+      }
     }
   }
 

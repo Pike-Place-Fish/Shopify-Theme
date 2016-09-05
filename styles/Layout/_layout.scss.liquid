@@ -64,9 +64,9 @@
 // NAVIGATION
 //----------------------------------------------------------------------------------------------
   .nav-bar {
-    padding                     : ($gutter / 2) 0 $gutter;      // New
+    padding                     : $gutter 0 ($gutter * 1.5);    // New
     @include at-query($max, $large) {
-      padding-bottom            : 0;                            // New
+      padding-bottom            : ($gutter / 2);                // New
     }
   }
   .site-nav {
