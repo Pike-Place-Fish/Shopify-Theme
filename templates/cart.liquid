@@ -279,14 +279,12 @@
           return [(dayOfWeek != 0 && dayOfWeek != 1 && holidays.indexOf(dateString) == -1)];
         }
 
+      },
+      beforeShow: function(input, inst) {
+        // Supress keyboard for datepicker on mobile
+        $(input).attr('readonly','readonly').blur();
       }
     });
-    // Supress keyboard for datepicker on mobile
-    /*
-    $('#delivery_date').on('click', function(e) {
-      document.activeElement.blur();
-    });
-    */
     $('#delivery_date').change(function() {
       var selectedDay           = $('#delivery_day').val();
 
@@ -304,13 +302,23 @@
         $('#delivery_date').css('border-color', 'rgb(229, 229, 229');
       }
 
-    });
+      // Reset keyboard suppression
+      $(this).removeAttr('readonly');
 
+    });
+    // Hide the datepicker when the delivery date input loses focus
+    $('body').click(function(e) {
+      if (e.target.id !== 'delivery_date') {
+        $('#delivery_date').datepicker('hide');
+      }
+      else {
+        $('#delivery_date').datepicker('show');
+      }
+    });
     // Track which button was clicked to trigger the submit
     $(':submit').click(function() {
       $('#CartForm').data('submit-button', this.name);
     });
-
     // Validate delivery date selection on submit
     $('#CartForm').submit(function(e) {
       e.preventDefault();
