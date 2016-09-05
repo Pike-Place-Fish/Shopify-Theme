@@ -662,7 +662,7 @@ $max: max-width;
   h6 {
     display                     : block;
     margin-bottom               : 0.25em;
-    font-family                 : $headerFontStack;
+    font-family                 : 'Open Sans', $headerFontStack;
     line-height                 : ({{ settings.type_header_lineheight }} / {{ settings.type_header_size }});  // Was 1.4
     font-weight                 : $headerFontWeight;
 
@@ -674,8 +674,10 @@ $max: max-width;
 
   // New
   h1,
-  h2 {
-  //text-transform              : uppercase;
+  h2,
+  .h1,
+  .h2 {
+    font-weight                 : 700 !important;
   }
 
   // Note: headings use em() Sass function to declare font-size
@@ -1027,7 +1029,8 @@ label.error {
   .site-nav {
     font-family                 : $headerFontStack;             // New
     font-size                   : em(14px);                     // Was em(16px)
-    font-weight                 : 800;
+    font-weight                 : 700;
+    letter-spacing              : 0.05em;                       // New
     text-transform              : uppercase;                    // New
     cursor                      : default;
     li {
@@ -1051,9 +1054,9 @@ label.error {
     // New
     .icon-hamburger {
       font-size                 : 2em;
-      font-size                 : 3.75vw;
-      @include at-query($max, $medium) {
-        font-size               : 4.25vw;
+      font-size                 : 4vw;
+      @include at-query($max, $preMedium) {
+        font-size               : 6.25vw;
       }
     }
 
@@ -1122,6 +1125,10 @@ label.error {
     color                       : $colorNavText;
     text-decoration             : none;
     white-space                 : nowrap;
+    @include at-query($max, $preMedium) {
+      padding-top               : 1px;
+    }
+
     &:hover,
     &:active,
     &:focus {
@@ -1147,7 +1154,7 @@ label.error {
     // New
     &.logotype {
       position                  : relative;
-      top                       : 4px;
+      top                       : 0;
       padding                   : 0 15px 0;
       font-size                 : 150%;
       color                     : $colorPrimary;
@@ -1221,6 +1228,7 @@ label.error {
     // element overlap on subnav's CSS toggle animation
     .mobile-nav > & {
       border                    : 1px solid rgb(59, 59, 59);    // New - #3B3B3B
+      border-bottom-color       : rgb(92, 92, 92);              // #5C5C5C
       background-color          : rgb(59, 59, 59);              // Was $colorDrawers
     }
 
@@ -1237,7 +1245,7 @@ label.error {
     .mobile-nav__item:nth-child(even) {
       .mobile-nav > & {
         border-color            : rgb(92, 92, 92);              // #5C5C5C
-        background-color        : rgb(45, 45, 45);              // #2D2D2D
+      //background-color        : rgb(45, 45, 45);              // #2D2D2D
       }
     }
 
@@ -1275,15 +1283,22 @@ label.error {
     display                     : block;
     padding                     : 5%;                           // New
     font-family                 : $headerFontStack;
-    font-size                   : em(12px);
+    font-size                   : em(17px);
+    font-size                   : 2.25vw;
     font-weight                 : 600;
     color                       : $colorBody !important;        // New - needs to be important due to .drawer a override
+    letter-spacing              : 0.05em;
     text-transform              : uppercase;
+    @include at-query($max, $preMedium) {
+      font-size                 : em(15px);
+      font-size                 : 4vw;
+    }
     &:hover,
     &:active,
     &:focus {
       color                     : darken($colorBody, 5%);       // Was darken($colorDrawerText, 15%)
     }
+
   }
 
   .mobile-nav__item--active {
@@ -1305,6 +1320,12 @@ label.error {
     display                     : table-cell;
     width                       : 1%;
     vertical-align              : middle;
+    span.icon {
+      font-size                 : 4vw;
+      @include at-query($max, $preMedium) {
+        font-size               : 6.25vw;
+      }
+    }
   }
 
   .mobile-nav__toggle-open {
@@ -1324,7 +1345,7 @@ label.error {
   .mobile-nav__sublist {
     visibility                  : hidden;
     overflow                    : hidden;
-    margin                      : 0 0 0 ($gutter * 1.5);        // New
+    margin                      : 0 0 ($gutter / 2) ($gutter * 1.5);        // New
     max-height                  : 0;
     transition                  : all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
     @include backface();
@@ -1342,7 +1363,7 @@ label.error {
 
     // New
     .mobile-nav__item a {
-      padding                   : 5px 0 5px 10px;
+      padding                   : 5px 0 20px 10px;
     }
 
     .mobile-nav__link {
@@ -1598,6 +1619,12 @@ label.error {
   .logotype {
     img {
       max-width                 : 303px;
+      @include at-query($max, $preSmall) {
+        max-width               : 258px;
+      }
+      @include at-query(null, $medium, $preLarge) {
+        max-width               : 450px;
+      }
     }
   }
 
@@ -1834,10 +1861,12 @@ label.error {
       }
       td:before {
         content                 : attr(data-label);
+        display                 : inline-block;                 // New
         float                   : left;
-        padding-right           : 10px;
+        padding-right           : 0;                            // Was 10px
+        width                   : 78.25%;                       // New
         font-size               : 12px;
-        text-align              : center;
+        text-align              : right;                        // Was 'center'
       }
       &.cart-table {
         img {
@@ -1930,15 +1959,18 @@ label.error {
     }
     button[type="submit"],
     button.btn {
-      padding                     : 0;
-      width                       : 22px;
-      min-width                   : auto;
-      height                      : 21px;
-      background                  : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
-      background-size             : 21px 21px;
+      padding                   : 0;
+      width                     : 22px;
+      min-width                 : auto;
+      height                    : 21px;
+      background                : transparent url({{'Icon.Search.png' | asset_url }}) no-repeat 100% 0;
+      background-size           : 21px 21px;
+      @include at-query($max, $preLarge) {
+        background-image        : url({{'Icon.Search.Mobile.png' | asset_url }});
+      }
     }
     .icon-search {
-      display                     : none !important;
+      display                   : none !important;
     }
 
   }
@@ -2082,8 +2114,12 @@ label.error {
     font-weight                 : 600;
     color                       : rgb(12, 12, 12);              // #0C0C0C
     text-transform              : uppercase;
+    &.text-links {
+      top                       : -5px;
+    }
     a {
       color                     : rgb(12, 12, 12);
+      letter-spacing            : 0.05em;
     }
     .site-header__cart-toggle {
       margin-right              : -4px;
@@ -2139,10 +2175,14 @@ label.error {
       background-image          : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
     }
     span.cart-count {
+      top                       : 22px !important;
+      left                      : 2px !important;
+      font-size                 : 4vw !important;
       color                     : rgb(45, 45, 45);
     }
     span.title {
-      top                       : 2px;
+      top                       : 4px;
+      left                      : 5px;
     }
   }
 
@@ -2237,10 +2277,13 @@ label.error {
   }
 
   .drawer__close {
-    padding-right               : 5%;                           // New
+    padding                     : 1.75vw 5%;                    // New
     width                       : 1%;
     font-size                   : em(18px);
     text-align                  : right;                        // Was center
+    @include at-query($max, $preMedium) {
+      padding                   : 2.25vw 5%;                    // New
+    }
   }
 
   .drawer__close button {
@@ -2252,6 +2295,12 @@ label.error {
     &:active,
     &:focus {
       //background-color: darken($colorDrawers, 5%);            // Removed
+    }
+    span.icon-x {
+      font-size                 : 4vw;
+      @include at-query($max, $preMedium) {
+        font-size               : 6.25vw;
+      }
     }
   }
 
@@ -2295,6 +2344,7 @@ label.error {
       &.copyright,
       &.links {
         @include at-query ($max, $preMedium) {
+          font-size             : $baseFontSize;
           padding-top           : $gutter;
         }
         @include at-query ($min, $medium) {
@@ -3077,13 +3127,13 @@ $class-type: unquote(".");
 // HEADER
 //----------------------------------------------------------------------------------------------
   .site-header {
-    padding                     : ($gutter / 2) 0;
+    padding                     : ($gutter * 1.5) 0 ($gutter / 2);
     @include at-query ($max, $medium) {                         // New
       padding                   : 0;
     }
     .wrapper {
       @include at-query ($min, $large) {
-        padding                 : ($gutter / 2) 45px;           // Was ($gutter / 2)
+        padding                 : 0 $gutter;                    // Was ($gutter / 2)
       }
     }
     .grid--table {
@@ -3106,9 +3156,9 @@ $class-type: unquote(".");
 // NAVIGATION
 //----------------------------------------------------------------------------------------------
   .nav-bar {
-    padding                     : ($gutter / 2) 0 $gutter;      // New
+    padding                     : $gutter 0 ($gutter * 1.5);    // New
     @include at-query($max, $large) {
-      padding-bottom            : 0;                            // New
+      padding-bottom            : ($gutter / 2);                // New
     }
   }
   .site-nav {
@@ -3195,6 +3245,9 @@ $class-type: unquote(".");
     padding-top                 : ($gutter * 2);
     padding-bottom              : ($gutter * 2);
     // New
+    @include at-query ($max, $preMedium) {
+      padding                   : ($gutter * 2) 18px;
+    }
     @include at-query ($min, $large) {
       padding                   : 45px;
     }
@@ -3254,7 +3307,7 @@ $class-type: unquote(".");
       background-color          : $colorBody;
     }
     .main-content {
-      margin-top                : $gutter;
+    //margin-top                : $gutter;
       padding                   : 0 $gutter $gutter;
     }
 
@@ -3282,28 +3335,31 @@ $class-type: unquote(".");
         display                 : none;
         padding-top             : 23%;
         @include at-query ($max, $medium) {
-          padding-top           : 20.5%;
+          padding-top           : 18.5%;
         }
         h1 {
           font-size             : em(36px);
           font-size             : 3vw;
           color                 : $colorBody;
           text-transform        : uppercase;
-          -webkit-text-stroke-width     : 1px;
-          -webkit-text-stroke-color     : $colorSecondary;
-          @include at-query ($max, $large) {
-            font-size           : 4.25vw;
+        //-webkit-text-stroke-width     : 1px;
+        //-webkit-text-stroke-color     : $colorSecondary;
+          @include at-query ($max, $preMedium) {
+            font-size           : 5vw;
+          }
+          @include at-query (null, $medium, $preLarge) {
+            font-size           : 4.5vw;
           }
         }
         a.btn {
           min-width             : auto;
           font-size             : em(18px);
-          @include at-query ($max, $medium) {
-            font-size           : 2.5vw;
+          @include at-query ($max, $preMedium) {
+            font-size           : 3.25vw;
             line-height         : 120%;
           }
-          @include at-query (null, $medium, $large) {
-            font-size           : 2.25vw;
+          @include at-query (null, $medium, $preLarge) {
+            font-size           : 3vw;
           }
         }
       }
@@ -3348,11 +3404,11 @@ $class-type: unquote(".");
           font-family           : $interfaceFontStack;
           font-size             : em(18px);
           font-weight           : 600;
-          @include at-query ($max, $medium) {
-            font-size           : 3.25vw;
+          @include at-query ($max, $preMedium) {
+            font-size           : 3.5vw;
           }
           @include at-query (null, $medium, $siteWidth) {
-            font-size           : 1.43vw;
+            font-size           : 1.475vw;
           }
         }
       }
@@ -3807,8 +3863,11 @@ $class-type: unquote(".");
       // Text
       h1[itemprop="name"] {
         margin                  : 0;
-        font-size               : em(18px);
+        font-size               : em(22px);
         text-transform          : none;
+        @include at-query($max, $preMedium) {
+          font-size             : em(18px);
+        }
       }
       .product-description {
         padding-bottom          : $gutter;
@@ -3860,12 +3919,21 @@ $class-type: unquote(".");
           @include at-query($max, $preSmall) {
             font-size           : 3.25vw;
           }
+          @include at-query($max, $preMedium) {
+            width               : 40%;
+          }
         }
         label ~ span {
           width                 : 70%;
+          @include at-query($max, $preMedium) {
+            width               : 60%;
+          }
         }
         label[for="add"] ~ span {
           width                 : 69.75%;
+          @include at-query($max, $preMedium) {
+            width               : 60%;
+          }
         }
       }
       .unit-price h2,
@@ -3879,9 +3947,13 @@ $class-type: unquote(".");
       .unit-price .h2,
       .unit-price .unit-label {
         display                 : inline-block;
-        margin-top              : 10px;
+        margin-top              : 5px;
         margin-right            : 5px;
-        font-weight             : 700;
+        font-size               : em(16px);
+        font-weight             : 500;
+        @include at-query($max, $preMedium) {
+          font-size             : em(12px);
+        }
       }
       .full-price {
         display                 : block;
@@ -4205,6 +4277,7 @@ $class-type: unquote(".");
           &.quantity {
             input {
               max-width         : 64px;
+              text-align        : right;
             }
           }
           &.summary {
@@ -4271,12 +4344,21 @@ $class-type: unquote(".");
         min-width               : 125px;
         font-size               : em(12.5px);
         @include at-query($max, $preMedium) {
+          display               : inline-block;
           margin                : ($gutter * 2) auto 0;
         }
       }
+      /*
       input[type="submit"] {
         @include at-query($max, $preMedium) {
-          display               : block;
+          display               : inline-block;
+          margin-bottom         : $gutter;
+        }
+      }
+      */
+      .btn-container {
+        @include at-query($min, $medium) {
+          display               : inline-block;
         }
       }
       .medium-down--show {
@@ -4319,7 +4401,7 @@ $class-type: unquote(".");
         padding                 : 2px 30px 2px 5px;
         font-family             : $interfaceFontStack;
         font-size               : $baseFontSize;
-        background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 3px;
+        background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 1px;
         background-size         : auto 20px;
       }
       div.day-warning {
