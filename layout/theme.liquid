@@ -43,14 +43,6 @@
   {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
 
-  <!-- jQuery UI =========================================================================== -->
-  {% comment %}
-    {{ 'jquery-ui.css' | asset_url | stylesheet_tag }}
-    {{ 'jquery-ui.js' | asset_url | script_tag }}
-  {% endcomment %}
-  <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all">
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
   {% endcomment %}
@@ -63,6 +55,16 @@
     - http://www.jacklmoore.com/colorbox/
   {% endcomment %}
   {{ 'jquery.colorbox-min.js' | asset_url | script_tag }}
+
+  <!-- jQuery UI =========================================================================== -->
+  {% comment %}
+    {{ 'jquery-ui.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery-ui.js' | asset_url | script_tag }}
+  {% endcomment %}
+  <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all">
+  {% comment %}
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  {% endcomment %}
 
   {% comment %}
     ### NOTE KLT061616: Relatable Implementation
@@ -453,6 +455,9 @@
   {{ 'fastclick.min.js' | asset_url | script_tag }}
   {{ 'timber.js' | asset_url | script_tag }}
 
+  <!-- jQuery UI =========================================================================== -->
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
   {% comment %}
     Template-specific js
   {% endcomment %}
@@ -530,5 +535,5 @@
   </script>
   <!-- /Common Page Scripts -->
 
-</body>
+<!-- BEEKETINGSCRIPT CODE START -->{% include 'bk-tracking' %}<!-- BEEKETINGSCRIPT CODE END --></body>
 </html>
