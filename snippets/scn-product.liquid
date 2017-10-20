@@ -72,8 +72,11 @@
 
                 // Hide selection box if empty or contain only one selection
                 jQuery.each(jQuery('.single-option-selector'), function(index, selection) {
-                    if (jQuery(selection).find('option').length <= 1) {
-                        jQuery(selection).hide();
+                    var option = jQuery(selection).find('option');
+                    if (option.length <= 1) {
+                        if (option.first().length && option.first().text().indexOf(defaultTitleText) != -1) {
+                            jQuery(selection).hide();
+                        }
                     }
                 });
 

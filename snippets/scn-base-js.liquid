@@ -1,11 +1,14 @@
 
 <script>
     // Function to hide hidden variants
-    var scnHiddenVariants = [" (BK ","Free Gift"];
+    var scnHiddenVariants = ["(BK ","Free Gift","100% Off"];
     function scnProduct(product) {
         var newVariants = [], i, isValid, variantIndex, priceMin = product.price_max;
         for (variantIndex in product.variants) {
             var variant = product.variants[variantIndex];
+            if (typeof variant != 'object') {
+                continue;
+            }
             isValid = true;
             for (i in scnHiddenVariants) {
                 //Is variant hidden item
@@ -22,6 +25,7 @@
         }
 
         product.variants = newVariants;
+        product.price = priceMin;
         product.price_min = priceMin;
         product.price_varies = product.price_min != product.price_max;
         return product;
