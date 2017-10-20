@@ -16,7 +16,7 @@
         <th colspan="2" class="text-left">{{ 'cart.label.product' | t }}</th>
         <th class="text-right">{{ 'cart.label.price' | t }}</th>
         <th class="text-right">{{ 'cart.label.quantity' | t }}</th>
-        <th class="text-right">{{ 'cart.general.subtotal' | t }}</th>{% comment %}Was 'cart.label.total'{% endcomment %}
+        <th class="text-right"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span></th>{% comment %}Was 'cart.label.total'{% endcomment %}
       </thead>
       <tbody>
         {% for item in cart.items %}
@@ -120,7 +120,7 @@
                 <span class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></span>
               {% endif %}
               <span class="h3 price">
-                {{ item.line_price | money }}
+                <span id="bk-cart-subtotal-label">{{ item.line_price | money }}</span>
               </span>
               {% for discount in item.discounts %}
                 <span class="cart-item__discount">{{ discount.title }}</span>
@@ -130,15 +130,30 @@
         {% endfor %}
 
         <tr class="cart__row table__section">
+          <td colspan="5" class="gift-settings">
+            <div class="grid cart__row">
+              {% if settings.cart_notes_enable %}
+                <div class="grid__item one-half medium-down--two-thirds">
+                  <div class="cart-notes gift-message hide">
+                    <label for="CartSpecialInstructions"><!-- {{ 'cart.general.note' | t }} -->Gift message:</label>
+                    <textarea name="attributes[giftMessage]" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea><!-- name was 'note' -->
+                  </div>
+                </div>
+                <div class="grid__item one-half medium-down--one-third text-right">
+                  <label for="IsGift" class="checkbox label-left">
+                    Is this a gift?
+                    <input type="checkbox" id="IsGift" name="attributes[isGift]" />
+                  </label>
+                </div>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+
+        <tr class="cart__row table__section">
           <td colspan="5" class="summary">
 
             <div class="grid cart__row">
-              {% if settings.cart_notes_enable %}
-                <div class="grid__item two-thirds small--one-whole hide">
-                  <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
-                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
-                </div>
-              {% endif %}
 
               <div class="grid__item medium--one-half medium--show medium-down--hide">
 
@@ -148,15 +163,18 @@
                 {% endcomment %}
                 {% assign cart_weight = cart.total_weight | weight_with_unit %}
                 <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: total_weight: cart_weight }}</h3>
-                <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
+                <p class="order-weight-disclaimer">
+                  <span class="cost-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</span>
+                  <span class="packaging-disclaimer"><em>(Not including box and ice.)</em></span>
+                </p>
                 <!-- /Shipping Weight Note -->
 
               </div>
               <div class="grid__item text-right{% if settings.cart_notes_enable %} small--one-half{% endif %}">
                 <!-- Subtotal and Shipping/Tax Note -->
                 <p>
-                  <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}: </span>
-                  <span class="h4 cart__subtotal">{{ cart.total_price | money }}</span>
+                  <span class="cart__subtotal-title"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span>: </span>
+                  <span class="h4 cart__subtotal"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></span>
                 </p>
                 {% if cart.total_discounts > 0 %}
                   {% assign savings = cart.total_discounts | money %}
@@ -173,7 +191,10 @@
                 {% endcomment %}
                 {% assign cart_weight = cart.total_weight | weight_with_unit %}
                 <h3 class="order-weight-heading">{{ 'cart.general.order_weight' | t: total_weight: cart_weight }}</h3>
-                <p class="order-weight-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</p>
+                <p class="order-weight-disclaimer">
+                  <span class="cost-disclaimer">{{ 'cart.general.shipping_disclaimer' | t }}</span>
+                  <span class="packaging-disclaimer"><em>(Not including box and ice.)</em></span>
+                </p>
                 <!-- /Shipping Weight Note -->
 
               </div>
@@ -188,8 +209,10 @@
                 <div class="delivery-date">
                   <label for="date">{{ settings.heading_delivery_date }}</label>
                   <input type="text" id="delivery_date" name="attributes[date]" value="{{ cart.attributes.date }}" size="10" required />
-                  <input type="hidden" id="delivery_day" name="delivery_day" />
-                  <div class="day-warning"><small>{{ settings.warning_delivery_date_limited_friday }}</small></div>
+                  <input type="hidden" id="delivery_day" name="attributes[shipDay]" />
+                  <p class="shipping-note"><em>{{ 'cart.general.shipping_date_note' | t }}<br/>{{ 'cart.general.shipping_perishable_note' | t }}</em></p>
+                  <div class="day-warning"><small>{{ settings.warning_shipping_surcharge }}</small></div>
+                  <div class="delay-warning"><small>{{ settings.warning_shipping_delay }}</small></div>
                 </div>
                 <!-- /Delivery Date Selection -->
               </div>
@@ -236,28 +259,157 @@
 
 
 <script>
+  /**
+   * Instantiate CartJS
+   */
+  CartJS.init({{ cart | json }}, {
+  //"dataAPI": false,
+    "requestBodyClass": "loading"
+  });
+
   $(function() {
 
-    /*
-     * Instantiate CartJS
+/*
+$('#delivery_date').val('');
+$('#delivery_day').val('');
+*/
+
+    /**
+     * Establish date-related variables
      */
-    CartJS.init({{ cart | json }}, {
-      "dataAPI": false,
-      "requestBodyClass": "loading"
-    });
+    var
+      today                     = new Date(),
+      shipOnSaturday            = false,
+      shipOnSaturdayStart       = new Date('11/01/2017'),
+      shipOnSaturdayEnd         = new Date('02/28/2018'),
+      preHolidays               = ['2017-05-28','2017-07-03','2017-09-03','2017-11-22','2017-12-24','2017-12-31'],
+      holidays                  = ['2017-05-29','2017-07-04','2017-09-04','2017-11-23','2017-12-25','2018-01-01'],
+      surchargeWarning          = '{{ settings.warning_shipping_surcharge }}',
+      delayWarning              = '{{ settings.warning_shipping_delay }}',
+      selectedShipDay           = $('#delivery_day').val(),
+      formattedShipDate         = jQuery.datepicker.formatDate('yy-mm-dd', new Date($('#delivery_date').val()));
+
+    // Reset day value if not populated on load (but date is populated)
+    if (!selectedShipDay.length && $('#delivery_date').val().length > 0) {
+      selectedShipDay           = jQuery.datepicker.formatDate('DD', new Date($('#delivery_date').val()));
+      $('#delivery_day').val(selectedShipDay);
+    }
+
+    // Determine ship on Saturday availability
+    if (shipOnSaturdayStart <= today && today <= shipOnSaturdayEnd) {
+      shipOnSaturday            = true;
+    }
+
+    /**
+     * On load, displays the ship day warning(s) if the calendar value meets the criteria
+     */
+    if (selectedShipDay.toLowerCase().indexOf('friday') > -1 || selectedShipDay.toLowerCase().indexOf('saturday') > -1) {
+      $('.delivery-date div.day-warning').show();
+    }
+    else {
+      $('.delivery-date div.day-warning').hide();
+    }
+    // Show delivery delay warning if Saturday or pre-holiday are selected
+    if (selectedShipDay.toLowerCase().indexOf('saturday') > -1 || preHolidays.indexOf(formattedShipDate) > -1) {
+      $('.delivery-date div.delay-warning').show();
+    }
+    else {
+      $('.delivery-date div.delay-warning').hide();
+    }
+
+    /**
+     * Preset line item date properties on load, in case they have been wiped out or not updated
+     */
+    var
+      itemQuantity                      = CartJS.cart.items[0].quantity,
+      itemProperties                    = CartJS.cart.items[0].properties;
+
+    itemProperties._delivery_date       = $('#delivery_date').val();
+    itemProperties._delivery_day        = $('#delivery_day').val();
+
+    CartJS.updateItem(1, itemQuantity, itemProperties);
+
+    /**
+     * Sets the cart weight disclaimer--either the note about cost for up to 12 lbs., or a note about the packaging weight--and
+     * the visibility thereof, depending on the total weight (in grams).
+     */
+    if ({{ cart.total_weight }} > 5443) {
+      $('span.cost-disclaimer').hide();
+      //$('span.packaging-disclaimer').css('display', 'block');
+    }
 
     /**
      * Delivery date selection functionality - datepicker and business rules for Friday and weekend shipping
      * ### NOTE 071816: Added holiday blackouts based on
      * https://www.ups.com/content/us/en/resources/ship/imp_exp/operation.html
      */
-    // First clear any previously selected date
-    $('#delivery_date').val('');
+    // Double-check and correct if selected delivery date is in the past
+    if ($('#delivery_date').val().length) {
+      var
+        currentDate             = Date.parse(new Date()),
+        selectedDate            = Date.parse($('#delivery_date').val()),
+        newSelectedDate         = new Date(),
+        newSelectedMonth,
+        newSelectedDay,
+        newSelectedYear;
+
+      // Reset the selected delivery date if currently selected date is in the past
+      if (selectedDate <= currentDate) {
+
+        // Clear the selected date
+        $('#delivery_date').val('');
+
+        /*
+        // Calculate new delivery date (skip to Tuesday if current day is Friday, otherwise set
+        // to tomorrow)
+        if (newSelectedDate.getDay() === 5) {
+          newSelectedDate       = newSelectedDate.setDate(newSelectedDate.getDate() + 4);
+        }
+        else {
+          newSelectedDate       = newSelectedDate.setDate(newSelectedDate.getDate() + 1);
+        }
+        newSelectedDate         = new Date(newSelectedDate);
+
+        // Format new selected delivery date value
+        newSelectedMonth        = (newSelectedDate.getMonth() + 1);
+        if (newSelectedMonth < 10) {
+          newSelectedMonth      = '0' + newSelectedMonth;
+        }
+        newSelectedDay          = newSelectedDate.getDate();
+        if (newSelectedDay < 10) {
+          newSelectedDay        = '0' + newSelectedDay;
+        }
+        newSelectedYear         = newSelectedDate.getFullYear();
+
+        // Set new delivery date value
+        $('#delivery_date').val(newSelectedMonth + '/' + newSelectedDay + '/' + newSelectedYear);
+        */
+
+      }
+
+    }
     // Instantiate date picker
-    $('#delivery_date').datepicker({
-      minDate                   : '+1d',
+    var
+      currentDate               = new Date(),
+      cutoff                    = new Date(),
+      minDateSelection          = 0;
+
+    cutoff.setHours(16);
+    cutoff.setMinutes(30);
+    if (currentDate > cutoff) {
+      minDateSelection          = '+1d';
+    }
+
+    /*
+    if ($('#delivery_date').val().length < 1) {
+      $('#delivery_date').val(jQuery.datepicker.formatDate('mm/dd/yy', currentDate));
+    }
+    */
+
+    jQuery('#delivery_date').datepicker({
+      minDate                   : minDateSelection,
       maxDate                   : '+6m',
-      defaultDate               : '+1d',
+      defaultDate               : 0,
       dateFormat                : 'mm/dd/yy',
       altField                  : '#delivery_day',
       altFormat                 : 'DD',
@@ -266,17 +418,42 @@
           today                 = new Date(),
           dayOfWeek             = date.getDay(),
           dateString            = jQuery.datepicker.formatDate('yy-mm-dd', date),
-          // Exclude US public holidays
-          holidays              = ['2016-01-01','2016-01-02','2016-05-30','2016-05-31','2016-07-04','2016-07-05','2016-09-05','2016-09-06','2016-11-24','2016-11-25','2016-12-24','2016-12-25','2016-12-26','2016-12-31','2017-01-01','2017-01-02'],
-          warningTooltip        = '{{ settings.warning_delivery_date_limited_friday }}';
+          shipOnSaturday        = false,
+          shipOnSaturdayStart   = new Date('11/01/2016'),
+          shipOnSaturdayEnd     = new Date('02/28/2017');
 
-        // Provide warning regarding surcharge, if Saturday delivery is selected
-        if (dayOfWeek == 6) {
-          return [true, 'day-warning', warningTooltip];
+        // Determine ship on Saturday availability
+        if (shipOnSaturdayStart <= date && date <= shipOnSaturdayEnd) {
+          shipOnSaturday        = true;
+        }
+
+        // Provide warning regarding surcharge, if Friday shipping is selected
+        if (dayOfWeek == 5) {
+          return [true, 'day-warning', surchargeWarning];
+        }
+
+        // Provide handling for Saturday shipping
+        else if (dayOfWeek == 6) {
+          if (shipOnSaturday) {
+            return [true, 'day-warning', surchargeWarning + ' ' + delayWarning];
+          }
+          else {
+            return false;
+          }
+        }
+
+        // Provide handling for pre-holiday shipping
+        else if (preHolidays.indexOf(dateString) > -1) {
+          if (dayOfWeek != 0) {
+            return [true, 'day-warning', delayWarning];
+          }
+          else {
+            return false;
+          }
         }
 
         else {
-          return [(dayOfWeek != 0 && dayOfWeek != 1 && holidays.indexOf(dateString) == -1)];
+          return [(dayOfWeek != 0 && holidays.indexOf(dateString) == -1)];
         }
 
       },
@@ -285,16 +462,56 @@
         $(input).attr('readonly','readonly').blur();
       }
     });
+    // Update cart item properties based on selected ship date
     $('#delivery_date').change(function() {
-      var selectedDay           = $('#delivery_day').val();
+      var
+        selectedDate            = $(this).val(),
+        formattedDate           = jQuery.datepicker.formatDate('yy-mm-dd', new Date(selectedDate)),
+        selectedDay             = jQuery.datepicker.formatDate('DD', new Date(selectedDate)); //$('#delivery_day').val();
 
-      // Show $20 surcharge warning is Saturday is selected
-      if (selectedDay.toLowerCase().indexOf('saturday') > -1) {
+      $('#delivery_day').val(selectedDay);
+
+      console.log($('#delivery_date').val());
+
+      // Show $20 surcharge warning if Friday, Saturday, or pre-holiday are selected
+      if (selectedDay.toLowerCase().indexOf('friday') > -1 || selectedDay.toLowerCase().indexOf('saturday') > -1) {
         $('.delivery-date div.day-warning').show();
       }
       else {
         $('.delivery-date div.day-warning').hide();
       }
+      // Show delivery delay warning if Saturday or pre-holiday are selected
+      if (selectedDay.toLowerCase().indexOf('saturday') > -1 || preHolidays.indexOf(formattedDate) > -1) {
+        $('.delivery-date div.delay-warning').show();
+      }
+      else {
+        $('.delivery-date div.delay-warning').hide();
+      }
+
+      // Reset _delivery_date and _delivery_day on all items
+      for (i=0; i<CartJS.cart.items.length; i++) {
+        var
+          itemQuantity                  = CartJS.cart.items[i].quantity,
+          itemProperties                = CartJS.cart.items[i].properties,
+          itemIndex                     = (i+1);
+
+        itemProperties._delivery_date   = undefined;
+        itemProperties._delivery_day    = undefined;
+
+        CartJS.updateItem(itemIndex, itemQuantity, itemProperties);
+      }
+      // Set first cart item's properties to selected ship date
+      var
+        firstItemQuantity               = CartJS.cart.items[0].quantity,
+        firstItemProperties             = CartJS.cart.items[0].properties;
+
+      firstItemProperties._delivery_date= $('#delivery_date').val();
+      firstItemProperties._delivery_day = $('#delivery_day').val();
+
+      CartJS.updateItem(1, firstItemQuantity, firstItemProperties);
+
+      //console.log('itemProperties: ');
+      //console.log(itemProperties);
 
       if ($(this).val().length > 0) {
         // Remove validation treatments if value is available
@@ -305,14 +522,17 @@
       // Reset keyboard suppression
       $(this).removeAttr('readonly');
 
+      //$('input[name="update"]').click();
+
     });
     // Hide the datepicker when the delivery date input loses focus
     $('body').click(function(e) {
-      if (e.target.id !== 'delivery_date') {
-        $('#delivery_date').datepicker('hide');
+      var keepOpen              = ((e.target.id === 'delivery_date') || $(e.target).hasClass('ui-icon-circle-triangle-e') || $(e.target).hasClass('ui-icon-circle-triangle-w'));
+      if (!keepOpen) {
+        jQuery('#delivery_date').datepicker('hide');
       }
       else {
-        $('#delivery_date').datepicker('show');
+        jQuery('#delivery_date').datepicker('show');
       }
     });
     // Track which button was clicked to trigger the submit
@@ -321,7 +541,6 @@
     });
     // Validate delivery date selection on submit
     $('#CartForm').submit(function(e) {
-      e.preventDefault();
 
       var
         clickedButton           = $(this).data('submit-button'),
@@ -329,25 +548,49 @@
         isDeliveryDateSelected  = ($('#delivery_date').val().length > 0);
 
       if (clickedButton === 'checkout') {
+        // console.log('clickedButton tracked as checkout');
 
         // If delivery date is not selected, provide validation/error handling
         if (!isDeliveryDateSelected) {
+          e.preventDefault();
+
           $('label[for="date"]').css('color', errorColor);
           $('#delivery_date').css('border-color', errorColor);
+          // console.log('!isDeliveryDateSelected?');
+
           return false;
         }
         // If delivery date is available, continue the submission
         else {
 
+          // console.log('isDeliveryDateSelected -- should continue');
+
           // Add selected delivery date and day to first line item
           var
-            itemQuantity        = CartJS.cart.items[0].quantity,
-            itemProperties      = CartJS.cart.items[0].properties;
+            itemQuantity                = CartJS.cart.items[0].quantity,
+            itemProperties              = CartJS.cart.items[0].properties;
 
           itemProperties._delivery_date = $('#delivery_date').val();
           itemProperties._delivery_day  = $('#delivery_day').val();
 
+          //console.log('itemProperties: ');
+          //console.log(itemProperties);
+
           CartJS.updateItem(1, itemQuantity, itemProperties);
+
+          // Remove previously selected delivery date and day from other line items
+          for (i=1; i<CartJS.cart.items.length; i++) {
+            var
+              itemLineNumber    = i+1,
+              itemQuantity      = CartJS.cart.items[i].quantity,
+              itemProperties    = CartJS.cart.items[i].properties;
+
+            if (itemProperties.hasOwnProperty('delivery_date') && itemProperties.hasOwnProperty('delivery_day')) {
+              delete itemProperties._delivery_date;
+              delete itemProperties._delivery_day;
+              CartJS.updateItem(itemLineNumber, itemQuantity, itemProperties);
+            }
+          }
 
           // Submit form
           $(this).off('submit').submit();
@@ -360,6 +603,18 @@
         $(this).off('submit').submit();
       }
 
+    });
+
+    /**
+     * Manages the gift settings (whether the order is a gift, and the associated gift message)
+     */
+    $('label[for="IsGift"]').click(function(e) {
+      if ($(this).find('input').is(':checked')) {
+        $('div.gift-message').removeClass('hide');
+      }
+      else {
+        $('div.gift-message').addClass('hide');
+      }
     });
 
   });
