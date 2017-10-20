@@ -63,7 +63,7 @@
 // DOCUMENT
 //----------------------------------------------------------------------------------------------
   html {
-    background-color            : $colorFooterBg;
+  //background-color            : $colorFooterBg;
   }
   body {
     background-color            : $colorBody;
@@ -161,7 +161,7 @@
     }
     .section-header__right {
       display                   : table-cell;
-      width                     : 335px;
+      width                     : 328px;
       text-align                : right;
       vertical-align            : middle;
       @include at-query ($max, $medium) {
@@ -264,7 +264,7 @@
     img {
       max-width                 : 303px;
       @include at-query($max, $preSmall) {
-        max-width               : 258px;
+        max-width               : 100%; //258px;
       }
       @include at-query(null, $medium, $preLarge) {
         max-width               : 450px;
@@ -508,7 +508,7 @@
         display                 : inline-block;                 // New
         float                   : left;
         padding-right           : 0;                            // Was 10px
-        width                   : 78.25%;                       // New
+        width                   : 75.25%;                       // New
         font-size               : 12px;
         text-align              : right;                        // Was 'center'
       }
@@ -598,6 +598,7 @@
       color                     : $colorAccent;
     }
     .input-group-btn {
+      top                       : 1px;
       padding-left              : 0;
       width                     : auto;
     }
@@ -722,7 +723,7 @@
       cursor                    : pointer;
     }
     button[type="submit"] {
-      z-index                   : 10px;
+      z-index                   : 10;
     }
     span.search-expander {
       z-index                   : 15;
@@ -814,6 +815,7 @@
     padding-left                : 34px;
     &.empty {
       background-image          : url({{ 'Icon.Basket.Empty.Mobile.png' | asset_url }});
+      background-position       : 0 -10px;
     }
     &.full {
       background-image          : url({{ 'Icon.Basket.Items.Mobile.png' | asset_url }});
@@ -825,7 +827,7 @@
       color                     : rgb(45, 45, 45);
     }
     span.title {
-      top                       : 4px;
+      top                       : 10px;
       left                      : 5px;
     }
   }
@@ -931,6 +933,7 @@
   }
 
   .drawer__close button {
+    display                     : none;                         // New
     position                    : relative;
     right                       : -20px;
     padding                     : 0 20px;

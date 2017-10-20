@@ -30,8 +30,7 @@
     // Banner/video area
     .banner-container {
       position                  : relative;
-      .logo,
-      .tagline.shop-link {
+      .video-overlay {
         z-index                 : 5;
         position                : absolute;
         top                     : 0;
@@ -39,21 +38,42 @@
         bottom                  : ($gutter / 2);
         left                    : 0;
         text-align              : center;
-        background              : rgba(0, 0, 0, 0.5);           // TODO: Remove or adjust with final video
+        background              : rgba(0, 0, 0, 0.35);
+        @include at-query ($min, $medium) {
+          display               : none;
+        }
+      }
+      .logo,
+      .tagline.shop-link {
       }
       .logo {
-        padding-top             : 6.75%;
+        padding-top             : 3.75%;
         img {
-          max-width             : 25%;
+          max-width             : 264px;
+        }
+        @include at-query ($max, $preMedium) {
+          padding-top           : 5.5%;
+          img {
+            max-width           : 99px;
+          }
+        }
+        @include at-query ($max, $narrow) {
+          padding-top           : 2.5%;
+          img {
+            max-width           : 99px;
+          }
+        }
+        @include at-query (null, $medium, $preLarge) {
+          padding-top           : 4%;
+          img {
+            max-width           : 132px;
+          }
         }
       }
       .tagline.shop-link {
-        display                 : none;
-        padding-top             : 23%;
-        @include at-query ($max, $medium) {
-          padding-top           : 18.5%;
-        }
         h1 {
+          margin                : 10px 0 15px;
+          font-family           : $headerFontStack;
           font-size             : em(36px);
           font-size             : 3vw;
           color                 : $colorBody;
@@ -61,21 +81,28 @@
         //-webkit-text-stroke-width     : 1px;
         //-webkit-text-stroke-color     : $colorSecondary;
           @include at-query ($max, $preMedium) {
-            font-size           : 5vw;
+            margin              : 5px 0 10px;
+            font-size           : 4.75vw;
+          }
+          @include at-query ($max, $narrow) {
+            margin-top          : 0;
           }
           @include at-query (null, $medium, $preLarge) {
-            font-size           : 4.5vw;
+            font-size           : 3.5vw;
           }
         }
         a.btn {
           min-width             : auto;
           font-size             : em(18px);
+          @include at-query ($max, $narrow) {
+            max-width           : 79px;
+          }
           @include at-query ($max, $preMedium) {
-            font-size           : 3.25vw;
-            line-height         : 120%;
+            font-size           : 3vw;
+            line-height         : 110%;
           }
           @include at-query (null, $medium, $preLarge) {
-            font-size           : 3vw;
+            font-size           : 1.75vw;
           }
         }
       }

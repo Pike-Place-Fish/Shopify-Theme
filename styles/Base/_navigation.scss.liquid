@@ -40,9 +40,10 @@
     // New
     .icon-hamburger {
       font-size                 : 2em;
-      font-size                 : 4vw;
+      font-size                 : 4.75vw;
+      line-height               : 100%;
       @include at-query($max, $preMedium) {
-        font-size               : 6.25vw;
+        font-size               : 7vw;
       }
     }
 
@@ -61,13 +62,16 @@
   }
   .mobile-navbar {
     display                     : table;
+    padding-top                 : 1%;
+    padding-bottom              : 1%;
     .site-nav--mobile,
     .home-link {
       display                   : table-cell;
       text-align                : center;
       vertical-align            : middle;
-      @include at-query($max, $small) {
-        padding-top             : 1%;
+      line-height               : 7.75vw; // 100%;
+      @include at-query($max, $narrow) {
+        line-height             : 6.25vw;
       }
     }
     .site-nav--mobile {
@@ -112,13 +116,18 @@
     text-decoration             : none;
     white-space                 : nowrap;
     @include at-query($max, $preMedium) {
-      padding-top               : 1px;
+      padding                   : 0 $gutter;
+      line-height               : 100%;
     }
 
     &:hover,
     &:active,
     &:focus {
       color                     : $colorPrimary;                // Was darken($colorNavText, 15%)
+      // New
+      .icon-hamburger {
+        color                   : $colorNavText;
+      }
     }
 
     .icon-arrow-down {
@@ -283,6 +292,9 @@
     &:active,
     &:focus {
       color                     : darken($colorBody, 5%);       // Was darken($colorDrawerText, 15%)
+    }
+    &.site-header__cart-toggle {
+      padding                   : 4% 5% 5%;
     }
 
   }

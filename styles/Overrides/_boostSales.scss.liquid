@@ -117,9 +117,9 @@
                               a.scn-button-check {
                                 border-radius           : 0 !important;
                                 padding                 : 8px 10px !important;
-                                width                   : 136px !important;
+                                width                   : 180px !important;
                                 min-width               : 128px !important;
-                                max-width               : 136px !important;
+                                max-width               : 180px !important;
                                 font-family             : $interfaceFontStack !important;
                                 font-size               : $baseFontSize !important;
                                 line-height             : 142% !important;
@@ -153,6 +153,30 @@
                 }
               }
 
+            }
+
+            // Specific selectors for upsell buttons
+            .scn-offers-partial {
+              .upsell-row {
+                .upsell-container {
+                  .scn-form {
+                    .scn-bsales-container {
+                      .scn-bsales-row {
+                        .bk-product {
+                          .bk-des-container {
+                            .bk-action {
+                              button.scn-addtocart {
+                                border-radius                   : 0 !important;
+                                -webkit-border-radius           : 0 !important;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
 
           }
@@ -379,4 +403,15 @@
       -webkit-border-radius     : 0px!important;
     }
 
+  }
+
+  #bsales-mobile-icon {
+    display                     : none !important;
+  }
+
+
+  #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-two-product .scn-offers-partial .upsell-row .upsell-container .scn-form .scn-bsales-container .scn-bsales-row .bk-product .bk-des-container .bk-action button.scn-addtocart,
+  #scn-bsales.bk-bsales-focus .scn-bsales-popup.bsales-v-offer #bsales-wrap-offer .bsales-product-detail.bk-one-product .scn-offers-partial .upsell-row .upsell-container .scn-form .scn-bsales-container .scn-bsales-row .bk-product .bk-des-container .bk-action button.scn-addtocart {
+    border-radius               : 0 !important;
+    -webkit-border-radius       : 0 !important;
   }

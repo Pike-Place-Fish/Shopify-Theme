@@ -13,7 +13,25 @@
 //----------------------------------------------------------------------------------------------
   .template-page {
 
-    // Page Title
+    // Page Content
+    .page-body {
+      a {
+        color                   : $colorPrimary;
+      }
+      h1 a,
+      h2 a,
+      h3 a,
+      h4 a,
+      h5 a,
+      h6 a {
+        color                   : $colorLinkText;
+        &:hover,
+        &:focus,
+        &:active {
+          color                 : $colorPrimary;
+        }
+      }
+    }
 
     // Splash Image
     .grid__item.splash {
@@ -30,7 +48,7 @@
       list-style                : none;
       margin-left               : 0;
       li {
-        font-family             : $headerFontStack;
+        font-family             : 'Open Sans', $headerFontStack;
         font-size               : $baseFontSize;
         line-height             : 175%;
         font-weight             : $headerFontWeight;
@@ -39,6 +57,9 @@
           a {
             color               : $colorPrimary;
           }
+        }
+        a {
+          color                 : rgb(0, 0, 0);
         }
       }
     }
@@ -52,6 +73,14 @@
         img {
           max-height            : 71px;
         }
+      }
+    }
+
+    // Credits Page Images
+    .credits-image {
+      img {
+        width                   : 100%;
+        max-width               : 175px;
       }
     }
 
