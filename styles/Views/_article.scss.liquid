@@ -21,10 +21,23 @@
         padding-left            : ($gutter * 3)
       }
 
+      a {
+        color                   : $colorPrimary;
+      }
+
       // Servings Label (e.g., "Serves 4")
       .servings {
         margin-bottom           : 1em;
         font-family             : 'Cabin Semibold', $bodyFontStack;
+      }
+
+      // Tags
+      .article-filters {
+        li {
+          a {
+            color               : $colorLinkText;
+          }
+        }
       }
 
     }
@@ -59,10 +72,10 @@
             vertical-align      : middle;
           }
           div.image {
-            width               : 33%;
+            width               : 28%;
             img {
               width             : 100%;
-              max-width         : 125px;
+            //max-width         : 125px;
             }
           }
           div.title {
