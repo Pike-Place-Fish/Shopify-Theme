@@ -142,13 +142,15 @@
                             {% assign unit_price = scn_product_min | money %}
                           {% endif %}
 
+                          {% if sold_out == false %}
                           <span itemprop="price">
                             {% include 'product-unit-price-label' with product_object, unit_price %}
                           </span>
+                          {% endif %}
 
                         {% endif %}
                         {% if sold_out %}
-                          <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+                          <!--<br>--><strong>{{ 'products.product.sold_out' | t }}</strong>
                         {% endif %}
                         {% if on_sale %}
                           <br><span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span><s>{{ item.compare_at_price | money }}</s>
