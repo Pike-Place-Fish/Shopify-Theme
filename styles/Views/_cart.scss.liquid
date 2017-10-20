@@ -182,6 +182,9 @@
             input {
               max-width         : 64px;
               text-align        : right;
+              @include at-query($max, $preSmall) {
+                max-width       : 52px;
+              }
             }
           }
           &.summary {
@@ -239,6 +242,29 @@
       }
     }
 
+    // Gift Settings
+    .gift-settings {
+      padding                   : 10px 15px !important;
+      label {
+        display                 : block;
+        input[type="checkbox"] {
+          display               : inline-block;
+          position              : relative;
+          top                   : 2px;
+        }
+        &.label-left {
+          input[type="checkbox"] {
+            margin              : 0 0 0 5px;
+          }
+        }
+      }
+      .gift-message {
+        label {
+          margin-bottom         : 5px;
+        }
+      }
+    }
+
     // Summary Information
     .summary {
       font-family               : $interfaceFontStack;
@@ -284,6 +310,11 @@
       &.order-weight-heading {
         text-transform          : uppercase;
       }
+      &.order-weight-disclaimer {
+        span.packaging-disclaimer {
+          display               : none;
+        }
+      }
     }
     h3 {
       margin-top                : 0;
@@ -301,6 +332,9 @@
     // Delivery Date Selection
     .delivery-date {
       padding-top               : ($gutter / 2);
+      @include at-query($min, $large) {
+        padding-top             : ($gutter * 1.5);
+      }
       input {
         padding                 : 2px 30px 2px 5px;
         font-family             : $interfaceFontStack;
@@ -308,7 +342,8 @@
         background              : $colorBody url({{ 'Icon.Calendar.png' | asset_url }}) no-repeat 95% 1px;
         background-size         : auto 20px;
       }
-      div.day-warning {
+      div.day-warning,
+      div.delay-warning {
         display                 : none;
         color                   : $errorRed;
       }
