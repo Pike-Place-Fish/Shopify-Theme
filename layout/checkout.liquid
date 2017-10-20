@@ -22,6 +22,15 @@
     <!-- Checkout Scripts Include -->
     {{ checkout_scripts }}
 
+    <script>
+      // Card Fields Initialization
+      CheckoutCardFields.API.options    = {
+        fonts: {
+          google: ['Open Sans']
+        }
+      }
+    </script>
+
   </head>
   <body id="checkout" class="template-checkout">
     <div class="banner" data-header>
@@ -70,7 +79,31 @@
 
       jQuery(function($) {
 
-        /*
+        console.log('ship date: {{ checkout.attributes.date }}');
+
+        /**
+         * Append ship date/day messaging to "Shipping method" header, if available
+         */
+        var
+          screenCheck           = 0,
+          isShippingScreen      = setInterval(function() {
+            var shippingSection = 'section.section--shipping-method';
+            if ($(shippingSection).length || checkCount > 9) {
+              var
+                shipDate        = '{{ checkout.attributes.date }}',
+                shipDay         = '{{ checkout.attributes.shipDay }}',
+                shipDateMessage = '<p><strong><em>Your order will leave our shop on ' + ((shipDay.length > 0) ? shipDay + ', ' : '') + shipDate + '.</em></strong></p>';
+
+              $('.section--shipping-method .section__header').append(shipDateMessage);
+
+              clearInterval(isShippingScreen);
+            }
+            else {
+              screenCheck++;
+            }
+          }, 250);
+
+        /**
          * Remove custom order item property labels from order summary display
          */
         setTimeout(function() {
@@ -90,7 +123,7 @@
           });
         }, 800);
 
-        /*
+        /**
          * Remove non-continental US territories (except for PR) from State dropdown in Shipping
          * Address information
          */
@@ -114,24 +147,38 @@
             }
           }, 250);
 
-        /*
+        /**
          * Provide phone assistance instructions for customers shipping to restricted/special
          * locations (Alaska, Hawaii, and Puerto Rico)
          */
         var
-          provinceCode          = $('#ShippingProvinceCode').text(),
+          provinceCode          = '{{ checkout.shipping_address.province_code }}',
           restrictedProvinces   = ['AK','HI','PR'],
           orderNumber           = '{{ checkout.order_number }}',
           warningArea           = $('div.content-box.blank-slate');
 
         var callMessage         = '<div class="message call-message">'          +
           'Please <a href="tel:+800-542-7732">call us</a> toll-free at '        +
-          '<a href="tel:+800-542-7732">1-800-542-7732</a> so we may assist you '+
-          'with placing your order. Please reference order ' + orderNumber + ' '+
-          'when you call.</div>';
+          '<a href="tel:1-800-542-7732">1-800-542-7732</a> so we may assist '   +
+          'you with placing your order. Please reference order ' + orderNumber  +
+          ' when you call.</div>';
 
-        if ($(warningArea).length && $.inArray(provinceCode, restrictedProvinces)) {
+        if ($(warningArea).length && ($.inArray(provinceCode, restrictedProvinces) > -1)) {
           $(warningArea).append(callMessage);
+        }
+
+        /**
+         * Provide messaging regarding legacy gift card processing
+         */
+        var
+          totalPriceArea        = $('div.order-summary__section.order-summary__section--total-lines'),
+          giftCardMessage       = '<div class="message gift-card-message">'     +
+            'We are temporarily unable to accept gift cards on the site. If '   +
+            'you have a gift card, please call us with your order: '            +
+            '<a href="tel:1-800-542-7732">1-800-542-7732</a>.';
+
+        if ($(totalPriceArea).length) {
+          $(totalPriceArea).append(giftCardMessage);
         }
 
       });
