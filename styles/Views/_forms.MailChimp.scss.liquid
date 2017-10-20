@@ -1,0 +1,52 @@
+//==============================================================================================
+// MAILCHIMP FORM PAGE
+//----------------------------------------------------------------------------------------------
+// Represents styles specific to the Pike Place Fish Market Shopify pages with embedded
+// MailChimp forms.
+//==============================================================================================
+
+//----------------------------------------------------------------------------------------------
+// IMPORTS
+//----------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------
+// VIEW
+//----------------------------------------------------------------------------------------------
+#mc_embed_signup {
+
+  div.mce_inline_error {
+    margin-left                 : 14.5% !important;
+    color                       : rgb(107, 5, 5) !important;
+    background-color            : transparent !important;
+  }
+
+  .indicates-required {
+    margin-top                  : 15px;
+    font-style                  : italic;
+  }
+
+  form {
+    .mc-field-group {
+      margin-top                : 20px;
+    }
+    label {
+      display                   : inline-block;
+      width                     : 15%;
+      min-width                 : 118px;
+    }
+    .input-full {
+      width                     : 50%;
+      @include at-query($max, $preSmall) {
+        width                   : 100%;
+      }
+      @include at-query($small, $preMedium) {
+        width                   : 67%;
+      }
+    }
+    input[type="submit"] {
+      margin-top                : 20px;
+    }
+
+  }
+
+}
