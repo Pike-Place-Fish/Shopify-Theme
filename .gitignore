@@ -46,3 +46,4 @@ config.yml
 gulpSecrets.js
 /_site
 assets/logo.png
+*.lock
