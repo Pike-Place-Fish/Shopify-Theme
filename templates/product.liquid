@@ -41,6 +41,16 @@
   {% endcomment %}
   {% assign product_object = product %}
 
+  {% comment %}
+    Assign sold out status
+  {% endcomment %}
+  {% assign product_available = true %}
+  {% for variant in product.variants %}
+    {% if variant.available == false %}
+      {% assign product_available = false %}
+    {% endif %}
+  {% endfor %}
+
   {% include 'breadcrumb' %}
 
   <div class="grid--rev product-single">
@@ -54,37 +64,54 @@
       {% endcomment %}
       <div class="unit-price">
 
-        {% if product.metafields.priceUnit.pricePerPound %}
-          <h2>
-            {% assign unit_price = product.metafields.priceUnit.pricePerPound | times: 100 | money %}
-            {% include 'product-unit-price-label' with product_object, unit_price %}
-          </h2>
-        {% else %}
-          {% comment %}
-            ### NOTE KLT072516: Added conditional price assignment for products with no variants
-            ### NOTE KLT072516: Modified id="ProductPrice" to negate assets/timber.js.liquid treatment
-          {% endcomment %}
-          {% if current_variant.price %}
-            {% assign price = current_variant.price %}
-          {% elsif scn_product_min %}
-            {% assign price = scn_product_min %}
+        {% unless product_available == false %}
+
+          {% assign has_price_per_pound = false %}
+          {% if product.metafields.priceUnit.pricePerPound %}
+            {% assign has_price_per_pound = true %}
+          {% endif %}
+
+          {% if product.metafields.priceUnit.pricePerPound %}
+            <h2 id="ProductUnitPrice">
+              {% assign unit_price = product.metafields.priceUnit.pricePerPound | times: 100 | money %}
+              {% include 'product-unit-price-label' with product_object, unit_price, has_price_per_pound %}
+            </h2>
+            <!-- Current variant price: {{ current_variant.price | money }} -->
           {% else %}
-            {% assign price = product.price %}
-          {% endif %}
-          <span id="ProductUnitPrice" class="h2" itemprop="price" content="{{ price | divided_by: 100 }}">
-            {% assign unit_price = price | money %}
-            {% include 'product-unit-price-label' with product_object, unit_price %}
-          </span>
+            {% comment %}
+              ### NOTE KLT072516: Added conditional price assignment for products with no variants
+              ### NOTE KLT072516: Modified id="ProductPrice" to negate assets/timber.js.liquid treatment
+            {% endcomment %}
+            {% if variant %}
+              {% assign price = variant.price %}
+            {% elsif current_variant.price %}
+              {% assign price = current_variant.price %}
+            {% elsif scn_product_min %}
+              {% assign price = scn_product_min %}
+            {% else %}
+              {% assign price = product.price %}
+            {% endif %}
+            <h2 id="ProductUnitPrice" class="h2x" itemprop="price" content="{{ price | divided_by: 100 }}">
+              {% assign unit_price = price | money %}
+              {% include 'product-unit-price-label' with product_object, unit_price, has_price_per_pound %}
+            </h2>
 
-          {% if product.compare_at_price_max > scn_product_min %}
-            <span class="visually-hidden price-label">{{ 'products.general.sale_price' | t }}</span>
-            <p id="ComparePrice">
-              {% assign unit_price = current_variant.compare_at_price | money %}
-              {{ 'products.product.compare_at' | t }}
-              {% include 'product-unit-price-label' with product_object, unit_price %}
-            </p>
+            {% if product.compare_at_price_max > scn_product_min %}
+              <span class="visually-hidden price-label">{{ 'products.general.sale_price' | t }}</span>
+              <p id="ComparePrice">
+                {% assign unit_price = current_variant.compare_at_price | money %}
+                {{ 'products.product.compare_at' | t }}
+                {% include 'product-unit-price-label' with product_object, unit_price, has_price_per_pound %}
+              </p>
+            {% endif %}
+
+            <!-- Current variant price: {{ product.price | money }} -->
+
           {% endif %}
 
+        {% endunless %}
+        {% if product_available == false %}
+          <h2 id="ProductUnitPrice" itemprop="price"><span class="unit-price unit-label">{{ 'products.product.sold_out' | t }}</span></h2>
         {% endif %}
 
       </div>
@@ -96,6 +123,8 @@
         {{ product.description }}
       </div>
 
+
+      {% unless product_available == false %}
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
 
@@ -137,9 +166,11 @@
                 <option {% if variant == scn_first_product_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
 
               {% else %}
+                <!--
                 <option disabled="disabled">
                   {{ variant.title }} - {{ 'products.product.sold_out' | t }}
                 </option>
+                -->
               {% endif %}
             {% endfor %}
           </select>
@@ -188,6 +219,8 @@
           {% comment %}
             ### NOTE KLT061516: Added a "option-container" containing div and button label, for formatting
           {% endcomment %}
+          <!-- {{ product_available }} -->
+          {% unless product_available == false %}
           <div class="option-container">
             <label for="add" class="visually-hidden">Add</label>
             <span>
@@ -208,10 +241,12 @@
               </button>
             </span>
           </div>
+          {% endunless %}
 
         </form>
 
       </div>
+      {% endunless %}
 
       {% comment %}
         If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
@@ -348,9 +383,13 @@
       variant: variant,
       selector: selector
     });
+    if (variant) {
+      $('#VariantPrice').html(Shopify.formatMoney(variant.price, ""));
+    }
   };
 
   jQuery(function($) {
+
     new Shopify.OptionSelectors('productSelect', {
       product: scnProduct({{ product | json }}),
       onVariantSelected: selectCallback,
@@ -367,7 +406,6 @@
       $('.selector-wrapper').hide();
     {% endif %}
 
-
     /**
      * Intercepts click on Boost Sales "CHECKOUT NOW" button, to direct the customer through the cart
      */
@@ -381,6 +419,17 @@
       return false;
 
     });
+
+    /**
+     * Hide either the '1 lb' option in a multi-variant selection, or the variant area entirely if there is only that option
+     */
+    var onePoundVariant         = $('select.single-option-selector option[value="1 lb"]');
+    if (($('select.single-option-selector option').length == 1) && (onePoundVariant.length > 0)) {
+      $('div.selector-wrapper').hide();
+    }
+    else {
+      $(onePoundVariant).remove();
+    }
 
     /**
      * Modal cutting instructions functionality: injection of info icon and modal/popup instantiation
