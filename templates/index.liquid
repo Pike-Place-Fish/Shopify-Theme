@@ -12,31 +12,33 @@
     <div class="banner-container">
       <div class="video-background">
         <span class="medium-down--hide">
-          <video width="100%" height="100%" poster="{{ 'Home.Banner.jpg' | asset_url }}" autoplay loop muted>
+          <video id="SplashVideo" width="100%" height="100%" poster="{{ 'Home.Banner.jpg' | asset_url }}" autoplay loop muted>
             <source src="{{ 'Home.SplashVideo.mp4' | asset_url" }}" type="video/mp4">
             {{ 'Home.Banner.jpg' | asset_url | img_tag: shop.name }}
           </video>
         </span>
         <span class="medium--hide">
-          {{ 'Home.Banner.jpg' | asset_url | img_tag: shop.name }}
+          {{ 'Home.Banner.Mobile.jpg' | asset_url | img_tag: shop.name }}
         </span>
       </div>
-      <div class="logo">
-        {{ 'Logo.png' | asset_url | img_tag: shop.name }}
-      </div>
-      <div class="tagline shop-link">
+      <div class="video-overlay">
+        <div class="logo">
+          {{ 'Logo.png' | asset_url | img_tag: shop.name }}
+        </div>
+        <div class="tagline shop-link">
 
-        <h1>{{ settings.home_tagline }}</h1>
+          <h1>{{ settings.home_tagline }}</h1>
 
-        {% if settings.home_cta != '' %}
-          {% assign cta_handle = settings.home_cta %}
-          {% assign cta_collection = collections[cta_handle] %}
-          {% assign cta_url = cta_collection.url %}
-        {% else %}
-          {% assign cta_url = '/collections/all' %}
-        {% endif %}
-        <a href="{{ cta_url }}" class="btn">{{ settings.home_cta_label }}</a>
+          {% if settings.home_cta != '' %}
+            {% assign cta_handle = settings.home_cta %}
+            {% assign cta_collection = collections[cta_handle] %}
+            {% assign cta_url = cta_collection.url %}
+          {% else %}
+            {% assign cta_url = '/collections/all' %}
+          {% endif %}
+          <a href="{{ cta_url }}" class="btn">{{ settings.home_cta_label }}</a>
 
+        </div>
       </div>
     </div>
   </div>
@@ -56,6 +58,9 @@
             <div class="product-promotion 1x1 blue first">
 
               <!-- Assign Product Variables -->
+              {% assign promo1_tag = settings.home_promotion_a %}
+              {% assign promo1_title = settings.home_promotion_a_short_label %}
+              {% comment %}
               {% assign promo1_handle = settings.home_promotion_a %}
               {% assign promo1_product = all_products[promo1_handle] %}
               {% assign promo1_variant = promo1_product.selected_or_first_available_variant %}
@@ -65,13 +70,15 @@
                 {% assign promo1_product_title = promo1_product.title %}
               {% endif %}
               {% assign product_object = promo1_product %}
+              {% endcomment %}
 
               <!-- Display promotion data -->
-              <a href="{{ promo1_product.url }}" class="promotion-data">
+              <a href="/collections/all/{{ promo1_tag | handleize }}" class="promotion-data">
                 <div>
                   <h2 class="title">
-                    {{ promo1_product_title }}
+                    {{ promo1_title }}
                   </h2>
+                  {% comment %}
                   <p class="price">
                     {% if promo1_product.metafields.priceUnit.pricePerPound %}
                       {% assign unit_price = promo1_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
@@ -81,6 +88,7 @@
                       {% include 'product-unit-price-label' with product_object, unit_price %}
                     {% endif %}
                   </p>
+                  {% endcomment %}
                 </div>
               </a>
             </div>
@@ -179,6 +187,10 @@
 
         <div class="product-promotion 1x1 orange second">
           <!-- Assign Product Variables -->
+          {% assign promo2_tag = settings.home_promotion_b %}
+          {% assign promo2_title = settings.home_promotion_b_short_label %}
+
+          {% comment %}
           {% assign promo2_handle = settings.home_promotion_b %}
           {% assign promo2_product = all_products[promo2_handle] %}
           {% assign promo2_variant = promo2_product.selected_or_first_available_variant %}
@@ -188,13 +200,15 @@
             {% assign promo2_product_title = promo2_product.title %}
           {% endif %}
           {% assign product_object = promo2_product %}
+          {% endcomment %}
 
           <!-- Display promotion data -->
-          <a href="{{ promo2_product.url }}" class="promotion-data">
+          <a href="/collections/all/{{ promo2_tag | handleize }}" class="promotion-data">
             <div>
               <h2 class="title">
-                {{ promo2_product_title }}
+                {{ promo2_title }}
               </h2>
+              {% comment %}
               <p class="price">
                 {% if promo2_product.metafields.priceUnit.pricePerPound %}
                   {% assign unit_price = promo2_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
@@ -204,6 +218,7 @@
                   {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
+              {% endcomment %}
             </div>
           </a>
 
@@ -293,6 +308,7 @@
               <h2 class="title">
                 {{ promo3_product_title }}
               </h2>
+              {% comment %}
               <p class="price">
                 {% if promo3_product.metafields.priceUnit.pricePerPound %}
                   {% assign unit_price = promo3_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
@@ -302,6 +318,7 @@
                   {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
+              {% endcomment %}
             </div>
           </a>
 
@@ -359,6 +376,7 @@
               <h2 class="title">
                 {{ promo3_product_title }}
               </h2>
+              {% comment %}
               <p class="price">
                 {% if promo3_product.metafields.priceUnit.pricePerPound %}
                   {% assign unit_price = promo3_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
@@ -368,6 +386,7 @@
                   {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
+              {% endcomment %}
             </div>
           </a>
 
@@ -411,6 +430,7 @@
               <h2 class="title">
                 {{ promo4_product_title }}
               </h2>
+              {% comment %}
               <p class="price">
                 {% if promo4_product.metafields.priceUnit.pricePerPound %}
                   {% assign unit_price = promo4_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
@@ -420,6 +440,7 @@
                   {% include 'product-unit-price-label' with product_object, unit_price %}
                 {% endif %}
               </p>
+              {% endcomment %}
             </div>
           </a>
 
@@ -486,6 +507,7 @@
                   <h2 class="title">
                     {{ promo4_product_title }}
                   </h2>
+                  {% comment %}
                   <p class="price">
                     {% if promo4_product.metafields.priceUnit.pricePerPound %}
                       {% assign unit_price = promo4_product.metafields.priceUnit.pricePerPound | times: 100 | money %}
@@ -495,6 +517,7 @@
                       {% include 'product-unit-price-label' with product_object, unit_price %}
                     {% endif %}
                   </p>
+                  {% endcomment %}
                 </div>
               </a>
 
@@ -560,28 +583,46 @@
       // Set 1x1 blocks
       if ($(this).hasClass('1x1')) {
         $(this).width(blockDimension).height(blockDimension);
+        $(this).find('a.link-data').width(blockDimension).height(blockDimension);
       }
       // Set 1x2 blocks - include gutter in height
       if ($(this).hasClass('1x2')) {
         $(this).width(blockDimension).height((blockDimension*2)+10);
+        $(this).find('a.link-data').width(blockDimension).height((blockDimension*2)+10);
       }
       // Set 2x1 blocks - include gutter in width
       if ($(this).hasClass('2x1')) {
         $(this).width((blockDimension*2)+10).height(blockDimension);
+        $(this).find('a.link-data').width((blockDimension*2)+10).height(blockDimension);
       }
     });
 
   };
 
   /**
+    * Handles number of loops for the banner video
+    */
+  var
+    iterations                  = 1,
+    video                       = document.getElementById('SplashVideo');
+  video.addEventListener('loadeddata', function() {
+    revealTagline();
+  }, false);
+
+  /**
     * Reveals banner area tagline and "shop now" button, after logo is faded out
     */
   function revealTagline() {
+    /*
     setTimeout(function() {
       $('.banner-container div.logo').fadeOut(1000, function() {
         $('.banner-container div.tagline.shop-link').fadeIn(1000);
       });
-    }, 4500);
+    }, 8500);
+    */
+    setTimeout(function() {
+      $('.banner-container div.video-overlay').fadeIn(2750);
+    }, 5500);
 
   };
 
@@ -590,7 +631,13 @@
     */
   $(function() {
     setBlockSizes();
-    revealTagline();
+
+    /**
+      * Removes the video container and element for small screens
+      */
+    if ($(window).width() < 768) {
+      $('.video-background span.medium-down--hide').remove();
+    }
 
     /**
       * iOS-specific page link click functionality to simulate the image hover state and then
@@ -599,11 +646,13 @@
     var
       userAgent                 = window.navigator.userAgent.toLowerCase(),
       iOS                       = /ipad|iphone|ipod/.test(userAgent) && !window.MSStream;
+
     /*
     if (iOS) {
       $('div.page-link span.overlay, div.page-link span.link-text').hide();
     }
     */
+
     $('div.page-link').click(function(e) {
 
       if (iOS) {
@@ -613,8 +662,8 @@
           linkData              = $(this).children('a.link-data'),
           linkUrl               = $(linkData).attr('href');
 
-        /*
         // Simulate the hover state for the page links
+        /*
         $(linkData).children('span.overlay').css('display', 'block');
         $(linkData).children('span.overlay').children('span.link-text').css('display', 'table');
         */
