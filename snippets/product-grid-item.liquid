@@ -110,11 +110,13 @@
               {% assign unit_price = scn_product_min | money %}
             {% endif %}
 
+            {% if sold_out == false %}
             {% include 'product-unit-price-label' with product_object, unit_price %}
+            {% endif %}
 
           {% endif %}
           {% if sold_out %}
-            <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+            <!-- <br><strong> -->{{ 'products.product.sold_out' | t }}<!-- </strong> -->
           {% endif %}
           {% if on_sale %}
             <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
