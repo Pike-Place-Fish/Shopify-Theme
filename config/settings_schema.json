@@ -60,7 +60,7 @@
         "id": "color_interface_accent",
         "label": "Interface Accent Color",
         "default": "#427a90",
-        "info": "Used for supplementary/ancillary links, form borders, etc."
+        "info": "Used for supplementary\/ancillary links, form borders, etc."
       },
       {
         "type": "header",
@@ -367,10 +367,10 @@
         "content": "Promotions"
       },
       {
-        "type": "product",
+        "type": "text",
         "id": "home_promotion_a",
         "label": "Featured Product (#1)",
-        "info": "Will get name, price, and link from product page."
+        "info": "Will point to \/collections\/all\/[tag entered]."
       },
       {
         "type": "text",
@@ -379,10 +379,10 @@
         "info": "Short text label for promotion tile"
       },
       {
-        "type": "product",
+        "type": "text",
         "id": "home_promotion_b",
         "label": "Featured Product (#2)",
-        "info": "Will get name, price, and link from product page."
+        "info": "Will point to \/collections\/all\/[tag entered]."
       },
       {
         "type": "text",
@@ -702,9 +702,27 @@
       },
       {
         "type": "text",
+        "id": "heading_shipping_date",
+        "label": "Ship date selection heading",
+        "default": "What day would you like your box to leave Seattle?"
+      },
+      {
+        "type": "text",
         "id": "warning_delivery_date_limited_friday",
         "label": "Delivery date Friday warning",
         "default": "Will add $20 to shipping. Hawaii not available."
+      },
+      {
+        "type": "text",
+        "id": "warning_shipping_surcharge",
+        "label": "Shipping surcharge warning",
+        "default": "Will add $20 to shipping."
+      },
+      {
+        "type": "text",
+        "id": "warning_shipping_delay",
+        "label": "Shipping delay warning",
+        "default": "Will add one day to delivery."
       }
     ]
   },
@@ -715,13 +733,13 @@
         "type": "text",
         "id": "social_twitter_link",
         "label": "Twitter URL",
-        "info": "https://twitter.com/shopify"
+        "info": "https:\/\/twitter.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_facebook_link",
         "label": "Facebook URL",
-        "info": "https://www.facebook.com/shopify"
+        "info": "https:\/\/www.facebook.com\/shopify"
       },
       {
         "type": "text",
