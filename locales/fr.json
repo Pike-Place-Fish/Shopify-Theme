@@ -6,7 +6,7 @@
     },
     "404": {
       "title": "404 - Page non trouvée",
-      "subtext_html": "Cette page n'est pas disponible. <a href=\"/collections/all\">Retourner au magasinage</a>"
+      "subtext_html": "Cette page n'est pas disponible. <a href=\"\/collections\/all\">Retourner au magasinage<\/a>"
     },
     "breadcrumbs": {
       "home": "Accueil",
@@ -63,7 +63,7 @@
       "update": "Mettre à jour",
       "checkout": "Procéder au paiement",
       "empty": "Votre panier est vide.",
-      "continue_browsing_html": "<a href=\"/collections/all\">Retourner au magasinage</a>.",
+      "continue_browsing_html": "<a href=\"\/collections\/all\">Retourner au magasinage<\/a>.",
       "close_cart": "Fermer le panier",
       "savings_html": "Vous économisez {{ price }}"
     },
@@ -225,10 +225,10 @@
     },
     "onboarding": {
       "modal_title": "Nous y sommes presque...",
-      "no_products_html": "Vous n'avez pas de produit dans votre collection Frontpage. Ce message apparaitra jusqu'à ce qu'un produit soit <a href=\"/admin/collections?tutorial=Frontpage\">ajouté à cette collection</a>.",
+      "no_products_html": "Vous n'avez pas de produit dans votre collection Frontpage. Ce message apparaitra jusqu'à ce qu'un produit soit <a href=\"\/admin\/collections?tutorial=Frontpage\">ajouté à cette collection<\/a>.",
       "add_product": "Ajouter un produit",
       "product_title": "Titre du produit",
-      "no_collections_html": "Vous n'avez pas de collection à afficher ici. <a href=\"/admin/custom_collections\">Ajoutez une ou plusieurs collections</a> pour compléter la page d'accueil par défaut.",
+      "no_collections_html": "Vous n'avez pas de collection à afficher ici. <a href=\"\/admin\/custom_collections\">Ajoutez une ou plusieurs collections<\/a> pour compléter la page d'accueil par défaut.",
       "add_collection": "Ajouter une collection",
       "collection_title": "Titre de la collection"
     }
@@ -272,7 +272,7 @@
     "product": {
       "sold_out": "Épuisé",
       "on_sale": "En solde",
-      "on_sale_from_html": "<strong>En solde</strong> {{ price }}",
+      "on_sale_from_html": "<strong>En solde<\/strong> {{ price }}",
       "unavailable": "Non disponible",
       "compare_at": "Était",
       "quantity": "Quantité",
@@ -290,10 +290,9 @@
       "shop_link": "Boutique",
       "print": "Imprimer",
       "add_to_apple_wallet": "Ajouter à Apple Wallet"
-
     }
   },
-  "date_formats":{
+  "date_formats": {
     "month_day_year": "%d %B, %Y"
   }
 }

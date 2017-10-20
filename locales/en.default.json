@@ -6,7 +6,7 @@
     },
     "404": {
       "title": "404 Page Not Found",
-      "subtext_html": "The page you requested does not exist. Click <a href=\"/collections/all\">here</a> to continue shopping."
+      "subtext_html": "The page you requested does not exist. Click <a href=\"\/collections\/all\">here<\/a> to continue shopping."
     },
     "breadcrumbs": {
       "home": "Home",
@@ -63,13 +63,15 @@
       "item_special_instructions": "Special instructions",
       "subtotal": "Subtotal",
       "order_weight": "Your order weighs {{ total_weight }}!",
-      "shipping_disclaimer": "It costs the same to ship 1lb as it does to ship 80lbs...",
+      "shipping_disclaimer": "It costs about the same to ship 1lb as it does to ship 10lbs...",
       "shipping_at_checkout": "Shipping & taxes calculated at checkout",
+      "shipping_date_note": "This is when your order leaves our shop.",
+      "shipping_perishable_note": "Perishable items will ship overnight air.",
       "update": "Update Basket",
       "checkout": "Checkout",
       "empty": "Your basket is currently empty.",
       "continue_browsing": "Keep shopping!",
-      "continue_browsing_html": "Continue browsing <a href=\"/collections/all\">here</a>.",
+      "continue_browsing_html": "Continue browsing <a href=\"\/collections\/all\">here<\/a>.",
       "close_cart": "Close Basket",
       "savings_html": "You're saving {{ price }}"
     },
@@ -106,7 +108,7 @@
       "date_descending": "Date, new to old",
       "date_ascending": "Date, old to new"
     },
-     "onboarding": {
+    "onboarding": {
       "modal_title": "This page will show all of your store's products",
       "no_products_html": "There are no products yet, but once you begin adding them they will show up here regardless if they are in a collection.",
       "add_product": "Add Product"
@@ -150,7 +152,7 @@
       "city": "City",
       "country": "Country",
       "province": "Province",
-      "zip": "Postal/Zip Code",
+      "zip": "Postal\/Zip Code",
       "phone": "Phone",
       "set_default": "Set as default address",
       "add": "Add Address",
@@ -220,7 +222,8 @@
       "email": "Email",
       "password": "Password",
       "submit": "Create",
-      "cancel": "Return to Store"
+      "cancel": "Return to Store",
+      "cta": "Create an account before February 24, 2017 and you'll be entered to win $100 gift card! Plus, after you register, you'll get a code for 10% off your next order."
     }
   },
   "homepage": {
@@ -231,10 +234,10 @@
     },
     "onboarding": {
       "modal_title": "Almost there...",
-      "no_products_html": "You have no products in your Frontpage collection. This placeholder will appear until you <a href=\"/admin/collections?tutorial=Frontpage\">add a product to this collection</a>.",
+      "no_products_html": "You have no products in your Frontpage collection. This placeholder will appear until you <a href=\"\/admin\/collections?tutorial=Frontpage\">add a product to this collection<\/a>.",
       "add_product": "Add a Product",
       "product_title": "Example Product Title",
-      "no_collections_html": "You don't have any collections to show here. <a href=\"/admin/custom_collections\">Add some collections</a> to go along with the default Frontpage.",
+      "no_collections_html": "You don't have any collections to show here. <a href=\"\/admin\/custom_collections\">Add some collections<\/a> to go along with the default Frontpage.",
       "add_collection": "Add a Collection",
       "collection_title": "Example Collection Title"
     }
@@ -277,9 +280,9 @@
       "weight_unit": "per lb"
     },
     "product": {
-      "sold_out": "Sold Out",
+      "sold_out": "Call for availability: 800-542-7732",
       "on_sale": "On Sale",
-      "on_sale_from_html": "<strong>On Sale</strong> from {{ price }}",
+      "on_sale_from_html": "<strong>On Sale<\/strong> from {{ price }}",
       "unavailable": "Unavailable",
       "compare_at": "Compare at",
       "quantity": "Quantity",
@@ -299,7 +302,7 @@
       "add_to_apple_wallet": "Add to Apple Wallet"
     }
   },
-  "date_formats":{
+  "date_formats": {
     "month_day_year": "%B %d, %Y"
   }
 }
