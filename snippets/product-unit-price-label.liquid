@@ -3,6 +3,7 @@
 {% assign product = product_object %}
 {% assign unitPrice = unit_price %}
 {% assign unitName = product.metafields.priceUnit.unitName %}
+{% assign usePerPoundPrice = has_price_per_pound %}
 
 {% if unitName %}
   {% assign unitName = 'per ' | append: unitName %}
@@ -16,4 +17,8 @@
   {% assign unitName = 'each' %}
 {% endif %}
 
-<span class="unit-price unit-label">{{ unitPrice }} {{ unitName }}<span>
+{% if usePerPoundPrice == true %}
+  <span class="unit-price unit-label">{{ unitPrice }} {{ unitName }}<span>
+{% else %}
+  <span class="unit-price unit-label"><span id="VariantPrice" style="display: inline;">{{ unitPrice }}</span> {{ unitName }}<span>
+{% endif %}
